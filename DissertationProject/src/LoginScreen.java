@@ -59,12 +59,13 @@ public class LoginScreen extends JFrame {
 				ResultSet loginAttempt = LoginApplication.attemptLogin(txtUserName.getText(),passwordFieldPassword.getText());	
 				String name = null;
 				String pass = null;
+				String userID = null;
 						
 				try {
 					
 					if (loginAttempt.next())																	
 					{
-				
+						userID = loginAttempt.getString("UserID");
 						name = loginAttempt.getString("UserName");
 						pass = loginAttempt.getString("Password");
 					
@@ -72,7 +73,7 @@ public class LoginScreen extends JFrame {
 						System.out.println(pass);
 						
 						
-						MainScreen gui = new MainScreen();
+						MainScreen gui = new MainScreen(userID, name);
 						gui.setVisible(true);
 						dispose();
 					}

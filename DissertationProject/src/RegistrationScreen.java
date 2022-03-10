@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
@@ -17,7 +19,11 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
+import javax.swing.JFormattedTextField.AbstractFormatter;
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
 
 public class RegistrationScreen extends JFrame {
 
@@ -28,9 +34,15 @@ public class RegistrationScreen extends JFrame {
 	private JPasswordField passwordFieldConfirm;
 	private JTextField textSurname;
 	private JTextField textFirstName;
-	private JTextField textFieldDay;
-	private JTextField textFieldYear;
-
+	private JDateChooser dateChooser;
+	private JRadioButton rdbtnMale;
+	private JRadioButton rdbtnFemale;
+	private JRadioButton rdbtnNB;
+	private String myIdentity;
+	
+	
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -52,7 +64,7 @@ public class RegistrationScreen extends JFrame {
 	 */
 	public RegistrationScreen() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 658);
+		setBounds(100, 100, 651, 725);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -156,6 +168,42 @@ public class RegistrationScreen extends JFrame {
 				
 				
 				
+				
+				if (rdbtnMale.isSelected()) {																											
+					
+					myIdentity = "Male";	
+					System.out.println("Male\n");
+					
+				}else if (rdbtnFemale.isSelected()) {																								
+					
+					myIdentity = "Female";	
+					System.out.println("Female\n");
+					
+				}else if (rdbtnNB.isSelected()){
+					myIdentity = "Non-binary";
+					System.out.println("Non-binary\n");
+				}else {
+					myIdentity = "";
+					System.out.println("no identity selected\n");
+				}
+				
+				
+				
+				
+				
+				
+				
+				System.out.println(dateChooser.getDate());
+				
+				System.out.println(RegistrationApplication.changeDateFormat(dateChooser.getDate()));
+				
+				String formattedDate = RegistrationApplication.changeDateFormat(dateChooser.getDate());
+				
+			
+				RegistrationApplication.compareDates(dateChooser.getDate());
+				RegistrationApplication.checkAge(dateChooser.getDate());
+				
+					
 				/*private JPanel contentPane;
 				private JTextField textEmail;
 				private JTextField textUserName;
@@ -165,8 +213,20 @@ public class RegistrationScreen extends JFrame {
 				private JTextField textFirstName;
 				private JTextField textFieldDay;
 				private JTextField textFieldYear;
+				JComboBox comboBoxMonth
 				*/
 				///RegistrationApplication.createAccount( );
+				
+				
+				
+				System.out.println(RegistrationApplication.properCase(textFirstName.getText())+ 
+						RegistrationApplication.properCase(textSurname.getText())+
+						RegistrationApplication.dateForDatabase(RegistrationApplication.changeDateFormat(dateChooser.getDate()))+
+						myIdentity+
+						textUserName.getText()+
+						passwordFieldPass.getText()+
+						textEmail.getText());
+			
 			}
 		});
 		btnCreate.setBounds(222, 498, 89, 23);
@@ -194,15 +254,15 @@ public class RegistrationScreen extends JFrame {
 		ButtonGroup radioButtons = new ButtonGroup();
 
 	
-		JRadioButton rdbtnMale = new JRadioButton("Male");
+		rdbtnMale = new JRadioButton("Male");
 		rdbtnMale.setBounds(186, 183, 109, 23);
 		contentPane.add(rdbtnMale);
 		
-		JRadioButton rdbtnFemale = new JRadioButton("Female");
+		rdbtnFemale = new JRadioButton("Female");
 		rdbtnFemale.setBounds(305, 183, 109, 23);
 		contentPane.add(rdbtnFemale);
 		
-		JRadioButton rdbtnNB = new JRadioButton("Non-binary");
+		rdbtnNB = new JRadioButton("Non-binary");
 		rdbtnNB.setBounds(442, 183, 109, 23);
 		contentPane.add(rdbtnNB);
 		
@@ -238,24 +298,43 @@ public class RegistrationScreen extends JFrame {
 		lblDOB.setBounds(67, 228, 78, 14);
 		contentPane.add(lblDOB);
 		
-		textFieldDay = new JTextField();
-		textFieldDay.setBounds(163, 236, 96, 20);
-		contentPane.add(textFieldDay);
-		textFieldDay.setColumns(10);
-		
-		textFieldYear = new JTextField();
-		textFieldYear.setBounds(421, 225, 96, 20);
-		contentPane.add(textFieldYear);
-		textFieldYear.setColumns(10);
-		
-		JComboBox comboBoxMonth = new JComboBox();
-		comboBoxMonth.setModel(new DefaultComboBoxModel(new String[] {"Jan", "Feb", "March", "April"}));
-		comboBoxMonth.setBounds(296, 224, 96, 22);
-		contentPane.add(comboBoxMonth);
-		
 		JLabel lblHeader = new JLabel("Create Account");
 		lblHeader.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblHeader.setBounds(236, 28, 167, 40);
 		contentPane.add(lblHeader);
+		
+		dateChooser = new JDateChooser();
+		dateChooser.setBounds(186, 228, 253, 20);
+		contentPane.add(dateChooser);
+		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				RegistrationApplication.createAccount(RegistrationApplication.properCase(textFirstName.getText()), 
+						RegistrationApplication.properCase(textSurname.getText()), 
+						RegistrationApplication.dateForDatabase(RegistrationApplication.changeDateFormat(dateChooser.getDate())),
+						myIdentity,
+						textUserName.getText(),
+						passwordFieldPass.getText(),
+						textEmail.getText());
+				
+			}
+		});
+		btnNewButton.setBounds(392, 498, 89, 23);
+		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				RegistrationApplication.createAccount();
+			}
+		});
+		btnNewButton_1.setBounds(536, 432, 89, 23);
+		contentPane.add(btnNewButton_1);
+		
+		
+	
 	}
 }
