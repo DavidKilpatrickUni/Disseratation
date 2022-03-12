@@ -94,5 +94,17 @@ public class MainScreen extends JFrame {
 		});
 		btnSuggest.setBounds(173, 231, 89, 23);
 		contentPane.add(btnSuggest);
+		
+		JButton btnNewMyPlaylist = new JButton("My Playlist");
+		btnNewMyPlaylist.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				MyPlaylistsScreen frame = new MyPlaylistsScreen(currentUserID, currentUserName);
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewMyPlaylist.setBounds(152, 308, 142, 23);
+		contentPane.add(btnNewMyPlaylist);
 	}
 }
