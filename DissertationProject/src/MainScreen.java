@@ -40,14 +40,14 @@ public class MainScreen extends JFrame {
 	 */
 	public MainScreen(String currentUserID, String currentUserName) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 576, 544);
+		setBounds(100, 100, 1049, 596);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblHeader = new JLabel("Main Menu");
-		lblHeader.setBounds(121, 47, 142, 14);
+		lblHeader.setBounds(367, 32, 142, 14);
 		contentPane.add(lblHeader);
 		
 		JButton btnProfile = new JButton("Profile");
@@ -59,7 +59,7 @@ public class MainScreen extends JFrame {
 				dispose();
 			}
 		});
-		btnProfile.setBounds(404, 43, 89, 23);
+		btnProfile.setBounds(883, 28, 89, 23);
 		contentPane.add(btnProfile);
 		
 		JButton btnExit = new JButton("Exit");
@@ -67,9 +67,32 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnExit);
 		
 		textField = new JTextField();
-		textField.setBounds(143, 270, 96, 20);
+		textField.setBounds(545, 29, 96, 20);
 		textField.setText(currentUserName);
 		contentPane.add(textField);
 		textField.setColumns(10);
+		
+		JButton btnDiscover = new JButton("Discover");
+		btnDiscover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				DiscoverScreen frame = new DiscoverScreen(currentUserID, currentUserName);
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+		btnDiscover.setBounds(532, 231, 89, 23);
+		contentPane.add(btnDiscover);
+		
+		JButton btnSuggest = new JButton("Suggest");
+		btnSuggest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SuggestSongScreen frame = new SuggestSongScreen(currentUserID, currentUserName);
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+		btnSuggest.setBounds(173, 231, 89, 23);
+		contentPane.add(btnSuggest);
 	}
 }
