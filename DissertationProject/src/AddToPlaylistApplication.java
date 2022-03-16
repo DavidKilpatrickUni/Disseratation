@@ -52,8 +52,8 @@ public class AddToPlaylistApplication {
 				Class.forName("com.mysql.cj.jdbc.Driver");																	
 				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
 				Statement statement = conn.createStatement();
-				System.out.println("SELECT * FROM songs where " + criteria + " = '" + search + "'" + " ORDER BY " + sort + " DESC");	
-				String query = "SELECT * FROM songs where " + criteria + " = '" + search + "'" + " ORDER BY " + sort + " DESC";	
+				System.out.println("SELECT * FROM songs where " + criteria + " = '" + search + "'" + " ORDER BY " + sort + " " + sortType);	
+				String query = "SELECT * FROM songs where " + criteria + " = '" + search + "'" + " ORDER BY " + sort + " " + sortType;	
 				System.out.println(query);
 				ResultSet results = statement.executeQuery(query);															
 				System.out.println("this here " + results);

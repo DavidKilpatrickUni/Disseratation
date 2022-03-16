@@ -106,5 +106,16 @@ public class MainScreen extends JFrame {
 		});
 		btnNewMyPlaylist.setBounds(152, 308, 142, 23);
 		contentPane.add(btnNewMyPlaylist);
+		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SearchPlaylistScreen frame = new SearchPlaylistScreen();
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton.setBounds(555, 308, 89, 23);
+		contentPane.add(btnNewButton);
 	}
 }

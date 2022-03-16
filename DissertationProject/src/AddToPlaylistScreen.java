@@ -179,8 +179,7 @@ public class AddToPlaylistScreen extends JFrame {
 				String title = null;
 				String artist = null;
 				String genre = null;
-				String rating = null;
-				String reviews = null;
+		
 				String uploaded = null;
 				String sortType = null;
 				
@@ -211,8 +210,7 @@ public class AddToPlaylistScreen extends JFrame {
 						title = searchAttempt.getString("Title");
 						artist = searchAttempt.getString("Artist");
 						genre = searchAttempt.getString("Genre");
-						rating = searchAttempt.getString("Rating");
-						reviews = searchAttempt.getString("Reviews");
+				
 						uploaded = searchAttempt.getString("uploaded");
 						
 						
@@ -222,8 +220,7 @@ public class AddToPlaylistScreen extends JFrame {
 							txtTitle1.setText(title);
 							txtArtist1.setText(artist);
 							txtGenre1.setText(genre);
-							txtRating1.setText(rating);
-							txtReviews1.setText(reviews);
+						
 							txtUploaded1.setText(uploaded);
 							System.out.println(title+artist+genre);
 							break;
@@ -232,8 +229,7 @@ public class AddToPlaylistScreen extends JFrame {
 							txtTitle2.setText(title);
 							txtArtist2.setText(artist);
 							txtGenre2.setText(genre);
-							txtRating2.setText(rating);
-							txtReviews2.setText(reviews);
+					
 							txtUploaded2.setText(uploaded);
 							System.out.println(title+artist+genre);
 							break;

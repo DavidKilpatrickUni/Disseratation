@@ -29,40 +29,40 @@ public class ManagePlaylistScreen extends JFrame {
 	private JTextField txtArtist2;
 	private JTextField txtGenre2;
 	private JButton btnRemove1;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JTextField textField_12;
-	private JTextField textField_13;
-	private JTextField textField_14;
-	private JTextField textField_15;
-	private JTextField textField_16;
-	private JTextField textField_17;
-	private JTextField textField_18;
-	private JTextField textField_19;
-	private JTextField textField_20;
-	private JTextField textField_21;
-	private JTextField textField_22;
-	private JTextField textField_23;
+	private JTextField txtTitle3;
+	private JTextField txtArtist3;
+	private JTextField txtGenre3;
+	private JTextField txtTitle4;
+	private JTextField txtArtist4;
+	private JTextField txtGenre4;
+	private JTextField txtTitle5;
+	private JTextField txtArtist5;
+	private JTextField txtGenre5;
+	private JTextField txtTitle6;
+	private JTextField txtArtist6;
+	private JTextField txtGenre6;
+	private JTextField txtTitle7;
+	private JTextField txtTitle8;
+	private JTextField txtTitle9;
+	private JTextField txtTitle10;
+	private JTextField txtArtist7;
+	private JTextField txtArtist8;
+	private JTextField txtArtist9;
+	private JTextField txtArtist10;
+	private JTextField txtGenre7;
+	private JTextField txtGenre8;
+	private JTextField txtGenre9;
+	private JTextField txtGenre10;
 	private JTextField txtRating1;
 	private JTextField txtRating2;
-	private JTextField textField_26;
-	private JTextField textField_27;
-	private JTextField textField_28;
-	private JTextField textField_29;
-	private JTextField textField_30;
-	private JTextField textField_31;
-	private JTextField textField_32;
-	private JTextField textField_33;
+	private JTextField txtRating3;
+	private JTextField txtRating4;
+	private JTextField txtRating5;
+	private JTextField txtRating6;
+	private JTextField txtRating7;
+	private JTextField txtRating8;
+	private JTextField txtRating9;
+	private JTextField txtRating10;
 	private JTextField txtID1;
 	private JButton btnAdd1;
 	private JButton btnAdd2;
@@ -70,6 +70,14 @@ public class ManagePlaylistScreen extends JFrame {
 	private JTextField txtID2;
 	private JTextField txtSwap1;
 	private JTextField txtSwap2;
+	private JTextField txtID3;
+	private JTextField txtID4;
+	private JTextField txtID5;
+	private JTextField txtID6;
+	private JTextField txtID7;
+	private JTextField txtID8;
+	private JTextField txtID9;
+	private JTextField txtID10;
 
 	/**
 	 * Launch the application.
@@ -231,9 +239,9 @@ public class ManagePlaylistScreen extends JFrame {
 		label1.setBounds(21, 141, 48, 14);
 		contentPane.add(label1);
 		
-		JLabel label_1 = new JLabel("10");
-		label_1.setBounds(21, 539, 48, 14);
-		contentPane.add(label_1);
+		JLabel label10 = new JLabel("10");
+		label10.setBounds(21, 539, 48, 14);
+		contentPane.add(label10);
 		
 		JLabel label2 = new JLabel("2");
 		label2.setBounds(21, 183, 48, 14);
@@ -315,125 +323,125 @@ public class ManagePlaylistScreen extends JFrame {
 		btnRemove1.setBounds(868, 142, 89, 23);
 		contentPane.add(btnRemove1);
 		
-		textField = new JTextField();
-		textField.setBounds(253, 224, 96, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		txtTitle3 = new JTextField();
+		txtTitle3.setBounds(253, 224, 96, 20);
+		contentPane.add(txtTitle3);
+		txtTitle3.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(373, 224, 96, 20);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		txtArtist3 = new JTextField();
+		txtArtist3.setBounds(373, 224, 96, 20);
+		contentPane.add(txtArtist3);
+		txtArtist3.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(499, 224, 96, 20);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
+		txtGenre3 = new JTextField();
+		txtGenre3.setBounds(499, 224, 96, 20);
+		contentPane.add(txtGenre3);
+		txtGenre3.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(79, 272, 96, 20);
-		contentPane.add(textField_3);
-		textField_3.setColumns(10);
+		txtTitle4 = new JTextField();
+		txtTitle4.setBounds(256, 279, 96, 20);
+		contentPane.add(txtTitle4);
+		txtTitle4.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(199, 272, 96, 20);
-		contentPane.add(textField_4);
-		textField_4.setColumns(10);
+		txtArtist4 = new JTextField();
+		txtArtist4.setBounds(376, 279, 96, 20);
+		contentPane.add(txtArtist4);
+		txtArtist4.setColumns(10);
 		
-		textField_5 = new JTextField();
-		textField_5.setBounds(325, 272, 96, 20);
-		contentPane.add(textField_5);
-		textField_5.setColumns(10);
+		txtGenre4 = new JTextField();
+		txtGenre4.setBounds(502, 279, 96, 20);
+		contentPane.add(txtGenre4);
+		txtGenre4.setColumns(10);
 		
-		textField_6 = new JTextField();
-		textField_6.setBounds(79, 320, 96, 20);
-		contentPane.add(textField_6);
-		textField_6.setColumns(10);
+		txtTitle5 = new JTextField();
+		txtTitle5.setBounds(256, 327, 96, 20);
+		contentPane.add(txtTitle5);
+		txtTitle5.setColumns(10);
 		
-		textField_7 = new JTextField();
-		textField_7.setBounds(199, 320, 96, 20);
-		contentPane.add(textField_7);
-		textField_7.setColumns(10);
+		txtArtist5 = new JTextField();
+		txtArtist5.setBounds(376, 327, 96, 20);
+		contentPane.add(txtArtist5);
+		txtArtist5.setColumns(10);
 		
-		textField_8 = new JTextField();
-		textField_8.setBounds(325, 320, 96, 20);
-		contentPane.add(textField_8);
-		textField_8.setColumns(10);
+		txtGenre5 = new JTextField();
+		txtGenre5.setBounds(502, 327, 96, 20);
+		contentPane.add(txtGenre5);
+		txtGenre5.setColumns(10);
 		
-		textField_9 = new JTextField();
-		textField_9.setBounds(79, 370, 96, 20);
-		contentPane.add(textField_9);
-		textField_9.setColumns(10);
+		txtTitle6 = new JTextField();
+		txtTitle6.setBounds(256, 377, 96, 20);
+		contentPane.add(txtTitle6);
+		txtTitle6.setColumns(10);
 		
-		textField_10 = new JTextField();
-		textField_10.setBounds(199, 370, 96, 20);
-		contentPane.add(textField_10);
-		textField_10.setColumns(10);
+		txtArtist6 = new JTextField();
+		txtArtist6.setBounds(376, 377, 96, 20);
+		contentPane.add(txtArtist6);
+		txtArtist6.setColumns(10);
 		
-		textField_11 = new JTextField();
-		textField_11.setBounds(325, 370, 96, 20);
-		contentPane.add(textField_11);
-		textField_11.setColumns(10);
+		txtGenre6 = new JTextField();
+		txtGenre6.setBounds(502, 377, 96, 20);
+		contentPane.add(txtGenre6);
+		txtGenre6.setColumns(10);
 		
-		textField_12 = new JTextField();
-		textField_12.setBounds(79, 421, 96, 20);
-		contentPane.add(textField_12);
-		textField_12.setColumns(10);
+		txtTitle7 = new JTextField();
+		txtTitle7.setBounds(256, 428, 96, 20);
+		contentPane.add(txtTitle7);
+		txtTitle7.setColumns(10);
 		
-		textField_13 = new JTextField();
-		textField_13.setBounds(79, 463, 96, 20);
-		contentPane.add(textField_13);
-		textField_13.setColumns(10);
+		txtTitle8 = new JTextField();
+		txtTitle8.setBounds(256, 470, 96, 20);
+		contentPane.add(txtTitle8);
+		txtTitle8.setColumns(10);
 		
-		textField_14 = new JTextField();
-		textField_14.setBounds(79, 500, 96, 20);
-		contentPane.add(textField_14);
-		textField_14.setColumns(10);
+		txtTitle9 = new JTextField();
+		txtTitle9.setBounds(256, 507, 96, 20);
+		contentPane.add(txtTitle9);
+		txtTitle9.setColumns(10);
 		
-		textField_15 = new JTextField();
-		textField_15.setBounds(79, 536, 96, 20);
-		contentPane.add(textField_15);
-		textField_15.setColumns(10);
+		txtTitle10 = new JTextField();
+		txtTitle10.setBounds(256, 543, 96, 20);
+		contentPane.add(txtTitle10);
+		txtTitle10.setColumns(10);
 		
-		textField_16 = new JTextField();
-		textField_16.setBounds(199, 421, 96, 20);
-		contentPane.add(textField_16);
-		textField_16.setColumns(10);
+		txtArtist7 = new JTextField();
+		txtArtist7.setBounds(376, 428, 96, 20);
+		contentPane.add(txtArtist7);
+		txtArtist7.setColumns(10);
 		
-		textField_17 = new JTextField();
-		textField_17.setBounds(199, 463, 96, 20);
-		contentPane.add(textField_17);
-		textField_17.setColumns(10);
+		txtArtist8 = new JTextField();
+		txtArtist8.setBounds(376, 470, 96, 20);
+		contentPane.add(txtArtist8);
+		txtArtist8.setColumns(10);
 		
-		textField_18 = new JTextField();
-		textField_18.setBounds(199, 500, 96, 20);
-		contentPane.add(textField_18);
-		textField_18.setColumns(10);
+		txtArtist9 = new JTextField();
+		txtArtist9.setBounds(376, 507, 96, 20);
+		contentPane.add(txtArtist9);
+		txtArtist9.setColumns(10);
 		
-		textField_19 = new JTextField();
-		textField_19.setBounds(199, 536, 96, 20);
-		contentPane.add(textField_19);
-		textField_19.setColumns(10);
+		txtArtist10 = new JTextField();
+		txtArtist10.setBounds(376, 543, 96, 20);
+		contentPane.add(txtArtist10);
+		txtArtist10.setColumns(10);
 		
-		textField_20 = new JTextField();
-		textField_20.setBounds(325, 421, 96, 20);
-		contentPane.add(textField_20);
-		textField_20.setColumns(10);
+		txtGenre7 = new JTextField();
+		txtGenre7.setBounds(502, 428, 96, 20);
+		contentPane.add(txtGenre7);
+		txtGenre7.setColumns(10);
 		
-		textField_21 = new JTextField();
-		textField_21.setBounds(325, 463, 96, 20);
-		contentPane.add(textField_21);
-		textField_21.setColumns(10);
+		txtGenre8 = new JTextField();
+		txtGenre8.setBounds(502, 470, 96, 20);
+		contentPane.add(txtGenre8);
+		txtGenre8.setColumns(10);
 		
-		textField_22 = new JTextField();
-		textField_22.setBounds(325, 500, 96, 20);
-		contentPane.add(textField_22);
-		textField_22.setColumns(10);
+		txtGenre9 = new JTextField();
+		txtGenre9.setBounds(502, 507, 96, 20);
+		contentPane.add(txtGenre9);
+		txtGenre9.setColumns(10);
 		
-		textField_23 = new JTextField();
-		textField_23.setBounds(325, 536, 96, 20);
-		contentPane.add(textField_23);
-		textField_23.setColumns(10);
+		txtGenre10 = new JTextField();
+		txtGenre10.setBounds(502, 543, 96, 20);
+		contentPane.add(txtGenre10);
+		txtGenre10.setColumns(10);
 		
 		txtRating1 = new JTextField();
 		txtRating1.setBounds(616, 143, 96, 20);
@@ -445,45 +453,45 @@ public class ManagePlaylistScreen extends JFrame {
 		contentPane.add(txtRating2);
 		txtRating2.setColumns(10);
 		
-		textField_26 = new JTextField();
-		textField_26.setBounds(616, 224, 96, 20);
-		contentPane.add(textField_26);
-		textField_26.setColumns(10);
+		txtRating3 = new JTextField();
+		txtRating3.setBounds(616, 224, 96, 20);
+		contentPane.add(txtRating3);
+		txtRating3.setColumns(10);
 		
-		textField_27 = new JTextField();
-		textField_27.setBounds(442, 272, 96, 20);
-		contentPane.add(textField_27);
-		textField_27.setColumns(10);
+		txtRating4 = new JTextField();
+		txtRating4.setBounds(619, 279, 96, 20);
+		contentPane.add(txtRating4);
+		txtRating4.setColumns(10);
 		
-		textField_28 = new JTextField();
-		textField_28.setBounds(442, 320, 96, 20);
-		contentPane.add(textField_28);
-		textField_28.setColumns(10);
+		txtRating5 = new JTextField();
+		txtRating5.setBounds(619, 327, 96, 20);
+		contentPane.add(txtRating5);
+		txtRating5.setColumns(10);
 		
-		textField_29 = new JTextField();
-		textField_29.setBounds(442, 370, 96, 20);
-		contentPane.add(textField_29);
-		textField_29.setColumns(10);
+		txtRating6 = new JTextField();
+		txtRating6.setBounds(619, 377, 96, 20);
+		contentPane.add(txtRating6);
+		txtRating6.setColumns(10);
 		
-		textField_30 = new JTextField();
-		textField_30.setBounds(442, 421, 96, 20);
-		contentPane.add(textField_30);
-		textField_30.setColumns(10);
+		txtRating7 = new JTextField();
+		txtRating7.setBounds(619, 428, 96, 20);
+		contentPane.add(txtRating7);
+		txtRating7.setColumns(10);
 		
-		textField_31 = new JTextField();
-		textField_31.setBounds(453, 463, 96, 20);
-		contentPane.add(textField_31);
-		textField_31.setColumns(10);
+		txtRating8 = new JTextField();
+		txtRating8.setBounds(630, 470, 96, 20);
+		contentPane.add(txtRating8);
+		txtRating8.setColumns(10);
 		
-		textField_32 = new JTextField();
-		textField_32.setBounds(442, 500, 96, 20);
-		contentPane.add(textField_32);
-		textField_32.setColumns(10);
+		txtRating9 = new JTextField();
+		txtRating9.setBounds(619, 507, 96, 20);
+		contentPane.add(txtRating9);
+		txtRating9.setColumns(10);
 		
-		textField_33 = new JTextField();
-		textField_33.setBounds(442, 536, 96, 20);
-		contentPane.add(textField_33);
-		textField_33.setColumns(10);
+		txtRating10 = new JTextField();
+		txtRating10.setBounds(619, 543, 96, 20);
+		contentPane.add(txtRating10);
+		txtRating10.setColumns(10);
 		
 		txtID1 = new JTextField();
 		txtID1.setBounds(709, 107, 96, 20);
@@ -511,18 +519,18 @@ public class ManagePlaylistScreen extends JFrame {
 		contentPane.add(txtID2);
 		txtID2.setColumns(10);
 		
-		JButton btnNewButton = new JButton("down");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnDown1 = new JButton("Down");
+		btnDown1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 			
 			}
 		});
-		btnNewButton.setBounds(154, 137, 89, 23);
-		contentPane.add(btnNewButton);
+		btnDown1.setBounds(154, 137, 89, 23);
+		contentPane.add(btnDown1);
 		
-		JButton btnUp = new JButton("up");
-		btnUp.addActionListener(new ActionListener() {
+		JButton btnUp2 = new JButton("Up");
+		btnUp2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				txtSwap1.setText(txtID2.getText());
@@ -532,8 +540,8 @@ public class ManagePlaylistScreen extends JFrame {
 				refreshScreen(currentPlaylistTitle) ;
 			}
 		});
-		btnUp.setBounds(64, 179, 89, 23);
-		contentPane.add(btnUp);
+		btnUp2.setBounds(64, 179, 89, 23);
+		contentPane.add(btnUp2);
 		
 		txtSwap1 = new JTextField();
 		txtSwap1.setBounds(677, 45, 96, 20);
@@ -544,6 +552,202 @@ public class ManagePlaylistScreen extends JFrame {
 		txtSwap2.setBounds(839, 45, 96, 20);
 		contentPane.add(txtSwap2);
 		txtSwap2.setColumns(10);
+		
+		JButton btnAdd3 = new JButton("Add");
+		btnAdd3.setBounds(750, 223, 89, 23);
+		contentPane.add(btnAdd3);
+		
+		JButton btnRemove3 = new JButton("Remove");
+		btnRemove3.setBounds(878, 223, 89, 23);
+		contentPane.add(btnRemove3);
+		
+		JButton btnAdd4 = new JButton("Add");
+		btnAdd4.setBounds(750, 278, 89, 23);
+		contentPane.add(btnAdd4);
+		
+		JButton btnRemove4 = new JButton("Remove");
+		btnRemove4.setBounds(878, 278, 89, 23);
+		contentPane.add(btnRemove4);
+		
+		JButton btnAdd5 = new JButton("Add");
+		btnAdd5.setBounds(750, 326, 89, 23);
+		contentPane.add(btnAdd5);
+		
+		JButton btnRemove5 = new JButton("Remove");
+		btnRemove5.setBounds(868, 326, 89, 23);
+		contentPane.add(btnRemove5);
+		
+		JButton btnAdd6 = new JButton("Add");
+		btnAdd6.setBounds(759, 376, 89, 23);
+		contentPane.add(btnAdd6);
+		
+		JButton btnRemove6 = new JButton("Remove");
+		btnRemove6.setBounds(868, 376, 89, 23);
+		contentPane.add(btnRemove6);
+		
+		JButton btnAdd7 = new JButton("Add");
+		btnAdd7.setBounds(759, 427, 89, 23);
+		contentPane.add(btnAdd7);
+		
+		JButton btnRemove7 = new JButton("Remove");
+		btnRemove7.setBounds(868, 427, 89, 23);
+		contentPane.add(btnRemove7);
+		
+		JButton btnAdd8 = new JButton("Add");
+		btnAdd8.setBounds(750, 469, 89, 23);
+		contentPane.add(btnAdd8);
+		
+		JButton btnAdd9 = new JButton("Add");
+		btnAdd9.setBounds(759, 506, 89, 23);
+		contentPane.add(btnAdd9);
+		
+		JButton btnAdd10 = new JButton("Add");
+		btnAdd10.setBounds(759, 542, 89, 23);
+		contentPane.add(btnAdd10);
+		
+		JButton btnRemove8 = new JButton("Remove");
+		btnRemove8.setBounds(868, 469, 89, 23);
+		contentPane.add(btnRemove8);
+		
+		JButton btnRemove9 = new JButton("Remove");
+		btnRemove9.setBounds(868, 506, 89, 23);
+		contentPane.add(btnRemove9);
+		
+		JButton btnRemove10 = new JButton("Remove");
+		btnRemove10.setBounds(868, 542, 89, 23);
+		contentPane.add(btnRemove10);
+		
+		txtID3 = new JTextField();
+		txtID3.setBounds(709, 206, 96, 20);
+		contentPane.add(txtID3);
+		txtID3.setColumns(10);
+		
+		txtID4 = new JTextField();
+		txtID4.setBounds(696, 255, 96, 20);
+		contentPane.add(txtID4);
+		txtID4.setColumns(10);
+		
+		txtID5 = new JTextField();
+		txtID5.setBounds(696, 296, 96, 20);
+		contentPane.add(txtID5);
+		txtID5.setColumns(10);
+		
+		txtID6 = new JTextField();
+		txtID6.setBounds(696, 346, 96, 20);
+		contentPane.add(txtID6);
+		txtID6.setColumns(10);
+		
+		txtID7 = new JTextField();
+		txtID7.setBounds(709, 397, 96, 20);
+		contentPane.add(txtID7);
+		txtID7.setColumns(10);
+		
+		txtID8 = new JTextField();
+		txtID8.setBounds(709, 444, 96, 20);
+		contentPane.add(txtID8);
+		txtID8.setColumns(10);
+		
+		txtID9 = new JTextField();
+		txtID9.setBounds(709, 486, 96, 20);
+		contentPane.add(txtID9);
+		txtID9.setColumns(10);
+		
+		txtID10 = new JTextField();
+		txtID10.setBounds(709, 522, 96, 20);
+		contentPane.add(txtID10);
+		txtID10.setColumns(10);
+		
+		JButton btnUp3 = new JButton("Up");
+		btnUp3.setBounds(64, 223, 89, 23);
+		contentPane.add(btnUp3);
+		
+		JButton btnUp4 = new JButton("Up");
+		btnUp4.setBounds(64, 278, 89, 23);
+		contentPane.add(btnUp4);
+		
+		JButton btnUp5 = new JButton("Up");
+		btnUp5.setBounds(64, 326, 89, 23);
+		contentPane.add(btnUp5);
+		
+		JButton btnUp6 = new JButton("Up");
+		btnUp6.setBounds(64, 376, 89, 23);
+		contentPane.add(btnUp6);
+		
+		JButton btnUp7 = new JButton("Up");
+		btnUp7.setBounds(64, 427, 89, 23);
+		contentPane.add(btnUp7);
+		
+		JButton btnUp8 = new JButton("Up");
+		btnUp8.setBounds(64, 469, 89, 23);
+		contentPane.add(btnUp8);
+		
+		JButton btnUp9 = new JButton("Up");
+		btnUp9.setBounds(64, 505, 89, 23);
+		contentPane.add(btnUp9);
+		
+		JButton btnUp10 = new JButton("Up");
+		btnUp10.setBounds(64, 542, 89, 23);
+		contentPane.add(btnUp10);
+		
+		JButton btnDown2 = new JButton("Down");
+		btnDown2.setBounds(154, 179, 89, 23);
+		contentPane.add(btnDown2);
+		
+		JButton btnDown3 = new JButton("Down");
+		btnDown3.setBounds(154, 223, 89, 23);
+		contentPane.add(btnDown3);
+		
+		JButton btnDown4 = new JButton("Down");
+		btnDown4.setBounds(157, 278, 89, 23);
+		contentPane.add(btnDown4);
+		
+		JButton btnDown5 = new JButton("Down");
+		btnDown5.setBounds(157, 326, 89, 23);
+		contentPane.add(btnDown5);
+		
+		JButton btnDown6 = new JButton("Down");
+		btnDown6.setBounds(157, 376, 89, 23);
+		contentPane.add(btnDown6);
+		
+		JButton btnDown7 = new JButton("Down");
+		btnDown7.setBounds(157, 427, 89, 23);
+		contentPane.add(btnDown7);
+		
+		JButton btnDown8 = new JButton("Down");
+		btnDown8.setBounds(157, 469, 89, 23);
+		contentPane.add(btnDown8);
+		
+		JButton btnDown9 = new JButton("Down");
+		btnDown9.setBounds(157, 506, 89, 23);
+		contentPane.add(btnDown9);
+		
+		JLabel label3 = new JLabel("3");
+		label3.setBounds(10, 227, 48, 14);
+		contentPane.add(label3);
+		
+		JLabel label4 = new JLabel("4");
+		label4.setBounds(10, 282, 48, 14);
+		contentPane.add(label4);
+		
+		JLabel label5 = new JLabel("5");
+		label5.setBounds(6, 330, 48, 14);
+		contentPane.add(label5);
+		
+		JLabel label6 = new JLabel("6");
+		label6.setBounds(6, 380, 48, 14);
+		contentPane.add(label6);
+		
+		JLabel label7 = new JLabel("7");
+		label7.setBounds(6, 431, 48, 14);
+		contentPane.add(label7);
+		
+		JLabel label8 = new JLabel("8");
+		label8.setBounds(6, 473, 48, 14);
+		contentPane.add(label8);
+		
+		JLabel label9 = new JLabel("9");
+		label9.setBounds(10, 514, 48, 14);
+		contentPane.add(label9);
 		txtID2.setVisible(false);
 	}
 	
@@ -575,12 +779,15 @@ public class ManagePlaylistScreen extends JFrame {
 							
 							System.out.println(playlistTitle);
 							
-							playlistId = currentList.getString("playlistID");
+							playlistId = currentList.getString("PlaylistID");
+							ranking = currentList.getString("Ranking");
+							
+							
 							title = currentList.getString("Title");
 							artist = currentList.getString("Artist");
 							genre = currentList.getString("Genre");
-							rating = currentList.getString("Rating");
-							ranking = currentList.getString("Ranking");
+							rating = currentList.getString("OverallRating");
+							
 							
 							/*
 							artist = songDetails.getString("Artist");
@@ -682,11 +889,4 @@ public class ManagePlaylistScreen extends JFrame {
 			
 		
 	}
-	
-	
-	
-	
-	
-	
-	
 }

@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -53,6 +56,9 @@ public class SuggestSongScreen extends JFrame {
 	 * Create the frame.
 	 */
 	public SuggestSongScreen(String currentUserID, String currentUserName) {
+		
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 878, 521);
 		contentPane = new JPanel();
@@ -74,28 +80,19 @@ public class SuggestSongScreen extends JFrame {
 						textAreaSongInfo.getText());
 				
 				
-				/*
-				private JTextField textFieldTitle;
-				private JTextField textFieldArtist;
-				private JTextField textFieldGenre;
-				private JTextField textFieldSongLength;
-				private JTextField textFieldReleased;
-				private JTextField textFieldAlbum;
-				private JTextField textFieldRating;
-				
-				*/
+			
 			}
 		});
 		btnSuggestSong.setBounds(361, 426, 143, 23);
 		contentPane.add(btnSuggestSong);
 		
 		textFieldTitle = new JTextField();
-		textFieldTitle.setBounds(129, 181, 96, 20);
+		textFieldTitle.setBounds(129, 139, 96, 20);
 		contentPane.add(textFieldTitle);
 		textFieldTitle.setColumns(10);
 		
 		textFieldArtist = new JTextField();
-		textFieldArtist.setBounds(129, 237, 96, 20);
+		textFieldArtist.setBounds(129, 209, 96, 20);
 		contentPane.add(textFieldArtist);
 		textFieldArtist.setColumns(10);
 		
@@ -112,7 +109,7 @@ public class SuggestSongScreen extends JFrame {
 		contentPane.add(lblGenre);
 		
 		textFieldGenre = new JTextField();
-		textFieldGenre.setBounds(129, 292, 96, 20);
+		textFieldGenre.setBounds(129, 274, 96, 20);
 		contentPane.add(textFieldGenre);
 		textFieldGenre.setColumns(10);
 		
@@ -129,7 +126,7 @@ public class SuggestSongScreen extends JFrame {
 		contentPane.add(lblAlbum);
 		
 		textFieldAlbum = new JTextField();
-		textFieldAlbum.setBounds(361, 294, 96, 20);
+		textFieldAlbum.setBounds(366, 274, 96, 20);
 		contentPane.add(textFieldAlbum);
 		textFieldAlbum.setColumns(10);
 		
@@ -146,7 +143,7 @@ public class SuggestSongScreen extends JFrame {
 		contentPane.add(lblSongInfo);
 		
 		dateChooser = new JDateChooser();
-		dateChooser.setBounds(371, 237, 143, 20);
+		dateChooser.setBounds(374, 212, 143, 20);
 		contentPane.add(dateChooser);
 		
 		slider = new JSlider();
@@ -156,19 +153,22 @@ public class SuggestSongScreen extends JFrame {
 		slider.setPaintLabels(true);
 		slider.setPaintTicks(true);
 		slider.setSnapToTicks(true);
-		slider.setMaximum(10);
-		slider.setBounds(42, 393, 316, 56);
+		slider.setMaximum(5);
+		slider.setBounds(129, 342, 244, 56);
 		contentPane.add(slider);
 		
 		 comboBoxMins = new JComboBox();
 		comboBoxMins.setModel(new DefaultComboBoxModel(new String[] {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"}));
 		comboBoxMins.setBounds(408, 138, 49, 22);
 		contentPane.add(comboBoxMins);
+	AutoCompleteDecorator.decorate(comboBoxMins);
+		
 		
 		 comboBoxSecs = new JComboBox();
 		comboBoxSecs.setModel(new DefaultComboBoxModel(new String[] {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"}));
 		comboBoxSecs.setBounds(491, 138, 43, 22);
 		contentPane.add(comboBoxSecs);
+		AutoCompleteDecorator.decorate(comboBoxMins);
 		
 		JLabel lblMinutes = new JLabel("Minutes");
 		lblMinutes.setBounds(402, 100, 48, 14);
@@ -178,8 +178,16 @@ public class SuggestSongScreen extends JFrame {
 		lblSeconds.setBounds(491, 100, 48, 14);
 		contentPane.add(lblSeconds);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(568, 426, 89, 23);
-		contentPane.add(btnNewButton);
+		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				MainScreen gui = new MainScreen(currentUserID, currentUserName);
+				gui.setVisible(true);
+				dispose();
+			}
+		});
+		btnBack.setBounds(568, 426, 89, 23);
+		contentPane.add(btnBack);
 	}
 }

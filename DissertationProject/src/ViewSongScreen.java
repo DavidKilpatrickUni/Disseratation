@@ -50,6 +50,7 @@ public class ViewSongScreen extends JFrame {
 	private JTextField txtGenre;
 	private JTextField txtReleased;
 	private JTextArea textArea;
+	private JButton btnBack;
 
 	/**
 	 * Launch the application.
@@ -254,7 +255,7 @@ public class ViewSongScreen extends JFrame {
 			}
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 825, 494);
+		setBounds(100, 100, 838, 609);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -397,5 +398,17 @@ public class ViewSongScreen extends JFrame {
 		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("3");
 		rdbtnNewRadioButton_2.setBounds(400, 232, 109, 23);
 		contentPane.add(rdbtnNewRadioButton_2);
+		
+		btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				//DiscoverScreen frame = new DiscoverScreen(currentUserID, currentUserName);
+				//frame.setVisible(true);
+				dispose();
+			}
+		});
+		btnBack.setBounds(694, 398, 89, 23);
+		contentPane.add(btnBack);
 	}
 }
