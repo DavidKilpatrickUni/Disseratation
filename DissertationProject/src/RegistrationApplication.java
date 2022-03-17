@@ -13,9 +13,243 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.*;  
+import java.util.regex.*;
+
+import javax.swing.JOptionPane;  
 
 public class RegistrationApplication {
+	
+	
+	public static String checkRegistrationForm(String firstname, String surname, String myIdentity, Date date,  String username, String email, String password, String confirm) throws CustomException {
+		
+		
+		System.out.println(date);
+		
+		if (Helper.checkBlank(firstname) || regexSQLInjection(firstname) )
+		{
+			System.out.println("firstname error");
+			throw new CustomException("Valid First Name Input Required", "firstname");
+			//return "firstname";
+		}
+		if (Helper.checkBlank(surname) || regexSQLInjection(surname))
+		{
+			System.out.println("lastname error");
+			throw new CustomException("Valid Surname Input Required", "surname");
+			//return "surname";
+		}
+		if (!checkIdentity(myIdentity))
+		{
+			System.out.println("identity error");
+			throw new CustomException("Valid Identity Input Required", "identity");
+			//return "username";
+		}
+		if (Helper.checkBlankDate(date)  ||  compareDates(date) || checkAge(date))
+		{
+			System.out.println("date error");
+			throw new CustomException("Valid Date Input Required", "DOB");
+			//return "username";
+		}
+		if (Helper.checkBlank(username) ||  regexSQLInjection(username))
+		{
+			System.out.println("username error");
+			throw new CustomException("Valid User Input Required", "username");
+			//return "username";
+		}
+		if (Helper.checkBlank(email) || !regexEmail(email) || regexSQLInjection(email))
+		{
+			System.out.println("email error");
+			throw new CustomException("Valid Email Address Input Required", "email");
+			//return "email";
+		}
+		if (Helper.checkBlank(password) || !regexPassword(password) || regexSQLInjection(password))
+		{
+			System.out.println("password error");
+			throw new CustomException("Valid Password Input Required", "password");
+			//return "password";
+		}
+		if (Helper.checkBlank(confirm) || regexSQLInjection(confirm) || !comparePassword(password, confirm))
+		{
+			System.out.println("confirm password error");
+			throw new CustomException("Passwords Dont Match", "confirm");
+			//return "confirm";
+		}
+		return "continue";
+	
+	}
+	
+	
+	public static boolean comparePassword(String password, String confirmPassword)  {
+		
+		if (password.equals(confirmPassword))
+		{
+			return true;
+		
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	
+	public static boolean regexPassword(String text) {
+		
+		System.out.print(text+"\n");
+		String regex = "^(?=.*[0-9])"
+                + "(?=.*[A-Z])"
+                + "(?=.*[@#£$%^&+?!])"
+                + "(?=\\S+$).{8,20}$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(text);
+		boolean matchFound = matcher.find();
+		
+		if (matchFound)
+		{
+			return true;
+		}
+		else
+		{
+		
+			return false;
+		}
+	}
+	
+	public static boolean regexSQLInjection(String text)  {
+		
+		System.out.print(text+"\n");
+		String regex = "(?=.*[='])";
+                
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(text);
+		boolean matchFound = matcher.find();
+		
+		if (matchFound)
+		{
+			return true;
+		}
+		else
+		{
+
+			return false;
+		}
+	}
+	
+	public static boolean regexEmail(String text)  {
+		
+		System.out.print(text+"\n");
+		String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+"
+				+ "(?:com|co.uk)$";
+	
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(text);
+		boolean matchFound = matcher.find();
+		
+		if (matchFound)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	
+	
+	public static boolean checkIdentity(String identity) {
+		
+		switch (identity) {
+		case "Male":
+			return true;
+			
+			
+		case "Female":
+			return true;
+			
+		case "Non-binary":
+			return true;
+			
+		default:
+			
+			return false;
+		}
+		
+		
+	}
+	
+public static boolean compareDates(Date date){
+		
+		
+		Date currentDate = new Date();
+		String pattern ="yyyy-MM-dd";
+		int compareDates;
+		
+		
+		SimpleDateFormat formatter = new SimpleDateFormat(pattern,Locale.ENGLISH);
+		
+		try {
+		
+		Date formattedDate = formatter.parse(Helper.changeDateFormat(date));
+		Date formattedCurrentDate = formatter.parse(Helper.changeDateFormat(currentDate));
+		
+		compareDates = formattedCurrentDate.compareTo(formattedDate);
+		System.out.println( "compare Dates: " +compareDates);
+	
+		if (compareDates  < 0 ) {
+			System.out.println( "date in future \n");
+			
+			return true;
+		}
+		
+		
+		else
+		{
+			System.out.println( "date in past \n");
+			return false;
+		}
+		}
+		catch(Exception e)
+		{	
+			
+		}
+		return false;
+	
+	}
+	
+	
+	
+public static boolean checkAge(Date date) {
+	
+	LocalDate birthDate = LocalDate.parse(Helper.changeDateFormat(date));
+	LocalDate currentDate = LocalDate.now();
+	
+	
+	System.out.println(Period.between(birthDate, currentDate).getYears());
+	
+	int years = Period.between(birthDate, currentDate).getYears();
+
+	if (years  < 15 ) {
+		System.out.println( "is under 16 \n");
+	
+		return true;
+	}
+	
+	
+	else
+	{
+		System.out.println( "is 16 or over \n");
+		return false;
+	}
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public static void createAccount(String firstName, String surname, String DOB, String identity, String userName, String password, String email) {
 		
@@ -25,7 +259,7 @@ public class RegistrationApplication {
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	// Connect to certain database 'DE-Store'. User: root. Password: 
 			Statement statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);		// Create query statement connection with database
 	
-			String query = "Insert Into accounts VALUES (NULL ,'" + firstName +  "','" + surname + "','" + DOB + "','" + identity + "','" + userName + "','" + password + "','" + email + "' )";		
+			String query = "Insert Into accounts VALUES (NULL ,'" + firstName +  "','" + surname + "','" + DOB + "','" + identity + "','" + userName + "','" + password + "','" + email + "', null, null, null, null, null, null )";		
 		
 			
 			
@@ -38,12 +272,25 @@ public class RegistrationApplication {
 		} catch (ClassNotFoundException cnf) {
 			System.err.println("Could not load driver");
 			System.err.println(cnf.getMessage());
-			System.exit(-1);
+			
 		
-		} catch (SQLException sqe) {
+		} catch (SQLException sqlException) {
 			System.err.println("Error in SQL Update");
-			System.err.println(sqe.getMessage());
-			System.exit(-1);
+			System.err.println(sqlException.getMessage());
+			System.err.println(sqlException.getMessage().substring(0,16));
+			
+			
+			if (sqlException.getMessage().substring(0,16).contains("Duplicate entry") & sqlException.getMessage().contains("Username"))
+			{
+				JOptionPane.showMessageDialog(null, "Username Already Taken", "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);	
+		
+			}
+			else if(sqlException.getMessage().substring(0,16).contains("Duplicate entry") & sqlException.getMessage().contains("Email"))
+		{
+				JOptionPane.showMessageDialog(null, "Email Already In Use", "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);	
+			}
+			
+			
 		}
 	}
 	
@@ -78,60 +325,15 @@ public class RegistrationApplication {
 	}
 	
 	
-	public static boolean checkBlank(String text) {
-		
-		if (text.trim().isBlank())
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+
 	
-	public static String properCase(String text) {
-		
-		
-		text = text.substring(0,1).toUpperCase() + text.substring(1);	
-		
-		return text;
-	
-	}
+
 	
 	
-	public static boolean checkLength(String text) {
-		
-		if (text.trim().length() >= 8)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+
 	
 	
-	public static String changeDateFormat(Date date) {
-		
-		
-	String pattern ="yyyy-MM-dd";
-	SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-	String formattedDate = formatter.format(date);
-	
-	
-	return formattedDate;
-	}
-	
-	public static String dateForDatabase(String date) {
-		
-		
-	String replaceString = date.replace("-", "");
-	
-	
-	return replaceString;
-	}
+
 	
 	
 	/*
@@ -170,67 +372,9 @@ public class RegistrationApplication {
 	}
 		*/
 	
-	public static boolean checkAge(Date date) {
-		
-		LocalDate birthDate = LocalDate.parse(changeDateFormat(date));
-		LocalDate currentDate = LocalDate.now();
-		
-		
-		System.out.println(Period.between(birthDate, currentDate).getYears());
-		
-		int years = Period.between(birthDate, currentDate).getYears();
+
 	
-		if (years  > 15 ) {
-			
-			System.out.println( "is 16 or over \n");
-			return true;
-		}
-		
-		
-		else
-		{
-			System.out.println( "is under 16 \n");
-			return false;
-		}
-	}
 	
-	public static boolean compareDates(Date date){
-		
-		
-		Date currentDate = new Date();
-		String pattern ="yyyy-MM-dd";
-		int compareDates;
-		
-		
-		SimpleDateFormat formatter = new SimpleDateFormat(pattern,Locale.ENGLISH);
-		
-		try {
-		
-		Date formattedDate = formatter.parse(changeDateFormat(date));
-		Date formattedCurrentDate = formatter.parse(changeDateFormat(currentDate));
-		
-		compareDates = formattedCurrentDate.compareTo(formattedDate);
-		System.out.println( "compare Dates: " +compareDates);
-	
-		if (compareDates  > 0 ) {
-			
-			System.out.println( "date in past \n");
-			return true;
-		}
-		
-		
-		else
-		{
-			System.out.println( "date in future \n");
-			return false;
-		}
-		}
-		catch(Exception e)
-		{	
-		}
-		return false;
-	
-	}
 		
 
 	
@@ -246,7 +390,7 @@ public class RegistrationApplication {
 	}
 	*/
 	
-	
+	/*
 	public static Boolean checkIdentity(Boolean female, Boolean male, Boolean NB) {
 		
 		String identity;
@@ -263,7 +407,7 @@ public class RegistrationApplication {
 		
 		
 	}
-	
+	*/
 	/*
 	public static String getIdentity(Boolean female, Boolean male, Boolean NB) {
 		
@@ -289,57 +433,10 @@ public class RegistrationApplication {
 	}
 */
 	
-	public static boolean regexCheck(String text) {
-		
-		System.out.print(text+"\n");
-		String regex = "^(?=.*[0-9])"
-                + "(?=.*[A-Z])"
-                + "(?=.*[@#£$%^&+=?!])"
-                + "(?=\\S+$).{8,20}$";
-		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(text);
-		boolean matchFound = matcher.find();
-		
-		if (matchFound)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+
 	
-	public static boolean regexEmail(String text) {
-		
-		System.out.print(text+"\n");
-		String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+"
-				+ "(?:com|co.uk)$";
+
 	
-		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(text);
-		boolean matchFound = matcher.find();
-		
-		if (matchFound)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	
-	public static boolean comparePassword(String password, String confirmPassword) {
-		
-		if (password.equals(confirmPassword))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+
 
 }

@@ -55,7 +55,7 @@ public class SuggestSongScreen extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SuggestSongScreen(String currentUserID, String currentUserName) {
+	public SuggestSongScreen(LoggedIn currentLoggedIn) {
 		
 		
 		
@@ -75,7 +75,7 @@ public class SuggestSongScreen extends JFrame {
 						textFieldGenre.getText(), 
 						slider.getValue(),
 						comboBoxMins.getSelectedItem() + ":" + comboBoxSecs.getSelectedItem() ,
-						RegistrationApplication.changeDateFormat(dateChooser.getDate()),
+						Helper.changeDateFormat(dateChooser.getDate()),
 						textFieldAlbum.getText(),
 						textAreaSongInfo.getText());
 				
@@ -182,7 +182,7 @@ public class SuggestSongScreen extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				MainScreen gui = new MainScreen(currentUserID, currentUserName);
+				MainScreen gui = new MainScreen(currentLoggedIn);
 				gui.setVisible(true);
 				dispose();
 			}

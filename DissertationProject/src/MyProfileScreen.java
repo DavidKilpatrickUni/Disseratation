@@ -52,14 +52,14 @@ public class MyProfileScreen extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MyProfileScreen(String currentUserID, String currentUserName) {
+	public MyProfileScreen(LoggedIn currentLoggedIn) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				
 				
 				
-				ResultSet accountDetails  = AccountApplication.getAccountsDetail(currentUserID);
+				ResultSet accountDetails  = AccountApplication.getAccountsDetail(currentLoggedIn.getCurrentUserID());
 				
 				
 				
@@ -182,8 +182,8 @@ public class MyProfileScreen extends JFrame {
 		btnGenre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				MyProfileApplication.updateGenre(currentUserID,textFieldGenre1.getText().strip(), textFieldGenre2.getText().strip() ,textFieldGenre3.getText().strip() );
-				System.out.println(currentUserID +textFieldGenre1.getText().strip()+ textFieldGenre2.getText().strip() +textFieldGenre3.getText().strip());
+				MyProfileApplication.updateGenre(currentLoggedIn.getCurrentUserID(),textFieldGenre1.getText().strip(), textFieldGenre2.getText().strip() ,textFieldGenre3.getText().strip() );
+				System.out.println(currentLoggedIn.getCurrentUserID() +textFieldGenre1.getText().strip()+ textFieldGenre2.getText().strip() +textFieldGenre3.getText().strip());
 			
 			}
 		});
@@ -197,7 +197,7 @@ public class MyProfileScreen extends JFrame {
 		btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ProfileScreen frame = new ProfileScreen(currentUserID, currentUserName);
+				ProfileScreen frame = new ProfileScreen(currentLoggedIn);
 				frame.setVisible(true);
 				dispose();
 			}

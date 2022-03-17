@@ -45,12 +45,12 @@ public class MyPlaylistsScreen extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MyPlaylistsScreen(String currentUserID, String currentUserName) {
+	public MyPlaylistsScreen( LoggedIn currentLoggedIn) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				
-				ResultSet myLists = MyPlaylistsApplication.loadPlaylists(currentUserID);
+				ResultSet myLists = MyPlaylistsApplication.loadPlaylists(currentLoggedIn.getCurrentUserID());
 				
 				String playlistTitle = null;
 	
@@ -145,7 +145,7 @@ public class MyPlaylistsScreen extends JFrame {
 		btnPlaylist1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ManagePlaylistScreen gui = new ManagePlaylistScreen(currentUserID, currentUserName, txtTitle1.getText());
+				ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, txtTitle1.getText());
 				gui.setVisible(true);
 				dispose();
 				
@@ -194,7 +194,7 @@ public class MyPlaylistsScreen extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				MainScreen gui = new MainScreen(currentUserID, currentUserName);
+				MainScreen gui = new MainScreen(currentLoggedIn);
 				gui.setVisible(true);
 				dispose();
 				

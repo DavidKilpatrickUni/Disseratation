@@ -49,12 +49,12 @@ public class AccountScreen extends JFrame {
 	
 	
 	
-	public AccountScreen(String currentUserID, String currentUserName) {
+	public AccountScreen(LoggedIn currentLoggedIn) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				
-				ResultSet accountDetails  = AccountApplication.getAccountsDetail(currentUserID);
+				ResultSet accountDetails  = AccountApplication.getAccountsDetail(currentLoggedIn.getCurrentUserID());
 				
 				
 				
@@ -126,7 +126,7 @@ public class AccountScreen extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ProfileScreen frame = new ProfileScreen(currentUserID, currentUserName);
+				ProfileScreen frame = new ProfileScreen(currentLoggedIn);
 				frame.setVisible(true);
 				dispose();
 			}

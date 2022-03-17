@@ -100,7 +100,7 @@ public class ManagePlaylistScreen extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ManagePlaylistScreen(String currentUserID, String currentUserName, String currentPlaylistTitle) {
+	public ManagePlaylistScreen(LoggedIn currentLoggedIn, String currentPlaylistTitle) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -266,7 +266,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnAdd1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				AddToPlaylistScreen frame = new AddToPlaylistScreen(currentUserID, currentUserName, txtPlaylistTitle.getText(), 1);
+				AddToPlaylistScreen frame = new AddToPlaylistScreen(currentLoggedIn, txtPlaylistTitle.getText(), 1);
 				frame.setVisible(true);
 				dispose();
 			}
@@ -293,7 +293,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnRename.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ManagePlaylistApplication.updatePlaylistTitle(currentUserID, currentPlaylistTitle, txtPlaylistTitle.getText());
+				ManagePlaylistApplication.updatePlaylistTitle(currentLoggedIn.getCurrentUserID(), currentPlaylistTitle, txtPlaylistTitle.getText());
 				
 			}
 		});
@@ -304,7 +304,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				MyPlaylistsScreen frame = new MyPlaylistsScreen(currentUserID, currentUserName);
+				MyPlaylistsScreen frame = new MyPlaylistsScreen(currentLoggedIn);
 				frame.setVisible(true);
 				dispose();
 			}
@@ -316,7 +316,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnRemove1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ManagePlaylistApplication.removeFromList(currentUserID, txtID1.getText());
+				ManagePlaylistApplication.removeFromList(currentLoggedIn.getCurrentUserID(), txtID1.getText());
 				refreshScreen(currentPlaylistTitle) ;
 			}
 		});
@@ -508,7 +508,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnRemove2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ManagePlaylistApplication.removeFromList(currentUserID, txtID2.getText());
+				ManagePlaylistApplication.removeFromList(currentLoggedIn.getCurrentUserID(), txtID2.getText());
 			}
 		});
 		btnRemove2.setBounds(868, 184, 89, 23);

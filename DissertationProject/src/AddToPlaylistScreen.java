@@ -62,7 +62,7 @@ public class AddToPlaylistScreen extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AddToPlaylistScreen(String currentUserID, String currentUserName, String currentPlaylistTitle, int ranking) {
+	public AddToPlaylistScreen(LoggedIn currentLoggedIn, String currentPlaylistTitle, int ranking) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 997, 628);
 		contentPane = new JPanel();
@@ -127,7 +127,7 @@ public class AddToPlaylistScreen extends JFrame {
 		btnAdd1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ResultSet checksong = AddToPlaylistApplication.songOnPlaylist(txtSongID1.getText(),currentUserID);
+				ResultSet checksong = AddToPlaylistApplication.songOnPlaylist(txtSongID1.getText(),currentLoggedIn.getCurrentUserID());
 				
 				try
 				{
@@ -137,7 +137,7 @@ public class AddToPlaylistScreen extends JFrame {
 				else
 				{
 					System.out.print("song not already on list");
-					AddToPlaylistApplication.addSong(currentUserID, txtSongID1.getText() ,currentPlaylistTitle, ranking);
+					AddToPlaylistApplication.addSong(currentLoggedIn.getCurrentUserID(), txtSongID1.getText() ,currentPlaylistTitle, ranking);
 				}
 				
 				}
@@ -356,7 +356,7 @@ public class AddToPlaylistScreen extends JFrame {
 		btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ManagePlaylistScreen gui = new ManagePlaylistScreen(currentUserID, currentUserName, currentPlaylistTitle);
+				ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistTitle);
 				gui.setVisible(true);
 				dispose();
 			}

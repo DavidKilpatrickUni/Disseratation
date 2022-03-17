@@ -137,7 +137,7 @@ public class DiscoverScreen extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public DiscoverScreen(String currentUserID, String currentUserName) {
+	public DiscoverScreen(LoggedIn currentLoggedIn) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -229,7 +229,7 @@ public class DiscoverScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				
-				ViewSongScreen frame = new ViewSongScreen(currentUserID, currentUserName, txtSongID1.getText());
+				ViewSongScreen frame = new ViewSongScreen(currentLoggedIn.getCurrentUserID(), currentLoggedIn.getCurrentUserName(), txtSongID1.getText());
 				frame.setVisible(true);
 				dispose();
 				
@@ -765,7 +765,7 @@ public class DiscoverScreen extends JFrame {
 		btnView2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ViewSongScreen frame = new ViewSongScreen(currentUserID, currentUserName, txtSongID2.getText());
+				ViewSongScreen frame = new ViewSongScreen(currentLoggedIn.getCurrentUserID(), currentLoggedIn.getCurrentUserName(), txtSongID2.getText());
 				frame.setVisible(true);
 				//dispose();
 			}
@@ -777,7 +777,7 @@ public class DiscoverScreen extends JFrame {
 		btnView3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ViewSongScreen frame = new ViewSongScreen(currentUserID, currentUserName, txtSongID3.getText());
+				ViewSongScreen frame = new ViewSongScreen(currentLoggedIn.getCurrentUserID(), currentLoggedIn.getCurrentUserName(), txtSongID3.getText());
 				frame.setVisible(true);
 				//dispose();
 			}
@@ -789,7 +789,7 @@ public class DiscoverScreen extends JFrame {
 		btnView4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ViewSongScreen frame = new ViewSongScreen(currentUserID, currentUserName, txtSongID4.getText());
+				ViewSongScreen frame = new ViewSongScreen(currentLoggedIn.getCurrentUserID(), currentLoggedIn.getCurrentUserName(),txtSongID4.getText());
 				frame.setVisible(true);
 				dispose();
 			}
@@ -801,7 +801,7 @@ public class DiscoverScreen extends JFrame {
 		btnView5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ViewSongScreen frame = new ViewSongScreen(currentUserID, currentUserName, txtSongID5.getText());
+				ViewSongScreen frame = new ViewSongScreen(currentLoggedIn.getCurrentUserID(), currentLoggedIn.getCurrentUserName(), txtSongID5.getText());
 				frame.setVisible(true);
 				dispose();
 			}
@@ -813,7 +813,7 @@ public class DiscoverScreen extends JFrame {
 		btnView6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ViewSongScreen frame = new ViewSongScreen(currentUserID, currentUserName, txtSongID6.getText());
+				ViewSongScreen frame = new ViewSongScreen(currentLoggedIn.getCurrentUserID(), currentLoggedIn.getCurrentUserName(), txtSongID6.getText());
 				frame.setVisible(true);
 				dispose();
 			}
@@ -824,7 +824,7 @@ public class DiscoverScreen extends JFrame {
 		btnView7 = new JButton("View");
 		btnView7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ViewSongScreen frame = new ViewSongScreen(currentUserID, currentUserName, txtSongID7.getText());
+				ViewSongScreen frame = new ViewSongScreen(currentLoggedIn.getCurrentUserID(), currentLoggedIn.getCurrentUserName(), txtSongID7.getText());
 				frame.setVisible(true);
 				dispose();
 			}
@@ -835,7 +835,7 @@ public class DiscoverScreen extends JFrame {
 		btnView8 = new JButton("View");
 		btnView8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ViewSongScreen frame = new ViewSongScreen(currentUserID, currentUserName, txtSongID8.getText());
+				ViewSongScreen frame = new ViewSongScreen(currentLoggedIn.getCurrentUserID(), currentLoggedIn.getCurrentUserName(), txtSongID8.getText());
 				frame.setVisible(true);
 				dispose();
 			}
@@ -846,7 +846,7 @@ public class DiscoverScreen extends JFrame {
 		btnView9 = new JButton("View");
 		btnView9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ViewSongScreen frame = new ViewSongScreen(currentUserID, currentUserName, txtSongID9.getText());
+				ViewSongScreen frame = new ViewSongScreen(currentLoggedIn.getCurrentUserID(), currentLoggedIn.getCurrentUserName(), txtSongID9.getText());
 				frame.setVisible(true);
 				dispose();
 			}
@@ -857,7 +857,7 @@ public class DiscoverScreen extends JFrame {
 		btnView10 = new JButton("View");
 		btnView10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ViewSongScreen frame = new ViewSongScreen(currentUserID, currentUserName, txtSongID10.getText());
+				ViewSongScreen frame = new ViewSongScreen(currentLoggedIn.getCurrentUserID(), currentLoggedIn.getCurrentUserName(), txtSongID10.getText());
 				frame.setVisible(true);
 				dispose();
 			}

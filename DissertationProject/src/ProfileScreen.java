@@ -32,7 +32,7 @@ public class ProfileScreen extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ProfileScreen(String currentUserID, String currentUserName) {
+	public ProfileScreen(LoggedIn currentLoggedIn) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 661, 638);
 		contentPane = new JPanel();
@@ -44,7 +44,7 @@ public class ProfileScreen extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				AccountScreen frame = new AccountScreen(currentUserID,currentUserName);
+				AccountScreen frame = new AccountScreen(currentLoggedIn);
 				frame.setVisible(true);
 				dispose();
 			}
@@ -56,7 +56,7 @@ public class ProfileScreen extends JFrame {
 		btnMyProfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				MyProfileScreen frame = new MyProfileScreen(currentUserID, currentUserName);
+				MyProfileScreen frame = new MyProfileScreen(currentLoggedIn);
 				frame.setVisible(true);
 				dispose();
 				
@@ -69,13 +69,24 @@ public class ProfileScreen extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				MainScreen gui = new MainScreen(currentUserID, currentUserName);
+				MainScreen gui = new MainScreen(currentLoggedIn);
 				gui.setVisible(true);
 				dispose();
 			}
 		});
 		btnBack.setBounds(267, 395, 89, 23);
 		contentPane.add(btnBack);
+		
+		JButton btnLogOut = new JButton("Log Out");
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LoginScreen gui = new LoginScreen();
+				gui.setVisible(true);
+				dispose();
+			}
+		});
+		btnLogOut.setBounds(267, 284, 89, 23);
+		contentPane.add(btnLogOut);
 	}
 
 }
