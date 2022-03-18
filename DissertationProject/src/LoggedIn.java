@@ -24,7 +24,7 @@ public String getCurrentUserID() {
 	
 }
 
-public void getCurrentUserID(String currentUserID) {
+public void setCurrentUserID(String currentUserID) {
 	
 	this.currentUserID = currentUserID;
 	
@@ -38,7 +38,7 @@ public String getCurrentUserName() {
 	
 }
 
-public void getCurrentUserName(String currentUserName) {
+public void setCurrentUserName(String currentUserName) {
 	
 	this.currentUserName = currentUserName;
 	

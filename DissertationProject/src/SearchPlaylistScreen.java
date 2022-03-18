@@ -23,10 +23,12 @@ public class SearchPlaylistScreen extends JFrame {
 	private JTextField txtSearch;
 	private JTextField txtUserID1;
 	private JTextField txtUserID2;
+	private JButton btnMainmenu;
 
 	/**
 	 * Launch the application.
 	 */
+	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -39,11 +41,12 @@ public class SearchPlaylistScreen extends JFrame {
 			}
 		});
 	}
+	*/
 
 	/**
 	 * Create the frame.
 	 */
-	public SearchPlaylistScreen() {
+	public SearchPlaylistScreen(LoggedIn currentLoggedIn) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 831, 604);
 		contentPane = new JPanel();
@@ -199,5 +202,17 @@ public class SearchPlaylistScreen extends JFrame {
 		txtUserID2.setBounds(414, 227, 96, 20);
 		contentPane.add(txtUserID2);
 		txtUserID2.setColumns(10);
+		
+		btnMainmenu = new JButton("Main Menu");
+		btnMainmenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				MainScreen gui = new MainScreen(currentLoggedIn);
+				gui.setVisible(true);
+				dispose();
+			}
+		});
+		btnMainmenu.setBounds(103, 453, 89, 23);
+		contentPane.add(btnMainmenu);
 	}
 }

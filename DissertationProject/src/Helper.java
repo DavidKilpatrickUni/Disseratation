@@ -2,7 +2,10 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -75,6 +78,19 @@ public class Helper {
 	return formattedDate;
 	}
 	
+	
+	public static String changeLocalDateFormat(LocalDate localDate) {
+		
+		
+		
+
+		DateTimeFormatter myPattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String formattedDate = localDate.format(myPattern);
+
+		return formattedDate;
+	}
+	
+	
 	public static String dateForDatabase(String date) {
 		
 		
@@ -84,6 +100,64 @@ public class Helper {
 	return replaceString;
 	}
 	
+	public static boolean compareDates(Date date){
+		
+		
+		Date currentDate = new Date();
+		String pattern ="yyyy-MM-dd";
+		int compareDates;
+		
+		
+		SimpleDateFormat formatter = new SimpleDateFormat(pattern,Locale.ENGLISH);
+		
+		try {
+		
+		Date formattedDate = formatter.parse(Helper.changeDateFormat(date));
+		Date formattedCurrentDate = formatter.parse(Helper.changeDateFormat(currentDate));
+		
+		compareDates = formattedCurrentDate.compareTo(formattedDate);
+		System.out.println( "compare Dates: " +compareDates);
+	
+		if (compareDates  < 0 ) {
+			System.out.println( "date in future \n");
+			
+			return true;
+		}
+		
+		
+		else
+		{
+			System.out.println( "date in past \n");
+			return false;
+		}
+		}
+		catch(Exception e)
+		{	
+			
+		}
+		return false;
+	
+	}
+	
+	public static boolean regexSQLInjection(String text)  {
+		
+		System.out.print(text+"\n");
+		String regex = "(?=.*[='])";
+                
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(text);
+		boolean matchFound = matcher.find();
+		
+		if (matchFound)
+		{
+			return true;
+		}
+		else
+		{
+
+			return false;
+		}
+	}
 
 
 

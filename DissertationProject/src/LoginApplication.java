@@ -79,7 +79,7 @@ public static ResultSet attemptLogin(String userName, String password) {
 								
 								MainScreen mainScreen = new MainScreen(currentLoggedIn);
 								mainScreen.setVisible(true);
-								loginScreen.setVisible(false);
+								loginScreen.dispose();
 							}
 						
 							else

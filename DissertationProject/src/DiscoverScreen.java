@@ -117,6 +117,7 @@ public class DiscoverScreen extends JFrame {
 
 	
 	private JComboBox comboBox;
+	private JButton btnMainMenu;
 	/**
 	 * Launch the application.
 	 */
@@ -945,6 +946,18 @@ comboBox.setMaximumRowCount(4);
 		});
 		comboBox.setBounds(69, 91, 127, 23);
 		contentPane.add(comboBox);
+		
+		btnMainMenu = new JButton("MainMenu");
+		btnMainMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				MainScreen gui = new MainScreen(currentLoggedIn);
+				gui.setVisible(true);
+				dispose();
+			}
+		});
+		btnMainMenu.setBounds(69, 513, 89, 23);
+		contentPane.add(btnMainMenu);
 	}
 	
 	

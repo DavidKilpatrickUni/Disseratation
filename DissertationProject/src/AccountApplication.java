@@ -14,6 +14,8 @@ public class AccountApplication {
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
 			Statement statement = conn.createStatement();																
 			String query = "SELECT * FROM Accounts where UserID = '" + userID  + "'";	
+			
+			//AES_DECRYPT(AES_ENCRYPT('ABC', 'key_string'), 'key_string'); 
 			System.out.println(query);
 			ResultSet results = statement.executeQuery(query);															
 			System.out.println("this here " + results);
@@ -26,19 +28,40 @@ public class AccountApplication {
 		{	
 			System.err.println("Could not load driver");
 			System.err.println(cnf.getMessage());
-			System.exit(-1);	
+			
 		}
 		
 		catch (SQLException sqe)
 		{
 			System.out.println("Error performing SQL Query");
 			System.out.println(sqe.getMessage());
-			System.exit(-1);
+	
 		}
 		
 		return null;	
 	}
 		
+	public static void checkValidFirstname(String name) throws CustomException {
+		
+		if (Helper.checkBlank(name) |  Helper.regexSQLInjection(name)   )
+		{
+			System.out.println("firstname error");
+			throw new CustomException("Valid First Name Input Required", "firstname");
+			//return "firstname";
+		}
+		
+	}
+	
+	public static void checkValidSurname(String name) throws CustomException {
+		
+		if (Helper.checkBlank(name) |  Helper.regexSQLInjection(name)   )
+		{
+			System.out.println("surname error");
+			throw new CustomException("Valid Surname Input Required", "surname");
+			//return "firstname";
+		}
+		
+	}
 			
 }
 	

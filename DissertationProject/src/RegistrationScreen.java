@@ -200,8 +200,7 @@ public class RegistrationScreen extends JFrame {
 				try {
 					
 					if(RegistrationApplication.checkRegistrationForm(txtFirstName.getText(), 
-								txtSurname.
-								getText(), 
+								txtSurname.getText(), 
 								myIdentity, 
 								dateChooser.getDate(),
 								txtUserName.getText(), 
@@ -212,13 +211,33 @@ public class RegistrationScreen extends JFrame {
 					{
 						try
 						{
-						MySQLQueries.createAccount(txtFirstName.getText().strip(), 
-								txtSurname.getText().strip(), 									
-								Helper.dateForDatabase(Helper.changeDateFormat(dateChooser.getDate())) ,
-								myIdentity.strip(),
-								txtUserName.getText().strip(), 				
-								passwordFieldPass.getText().strip(),
-								txtEmail.getText().strip());
+							
+						String sentCode;
+						String confirmCode;
+						
+						
+						sentCode = EmailServices.randomConfirmCode();
+						confirmCode = (JOptionPane.showInputDialog("Enter Confrim Code"));
+						
+						System.out.println(confirmCode);
+						System.out.println(sentCode);
+						
+							if (confirmCode.toString().contentEquals(sentCode)) {	
+							
+								MySQLQueries.createAccount(txtFirstName.getText().strip(), 
+										txtSurname.getText().strip(), 									
+										Helper.dateForDatabase(Helper.changeDateFormat(dateChooser.getDate())) ,
+										myIdentity.strip(),
+										txtUserName.getText().strip(), 				
+										passwordFieldPass.getText().strip(),
+										txtEmail.getText().strip());
+						
+								JOptionPane.showMessageDialog(null, "Successfully Created An Elenco Account", "Elenco - New Account Created", JOptionPane.INFORMATION_MESSAGE,null);
+						
+								LoginScreen mainScreen = new LoginScreen();
+								mainScreen.setVisible(true);
+								dispose();
+							}
 						}
 						catch (CustomException SQLError)
 						{
@@ -442,6 +461,32 @@ public class RegistrationScreen extends JFrame {
 		btnExit.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnExit.setBounds(212, 600, 100, 25);
 		contentPane.add(btnExit);
+		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String sentCode;
+				String confirmCode;
+				
+				
+				sentCode = EmailServices.randomConfirmCode();
+				
+				EmailServices.confirmEmail(sentCode);
+				
+				confirmCode = (JOptionPane.showInputDialog("Enter Confrim Code"));
+				
+				System.out.println(confirmCode);
+				System.out.println(sentCode);
+				
+				if(sentCode.equals(confirmCode)) {
+					System.out.println("Codes Match");
+				}
+				
+			}
+		});
+		btnNewButton.setBounds(358, 516, 89, 23);
+		contentPane.add(btnNewButton);
 
 		
 	

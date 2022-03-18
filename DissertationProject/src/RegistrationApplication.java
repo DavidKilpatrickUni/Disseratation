@@ -25,13 +25,13 @@ public class RegistrationApplication {
 		
 		System.out.println(date);
 		
-		if (Helper.checkBlank(firstname) || regexSQLInjection(firstname) )
+		if (Helper.checkBlank(firstname) ||  Helper.regexSQLInjection(firstname) )
 		{
 			System.out.println("firstname error");
 			throw new CustomException("Valid First Name Input Required", "firstname");
 			//return "firstname";
 		}
-		if (Helper.checkBlank(surname) || regexSQLInjection(surname))
+		if (Helper.checkBlank(surname) ||  Helper.regexSQLInjection(surname))
 		{
 			System.out.println("lastname error");
 			throw new CustomException("Valid Surname Input Required", "surname");
@@ -43,31 +43,31 @@ public class RegistrationApplication {
 			throw new CustomException("Valid Identity Input Required", "identity");
 			//return "username";
 		}
-		if (Helper.checkBlankDate(date)  ||  compareDates(date) || checkAge(date))
+		if (Helper.checkBlankDate(date)  ||  Helper.compareDates(date) || checkAge(date))
 		{
 			System.out.println("date error");
 			throw new CustomException("Valid Date Input Required", "DOB");
 			//return "username";
 		}
-		if (Helper.checkBlank(username) ||  regexSQLInjection(username))
+		if (Helper.checkBlank(username) ||   Helper.regexSQLInjection(username))
 		{
 			System.out.println("username error");
 			throw new CustomException("Valid User Input Required", "username");
 			//return "username";
 		}
-		if (Helper.checkBlank(email) || !regexEmail(email) || regexSQLInjection(email))
+		if (Helper.checkBlank(email) || !regexEmail(email) ||  Helper.regexSQLInjection(email))
 		{
 			System.out.println("email error");
 			throw new CustomException("Valid Email Address Input Required", "email");
 			//return "email";
 		}
-		if (Helper.checkBlank(password) || !regexPassword(password) || regexSQLInjection(password))
+		if (Helper.checkBlank(password) || !regexPassword(password) ||  Helper.regexSQLInjection(password))
 		{
 			System.out.println("password error");
 			throw new CustomException("Valid Password Input Required", "password");
 			//return "password";
 		}
-		if (Helper.checkBlank(confirm) || regexSQLInjection(confirm) || !comparePassword(password, confirm))
+		if (Helper.checkBlank(confirm) || Helper.regexSQLInjection(confirm) || !comparePassword(password, confirm))
 		{
 			System.out.println("confirm password error");
 			throw new CustomException("Passwords Dont Match", "confirm");
@@ -114,25 +114,7 @@ public class RegistrationApplication {
 		}
 	}
 	
-	public static boolean regexSQLInjection(String text)  {
-		
-		System.out.print(text+"\n");
-		String regex = "(?=.*[='])";
-                
-		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(text);
-		boolean matchFound = matcher.find();
-		
-		if (matchFound)
-		{
-			return true;
-		}
-		else
-		{
 
-			return false;
-		}
-	}
 	
 	public static boolean regexEmail(String text)  {
 		
@@ -177,44 +159,7 @@ public class RegistrationApplication {
 		
 	}
 	
-public static boolean compareDates(Date date){
-		
-		
-		Date currentDate = new Date();
-		String pattern ="yyyy-MM-dd";
-		int compareDates;
-		
-		
-		SimpleDateFormat formatter = new SimpleDateFormat(pattern,Locale.ENGLISH);
-		
-		try {
-		
-		Date formattedDate = formatter.parse(Helper.changeDateFormat(date));
-		Date formattedCurrentDate = formatter.parse(Helper.changeDateFormat(currentDate));
-		
-		compareDates = formattedCurrentDate.compareTo(formattedDate);
-		System.out.println( "compare Dates: " +compareDates);
-	
-		if (compareDates  < 0 ) {
-			System.out.println( "date in future \n");
-			
-			return true;
-		}
-		
-		
-		else
-		{
-			System.out.println( "date in past \n");
-			return false;
-		}
-		}
-		catch(Exception e)
-		{	
-			
-		}
-		return false;
-	
-	}
+
 	
 	
 	

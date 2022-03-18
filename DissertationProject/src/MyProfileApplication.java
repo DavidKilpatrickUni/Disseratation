@@ -6,7 +6,7 @@ import java.sql.Statement;
 
 public class MyProfileApplication {
 
-	
+	/*
 	public static ResultSet getProfileDetail(String userID) {
 		
 		try
@@ -80,6 +80,22 @@ public static void updateGenre(String userID, String genre1, String genre2, Stri
 		
 	
 }
+*/
+	
+	
+public static void checkValidUsername(String username) throws CustomException {
+	
+	if (Helper.checkBlank(username) |  Helper.regexSQLInjection(username)   )
+	{
+		System.out.println("username error");
+		throw new CustomException("Valid Username Input Required", "username");
+		//return "firstname";
+	}
+	
+}
+
+
+
 }
 	
 	

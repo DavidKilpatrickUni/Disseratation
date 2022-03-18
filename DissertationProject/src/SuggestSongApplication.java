@@ -10,38 +10,118 @@ import java.util.Date;
 
 public class SuggestSongApplication {
 	
-	public static void suggestSong(String title, String artist, String genre, int rating, String songLength, String released, String album, String songInfo) {
+	public static String checkSuggestionForm(String title, String artist, String genre, int comboMin, int comboSec,  Date released, String album, String songInfo, int rating) throws CustomException {
 		
-		String uploaded = changeDateFormat(LocalDate.now());
-		//uploaded = dateForDatabase(uploaded);
 		
-		try 
+		
+		if (Helper.checkBlank(title)  )
 		{
-			Class.forName("com.mysql.cj.jdbc.Driver");																	// Set up java driver for working with mysql
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	// Connect to certain database 'DE-Store'. User: root. Password: 
-			Statement statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);		// Create query statement connection with database
-	
-			String query = "Insert Into songs VALUES (NULL ,'" + title +  "','" + artist + "','" + genre + "','" + rating + "','" + songLength + "','" + released + "','" + album + "','" + songInfo + "','" + uploaded + "','" + 1 + "')";		
-		
-			
-			
-			statement.executeUpdate(query);															// Return the results of query to this variable. ResultSet is special variable type for databases
-		
-		
-			statement.close();										// Close statement connection to database
-			conn.close();											// Close connection to database
-			
-		} catch (ClassNotFoundException cnf) {
-			System.err.println("Could not load driver");
-			System.err.println(cnf.getMessage());
-			System.exit(-1);
-		
-		} catch (SQLException sqe) {
-			System.err.println("Error in SQL Update");
-			System.err.println(sqe.getMessage());
-			System.exit(-1);
+			System.out.println("title error");
+			throw new CustomException("Valid Title Input Required", "title");
+			//return "firstname";
 		}
+		if (Helper.checkBlank(artist) )
+		{
+			System.out.println("artist error");
+			throw new CustomException("Valid Artist Input Required", "artist");
+			//return "surname";
+		}
+		if (Helper.checkBlank(genre) )
+		{
+			System.out.println("genre error");
+			throw new CustomException("Valid Genre Input Required", "genre");
+			//return "surname";
+		}
+		
+		if (checkSongLength(comboMin, comboSec) )
+		{
+			System.out.println("songLength error");
+			throw new CustomException("Valid SongLength Input Required", "songLength");
+		}
+		
+		if (Helper.checkBlankDate(released)  ||  Helper.compareDates(released) )
+		{
+			System.out.println("released error");
+			throw new CustomException("Valid Release Date Input Required", "released");
+			//return "username";
+		}
+		if (Helper.checkBlank(album))
+		{
+			System.out.println("album error");
+			throw new CustomException("Valid Album Input Required", "album");
+			//return "username";
+		}
+		if (Helper.checkBlank(songInfo))
+		{
+			System.out.println("songInfo error");
+			throw new CustomException("Valid SongInfo Input Required", "songInfo");
+			//return "username";
+		}
+		if (checkRating(rating))
+		{
+			System.out.println("rating error");
+			throw new CustomException("Valid Rating Input Required - Rating Between 1 And 5", "rating");
+			//return "username";
+		}
+	
+
+		return "continue";
+	
 	}
+	
+	
+	
+public static boolean checkSongLength(int comboMin, int comboSec){
+		
+	if (comboMin == 0 | comboSec == 0 | comboMin == 1 & comboSec == 1  ) 
+	{																											
+		
+
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+	
+	
+	}
+	
+	
+public static boolean checkRating(int sliderValue){
+	
+	if (sliderValue == 0 ) 
+	{																											
+		
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+	
+	
+	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 	
 public static boolean checkBlank(String text) {
 		
