@@ -61,7 +61,7 @@ public class RegistrationApplication {
 			throw new CustomException("Valid Email Address Input Required", "email");
 			//return "email";
 		}
-		if (Helper.checkBlank(password) || !regexPassword(password) ||  Helper.regexSQLInjection(password))
+		if (Helper.checkBlank(password) || !Helper.regexPassword(password) ||  Helper.regexSQLInjection(password))
 		{
 			System.out.println("password error");
 			throw new CustomException("Valid Password Input Required", "password");
@@ -92,27 +92,7 @@ public class RegistrationApplication {
 	}
 	
 	
-	public static boolean regexPassword(String text) {
-		
-		System.out.print(text+"\n");
-		String regex = "^(?=.*[0-9])"
-                + "(?=.*[A-Z])"
-                + "(?=.*[@#£$%^&+?!])"
-                + "(?=\\S+$).{8,20}$";
-		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(text);
-		boolean matchFound = matcher.find();
-		
-		if (matchFound)
-		{
-			return true;
-		}
-		else
-		{
-		
-			return false;
-		}
-	}
+	
 	
 
 	

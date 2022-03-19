@@ -63,7 +63,7 @@ public class EmailServices {
 	 
 	// Method for setting up connection between 'client' and Email 'server' and allowing them to communicate through messages.
 	
-	public static void confirmEmail(String confirmCode){
+	public static void confirmEmail(String confirmEmail){
 		
 		try
 		{
@@ -76,7 +76,7 @@ public class EmailServices {
 	        OutputStream outputStream = sock.getOutputStream();																// Create an output stream to the socket location
 	        DataOutputStream dataOutputStream = new DataOutputStream(outputStream);											// Create an output data stream	
 			
-	        dataOutputStream.writeUTF(confirmCode);																		// Create message to be sent to 'server'
+	        dataOutputStream.writeUTF(confirmEmail);																		// Create message to be sent to 'server'
 	        dataOutputStream.flush();																						// Send message 	
 
 			DataInputStream network = new DataInputStream(sock.getInputStream());											// Create input stream to receive message from 'server'

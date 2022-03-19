@@ -468,13 +468,15 @@ public class RegistrationScreen extends JFrame {
 				
 				String sentCode;
 				String confirmCode;
-				
+				String confirmEmail;
 				
 				sentCode = EmailServices.randomConfirmCode();
 				
-				EmailServices.confirmEmail(sentCode);
+				confirmEmail =  sentCode + txtEmail.getText().strip();
 				
-				confirmCode = (JOptionPane.showInputDialog("Enter Confrim Code"));
+				EmailServices.confirmEmail(confirmEmail);
+				
+				confirmCode = (JOptionPane.showInputDialog("An Email Has Been Sent To The Address Provided With A 5-Digit Confirm Code - Enter The Code "));
 				
 				System.out.println(confirmCode);
 				System.out.println(sentCode);

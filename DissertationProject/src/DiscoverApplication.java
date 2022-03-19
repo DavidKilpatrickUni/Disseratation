@@ -6,18 +6,18 @@ import java.sql.Statement;
 
 public class DiscoverApplication {
 
-	public static ResultSet search(String search, Object criteria, Object sort, String sortType) {
+	public static ResultSet search(Object search, Object criteria, Object sort, String sortType, int offset, int count) {
 		
 		
-		if(checkBlank(search) == true)
+		if(search == null || search.equals(""))
 		{
 			try
 			{
 				Class.forName("com.mysql.cj.jdbc.Driver");																	
 				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
 				Statement statement = conn.createStatement();
-				System.out.println("SELECT * FROM songs ORDER BY " + sort + " " + sortType+ ", " + criteria +  " " + sortType);	
-				String query = "SELECT * FROM songs ORDER BY " + sort + " " + sortType + ", " + criteria + " " + sortType;		
+				System.out.println("SELECT * FROM songs ORDER BY " + criteria  + " " + sortType+ ", " + sort+  " " + sortType + " LIMIT " + offset + "," + count +";");	
+				String query = "SELECT * FROM songs ORDER BY " + criteria + " " + sortType + ", " + sort + " " + sortType + " LIMIT " + offset + "," + count +";";		
 				
 				//System.out.println("SELECT songs.*, ratings.* FROM songs inner join ratings on songs.songID = ratings.songID GROUP BY songs.songID ORDER BY " + sort + " " + sortType );	
 				//String query = "SELECT songs.*, ratings.* FROM songs inner join ratings on songs.songID = ratings.songID GROUP BY songs.songID ORDER BY " + sort + " " + sortType;
@@ -56,8 +56,8 @@ public class DiscoverApplication {
 				Class.forName("com.mysql.cj.jdbc.Driver");																	
 				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
 				Statement statement = conn.createStatement();
-				System.out.println("SELECT * FROM songs where " + criteria + "='" + search + "'" + "ORDER BY " + sort + " " + sortType + "" );	
-				String query = "SELECT * FROM songs where " + criteria + "='" + search + "'" + "ORDER BY " + sort + " " + sortType + "";	
+				System.out.println("SELECT * FROM songs where " + criteria + "='" + search + "'" + "ORDER BY " + sort + " " + sortType + " LIMIT " + offset + "," + count +";");	
+				String query = "SELECT * FROM songs where " + criteria + "='" + search + "'" + "ORDER BY " + sort + " " + sortType  + " LIMIT " + offset + "," + count +";";	
 				System.out.println(query);
 				ResultSet results = statement.executeQuery(query);															
 				System.out.println("this here " + results);
@@ -90,15 +90,10 @@ public class DiscoverApplication {
 	}
 	
 	
-	public static boolean checkBlank(String text) {
-		
-		if (text.strip().isBlank())
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+
+	
+	
+
+	
 }
+

@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
@@ -133,8 +134,19 @@ public class SuggestSongScreen extends JFrame {
 										comboBoxMins.getSelectedItem() + ":" + comboBoxSecs.getSelectedItem() ,
 										Helper.dateForDatabase(Helper.changeDateFormat(dateChooser.getDate())),
 										txtAlbum.getText().strip(),
-										txtSongInfo.getText().strip(),
+										"Song Info: " + txtSongInfo.getText().strip(),
 										slider.getValue());
+								
+								ResultSet getSongID = MySQLQueries.getSongIDOfSuggestSong();
+								
+								String currentSongID = null;
+								
+								getSongID.last(); 
+									
+								currentSongID = getSongID.getString("SongID");
+									
+							
+								ViewSongApplication.createRating(currentSongID,currentLoggedIn.getCurrentUserID(),String.valueOf(slider.getValue()));
 							}
 							else {
 								JOptionPane.showMessageDialog(null,"Song Already Suggested - Try The Discover Feature To Find This Song", "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);

@@ -41,9 +41,9 @@ public class AccountApplication {
 		return null;	
 	}
 		
-	public static void checkValidFirstname(String name) throws CustomException {
+	public static void checkValidFirstname(String firstname) throws CustomException {
 		
-		if (Helper.checkBlank(name) |  Helper.regexSQLInjection(name)   )
+		if (Helper.checkBlank(firstname) |  Helper.regexSQLInjection(firstname)   )
 		{
 			System.out.println("firstname error");
 			throw new CustomException("Valid First Name Input Required", "firstname");
@@ -52,12 +52,23 @@ public class AccountApplication {
 		
 	}
 	
-	public static void checkValidSurname(String name) throws CustomException {
+	public static void checkValidSurname(String surname) throws CustomException {
 		
-		if (Helper.checkBlank(name) |  Helper.regexSQLInjection(name)   )
+		if (Helper.checkBlank(surname) |  Helper.regexSQLInjection(surname)   )
 		{
 			System.out.println("surname error");
 			throw new CustomException("Valid Surname Input Required", "surname");
+			//return "firstname";
+		}
+		
+	}
+	
+	public static void checkValidPassword(String password) throws CustomException {
+		
+		if  (Helper.checkBlank(password) || !Helper.regexPassword(password) ||  Helper.regexSQLInjection(password))
+		{
+			System.out.println("password error");
+			throw new CustomException("Valid Password Input Required", "password");
 			//return "firstname";
 		}
 		

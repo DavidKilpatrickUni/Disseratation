@@ -205,12 +205,23 @@ public class AccountScreen extends JFrame {
 				if (select == JOptionPane.YES_OPTION) {
 				try {
 					
-					AccountApplication.checkValidFirstname(txtFirstname.getText().strip());
+					AccountApplication.checkValidPassword(passwordField.getText().strip());
 					
 					
 					try 
 					{
-						MySQLQueries.updateFirstname(currentLoggedIn.getCurrentUserID(), txtFirstname.getText().strip());
+						
+						String confirmPassword;
+						confirmPassword = (JOptionPane.showInputDialog("Retype New Password To Confirm"));
+						
+						if(confirmPassword.equals(passwordField.getText().strip()))
+						{
+						MySQLQueries.updatePassword(currentLoggedIn.getCurrentUserID(), passwordField.getText().strip());
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(null, "Confirm Code Doesnt Match - Change Of Password Unsuccessful" , "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+						}
 					
 					} catch (CustomException error) {
 					
@@ -351,7 +362,10 @@ public class AccountScreen extends JFrame {
 					
 					try 
 					{
+						
+						
 						MySQLQueries.updateSurname(currentLoggedIn.getCurrentUserID(), txtSurname.getText().strip());
+						
 					
 					} catch (CustomException error) {
 					

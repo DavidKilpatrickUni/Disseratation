@@ -158,6 +158,28 @@ public class Helper {
 			return false;
 		}
 	}
+	
+public static boolean regexPassword(String text) {
+		
+		System.out.print(text+"\n");
+		String regex = "^(?=.*[0-9])"
+                + "(?=.*[A-Z])"
+                + "(?=.*[@#£$%^&+?!])"
+                + "(?=\\S+$).{8,20}$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(text);
+		boolean matchFound = matcher.find();
+		
+		if (matchFound)
+		{
+			return true;
+		}
+		else
+		{
+		
+			return false;
+		}
+	}
 
 
 

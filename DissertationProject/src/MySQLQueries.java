@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 public class MySQLQueries {
 
 	
-	public static ResultSet attemptLogin(String username, String password) {
+	public static ResultSet attemptLogin(String username, String password) throws CustomException {
 		
 		String decrypt = MyEncryption.getEncryptionKey();
 		
@@ -52,11 +52,26 @@ public class MySQLQueries {
 
 		}
 		
-		catch (SQLException sqe)
+		catch (SQLException sqlException)
 		{
 			System.out.println("Error performing SQL Query");
-			System.out.println(sqe.getMessage());
+			System.out.println(sqlException.getMessage());
 		
+			if (sqlException.getMessage().substring(0,16).contains("Duplicate entry") & sqlException.getMessage().contains("UserName"))
+			{
+				throw new CustomException("Username Already Taken", "sql");
+				//JOptionPane.showMessageDialog(null, "Username Already Taken", "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);	
+		
+			}
+			else if(sqlException.getMessage().substring(0,16).contains("Duplicate entry") & sqlException.getMessage().contains("Email"))
+			{
+				throw new CustomException("Email Already In Use", "sql");
+				//JOptionPane.showMessageDialog(null, "Email Already In Use", "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);	
+			}
+			else 
+			{
+				throw new CustomException("Database Connection/SQL Query Issue", "sql");
+			}
 		}
 		
 		return null;	
@@ -211,7 +226,7 @@ public class MySQLQueries {
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	// Connect to certain database 'DE-Store'. User: root. Password: 
 			Statement statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);		// Create query statement connection with database
 	
-			String query = "Insert Into songs VALUES (NULL ,'" + title +  "','" + artist + "','" + genre + "','" + songLength + "','" + released + "','" + album + "','" + songInfo + "','" + uploaded + "','" + rating + "','" + 1 + "')";		
+			String query = "Insert Into songs VALUES (NULL ,'" + title +  "','" + artist + "','" + genre + "','" + songLength + "','" + released + "','" + album + "','" + songInfo + "','" + uploaded + "', FORMAT ('" + rating + "',2),'" + 1 + "')";		
 		
 			
 			
@@ -248,6 +263,69 @@ public class MySQLQueries {
 			}
 		}
 	}
+	
+	public static ResultSet getSongIDOfSuggestSong() throws CustomException {
+		
+	
+		
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");																	
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
+			//Statement statement = conn.createStatement();				
+			
+			//String query = "SELECT * FROM Accounts where UserName = '" + userName + "' AND Password = '" + password + "'";
+			
+			String query = "SELECT SongID FROM Songs ";
+			//System.out.println(query);
+			
+			
+			PreparedStatement stmt = conn.prepareStatement(query,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+		
+			
+			
+			System.out.println("prepared: " + stmt);
+			
+			ResultSet results = stmt.executeQuery();															
+			//System.out.println("this here " + results);
+			
+			
+		
+			return results;
+	
+		}
+		catch (ClassNotFoundException cnf)
+		{	
+			System.err.println("Could not load driver");
+			System.err.println(cnf.getMessage());
+	
+		}
+		
+		catch (SQLException sqlException)
+		{
+			System.out.println("Error performing SQL Query");
+			System.out.println(sqlException.getMessage());
+			
+			if (sqlException.getMessage().substring(0,16).contains("Duplicate entry") & sqlException.getMessage().contains("UserName"))
+			{
+				throw new CustomException("Username Already Taken", "sql");
+			//JOptionPane.showMessageDialog(null, "Username Already Taken", "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);	
+	
+			}
+			else if(sqlException.getMessage().substring(0,16).contains("Duplicate entry") & sqlException.getMessage().contains("Email"))
+			{
+				throw new CustomException("Email Already In Use", "sql");
+				//JOptionPane.showMessageDialog(null, "Email Already In Use", "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);	
+			}
+			else 
+			{
+				throw new CustomException("Database Connection/SQL Query Issue", "sql");
+			}
+		
+		}
+		return null;
+	}
+	
 	
 	public static ResultSet getAccountsDetail(String currentUserID) {
 		
@@ -689,7 +767,7 @@ public static void updateSurname(String currentUserID, String surname) throws Cu
 			
 	}
 	
-public static void updateIdentity(String currentUserID, String object) throws CustomException {
+public static void updateIdentity(String currentUserID, String identity) throws CustomException {
 	
 	try
 	{
@@ -717,7 +795,7 @@ String query = "SELECT * FROM Accounts WHERE UserID = ?";
 	if (results.next()) 
 		{
 		results.first();
-		results.updateString("Identity", object);
+		results.updateString("Identity", identity);
 
 		
 		results.updateRow();
@@ -760,6 +838,67 @@ String query = "SELECT * FROM Accounts WHERE UserID = ?";
 		
 }
 	
+public static void updatePassword(String currentUserID, String password) throws CustomException {
+	
+	String decrypt = MyEncryption.getEncryptionKey();
+	
+	try
+	{
+	Class.forName("com.mysql.cj.jdbc.Driver");																	
+	Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
+	//Statement statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);		
+	
+	
+	
+	//String query = "SELECT * FROM Accounts WHERE UserID = '"+ userID + "'";									
+	//ResultSet results = statement.executeQuery(query);	
+	
+//String query = "SELECT *,  AES_DECRYPT(Password,encrypt)  FROM Accounts WHERE UserID = ?";
+	String query = "UPDATE Accounts Set Password = AES_ENCRYPT(?,?) WHERE UserID = ?";
+	
+	PreparedStatement stmt = conn.prepareStatement(query,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+	
+	stmt.setString(1, password);
+	stmt.setString(2, decrypt);
+	stmt.setString(3, currentUserID);
+
+	
+	System.out.println("prepared: " + stmt);
+	
+	stmt.executeUpdate();
+
+	stmt.close();
+		//statement.close();										// Close statement connection to database
+		conn.close();											// Close connection to database
+		
+	} catch (ClassNotFoundException cnf) {
+		System.err.println("Could not load driver");
+		System.err.println(cnf.getMessage());
+
+
+	} catch (SQLException sqlException) {
+		System.err.println("Error in SQL Update");
+		System.err.println(sqlException.getMessage());
+		
+		if (sqlException.getMessage().substring(0,16).contains("Duplicate entry") & sqlException.getMessage().contains("UserName"))
+		{
+			throw new CustomException("Username Already Taken", "sql");
+			//JOptionPane.showMessageDialog(null, "Username Already Taken", "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);	
+	
+		}
+		else if(sqlException.getMessage().substring(0,16).contains("Duplicate entry") & sqlException.getMessage().contains("Email"))
+		{
+			throw new CustomException("Email Already In Use", "sql");
+			//JOptionPane.showMessageDialog(null, "Email Already In Use", "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);	
+		}
+		else 
+		{
+			throw new CustomException("Database Connection/SQL Query Issue", "sql");
+		}
+
+	}
+		
+}
 	
 	
 }
