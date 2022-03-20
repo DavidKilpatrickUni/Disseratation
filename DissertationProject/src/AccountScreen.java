@@ -25,6 +25,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.border.MatteBorder;
 
 public class AccountScreen extends JFrame {
 
@@ -159,6 +160,7 @@ public class AccountScreen extends JFrame {
 		contentPane.add(btnBack);
 		
 		txtEmail = new JTextField();
+		txtEmail.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtEmail.setBounds(25, 300, 250, 25);
 		contentPane.add(txtEmail);
 		txtEmail.setColumns(10);
@@ -188,6 +190,7 @@ public class AccountScreen extends JFrame {
 		contentPane.add(lblFirstname);
 		
 		txtFirstname = new JTextField();
+		txtFirstname.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtFirstname.setBounds(25, 200, 250, 25);
 		contentPane.add(txtFirstname);
 		txtFirstname.setColumns(10);
@@ -312,6 +315,7 @@ public class AccountScreen extends JFrame {
 		contentPane.add(btnIdentity);
 		
 		txtDOB = new JTextField();
+		txtDOB.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtDOB.setBounds(25, 450, 250, 25);
 		contentPane.add(txtDOB);
 		txtDOB.setColumns(10);
@@ -323,6 +327,7 @@ public class AccountScreen extends JFrame {
 		contentPane.add(lblDOB);
 		
 		passwordField = new JPasswordField();
+		passwordField.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		passwordField.setBounds(25, 350, 250, 25);
 		contentPane.add(passwordField);
 		
@@ -341,6 +346,7 @@ public class AccountScreen extends JFrame {
 		contentPane.add(lblHeader);
 		
 		txtSurname = new JTextField();
+		txtSurname.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtSurname.setBounds(25, 250, 250, 25);
 		contentPane.add(txtSurname);
 		txtSurname.setColumns(10);
@@ -393,6 +399,7 @@ public class AccountScreen extends JFrame {
 		contentPane.add(lblSurname);
 		
 		comboBoxIdentity = new JComboBox();
+		comboBoxIdentity.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		comboBoxIdentity.setBackground(Color.WHITE);
 		comboBoxIdentity.setModel(new DefaultComboBoxModel(new String[] {"Male", "Female", "Non-binary"}));
 		comboBoxIdentity.setBounds(25, 400, 250, 25);

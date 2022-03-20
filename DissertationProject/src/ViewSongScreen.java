@@ -220,14 +220,12 @@ public class ViewSongScreen extends JFrame {
 		contentPane.setLayout(null);
 		
 		textFieldTitle = new JTextField();
-		textFieldTitle.setEditable(false);
 		textFieldTitle.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		textFieldTitle.setBounds(355, 120, 200, 25);
 		contentPane.add(textFieldTitle);
 		textFieldTitle.setColumns(10);
 		
 		textFieldArtist = new JTextField();
-		textFieldArtist.setEditable(false);
 		textFieldArtist.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		textFieldArtist.setBounds(355, 160, 200, 25);
 		contentPane.add(textFieldArtist);
@@ -246,7 +244,8 @@ public class ViewSongScreen extends JFrame {
 		contentPane.add(lblArtist);
 		
 		txtCommentCount = new JTextField();
-		txtCommentCount.setEditable(false);
+		txtCommentCount.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
+		txtCommentCount.setFont(new Font("Georgia", Font.PLAIN, 11));
 		txtCommentCount.setHorizontalAlignment(SwingConstants.CENTER);
 		txtCommentCount.setText("0");
 		txtCommentCount.setBounds(74, 360, 50, 25);
@@ -322,28 +321,24 @@ public class ViewSongScreen extends JFrame {
 		contentPane.add(lblReleased);
 		
 		txtLength = new JTextField();
-		txtLength.setEditable(false);
 		txtLength.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtLength.setBounds(680, 160, 100, 25);
 		contentPane.add(txtLength);
 		txtLength.setColumns(10);
 		
 		txtAlbum = new JTextField();
-		txtAlbum.setEditable(false);
 		txtAlbum.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtAlbum.setBounds(355, 200, 200, 25);
 		contentPane.add(txtAlbum);
 		txtAlbum.setColumns(10);
 		
 		txtGenre = new JTextField();
-		txtGenre.setEditable(false);
 		txtGenre.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtGenre.setBounds(680, 120, 100, 25);
 		contentPane.add(txtGenre);
 		txtGenre.setColumns(10);
 		
 		txtReleased = new JTextField();
-		txtReleased.setEditable(false);
 		txtReleased.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtReleased.setBounds(680, 200, 100, 25);
 		contentPane.add(txtReleased);
@@ -393,56 +388,49 @@ public class ViewSongScreen extends JFrame {
 		contentPane.add(lblLogo);
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+		panel.setBorder(null);
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(10, 393, 814, 184);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		txtUsername1 = new JTextField();
-		txtUsername1.setEditable(false);
 		txtUsername1.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtUsername1.setBounds(65, 10, 125, 25);
 		panel.add(txtUsername1);
 		txtUsername1.setColumns(10);
 		
 		txtUsername2 = new JTextField();
-		txtUsername2.setEditable(false);
 		txtUsername2.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtUsername2.setBounds(65, 45, 125, 25);
 		panel.add(txtUsername2);
 		txtUsername2.setColumns(10);
 		
 		txtUsername3 = new JTextField();
-		txtUsername3.setEditable(false);
 		txtUsername3.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtUsername3.setBounds(65, 80, 125, 25);
 		panel.add(txtUsername3);
 		txtUsername3.setColumns(10);
 		
 		txtUsername4 = new JTextField();
-		txtUsername4.setEditable(false);
 		txtUsername4.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtUsername4.setBounds(65, 115, 125, 25);
 		panel.add(txtUsername4);
 		txtUsername4.setColumns(10);
 		
 		txtUsername5 = new JTextField();
-		txtUsername5.setEditable(false);
 		txtUsername5.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtUsername5.setBounds(65, 150, 125, 25);
 		panel.add(txtUsername5);
 		txtUsername5.setColumns(10);
 		
 		txtComment1 = new JTextField();
-		txtComment1.setEditable(false);
 		txtComment1.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtComment1.setBounds(200, 10, 500, 25);
 		panel.add(txtComment1);
 		txtComment1.setColumns(10);
 		
 		txtComment2 = new JTextField();
-		txtComment2.setEditable(false);
 		txtComment2.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtComment2.setBounds(200, 45, 500, 25);
 		panel.add(txtComment2);
@@ -450,7 +438,6 @@ public class ViewSongScreen extends JFrame {
 		
 		txtPosted1 = new JTextField();
 		txtPosted1.setHorizontalAlignment(SwingConstants.CENTER);
-		txtPosted1.setEditable(false);
 		txtPosted1.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtPosted1.setBounds(708, 10, 100, 25);
 		panel.add(txtPosted1);
@@ -458,28 +445,24 @@ public class ViewSongScreen extends JFrame {
 		
 		txtPosted2 = new JTextField();
 		txtPosted2.setHorizontalAlignment(SwingConstants.CENTER);
-		txtPosted2.setEditable(false);
 		txtPosted2.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtPosted2.setBounds(708, 45, 100, 25);
 		panel.add(txtPosted2);
 		txtPosted2.setColumns(10);
 		
 		txtComment3 = new JTextField();
-		txtComment3.setEditable(false);
 		txtComment3.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtComment3.setColumns(10);
 		txtComment3.setBounds(200, 80, 500, 25);
 		panel.add(txtComment3);
 		
 		txtComment4 = new JTextField();
-		txtComment4.setEditable(false);
 		txtComment4.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtComment4.setColumns(10);
 		txtComment4.setBounds(200, 115, 500, 25);
 		panel.add(txtComment4);
 		
 		txtComment5 = new JTextField();
-		txtComment5.setEditable(false);
 		txtComment5.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtComment5.setColumns(10);
 		txtComment5.setBounds(200, 150, 500, 25);
@@ -487,7 +470,6 @@ public class ViewSongScreen extends JFrame {
 		
 		txtPosted3 = new JTextField();
 		txtPosted3.setHorizontalAlignment(SwingConstants.CENTER);
-		txtPosted3.setEditable(false);
 		txtPosted3.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtPosted3.setColumns(10);
 		txtPosted3.setBounds(708, 80, 100, 25);
@@ -495,7 +477,6 @@ public class ViewSongScreen extends JFrame {
 		
 		txtPosted4 = new JTextField();
 		txtPosted4.setHorizontalAlignment(SwingConstants.CENTER);
-		txtPosted4.setEditable(false);
 		txtPosted4.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtPosted4.setColumns(10);
 		txtPosted4.setBounds(708, 115, 100, 25);
@@ -503,7 +484,6 @@ public class ViewSongScreen extends JFrame {
 		
 		txtPosted5 = new JTextField();
 		txtPosted5.setHorizontalAlignment(SwingConstants.CENTER);
-		txtPosted5.setEditable(false);
 		txtPosted5.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtPosted5.setColumns(10);
 		txtPosted5.setBounds(708, 150, 100, 25);
@@ -660,9 +640,9 @@ public class ViewSongScreen extends JFrame {
 		contentPane.add(lblComment2);
 		
 		txtPage = new JTextField();
+		txtPage.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtPage.setFont(new Font("Georgia", Font.PLAIN, 11));
 		txtPage.setHorizontalAlignment(SwingConstants.CENTER);
-		txtPage.setEditable(false);
 		txtPage.setBounds(400, 590, 50, 25);
 		contentPane.add(txtPage);
 		txtPage.setColumns(10);

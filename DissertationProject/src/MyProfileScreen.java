@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
+import javax.swing.border.MatteBorder;
 
 public class MyProfileScreen extends JFrame {
 
@@ -33,6 +34,9 @@ public class MyProfileScreen extends JFrame {
 	private JButton btnArtist;
 	private JButton btnGenre;
 	private JButton btnBack;
+	private JLabel lblUserIcon;
+	private JTextField txtUserIcon;
+	private JButton btnChangeIcon;
 
 	/**
 	 * Launch the application.
@@ -127,7 +131,7 @@ public class MyProfileScreen extends JFrame {
 			}
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 601);
+		setBounds(100, 100, 500, 700);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -143,7 +147,7 @@ public class MyProfileScreen extends JFrame {
 		JLabel lblFavouriteArtists = new JLabel("Favourite Artist(s)");
 		lblFavouriteArtists.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFavouriteArtists.setFont(new Font("Georgia", Font.BOLD, 12));
-		lblFavouriteArtists.setBounds(25, 275, 200, 25);
+		lblFavouriteArtists.setBounds(25, 375, 200, 25);
 
 		lblFavouriteArtists.setForeground(new Color(90, 192, 217));
 		contentPane.add(lblFavouriteArtists);
@@ -151,50 +155,57 @@ public class MyProfileScreen extends JFrame {
 		JLabel lblFavouriteGenres = new JLabel("Favourite Genre(s)");
 		lblFavouriteGenres.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFavouriteGenres.setFont(new Font("Georgia", Font.BOLD, 12));
-		lblFavouriteGenres.setBounds(262, 275, 200, 25);
+		lblFavouriteGenres.setBounds(262, 375, 200, 25);
 		lblFavouriteGenres.setForeground(new Color(90, 192, 217));
 		contentPane.add(lblFavouriteGenres);
 		
 		txtUsername = new JTextField();
+		txtUsername.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtUsername.setBounds(150, 175, 275, 25);
 		contentPane.add(txtUsername);
 		txtUsername.setColumns(10);
 		
 		txtArtist1 = new JTextField();
+		txtArtist1.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtArtist1.setHorizontalAlignment(SwingConstants.CENTER);
-		txtArtist1.setBounds(25, 310, 200, 25);
+		txtArtist1.setBounds(25, 410, 200, 25);
 		contentPane.add(txtArtist1);
 		txtArtist1.setColumns(10);
 		
 		txtArtist2 = new JTextField();
+		txtArtist2.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtArtist2.setForeground(Color.BLACK);
 		txtArtist2.setHorizontalAlignment(SwingConstants.CENTER);
-		txtArtist2.setBounds(25, 350, 200, 25);
+		txtArtist2.setBounds(25, 450, 200, 25);
 		contentPane.add(txtArtist2);
 		txtArtist2.setColumns(10);
 		
 		txtArtist3 = new JTextField();
+		txtArtist3.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtArtist3.setHorizontalAlignment(SwingConstants.CENTER);
 		txtArtist3.setForeground(Color.BLACK);
-		txtArtist3.setBounds(25, 390, 200, 25);
+		txtArtist3.setBounds(25, 490, 200, 25);
 		contentPane.add(txtArtist3);
 		txtArtist3.setColumns(10);
 		
 		txtGenre1 = new JTextField();
+		txtGenre1.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtGenre1.setHorizontalAlignment(SwingConstants.CENTER);
-		txtGenre1.setBounds(262, 310, 200, 25);
+		txtGenre1.setBounds(262, 410, 200, 25);
 		contentPane.add(txtGenre1);
 		txtGenre1.setColumns(10);
 		
 		txtGenre2 = new JTextField();
+		txtGenre2.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtGenre2.setHorizontalAlignment(SwingConstants.CENTER);
-		txtGenre2.setBounds(262, 350, 200, 25);
+		txtGenre2.setBounds(262, 450, 200, 25);
 		contentPane.add(txtGenre2);
 		txtGenre2.setColumns(10);
 		
 		txtGenre3 = new JTextField();
+		txtGenre3.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtGenre3.setHorizontalAlignment(SwingConstants.CENTER);
-		txtGenre3.setBounds(262, 390, 200, 25);
+		txtGenre3.setBounds(262, 490, 200, 25);
 		contentPane.add(txtGenre3);
 		txtGenre3.setColumns(10);
 		
@@ -218,7 +229,7 @@ public class MyProfileScreen extends JFrame {
 			}
 		});
 		btnArtist.setFont(new Font("Georgia", Font.PLAIN, 11));
-		btnArtist.setBounds(50, 425, 150, 25);
+		btnArtist.setBounds(50, 525, 150, 25);
 		contentPane.add(btnArtist);
 		
 		btnGenre = new JButton("Change Genre(s)");
@@ -242,7 +253,7 @@ public class MyProfileScreen extends JFrame {
 				}
 			}
 		});
-		btnGenre.setBounds(287, 425, 150, 25);
+		btnGenre.setBounds(287, 525, 150, 25);
 		contentPane.add(btnGenre);
 		
 		btnBack = new JButton("My Profile");
@@ -262,7 +273,7 @@ public class MyProfileScreen extends JFrame {
 				}
 			}
 		});
-		btnBack.setBounds(200, 500, 100, 25);
+		btnBack.setBounds(200, 600, 100, 25);
 		contentPane.add(btnBack);
 		
 		JLabel lblElenco = new JLabel("Elenco");
@@ -312,7 +323,30 @@ public class MyProfileScreen extends JFrame {
 			}
 		});
 		btnUsername.setFont(new Font("Georgia", Font.PLAIN, 11));
-		btnUsername.setBounds(150, 218, 200, 25);
+		btnUsername.setBounds(150, 220, 200, 25);
 		contentPane.add(btnUsername);
+		
+		lblUserIcon = new JLabel("User Icon");
+		lblUserIcon.setForeground(new Color(90, 192, 217));
+		lblUserIcon.setFont(new Font("Georgia", Font.BOLD, 12));
+		lblUserIcon.setBounds(50, 275, 100, 25);
+		contentPane.add(lblUserIcon);
+		
+		txtUserIcon = new JTextField();
+		txtUserIcon.setColumns(10);
+		txtUserIcon.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
+		txtUserIcon.setBounds(150, 275, 275, 25);
+		contentPane.add(txtUserIcon);
+		
+		btnChangeIcon = new JButton("Change User Icon");
+		btnChangeIcon.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				JOptionPane.showMessageDialog(null, "Not In Build", "Elenco - Change User Icon", JOptionPane.INFORMATION_MESSAGE,null);
+			}
+		});
+		btnChangeIcon.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnChangeIcon.setBounds(150, 330, 200, 25);
+		contentPane.add(btnChangeIcon);
 	}
 }

@@ -6,26 +6,36 @@ import java.sql.Statement;
 
 public class SearchPlaylistApplication {
 	
-	public static ResultSet search(String search, String criteria) {
-		
+	public static ResultSet search(Object search, Object criteria, int offset, int count) {
+		System.out.println("Start");	
 		
 	
-		
-		if (criteria.strip().equals("UserName"))
+		/*
+		if (criteria.equals("UserName"))
 		{
-
+			criteria = "accounts.UserName";
+		}
+		else
+		{
+			criteria = "playlists.PlaylistTitle";
+		}
+		*/
+		System.out.println("after first if");
+		
+		if(search == null || search.equals(""))
+		{
 		try
 		{
 			Class.forName("com.mysql.cj.jdbc.Driver");																	
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
 			Statement statement = conn.createStatement();
-			//System.out.println("SELECT * FROM playlists where " + criteria + "='" + search + "'" + " GROUP BY PlaylistTitle");	
+			System.out.println("SELECT playlists.*, accounts.* from playlists inner join accounts on playlists.userID = accounts.userID group by playlistTitle ORDER BY " + criteria );	
 			
 
 			
+			String query = "SELECT playlists.*, accounts.* from playlists inner join accounts on playlists.userID = accounts.userID group by playlistTitle  ORDER BY " + criteria  ;
 			
-			
-			String query = "SELECT playlists.*, accounts.* from playlists inner join accounts on playlists.userID = accounts.userID where accounts.UserName = '" + search + "' group by playlistTitle" ;
+			//String query = "SELECT playlists.*, accounts.* from playlists inner join accounts on playlists.userID = accounts.userID where '" + criteria +"' = '" + search + "' group by playlistTitle" ;
 			
 			
 			
@@ -44,14 +54,14 @@ public class SearchPlaylistApplication {
 		{	
 			System.err.println("Could not load driver");
 			System.err.println(cnf.getMessage());
-			System.exit(-1);	
+	
 		}
 		
 		catch (SQLException sqe)
 		{
 			System.out.println("Error performing SQL Query");
 			System.out.println(sqe.getMessage());
-			System.exit(-1);
+
 		}
 		
 		return null;	
@@ -63,13 +73,13 @@ public class SearchPlaylistApplication {
 				Class.forName("com.mysql.cj.jdbc.Driver");																	
 				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
 				Statement statement = conn.createStatement();
-				//System.out.println("SELECT * FROM playlists where " + criteria + "='" + search + "'" + " GROUP BY PlaylistTitle");	
+				System.out.println("SELECT playlists.*, accounts.* from playlists inner join accounts on playlists.userID = accounts.userID where " + criteria +"= '" + search + "' group by playlistTitle");	
 				
 			
 				
+				String query = "SELECT playlists.*, accounts.* from playlists inner join accounts on playlists.userID = accounts.userID where " + criteria +" = '" + search + "' group by playlistTitle" ;
 				
-				
-				String query = "SELECT playlists.*, accounts.* from playlists inner join accounts on playlists.userID = accounts.userID where playlists.playlistTitle = '" + search + "' group by playlistTitle" ;
+				//String query = "SELECT playlists.*, accounts.* from playlists inner join accounts on playlists.userID = accounts.userID where playlists.playlistTitle = '" + search + "' group by playlistTitle" ;
 				
 				
 				

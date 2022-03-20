@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -13,17 +14,55 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JTextField;
+import java.awt.Toolkit;
+import java.awt.Color;
+import javax.swing.border.MatteBorder;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import java.awt.Image;
+
+import javax.swing.SwingConstants;
+import javax.swing.Icon;
 
 public class MyPlaylistsScreen extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textFieldCount;
-	private JTextField txtTitle1;
-	private JTextField txtTitle2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField txtPlaylistTitle1;
+	private JTextField txtPlaylistTitle2;
+	private JTextField txtPlaylistTitle3;
+	private JTextField txtPlaylistTitle4;
+	private JTextField txtPlaylistTitle5;
+
+	private JTextField txtPlaylistTitle6;
+	private JTextField txtPlaylistTitle7;
+	private JTextField txtPlaylistTitle8;
+	private JTextField txtPlaylistTitle9;
+	private JTextField txtPlaylistTitle10;
+	private JLabel lblPlaylistIcon1;
+	private JLabel lblPlaylistIcon2;
+	
 	private JButton btnPlaylist1;
+	private JButton btnPlaylist2;
+	private JButton btnPlaylist3;
+	private JButton btnPlaylist4;
+	private JButton btnPlaylist5;
+	private JButton btnPlaylist6;
+	private JButton btnPlaylist7;
+	private JButton btnPlaylist8;
+	private JButton btnPlaylist9;
+	private JButton btnPlaylist10;
+	private JTextField txtPlaylistID1;
+	private JTextField txtPlaylistID2;
+	private JTextField txtPlaylistID3;
+	private JTextField txtPlaylistID4;
+	private JTextField txtPlaylistID5;
+	private JTextField txtPlaylistID6;
+	private JTextField txtPlaylistID7;
+	private JTextField txtPlaylistID8;
+	private JTextField txtPlaylistID9;
+	private JTextField txtPlaylistID10;
 	/**
 	 * Launch the application.
 	 */
@@ -46,6 +85,8 @@ public class MyPlaylistsScreen extends JFrame {
 	 * Create the frame.
 	 */
 	public MyPlaylistsScreen( LoggedIn currentLoggedIn) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
+		setTitle("Elenco - My Playlists");
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -53,6 +94,7 @@ public class MyPlaylistsScreen extends JFrame {
 				ResultSet myLists = MyPlaylistsApplication.loadPlaylists(currentLoggedIn.getCurrentUserID());
 				
 				String playlistTitle = null;
+				String playListID = null;
 	
 				int row = 1;
 				
@@ -62,8 +104,9 @@ public class MyPlaylistsScreen extends JFrame {
 					
 					while (myLists.next())																	
 					{
-						textFieldCount.setText(String.valueOf(myLists.getRow()));
+		
 						playlistTitle = myLists.getString("PlaylistTitle");
+						playListID = myLists.getString("PlaylistID");
 						System.out.println(playlistTitle);
 						/*
 						artist = songDetails.getString("Artist");
@@ -84,36 +127,82 @@ public class MyPlaylistsScreen extends JFrame {
 						
 						switch (row) {
 						case 1:
-							txtTitle1.setText(playlistTitle);
+							txtPlaylistTitle1.setText(playlistTitle);
+						
 							btnPlaylist1.setText("View");
+							txtPlaylistID1.setText(playListID);
+							
+							btnPlaylist2.setEnabled(true);
 							break;
 						case 2:
-							txtTitle2.setText(playlistTitle);
+							txtPlaylistTitle2.setText(playlistTitle);
 					
+							btnPlaylist2.setText("View");
+							txtPlaylistID2.setText(playListID);
+							
+							btnPlaylist3.setEnabled(true);
 							break;
 						case 3:
-					
+							txtPlaylistTitle3.setText(playlistTitle);
+			
+							btnPlaylist3.setText("View");
+							txtPlaylistID3.setText(playListID);
+							
+							btnPlaylist4.setEnabled(true);
 							break;
 						case 4:
-					
+							txtPlaylistTitle4.setText(playlistTitle);
+							btnPlaylist4.setEnabled(true);
+							btnPlaylist4.setText("View");
+							txtPlaylistID4.setText(playListID);
+							
+							btnPlaylist5.setEnabled(true);
 							break;
 						case 5:
-						
+							txtPlaylistTitle5.setText(playlistTitle);
+				
+							btnPlaylist5.setText("View");
+							txtPlaylistID5.setText(playListID);
+							
+							btnPlaylist6.setEnabled(true);
 							break;
 						case 6:
-					
+							txtPlaylistTitle6.setText(playlistTitle);
+			
+							btnPlaylist6.setText("View");
+							txtPlaylistID6.setText(playListID);
+							
+							btnPlaylist7.setEnabled(true);
 							break;
 						case 7:
+							txtPlaylistTitle7.setText(playlistTitle);
 					
+							btnPlaylist7.setText("View");
+							txtPlaylistID7.setText(playListID);
+							
+							btnPlaylist8.setEnabled(true);
 							break;
 						case 8:
-						
+							txtPlaylistTitle8.setText(playlistTitle);
+					
+							btnPlaylist8.setText("View");
+							txtPlaylistID8.setText(playListID);
+							
+							btnPlaylist9.setEnabled(true);
 							break;
 						case 9:
-				
+							txtPlaylistTitle9.setText(playlistTitle);
+			
+							btnPlaylist9.setText("View");
+							txtPlaylistID9.setText(playListID);
+							
+							btnPlaylist10.setEnabled(true);
 							break;
 						case 10:
-						
+							txtPlaylistTitle10.setText(playlistTitle);
+	
+							btnPlaylist10.setText("View");
+							txtPlaylistID10.setText(playListID);
 							break;
 						
 						
@@ -135,60 +224,206 @@ public class MyPlaylistsScreen extends JFrame {
 			}
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 791, 499);
+		setBounds(100, 100, 889, 649);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		btnPlaylist1 = new JButton("Create List");
+		btnPlaylist1.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnPlaylist1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+	
 				
-				ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, txtTitle1.getText());
+				if (btnPlaylist1.getText().equals("Create List")) {
+					
+					String newPlaylistTitle;
+					newPlaylistTitle = (JOptionPane.showInputDialog("Enter New Playlist Title"));
+					
+					if(!Helper.checkBlank(newPlaylistTitle))
+					{
+						PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID1.getText(),newPlaylistTitle);
+						ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
+						gui.setVisible(true);
+						dispose();
+						
+					}
+					
+			
+				}
+				else
+				{
+					PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID1.getText());
+					ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
+					gui.setVisible(true);
+					dispose();
+				}
+				
+		
+				
+			}
+		});
+		btnPlaylist1.setBounds(50, 280, 100, 25);
+		contentPane.add(btnPlaylist1);
+		
+	 btnPlaylist6 = new JButton("Create List");
+	 btnPlaylist6.addActionListener(new ActionListener() {
+	 	public void actionPerformed(ActionEvent e) {
+	 		
+	 	
+	 	}
+	 });
+	 btnPlaylist6.setEnabled(false);
+		btnPlaylist6.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnPlaylist6.setBounds(50, 480, 100, 25);
+		contentPane.add(btnPlaylist6);
+		
+ btnPlaylist2 = new JButton("Create List");
+ btnPlaylist2.addActionListener(new ActionListener() {
+ 	public void actionPerformed(ActionEvent e) {
+ 		
+		if (btnPlaylist2.getText().equals("Create List")) {
+			
+			String newPlaylistTitle;
+			newPlaylistTitle = (JOptionPane.showInputDialog("Enter New Playlist Title"));
+			
+			if(!Helper.checkBlank(newPlaylistTitle))
+			{
+				PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID2.getText(),newPlaylistTitle);
+				ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
 				gui.setVisible(true);
 				dispose();
 				
 			}
-		});
-		btnPlaylist1.setBounds(57, 194, 89, 23);
-		contentPane.add(btnPlaylist1);
-		
-		JButton btnNewButton_1 = new JButton("New button");
-		btnNewButton_1.setBounds(57, 363, 89, 23);
-		contentPane.add(btnNewButton_1);
-		
-		JButton btnPlaylist2 = new JButton("New button");
-		btnPlaylist2.setBounds(203, 194, 89, 23);
+			
+	
+		}
+		else
+		{
+			PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID2.getText());
+			ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
+			gui.setVisible(true);
+			dispose();
+		}
+ 	}
+ });
+ btnPlaylist2.setEnabled(false);
+		btnPlaylist2.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnPlaylist2.setBounds(215, 280, 100, 25);
 		contentPane.add(btnPlaylist2);
 		
-		JButton btnNewButton_3 = new JButton("New button");
-		btnNewButton_3.setBounds(203, 363, 89, 23);
-		contentPane.add(btnNewButton_3);
+		 btnPlaylist7 = new JButton("Create List");
+		 btnPlaylist7.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent e) {
+			
+		 	}
+		 });
+		 btnPlaylist7.setEnabled(false);
+		btnPlaylist7.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnPlaylist7.setBounds(215, 480, 100, 25);
+		contentPane.add(btnPlaylist7);
 		
-		JButton btnNewButton_4 = new JButton("New button");
-		btnNewButton_4.setBounds(341, 194, 89, 23);
-		contentPane.add(btnNewButton_4);
+	btnPlaylist3 = new JButton("Create List");
+	btnPlaylist3.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			if (btnPlaylist3.getText().equals("Create List")) {
+				
+				String newPlaylistTitle;
+				newPlaylistTitle = (JOptionPane.showInputDialog("Enter New Playlist Title"));
+				
+				if(!Helper.checkBlank(newPlaylistTitle))
+				{
+					PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID3.getText(),newPlaylistTitle);
+					
+					try {
+						MySQLQueries.createPlaylist(currentLoggedIn.getCurrentUserID(), null, newPlaylistTitle);
+					} catch (CustomException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
+					gui.setVisible(true);
+					dispose();
+					
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Valid Playlist Title Input Required", "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+				}
+				
 		
-		JButton btnNewButton_5 = new JButton("New button");
-		btnNewButton_5.setBounds(341, 345, 89, 23);
-		contentPane.add(btnNewButton_5);
+			}
+			else
+			{
+				PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID3.getText());
+				ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
+				gui.setVisible(true);
+				dispose();
+			}
+		}
 		
-		JButton btnNewButton_6 = new JButton("New button");
-		btnNewButton_6.setBounds(488, 194, 89, 23);
-		contentPane.add(btnNewButton_6);
+	});
+	btnPlaylist3.setEnabled(false);
+		btnPlaylist3.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnPlaylist3.setBounds(385, 280, 100, 25);
+		contentPane.add(btnPlaylist3);
 		
-		JButton btnNewButton_7 = new JButton("New button");
-		btnNewButton_7.setBounds(488, 345, 89, 23);
-		contentPane.add(btnNewButton_7);
+		 btnPlaylist8 = new JButton("Create List");
+		 btnPlaylist8.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent e) {
+			
+		 	}
+		 });
+		 btnPlaylist8.setEnabled(false);
+		btnPlaylist8.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnPlaylist8.setBounds(385, 480, 100, 25);
+		contentPane.add(btnPlaylist8);
 		
-		JButton btnNewButton_8 = new JButton("New button");
-		btnNewButton_8.setBounds(632, 194, 89, 23);
-		contentPane.add(btnNewButton_8);
+	 btnPlaylist4 = new JButton("Create List");
+	 btnPlaylist4.addActionListener(new ActionListener() {
+	 	public void actionPerformed(ActionEvent e) {
+			
+	 	}
+	 });
+	 btnPlaylist4.setEnabled(false);
+		btnPlaylist4.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnPlaylist4.setBounds(555, 280, 100, 25);
+		contentPane.add(btnPlaylist4);
 		
-		JButton btnNewButton_9 = new JButton("New button");
-		btnNewButton_9.setBounds(632, 345, 89, 23);
-		contentPane.add(btnNewButton_9);
+	btnPlaylist9 = new JButton("Create List");
+	btnPlaylist9.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		
+		}
+	});
+	btnPlaylist9.setEnabled(false);
+		btnPlaylist9.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnPlaylist9.setBounds(555, 480, 100, 25);
+		contentPane.add(btnPlaylist9);
+		
+		btnPlaylist5 = new JButton("Create List");
+		btnPlaylist5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+			}
+		});
+		btnPlaylist5.setEnabled(false);
+		btnPlaylist5.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnPlaylist5.setBounds(725, 280, 100, 25);
+		contentPane.add(btnPlaylist5);
+		
+		btnPlaylist10 = new JButton("Create List");
+		btnPlaylist10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+			}
+		});
+		btnPlaylist10.setEnabled(false);
+		btnPlaylist10.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnPlaylist10.setBounds(725, 480, 100, 25);
+		contentPane.add(btnPlaylist10);
 		
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
@@ -200,38 +435,171 @@ public class MyPlaylistsScreen extends JFrame {
 				
 			}
 		});
-		btnBack.setBounds(461, 412, 89, 23);
+		btnBack.setBounds(388, 561, 89, 25);
 		contentPane.add(btnBack);
 		
-		textFieldCount = new JTextField();
-		textFieldCount.setBounds(85, 42, 96, 20);
-		contentPane.add(textFieldCount);
-		textFieldCount.setColumns(10);
+		txtPlaylistTitle1 = new JTextField();
+		txtPlaylistTitle1.setFont(new Font("Georgia", Font.PLAIN, 11));
+		txtPlaylistTitle1.setHorizontalAlignment(SwingConstants.CENTER);
+		txtPlaylistTitle1.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
+		txtPlaylistTitle1.setBounds(25, 250, 150, 20);
+		contentPane.add(txtPlaylistTitle1);
+		txtPlaylistTitle1.setColumns(10);
 		
-		txtTitle1 = new JTextField();
-		txtTitle1.setBounds(57, 161, 96, 20);
-		contentPane.add(txtTitle1);
-		txtTitle1.setColumns(10);
+		txtPlaylistTitle2 = new JTextField();
+		txtPlaylistTitle2.setFont(new Font("Georgia", Font.PLAIN, 11));
+		txtPlaylistTitle2.setHorizontalAlignment(SwingConstants.CENTER);
+		txtPlaylistTitle2.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
+		txtPlaylistTitle2.setBounds(190, 250, 150, 20);
+		contentPane.add(txtPlaylistTitle2);
+		txtPlaylistTitle2.setColumns(10);
 		
-		txtTitle2 = new JTextField();
-		txtTitle2.setBounds(203, 161, 96, 20);
-		contentPane.add(txtTitle2);
-		txtTitle2.setColumns(10);
+		txtPlaylistTitle3 = new JTextField();
+		txtPlaylistTitle3.setFont(new Font("Georgia", Font.PLAIN, 11));
+		txtPlaylistTitle3.setHorizontalAlignment(SwingConstants.CENTER);
+		txtPlaylistTitle3.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
+		txtPlaylistTitle3.setBounds(360, 250, 150, 20);
+		contentPane.add(txtPlaylistTitle3);
+		txtPlaylistTitle3.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(341, 161, 96, 20);
-		contentPane.add(textField_3);
-		textField_3.setColumns(10);
+		txtPlaylistTitle4 = new JTextField();
+		txtPlaylistTitle4.setFont(new Font("Georgia", Font.PLAIN, 11));
+		txtPlaylistTitle4.setHorizontalAlignment(SwingConstants.CENTER);
+		txtPlaylistTitle4.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
+		txtPlaylistTitle4.setBounds(530, 250, 150, 20);
+		contentPane.add(txtPlaylistTitle4);
+		txtPlaylistTitle4.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(476, 161, 96, 20);
-		contentPane.add(textField_4);
-		textField_4.setColumns(10);
+		txtPlaylistTitle5 = new JTextField();
+		txtPlaylistTitle5.setFont(new Font("Georgia", Font.PLAIN, 11));
+		txtPlaylistTitle5.setHorizontalAlignment(SwingConstants.CENTER);
+		txtPlaylistTitle5.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
+		txtPlaylistTitle5.setBounds(700, 250, 150, 20);
+		contentPane.add(txtPlaylistTitle5);
+		txtPlaylistTitle5.setColumns(10);
 		
-		textField_5 = new JTextField();
-		textField_5.setBounds(632, 161, 96, 20);
-		contentPane.add(textField_5);
-		textField_5.setColumns(10);
-	}
+		txtPlaylistTitle6 = new JTextField();
+		txtPlaylistTitle6.setFont(new Font("Georgia", Font.PLAIN, 11));
+		txtPlaylistTitle6.setHorizontalAlignment(SwingConstants.CENTER);
+		txtPlaylistTitle6.setColumns(10);
+		txtPlaylistTitle6.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
+		txtPlaylistTitle6.setBounds(25, 450, 150, 20);
+		contentPane.add(txtPlaylistTitle6);
+		
+		txtPlaylistTitle7 = new JTextField();
+		txtPlaylistTitle7.setFont(new Font("Georgia", Font.PLAIN, 11));
+		txtPlaylistTitle7.setHorizontalAlignment(SwingConstants.CENTER);
+		txtPlaylistTitle7.setColumns(10);
+		txtPlaylistTitle7.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
+		txtPlaylistTitle7.setBounds(190, 450, 150, 20);
+		contentPane.add(txtPlaylistTitle7);
+		
+		txtPlaylistTitle8 = new JTextField();
+		txtPlaylistTitle8.setFont(new Font("Georgia", Font.PLAIN, 11));
+		txtPlaylistTitle8.setHorizontalAlignment(SwingConstants.CENTER);
+		txtPlaylistTitle8.setColumns(10);
+		txtPlaylistTitle8.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
+		txtPlaylistTitle8.setBounds(360, 450, 150, 20);
+		contentPane.add(txtPlaylistTitle8);
+		
+		txtPlaylistTitle9 = new JTextField();
+		txtPlaylistTitle9.setFont(new Font("Georgia", Font.PLAIN, 11));
+		txtPlaylistTitle9.setHorizontalAlignment(SwingConstants.CENTER);
+		txtPlaylistTitle9.setColumns(10);
+		txtPlaylistTitle9.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
+		txtPlaylistTitle9.setBounds(530, 450, 150, 20);
+		contentPane.add(txtPlaylistTitle9);
+		
+		txtPlaylistTitle10 = new JTextField();
+		txtPlaylistTitle10.setFont(new Font("Georgia", Font.PLAIN, 11));
+		txtPlaylistTitle10.setHorizontalAlignment(SwingConstants.CENTER);
+		txtPlaylistTitle10.setColumns(10);
+		txtPlaylistTitle10.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
+		txtPlaylistTitle10.setBounds(700, 450, 150, 20);
+		contentPane.add(txtPlaylistTitle10);
+		
+		JLabel lblHeader = new JLabel("Elenco - My Playlists");
+		lblHeader.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHeader.setForeground(new Color(90, 192, 217));
+		lblHeader.setFont(new Font("Georgia", Font.BOLD, 24));
+		lblHeader.setBounds(342, 59, 300, 25);
+		contentPane.add(lblHeader);
+		
+		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));					// Create new instance of Icon using the given PNG file.
+		Image appImage = appIcon.getImage();															// Create image of icon variable.
+		Image appImageResize = appImage.getScaledInstance(50,50, java.awt.Image.SCALE_SMOOTH);		// Resize image to scale desired. 
+		appIcon = new ImageIcon(appImageResize);														// Set instance of Icon to the resized Image.
+		
+		JLabel lblLogo = new JLabel(appIcon);
+		lblLogo.setToolTipText("Elenco - Express Your Musical Opinion");
+		lblLogo.setBounds(258, 22, 100, 100);
+		contentPane.add(lblLogo);
+		
+		
+		ImageIcon playlistIcon =  new ImageIcon(ApplicationStartup.class.getResource("/ProfileIcon.PNG"));					// Create new instance of Icon using the given PNG file.
+		Image playlistImage = playlistIcon.getImage();															// Create image of icon variable.
+		Image playlistImageResize = playlistImage.getScaledInstance(100,100, java.awt.Image.SCALE_SMOOTH);		// Resize image to scale desired. 
+		playlistIcon = new ImageIcon(playlistImageResize);														// Set instance of Icon to the resized Image.
+		
+		
+		lblPlaylistIcon1 = new JLabel(playlistIcon);
+		lblPlaylistIcon1.setBounds(50, 150, 100, 100);
+		contentPane.add(lblPlaylistIcon1);
+		
+		lblPlaylistIcon2 = new JLabel(playlistIcon);
+		lblPlaylistIcon2.setBounds(50, 350, 100, 100);
+		contentPane.add(lblPlaylistIcon2);
+		
+		txtPlaylistID1 = new JTextField();
+		txtPlaylistID1.setBounds(87, 316, 25, 20);
+		contentPane.add(txtPlaylistID1);
+		txtPlaylistID1.setColumns(10);
+		
+		txtPlaylistID2 = new JTextField();
+		txtPlaylistID2.setColumns(10);
+		txtPlaylistID2.setBounds(251, 316, 25, 20);
+		contentPane.add(txtPlaylistID2);
+		
+		txtPlaylistID3 = new JTextField();
+		txtPlaylistID3.setColumns(10);
+		txtPlaylistID3.setBounds(422, 316, 25, 20);
+		contentPane.add(txtPlaylistID3);
+		
+		txtPlaylistID4 = new JTextField();
+		txtPlaylistID4.setColumns(10);
+		txtPlaylistID4.setBounds(587, 316, 25, 20);
+		contentPane.add(txtPlaylistID4);
+		
+		txtPlaylistID5 = new JTextField();
+		txtPlaylistID5.setColumns(10);
+		txtPlaylistID5.setBounds(759, 316, 25, 20);
+		contentPane.add(txtPlaylistID5);
+		
+		txtPlaylistID6 = new JTextField();
+		txtPlaylistID6.setColumns(10);
+		txtPlaylistID6.setBounds(87, 516, 25, 20);
+		contentPane.add(txtPlaylistID6);
+		
+		txtPlaylistID7 = new JTextField();
+		txtPlaylistID7.setColumns(10);
+		txtPlaylistID7.setBounds(258, 516, 25, 20);
+		contentPane.add(txtPlaylistID7);
+		
+		txtPlaylistID8 = new JTextField();
+		txtPlaylistID8.setColumns(10);
+		txtPlaylistID8.setBounds(408, 516, 25, 20);
+		contentPane.add(txtPlaylistID8);
+		
+		txtPlaylistID9 = new JTextField();
+		txtPlaylistID9.setColumns(10);
+		txtPlaylistID9.setBounds(587, 516, 25, 20);
+		contentPane.add(txtPlaylistID9);
+		
+		txtPlaylistID10 = new JTextField();
+		txtPlaylistID10.setColumns(10);
+		txtPlaylistID10.setBounds(759, 516, 25, 20);
+		contentPane.add(txtPlaylistID10);
+		
 
+	}
 }

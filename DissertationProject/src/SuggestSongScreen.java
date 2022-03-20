@@ -28,6 +28,7 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 
 public class SuggestSongScreen extends JFrame {
 
@@ -207,11 +208,13 @@ public class SuggestSongScreen extends JFrame {
 		contentPane.add(btnSuggestSong);
 		
 		txtTitle = new JTextField();
+		txtTitle.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtTitle.setBounds(150, 250, 250, 25);
 		contentPane.add(txtTitle);
 		txtTitle.setColumns(10);
 		
 		txtArtist = new JTextField();
+		txtArtist.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtArtist.setBounds(150, 300, 250, 25);
 		contentPane.add(txtArtist);
 		txtArtist.setColumns(10);
@@ -235,6 +238,7 @@ public class SuggestSongScreen extends JFrame {
 		contentPane.add(lblGenre);
 		
 		txtGenre = new JTextField();
+		txtGenre.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtGenre.setBounds(150, 350, 250, 25);
 		contentPane.add(txtGenre);
 		txtGenre.setColumns(10);
@@ -258,6 +262,7 @@ public class SuggestSongScreen extends JFrame {
 		contentPane.add(lblAlbum);
 		
 		txtAlbum = new JTextField();
+		txtAlbum.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtAlbum.setBounds(150, 500, 250, 25);
 		contentPane.add(txtAlbum);
 		txtAlbum.setColumns(10);
@@ -265,7 +270,7 @@ public class SuggestSongScreen extends JFrame {
 		JLabel lblRating = new JLabel("My Rating");
 		lblRating.setFont(new Font("Georgia", Font.BOLD, 12));
 		lblRating.setForeground(new Color(90, 192, 217));
-		lblRating.setBounds(450, 475, 100, 25);
+		lblRating.setBounds(460, 475, 100, 25);
 		contentPane.add(lblRating);
 		
 		txtSongInfo = new JTextArea();
@@ -277,7 +282,7 @@ public class SuggestSongScreen extends JFrame {
 		JLabel lblSongInfo = new JLabel("Song Info");
 		lblSongInfo.setFont(new Font("Georgia", Font.BOLD, 12));
 		lblSongInfo.setForeground(new Color(90, 192, 217));
-		lblSongInfo.setBounds(450, 250, 100, 25);
+		lblSongInfo.setBounds(460, 250, 100, 25);
 		contentPane.add(lblSongInfo);
 		
 		dateChooser = new JDateChooser();

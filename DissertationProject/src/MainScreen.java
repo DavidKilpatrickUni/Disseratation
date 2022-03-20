@@ -18,6 +18,7 @@ import java.awt.Image;
 
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class MainScreen extends JFrame {
 
@@ -45,6 +46,7 @@ public class MainScreen extends JFrame {
 	 * Create the frame.
 	 */
 	public MainScreen(LoggedIn currentLoggedIn) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
 		setTitle("Elenco - Main Menu");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 596);

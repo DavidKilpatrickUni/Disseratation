@@ -62,7 +62,7 @@ public class AddToPlaylistScreen extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AddToPlaylistScreen(LoggedIn currentLoggedIn, String currentPlaylistTitle, int ranking) {
+	public AddToPlaylistScreen(LoggedIn currentLoggedIn, PlaylistInfo currentPlaylistInfo, int ranking) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 997, 628);
 		contentPane = new JPanel();
@@ -137,7 +137,7 @@ public class AddToPlaylistScreen extends JFrame {
 				else
 				{
 					System.out.print("song not already on list");
-					AddToPlaylistApplication.addSong(currentLoggedIn.getCurrentUserID(), txtSongID1.getText() ,currentPlaylistTitle, ranking);
+					AddToPlaylistApplication.addSong(currentLoggedIn.getCurrentUserID(), txtSongID1.getText() ,currentPlaylistInfo.getCurrentPlaylistTitle(), ranking);
 				}
 				
 				}
@@ -165,7 +165,7 @@ public class AddToPlaylistScreen extends JFrame {
 		contentPane.add(comboBoxCriteria);
 		
 		JComboBox comboBoxSort = new JComboBox();
-		comboBoxSort.setModel(new DefaultComboBoxModel(new String[] {"Rating", "Reviews", "Uploaded"}));
+		comboBoxSort.setModel(new DefaultComboBoxModel(new String[] {"OverallRating", "TotalReviews", "Uploaded"}));
 		comboBoxSort.setBounds(531, 127, 198, 23);
 		contentPane.add(comboBoxSort);
 		
@@ -356,7 +356,7 @@ public class AddToPlaylistScreen extends JFrame {
 		btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistTitle);
+				ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
 				gui.setVisible(true);
 				dispose();
 			}

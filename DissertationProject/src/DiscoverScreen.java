@@ -31,6 +31,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import javax.swing.event.PopupMenuEvent;
 import java.awt.Color;
 import java.awt.Toolkit;
+import javax.swing.border.MatteBorder;
 
 public class DiscoverScreen extends JFrame {
 
@@ -117,7 +118,7 @@ public class DiscoverScreen extends JFrame {
 	private JButton btnView8;
 	private JButton btnView9;
 	private JButton btnView10;
-	private JButton btnNextPage;
+	private JButton btnNext;
 	private JButton btnPrevious;
 
 	
@@ -165,7 +166,7 @@ public class DiscoverScreen extends JFrame {
 			}
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1043, 693);
+		setBounds(100, 100, 1050, 690);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -210,33 +211,39 @@ rdbtnDescending = new JRadioButton("Descending");
 		radioButtons.add(rdbtnDescending);
 		
 		txtTitle1 = new JTextField();
+		txtTitle1.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtTitle1.setBounds(40, 220, 180, 20);
 		contentPane.add(txtTitle1);
 		txtTitle1.setColumns(10);
 		
 		txtArtist1 = new JTextField();
+		txtArtist1.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtArtist1.setBounds(250, 220, 150, 20);
 		contentPane.add(txtArtist1);
 		txtArtist1.setColumns(10);
 		
 		txtGenre1 = new JTextField();
+		txtGenre1.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtGenre1.setBounds(430, 220, 100, 20);
 		contentPane.add(txtGenre1);
 		txtGenre1.setColumns(10);
 		
 		txtRating1 = new JTextField();
+		txtRating1.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtRating1.setHorizontalAlignment(SwingConstants.CENTER);
 		txtRating1.setBounds(565, 220, 50, 20);
 		contentPane.add(txtRating1);
 		txtRating1.setColumns(10);
 		
 		txtReviews1 = new JTextField();
+		txtReviews1.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtReviews1.setHorizontalAlignment(SwingConstants.CENTER);
 		txtReviews1.setBounds(645, 220, 75, 20);
 		contentPane.add(txtReviews1);
 		txtReviews1.setColumns(10);
 		
 		txtUploaded1 = new JTextField();
+		txtUploaded1.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtUploaded1.setHorizontalAlignment(SwingConstants.CENTER);
 		txtUploaded1.setBounds(750, 220, 100, 20);
 		contentPane.add(txtUploaded1);
@@ -244,37 +251,37 @@ rdbtnDescending = new JRadioButton("Descending");
 		
 		JLabel lblTitle = new JLabel("Title");
 		lblTitle.setFont(new Font("Georgia", Font.BOLD, 12));
-		lblTitle.setBounds(40, 200, 50, 14);
+		lblTitle.setBounds(40, 200, 50, 20);
 		lblTitle.setForeground(new Color(90, 192, 217));
 		contentPane.add(lblTitle);
 		
 		JLabel lblArtist = new JLabel("Artist");
 		lblArtist.setFont(new Font("Georgia", Font.BOLD, 12));
-		lblArtist.setBounds(250, 200, 50, 14);
+		lblArtist.setBounds(250, 200, 50, 20);
 		lblArtist.setForeground(new Color(90, 192, 217));
 		contentPane.add(lblArtist);
 		
 		JLabel lblGenre = new JLabel("Genre");
 		lblGenre.setFont(new Font("Georgia", Font.BOLD, 12));
-		lblGenre.setBounds(430, 200, 50, 14);
+		lblGenre.setBounds(430, 200, 50, 20);
 		lblGenre.setForeground(new Color(90, 192, 217));
 		contentPane.add(lblGenre);
 		
 		JLabel lblRating = new JLabel("Rating");
 		lblRating.setFont(new Font("Georgia", Font.BOLD, 12));
-		lblRating.setBounds(565, 200, 50, 14);
+		lblRating.setBounds(565, 200, 50, 20);
 		lblRating.setForeground(new Color(90, 192, 217));
 		contentPane.add(lblRating);
 		
 		JLabel lblViews = new JLabel("Reviews");
 		lblViews.setFont(new Font("Georgia", Font.BOLD, 12));
-		lblViews.setBounds(645, 200, 100, 14);
+		lblViews.setBounds(645, 200, 100, 20);
 		lblViews.setForeground(new Color(90, 192, 217));
 		contentPane.add(lblViews);
 		
 		JLabel lblUploaded = new JLabel("Uploaded");
 		lblUploaded.setFont(new Font("Georgia", Font.BOLD, 12));
-		lblUploaded.setBounds(750, 200, 100, 14);
+		lblUploaded.setBounds(750, 200, 100, 20);
 		lblUploaded.setForeground(new Color(90, 192, 217));
 		contentPane.add(lblUploaded);
 		
@@ -299,6 +306,7 @@ rdbtnDescending = new JRadioButton("Descending");
 			public void actionPerformed(ActionEvent e) {
 				
 				System.out.println(comboBoxSearch.getSelectedItem());
+				System.out.println(comboBoxCriteria.getSelectedItem());
 				
 				sqlOffset = 0;
 				clearScreen() ;
@@ -342,33 +350,39 @@ rdbtnDescending = new JRadioButton("Descending");
 		contentPane.add(comboBoxSort);
 		
 		txtTitle2 = new JTextField();
+		txtTitle2.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtTitle2.setColumns(10);
 		txtTitle2.setBounds(40, 250, 180, 20);
 		contentPane.add(txtTitle2);
 		
 		txtArtist2 = new JTextField();
+		txtArtist2.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtArtist2.setColumns(10);
 		txtArtist2.setBounds(250, 250, 150, 20);
 		contentPane.add(txtArtist2);
 		
 		txtGenre2 = new JTextField();
+		txtGenre2.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtGenre2.setColumns(10);
 		txtGenre2.setBounds(430, 250, 100, 20);
 		contentPane.add(txtGenre2);
 		
 		txtRating2 = new JTextField();
+		txtRating2.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtRating2.setHorizontalAlignment(SwingConstants.CENTER);
 		txtRating2.setColumns(10);
 		txtRating2.setBounds(565, 250, 50, 20);
 		contentPane.add(txtRating2);
 		
 		txtReviews2 = new JTextField();
+		txtReviews2.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtReviews2.setHorizontalAlignment(SwingConstants.CENTER);
 		txtReviews2.setColumns(10);
 		txtReviews2.setBounds(645, 250, 75, 20);
 		contentPane.add(txtReviews2);
 		
 		txtUploaded2 = new JTextField();
+		txtUploaded2.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtUploaded2.setHorizontalAlignment(SwingConstants.CENTER);
 		txtUploaded2.setColumns(10);
 		txtUploaded2.setBounds(750, 250, 100, 20);
@@ -383,246 +397,291 @@ rdbtnDescending = new JRadioButton("Descending");
 		txtSongID1.setColumns(10);
 		
 		txtTitle3 = new JTextField();
+		txtTitle3.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtTitle3.setBounds(40, 280, 180, 20);
 		contentPane.add(txtTitle3);
 		txtTitle3.setColumns(10);
 		
 		txtTitle4 = new JTextField();
+		txtTitle4.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtTitle4.setBounds(40, 310, 180, 20);
 		contentPane.add(txtTitle4);
 		txtTitle4.setColumns(10);
 		
 		txtTitle5 = new JTextField();
+		txtTitle5.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtTitle5.setBounds(40, 340, 180, 20);
 		contentPane.add(txtTitle5);
 		txtTitle5.setColumns(10);
 		
 		txtTitle6 = new JTextField();
+		txtTitle6.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtTitle6.setBounds(40, 370, 180, 20);
 		contentPane.add(txtTitle6);
 		txtTitle6.setColumns(10);
 		
 		txtTitle7 = new JTextField();
+		txtTitle7.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtTitle7.setBounds(40, 400, 180, 20);
 		contentPane.add(txtTitle7);
 		txtTitle7.setColumns(10);
 		
 		txtTitle8 = new JTextField();
+		txtTitle8.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtTitle8.setBounds(40, 430, 180, 20);
 		contentPane.add(txtTitle8);
 		txtTitle8.setColumns(10);
 		
 		txtTitle9 = new JTextField();
+		txtTitle9.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtTitle9.setBounds(40, 460, 180, 20);
 		contentPane.add(txtTitle9);
 		txtTitle9.setColumns(10);
 		
 		txtTitle10 = new JTextField();
+		txtTitle10.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtTitle10.setBounds(40, 490, 180, 20);
 		contentPane.add(txtTitle10);
 		txtTitle10.setColumns(10);
 		
 		txtArtist3 = new JTextField();
+		txtArtist3.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtArtist3.setBounds(250, 280, 150, 20);
 		contentPane.add(txtArtist3);
 		txtArtist3.setColumns(10);
 		
 		txtArtist4 = new JTextField();
+		txtArtist4.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtArtist4.setBounds(250, 310, 150, 20);
 		contentPane.add(txtArtist4);
 		txtArtist4.setColumns(10);
 		
 		txtArtist5 = new JTextField();
+		txtArtist5.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtArtist5.setBounds(250, 340, 150, 20);
 		contentPane.add(txtArtist5);
 		txtArtist5.setColumns(10);
 		
 		txtArtist6 = new JTextField();
+		txtArtist6.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtArtist6.setBounds(250, 370, 150, 20);
 		contentPane.add(txtArtist6);
 		txtArtist6.setColumns(10);
 		
 		txtArtist7 = new JTextField();
+		txtArtist7.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtArtist7.setBounds(250, 400, 150, 20);
 		contentPane.add(txtArtist7);
 		txtArtist7.setColumns(10);
 		
 		txtArtist8 = new JTextField();
+		txtArtist8.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtArtist8.setBounds(250, 430, 150, 20);
 		contentPane.add(txtArtist8);
 		txtArtist8.setColumns(10);
 		
 		txtArtist9 = new JTextField();
+		txtArtist9.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtArtist9.setBounds(250, 460, 150, 20);
 		contentPane.add(txtArtist9);
 		txtArtist9.setColumns(10);
 		
 		txtArtist10 = new JTextField();
+		txtArtist10.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtArtist10.setBounds(250, 490, 150, 20);
 		contentPane.add(txtArtist10);
 		txtArtist10.setColumns(10);
 		
 		txtGenre3 = new JTextField();
+		txtGenre3.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtGenre3.setBounds(430, 280, 100, 20);
 		contentPane.add(txtGenre3);
 		txtGenre3.setColumns(10);
 		
 		txtGenre4 = new JTextField();
+		txtGenre4.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtGenre4.setColumns(10);
 		txtGenre4.setBounds(430, 310, 100, 20);
 		contentPane.add(txtGenre4);
 		
 		txtGenre5 = new JTextField();
+		txtGenre5.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtGenre5.setColumns(10);
 		txtGenre5.setBounds(430, 340, 100, 20);
 		contentPane.add(txtGenre5);
 		
 		txtGenre6 = new JTextField();
+		txtGenre6.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtGenre6.setColumns(10);
 		txtGenre6.setBounds(430, 370, 100, 20);
 		contentPane.add(txtGenre6);
 		
 		txtGenre7 = new JTextField();
+		txtGenre7.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtGenre7.setColumns(10);
 		txtGenre7.setBounds(430, 400, 100, 20);
 		contentPane.add(txtGenre7);
 		
 		txtGenre8 = new JTextField();
+		txtGenre8.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtGenre8.setColumns(10);
 		txtGenre8.setBounds(430, 430, 100, 20);
 		contentPane.add(txtGenre8);
 		
 		txtGenre9 = new JTextField();
+		txtGenre9.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtGenre9.setColumns(10);
 		txtGenre9.setBounds(430, 460, 100, 20);
 		contentPane.add(txtGenre9);
 		
 		txtGenre10 = new JTextField();
+		txtGenre10.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtGenre10.setColumns(10);
 		txtGenre10.setBounds(430, 490, 100, 20);
 		contentPane.add(txtGenre10);
 		
 		txtRating4 = new JTextField();
+		txtRating4.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtRating4.setHorizontalAlignment(SwingConstants.CENTER);
 		txtRating4.setColumns(10);
 		txtRating4.setBounds(565, 310, 50, 20);
 		contentPane.add(txtRating4);
 		
 		txtRating5 = new JTextField();
+		txtRating5.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtRating5.setHorizontalAlignment(SwingConstants.CENTER);
 		txtRating5.setColumns(10);
 		txtRating5.setBounds(565, 340, 50, 20);
 		contentPane.add(txtRating5);
 		
 		txtRating6 = new JTextField();
+		txtRating6.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtRating6.setHorizontalAlignment(SwingConstants.CENTER);
 		txtRating6.setColumns(10);
 		txtRating6.setBounds(565, 370, 50, 20);
 		contentPane.add(txtRating6);
 		
 		txtRating7 = new JTextField();
+		txtRating7.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtRating7.setHorizontalAlignment(SwingConstants.CENTER);
 		txtRating7.setColumns(10);
 		txtRating7.setBounds(565, 400, 50, 20);
 		contentPane.add(txtRating7);
 		
 		txtRating8 = new JTextField();
+		txtRating8.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtRating8.setHorizontalAlignment(SwingConstants.CENTER);
 		txtRating8.setColumns(10);
 		txtRating8.setBounds(565, 430, 50, 20);
 		contentPane.add(txtRating8);
 		
 		txtRating9 = new JTextField();
+		txtRating9.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtRating9.setHorizontalAlignment(SwingConstants.CENTER);
 		txtRating9.setColumns(10);
 		txtRating9.setBounds(565, 460, 50, 20);
 		contentPane.add(txtRating9);
 		
 		txtRating10 = new JTextField();
+		txtRating10.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtRating10.setHorizontalAlignment(SwingConstants.CENTER);
 		txtRating10.setColumns(10);
 		txtRating10.setBounds(565, 490, 50, 20);
 		contentPane.add(txtRating10);
 		
 		txtReviews4 = new JTextField();
+		txtReviews4.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtReviews4.setHorizontalAlignment(SwingConstants.CENTER);
 		txtReviews4.setColumns(10);
 		txtReviews4.setBounds(645, 310, 75, 20);
 		contentPane.add(txtReviews4);
 		
 		txtReviews5 = new JTextField();
+		txtReviews5.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtReviews5.setHorizontalAlignment(SwingConstants.CENTER);
 		txtReviews5.setColumns(10);
 		txtReviews5.setBounds(645, 340, 75, 20);
 		contentPane.add(txtReviews5);
 		
 		txtReviews6 = new JTextField();
+		txtReviews6.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtReviews6.setHorizontalAlignment(SwingConstants.CENTER);
 		txtReviews6.setColumns(10);
 		txtReviews6.setBounds(645, 370, 75, 20);
 		contentPane.add(txtReviews6);
 		
 		txtReviews7 = new JTextField();
+		txtReviews7.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtReviews7.setHorizontalAlignment(SwingConstants.CENTER);
 		txtReviews7.setColumns(10);
 		txtReviews7.setBounds(645, 400, 75, 20);
 		contentPane.add(txtReviews7);
 		
 		txtReviews8 = new JTextField();
+		txtReviews8.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtReviews8.setHorizontalAlignment(SwingConstants.CENTER);
 		txtReviews8.setColumns(10);
 		txtReviews8.setBounds(645, 430, 75, 20);
 		contentPane.add(txtReviews8);
 		
 		txtReviews9 = new JTextField();
+		txtReviews9.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtReviews9.setHorizontalAlignment(SwingConstants.CENTER);
 		txtReviews9.setColumns(10);
 		txtReviews9.setBounds(645, 460, 75, 20);
 		contentPane.add(txtReviews9);
 		
 		txtReviews10 = new JTextField();
+		txtReviews10.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtReviews10.setHorizontalAlignment(SwingConstants.CENTER);
 		txtReviews10.setColumns(10);
 		txtReviews10.setBounds(645, 490, 75, 20);
 		contentPane.add(txtReviews10);
 		
 		txtUploaded4 = new JTextField();
+		txtUploaded4.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtUploaded4.setHorizontalAlignment(SwingConstants.CENTER);
 		txtUploaded4.setColumns(10);
 		txtUploaded4.setBounds(750, 310, 100, 20);
 		contentPane.add(txtUploaded4);
 		
 		txtUploaded5 = new JTextField();
+		txtUploaded5.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtUploaded5.setHorizontalAlignment(SwingConstants.CENTER);
 		txtUploaded5.setColumns(10);
 		txtUploaded5.setBounds(750, 340, 100, 20);
 		contentPane.add(txtUploaded5);
 		
 		txtUploaded6 = new JTextField();
+		txtUploaded6.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtUploaded6.setHorizontalAlignment(SwingConstants.CENTER);
 		txtUploaded6.setColumns(10);
 		txtUploaded6.setBounds(750, 370, 100, 20);
 		contentPane.add(txtUploaded6);
 		
 		txtUploaded7 = new JTextField();
+		txtUploaded7.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtUploaded7.setHorizontalAlignment(SwingConstants.CENTER);
 		txtUploaded7.setColumns(10);
 		txtUploaded7.setBounds(750, 400, 100, 20);
 		contentPane.add(txtUploaded7);
 		
 		txtUploaded8 = new JTextField();
+		txtUploaded8.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtUploaded8.setHorizontalAlignment(SwingConstants.CENTER);
 		txtUploaded8.setColumns(10);
 		txtUploaded8.setBounds(750, 430, 100, 20);
 		contentPane.add(txtUploaded8);
 		
 		txtUploaded9 = new JTextField();
+		txtUploaded9.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtUploaded9.setHorizontalAlignment(SwingConstants.CENTER);
 		txtUploaded9.setColumns(10);
 		txtUploaded9.setBounds(750, 460, 100, 20);
 		contentPane.add(txtUploaded9);
 		
 		txtUploaded10 = new JTextField();
+		txtUploaded10.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtUploaded10.setHorizontalAlignment(SwingConstants.CENTER);
 		txtUploaded10.setColumns(10);
 		txtUploaded10.setBounds(750, 490, 100, 20);
@@ -671,18 +730,21 @@ rdbtnDescending = new JRadioButton("Descending");
 		contentPane.add(txtSongID10);
 		
 		txtRating3 = new JTextField();
+		txtRating3.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtRating3.setHorizontalAlignment(SwingConstants.CENTER);
 		txtRating3.setBounds(565, 280, 50, 20);
 		contentPane.add(txtRating3);
 		txtRating3.setColumns(10);
 		
 		txtReviews3 = new JTextField();
+		txtReviews3.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtReviews3.setHorizontalAlignment(SwingConstants.CENTER);
 		txtReviews3.setBounds(645, 280, 75, 20);
 		contentPane.add(txtReviews3);
 		txtReviews3.setColumns(10);
 		
 		txtUploaded3 = new JTextField();
+		txtUploaded3.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtUploaded3.setHorizontalAlignment(SwingConstants.CENTER);
 		txtUploaded3.setBounds(750, 280, 100, 20);
 		contentPane.add(txtUploaded3);
@@ -813,8 +875,8 @@ rdbtnDescending = new JRadioButton("Descending");
 		btnView10.setBounds(880, 490, 100, 20);
 		contentPane.add(btnView10);
 		
-		btnNextPage = new JButton("Next Page");
-		btnNextPage.addActionListener(new ActionListener() {
+		btnNext = new JButton("Next Page");
+		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				pageCount = (pageCount + 1);
@@ -824,9 +886,9 @@ rdbtnDescending = new JRadioButton("Descending");
 				loadContent();
 			}
 		});
-		btnNextPage.setFont(new Font("Georgia", Font.PLAIN, 11));
-		btnNextPage.setBounds(550, 530, 125, 25);
-		contentPane.add(btnNextPage);
+		btnNext.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnNext.setBounds(550, 530, 125, 25);
+		contentPane.add(btnNext);
 		
 		btnPrevious = new JButton("Previous Page");
 		btnPrevious.addActionListener(new ActionListener() {
@@ -894,14 +956,14 @@ rdbtnDescending = new JRadioButton("Descending");
 				{	
 					System.err.println("Could not load driver");
 					System.err.println(cnf.getMessage());
-					System.exit(-1);	
+			
 				}
 			
 				catch (SQLException sqe)
 				{
 					System.out.println("Error performing SQL Query");
 					System.out.println(sqe.getMessage());
-					System.exit(-1);
+				
 				}
 				
 			}
@@ -924,13 +986,13 @@ rdbtnDescending = new JRadioButton("Descending");
 		lblPage = new JLabel("Page");
 		lblPage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPage.setFont(new Font("Georgia", Font.BOLD, 12));
-		lblPage.setBounds(460, 560, 48, 14);
+		lblPage.setBounds(460, 560, 50, 14);
 		lblPage.setForeground(new Color(90, 192, 217));
 		contentPane.add(lblPage);
 		
 		txtPage = new JTextField();
+		txtPage.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtPage.setHorizontalAlignment(SwingConstants.CENTER);
-		txtPage.setEditable(false);
 		txtPage.setBounds(461, 530, 50, 25);
 		contentPane.add(txtPage);
 		txtPage.setColumns(10);
@@ -1094,7 +1156,7 @@ rdbtnDescending = new JRadioButton("Descending");
 					txtReviews10.setText(reviews);
 					txtUploaded10.setText(uploaded);
 					btnView10.setEnabled(true);
-					btnNextPage.setEnabled(true);
+					btnNext.setEnabled(true);
 					break;
 				
 				
@@ -1121,7 +1183,7 @@ rdbtnDescending = new JRadioButton("Descending");
 	public void clearScreen() {
 		
 
-		btnNextPage.setEnabled(false);
+		btnNext.setEnabled(false);
 		btnPrevious.setEnabled(false);
 
 		txtTitle1.setText("");
