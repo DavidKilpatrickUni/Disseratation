@@ -63,164 +63,28 @@ public class MyPlaylistsScreen extends JFrame {
 	private JTextField txtPlaylistID8;
 	private JTextField txtPlaylistID9;
 	private JTextField txtPlaylistID10;
-	/**
-	 * Launch the application.
-	 */
 	
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MyPlaylistsScreen frame = new MyPlaylistsScreen();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-*/
+	private JButton btnDeleteList1;
+	private JButton btnDeleteList2;
+	private JButton btnDeleteList3;
+	private JButton btnDeleteList4;
+	private JButton btnDeleteList5;
+	private JButton btnDeleteList6;
+	private JButton btnDeleteList7;
+	private JButton btnDeleteList8;
+	private JButton btnDeleteList9;
+	private JButton btnDeleteList10;
 
-	/**
-	 * Create the frame.
-	 */
+	
 	public MyPlaylistsScreen( LoggedIn currentLoggedIn) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
 		setTitle("Elenco - My Playlists");
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				
-				ResultSet myLists = MyPlaylistsApplication.loadPlaylists(currentLoggedIn.getCurrentUserID());
-				
-				String playlistTitle = null;
-				String playListID = null;
-	
-				int row = 1;
-				
-	try {
-		
-		
-					
-					while (myLists.next())																	
-					{
-		
-						playlistTitle = myLists.getString("PlaylistTitle");
-						playListID = myLists.getString("PlaylistID");
-						System.out.println(playlistTitle);
-						/*
-						artist = songDetails.getString("Artist");
-						length = songDetails.getString("Song Length");
-						album = songDetails.getString("Album");
-						genre = songDetails.getString("Genre");
-						released = songDetails.getString("Released");
-						info = songDetails.getString("Song Info");
-						
-						textFieldTitle.setText(title);
-						textFieldArtist.setText(artist);
-						txtLength.setText(length);
-						txtAlbum.setText(album);
-						txtGenre.setText(genre);
-						 txtReleased.setText(released);
-						 textArea.setText(info);
-						 */
-						
-						switch (row) {
-						case 1:
-							txtPlaylistTitle1.setText(playlistTitle);
-						
-							btnPlaylist1.setText("View");
-							txtPlaylistID1.setText(playListID);
-							
-							btnPlaylist2.setEnabled(true);
-							break;
-						case 2:
-							txtPlaylistTitle2.setText(playlistTitle);
-					
-							btnPlaylist2.setText("View");
-							txtPlaylistID2.setText(playListID);
-							
-							btnPlaylist3.setEnabled(true);
-							break;
-						case 3:
-							txtPlaylistTitle3.setText(playlistTitle);
 			
-							btnPlaylist3.setText("View");
-							txtPlaylistID3.setText(playListID);
-							
-							btnPlaylist4.setEnabled(true);
-							break;
-						case 4:
-							txtPlaylistTitle4.setText(playlistTitle);
-							btnPlaylist4.setEnabled(true);
-							btnPlaylist4.setText("View");
-							txtPlaylistID4.setText(playListID);
-							
-							btnPlaylist5.setEnabled(true);
-							break;
-						case 5:
-							txtPlaylistTitle5.setText(playlistTitle);
-				
-							btnPlaylist5.setText("View");
-							txtPlaylistID5.setText(playListID);
-							
-							btnPlaylist6.setEnabled(true);
-							break;
-						case 6:
-							txtPlaylistTitle6.setText(playlistTitle);
-			
-							btnPlaylist6.setText("View");
-							txtPlaylistID6.setText(playListID);
-							
-							btnPlaylist7.setEnabled(true);
-							break;
-						case 7:
-							txtPlaylistTitle7.setText(playlistTitle);
-					
-							btnPlaylist7.setText("View");
-							txtPlaylistID7.setText(playListID);
-							
-							btnPlaylist8.setEnabled(true);
-							break;
-						case 8:
-							txtPlaylistTitle8.setText(playlistTitle);
-					
-							btnPlaylist8.setText("View");
-							txtPlaylistID8.setText(playListID);
-							
-							btnPlaylist9.setEnabled(true);
-							break;
-						case 9:
-							txtPlaylistTitle9.setText(playlistTitle);
-			
-							btnPlaylist9.setText("View");
-							txtPlaylistID9.setText(playListID);
-							
-							btnPlaylist10.setEnabled(true);
-							break;
-						case 10:
-							txtPlaylistTitle10.setText(playlistTitle);
-	
-							btnPlaylist10.setText("View");
-							txtPlaylistID10.setText(playListID);
-							break;
-						
-						
-						
-						
-						default:
-							System.out.println("nothing matching search criteria\n");
-						}
-						row++;
-					}
-	
-					
-				}
-				catch (SQLException sqe)
-				{
-					
-				}
-				
+				loadContent(currentLoggedIn);
+
 			}
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -232,180 +96,149 @@ public class MyPlaylistsScreen extends JFrame {
 		contentPane.setLayout(null);
 		
 		btnPlaylist1 = new JButton("Create List");
+		btnPlaylist1.setToolTipText("Click To View/Create Playlist");
 		btnPlaylist1.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnPlaylist1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID1.getText(),null);
+				ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
+				gui.setVisible(true);
+				dispose();
 	
-				
-				if (btnPlaylist1.getText().equals("Create List")) {
-					
-					String newPlaylistTitle;
-					newPlaylistTitle = (JOptionPane.showInputDialog("Enter New Playlist Title"));
-					
-					if(!Helper.checkBlank(newPlaylistTitle))
-					{
-						PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID1.getText(),newPlaylistTitle);
-						ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
-						gui.setVisible(true);
-						dispose();
-						
-					}
-					
-			
-				}
-				else
-				{
-					PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID1.getText());
-					ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
-					gui.setVisible(true);
-					dispose();
-				}
-				
-		
-				
 			}
 		});
 		btnPlaylist1.setBounds(50, 280, 100, 25);
 		contentPane.add(btnPlaylist1);
 		
-	 btnPlaylist6 = new JButton("Create List");
-	 btnPlaylist6.addActionListener(new ActionListener() {
+		btnPlaylist6 = new JButton("Create List");
+		btnPlaylist6.setToolTipText("Click To View/Create Playlist");
+		btnPlaylist6.addActionListener(new ActionListener() {
 	 	public void actionPerformed(ActionEvent e) {
 	 		
-	 	
-	 	}
-	 });
-	 btnPlaylist6.setEnabled(false);
+	 			PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID6.getText(),null);
+	 			ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
+	 			gui.setVisible(true);
+	 			dispose();
+	 		
+	 		}
+		});
+		btnPlaylist6.setEnabled(false);
 		btnPlaylist6.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnPlaylist6.setBounds(50, 480, 100, 25);
 		contentPane.add(btnPlaylist6);
 		
- btnPlaylist2 = new JButton("Create List");
- btnPlaylist2.addActionListener(new ActionListener() {
- 	public void actionPerformed(ActionEvent e) {
+		btnPlaylist2 = new JButton("Create List");
+		btnPlaylist2.setToolTipText("Click To View/Create Playlist");
+		btnPlaylist2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
  		
-		if (btnPlaylist2.getText().equals("Create List")) {
-			
-			String newPlaylistTitle;
-			newPlaylistTitle = (JOptionPane.showInputDialog("Enter New Playlist Title"));
-			
-			if(!Helper.checkBlank(newPlaylistTitle))
-			{
-				PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID2.getText(),newPlaylistTitle);
+				PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID2.getText(),null);
 				ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
 				gui.setVisible(true);
 				dispose();
-				
+		
 			}
-			
-	
-		}
-		else
-		{
-			PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID2.getText());
-			ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
-			gui.setVisible(true);
-			dispose();
-		}
- 	}
- });
- btnPlaylist2.setEnabled(false);
+		});
+		btnPlaylist2.setEnabled(false);
 		btnPlaylist2.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnPlaylist2.setBounds(215, 280, 100, 25);
 		contentPane.add(btnPlaylist2);
 		
-		 btnPlaylist7 = new JButton("Create List");
-		 btnPlaylist7.addActionListener(new ActionListener() {
-		 	public void actionPerformed(ActionEvent e) {
+		btnPlaylist7 = new JButton("Create List");
+		btnPlaylist7.setToolTipText("Click To View/Create Playlist");
+		btnPlaylist7.addActionListener(new ActionListener() {
+		 public void actionPerformed(ActionEvent e) {
+			 
+				PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID7.getText(),null);
+				ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
+				gui.setVisible(true);
+				dispose();
 			
 		 	}
-		 });
-		 btnPlaylist7.setEnabled(false);
+		});
+		btnPlaylist7.setEnabled(false);
 		btnPlaylist7.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnPlaylist7.setBounds(215, 480, 100, 25);
 		contentPane.add(btnPlaylist7);
 		
-	btnPlaylist3 = new JButton("Create List");
-	btnPlaylist3.addActionListener(new ActionListener() {
+		btnPlaylist3 = new JButton("Create List");
+		btnPlaylist3.setToolTipText("Click To View/Create Playlist");
+		btnPlaylist3.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			if (btnPlaylist3.getText().equals("Create List")) {
-				
-				String newPlaylistTitle;
-				newPlaylistTitle = (JOptionPane.showInputDialog("Enter New Playlist Title"));
-				
-				if(!Helper.checkBlank(newPlaylistTitle))
-				{
-					PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID3.getText(),newPlaylistTitle);
-					
-					try {
-						MySQLQueries.createPlaylist(currentLoggedIn.getCurrentUserID(), null, newPlaylistTitle);
-					} catch (CustomException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
-					gui.setVisible(true);
-					dispose();
-					
-				}
-				else
-				{
-					JOptionPane.showMessageDialog(null, "Valid Playlist Title Input Required", "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
-				}
-				
 		
-			}
-			else
-			{
-				PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID3.getText());
+				PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID3.getText(),null);
 				ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
 				gui.setVisible(true);
 				dispose();
+
 			}
-		}
-		
-	});
-	btnPlaylist3.setEnabled(false);
+		});
+		btnPlaylist3.setEnabled(false);
 		btnPlaylist3.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnPlaylist3.setBounds(385, 280, 100, 25);
 		contentPane.add(btnPlaylist3);
 		
-		 btnPlaylist8 = new JButton("Create List");
-		 btnPlaylist8.addActionListener(new ActionListener() {
+		btnPlaylist8 = new JButton("Create List");
+		btnPlaylist8.setToolTipText("Click To View/Create Playlist");
+		btnPlaylist8.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
+		 		
+		 		PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID8.getText(),null);
+				ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
+				gui.setVisible(true);
+				dispose();
 			
 		 	}
-		 });
-		 btnPlaylist8.setEnabled(false);
+		});
+		btnPlaylist8.setEnabled(false);
 		btnPlaylist8.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnPlaylist8.setBounds(385, 480, 100, 25);
 		contentPane.add(btnPlaylist8);
 		
-	 btnPlaylist4 = new JButton("Create List");
-	 btnPlaylist4.addActionListener(new ActionListener() {
+		btnPlaylist4 = new JButton("Create List");
+		btnPlaylist4.setToolTipText("Click To View/Create Playlist");
+		btnPlaylist4.addActionListener(new ActionListener() {
 	 	public void actionPerformed(ActionEvent e) {
+	 		
+	 			PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID4.getText(),null);
+	 			ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
+				gui.setVisible(true);
+				dispose();
 			
-	 	}
-	 });
-	 btnPlaylist4.setEnabled(false);
+	 		}
+		});
+		btnPlaylist4.setEnabled(false);
 		btnPlaylist4.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnPlaylist4.setBounds(555, 280, 100, 25);
 		contentPane.add(btnPlaylist4);
 		
-	btnPlaylist9 = new JButton("Create List");
-	btnPlaylist9.addActionListener(new ActionListener() {
+		btnPlaylist9 = new JButton("Create List");
+		btnPlaylist9.setToolTipText("Click To View/Create Playlist");
+		btnPlaylist9.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
+			
+				PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID9.getText(),null);
+				ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
+				gui.setVisible(true);
+				dispose();
 		
-		}
-	});
-	btnPlaylist9.setEnabled(false);
+			}
+		});
+		btnPlaylist9.setEnabled(false);
 		btnPlaylist9.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnPlaylist9.setBounds(555, 480, 100, 25);
 		contentPane.add(btnPlaylist9);
 		
 		btnPlaylist5 = new JButton("Create List");
+		btnPlaylist5.setToolTipText("Click To View/Create Playlist");
 		btnPlaylist5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID5.getText(),null);
+				ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
+				gui.setVisible(true);
+				dispose();
 			
 			}
 		});
@@ -415,8 +248,14 @@ public class MyPlaylistsScreen extends JFrame {
 		contentPane.add(btnPlaylist5);
 		
 		btnPlaylist10 = new JButton("Create List");
+		btnPlaylist10.setToolTipText("Click To View/Create Playlist");
 		btnPlaylist10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				PlaylistInfo currentPlaylistInfo = new PlaylistInfo(txtPlaylistID10.getText(),null);
+				ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
+				gui.setVisible(true);
+				dispose();
 			
 			}
 		});
@@ -426,10 +265,11 @@ public class MyPlaylistsScreen extends JFrame {
 		contentPane.add(btnPlaylist10);
 		
 		JButton btnBack = new JButton("Back");
+		btnBack.setToolTipText("Return To Main Menu");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				MainScreen gui = new MainScreen(currentLoggedIn);
+				MainMenuScreen gui = new MainMenuScreen(currentLoggedIn);
 				gui.setVisible(true);
 				dispose();
 				
@@ -439,6 +279,7 @@ public class MyPlaylistsScreen extends JFrame {
 		contentPane.add(btnBack);
 		
 		txtPlaylistTitle1 = new JTextField();
+		txtPlaylistTitle1.setToolTipText("Name Of Playlist ");
 		txtPlaylistTitle1.setFont(new Font("Georgia", Font.PLAIN, 11));
 		txtPlaylistTitle1.setHorizontalAlignment(SwingConstants.CENTER);
 		txtPlaylistTitle1.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
@@ -447,6 +288,7 @@ public class MyPlaylistsScreen extends JFrame {
 		txtPlaylistTitle1.setColumns(10);
 		
 		txtPlaylistTitle2 = new JTextField();
+		txtPlaylistTitle2.setToolTipText("Name Of Playlist ");
 		txtPlaylistTitle2.setFont(new Font("Georgia", Font.PLAIN, 11));
 		txtPlaylistTitle2.setHorizontalAlignment(SwingConstants.CENTER);
 		txtPlaylistTitle2.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
@@ -455,6 +297,7 @@ public class MyPlaylistsScreen extends JFrame {
 		txtPlaylistTitle2.setColumns(10);
 		
 		txtPlaylistTitle3 = new JTextField();
+		txtPlaylistTitle3.setToolTipText("Name Of Playlist ");
 		txtPlaylistTitle3.setFont(new Font("Georgia", Font.PLAIN, 11));
 		txtPlaylistTitle3.setHorizontalAlignment(SwingConstants.CENTER);
 		txtPlaylistTitle3.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
@@ -463,6 +306,7 @@ public class MyPlaylistsScreen extends JFrame {
 		txtPlaylistTitle3.setColumns(10);
 		
 		txtPlaylistTitle4 = new JTextField();
+		txtPlaylistTitle4.setToolTipText("Name Of Playlist ");
 		txtPlaylistTitle4.setFont(new Font("Georgia", Font.PLAIN, 11));
 		txtPlaylistTitle4.setHorizontalAlignment(SwingConstants.CENTER);
 		txtPlaylistTitle4.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
@@ -471,6 +315,7 @@ public class MyPlaylistsScreen extends JFrame {
 		txtPlaylistTitle4.setColumns(10);
 		
 		txtPlaylistTitle5 = new JTextField();
+		txtPlaylistTitle5.setToolTipText("Name Of Playlist ");
 		txtPlaylistTitle5.setFont(new Font("Georgia", Font.PLAIN, 11));
 		txtPlaylistTitle5.setHorizontalAlignment(SwingConstants.CENTER);
 		txtPlaylistTitle5.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
@@ -479,6 +324,7 @@ public class MyPlaylistsScreen extends JFrame {
 		txtPlaylistTitle5.setColumns(10);
 		
 		txtPlaylistTitle6 = new JTextField();
+		txtPlaylistTitle6.setToolTipText("Name Of Playlist ");
 		txtPlaylistTitle6.setFont(new Font("Georgia", Font.PLAIN, 11));
 		txtPlaylistTitle6.setHorizontalAlignment(SwingConstants.CENTER);
 		txtPlaylistTitle6.setColumns(10);
@@ -487,6 +333,7 @@ public class MyPlaylistsScreen extends JFrame {
 		contentPane.add(txtPlaylistTitle6);
 		
 		txtPlaylistTitle7 = new JTextField();
+		txtPlaylistTitle7.setToolTipText("Name Of Playlist ");
 		txtPlaylistTitle7.setFont(new Font("Georgia", Font.PLAIN, 11));
 		txtPlaylistTitle7.setHorizontalAlignment(SwingConstants.CENTER);
 		txtPlaylistTitle7.setColumns(10);
@@ -495,6 +342,7 @@ public class MyPlaylistsScreen extends JFrame {
 		contentPane.add(txtPlaylistTitle7);
 		
 		txtPlaylistTitle8 = new JTextField();
+		txtPlaylistTitle8.setToolTipText("Name Of Playlist ");
 		txtPlaylistTitle8.setFont(new Font("Georgia", Font.PLAIN, 11));
 		txtPlaylistTitle8.setHorizontalAlignment(SwingConstants.CENTER);
 		txtPlaylistTitle8.setColumns(10);
@@ -503,6 +351,7 @@ public class MyPlaylistsScreen extends JFrame {
 		contentPane.add(txtPlaylistTitle8);
 		
 		txtPlaylistTitle9 = new JTextField();
+		txtPlaylistTitle9.setToolTipText("Name Of Playlist ");
 		txtPlaylistTitle9.setFont(new Font("Georgia", Font.PLAIN, 11));
 		txtPlaylistTitle9.setHorizontalAlignment(SwingConstants.CENTER);
 		txtPlaylistTitle9.setColumns(10);
@@ -511,6 +360,7 @@ public class MyPlaylistsScreen extends JFrame {
 		contentPane.add(txtPlaylistTitle9);
 		
 		txtPlaylistTitle10 = new JTextField();
+		txtPlaylistTitle10.setToolTipText("Name Of Playlist ");
 		txtPlaylistTitle10.setFont(new Font("Georgia", Font.PLAIN, 11));
 		txtPlaylistTitle10.setHorizontalAlignment(SwingConstants.CENTER);
 		txtPlaylistTitle10.setColumns(10);
@@ -525,10 +375,10 @@ public class MyPlaylistsScreen extends JFrame {
 		lblHeader.setBounds(342, 59, 300, 25);
 		contentPane.add(lblHeader);
 		
-		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));					// Create new instance of Icon using the given PNG file.
-		Image appImage = appIcon.getImage();															// Create image of icon variable.
-		Image appImageResize = appImage.getScaledInstance(50,50, java.awt.Image.SCALE_SMOOTH);		// Resize image to scale desired. 
-		appIcon = new ImageIcon(appImageResize);														// Set instance of Icon to the resized Image.
+		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));				
+		Image appImage = appIcon.getImage();															
+		Image appImageResize = appImage.getScaledInstance(50,50, java.awt.Image.SCALE_SMOOTH);		
+		appIcon = new ImageIcon(appImageResize);													
 		
 		JLabel lblLogo = new JLabel(appIcon);
 		lblLogo.setToolTipText("Elenco - Express Your Musical Opinion");
@@ -536,10 +386,10 @@ public class MyPlaylistsScreen extends JFrame {
 		contentPane.add(lblLogo);
 		
 		
-		ImageIcon playlistIcon =  new ImageIcon(ApplicationStartup.class.getResource("/ProfileIcon.PNG"));					// Create new instance of Icon using the given PNG file.
-		Image playlistImage = playlistIcon.getImage();															// Create image of icon variable.
-		Image playlistImageResize = playlistImage.getScaledInstance(100,100, java.awt.Image.SCALE_SMOOTH);		// Resize image to scale desired. 
-		playlistIcon = new ImageIcon(playlistImageResize);														// Set instance of Icon to the resized Image.
+		ImageIcon playlistIcon =  new ImageIcon(ApplicationStartup.class.getResource("/ProfileIcon.PNG"));					
+		Image playlistImage = playlistIcon.getImage();															
+		Image playlistImageResize = playlistImage.getScaledInstance(100,100, java.awt.Image.SCALE_SMOOTH);	
+		playlistIcon = new ImageIcon(playlistImageResize);														
 		
 		
 		lblPlaylistIcon1 = new JLabel(playlistIcon);
@@ -551,55 +401,478 @@ public class MyPlaylistsScreen extends JFrame {
 		contentPane.add(lblPlaylistIcon2);
 		
 		txtPlaylistID1 = new JTextField();
-		txtPlaylistID1.setBounds(87, 316, 25, 20);
+		txtPlaylistID1.setVisible(false);
+		txtPlaylistID1.setBounds(87, 127, 25, 20);
 		contentPane.add(txtPlaylistID1);
 		txtPlaylistID1.setColumns(10);
 		
 		txtPlaylistID2 = new JTextField();
+		txtPlaylistID2.setVisible(false);
 		txtPlaylistID2.setColumns(10);
-		txtPlaylistID2.setBounds(251, 316, 25, 20);
+		txtPlaylistID2.setBounds(240, 133, 25, 20);
 		contentPane.add(txtPlaylistID2);
 		
 		txtPlaylistID3 = new JTextField();
+		txtPlaylistID3.setVisible(false);
 		txtPlaylistID3.setColumns(10);
-		txtPlaylistID3.setBounds(422, 316, 25, 20);
+		txtPlaylistID3.setBounds(408, 127, 25, 20);
 		contentPane.add(txtPlaylistID3);
 		
 		txtPlaylistID4 = new JTextField();
+		txtPlaylistID4.setVisible(false);
 		txtPlaylistID4.setColumns(10);
-		txtPlaylistID4.setBounds(587, 316, 25, 20);
+		txtPlaylistID4.setBounds(566, 127, 25, 20);
 		contentPane.add(txtPlaylistID4);
 		
 		txtPlaylistID5 = new JTextField();
+		txtPlaylistID5.setVisible(false);
 		txtPlaylistID5.setColumns(10);
-		txtPlaylistID5.setBounds(759, 316, 25, 20);
+		txtPlaylistID5.setBounds(743, 127, 25, 20);
 		contentPane.add(txtPlaylistID5);
 		
 		txtPlaylistID6 = new JTextField();
+		txtPlaylistID6.setVisible(false);
 		txtPlaylistID6.setColumns(10);
-		txtPlaylistID6.setBounds(87, 516, 25, 20);
+		txtPlaylistID6.setBounds(87, 563, 25, 20);
 		contentPane.add(txtPlaylistID6);
 		
 		txtPlaylistID7 = new JTextField();
+		txtPlaylistID7.setVisible(false);
 		txtPlaylistID7.setColumns(10);
-		txtPlaylistID7.setBounds(258, 516, 25, 20);
+		txtPlaylistID7.setBounds(258, 566, 25, 20);
 		contentPane.add(txtPlaylistID7);
 		
 		txtPlaylistID8 = new JTextField();
+		txtPlaylistID8.setVisible(false);
 		txtPlaylistID8.setColumns(10);
-		txtPlaylistID8.setBounds(408, 516, 25, 20);
+		txtPlaylistID8.setBounds(422, 590, 25, 20);
 		contentPane.add(txtPlaylistID8);
 		
 		txtPlaylistID9 = new JTextField();
+		txtPlaylistID9.setVisible(false);
 		txtPlaylistID9.setColumns(10);
-		txtPlaylistID9.setBounds(587, 516, 25, 20);
+		txtPlaylistID9.setBounds(603, 579, 25, 20);
 		contentPane.add(txtPlaylistID9);
 		
 		txtPlaylistID10 = new JTextField();
+		txtPlaylistID10.setVisible(false);
 		txtPlaylistID10.setColumns(10);
-		txtPlaylistID10.setBounds(759, 516, 25, 20);
+		txtPlaylistID10.setBounds(765, 579, 25, 20);
 		contentPane.add(txtPlaylistID10);
 		
+		btnDeleteList1 = new JButton("Delete List");
+		btnDeleteList1.setToolTipText("Click To Delete Playlist");
+		btnDeleteList1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Delete Playlist?", "Elenco - Delete Playlist", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+				if (select == JOptionPane.YES_OPTION)
+				{		
+					deleteProcess(currentLoggedIn , txtPlaylistID1.getText() );
+					JOptionPane.showMessageDialog(null, "Playlist Has Benn Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+				}
+				
+			}
+		});
+		btnDeleteList1.setEnabled(false);
+		btnDeleteList1.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnDeleteList1.setBounds(50, 315, 100, 25);
+		contentPane.add(btnDeleteList1);
+		
+		btnDeleteList2 = new JButton("Delete List");
+		btnDeleteList2.setToolTipText("Click To Delete Playlist");
+		btnDeleteList2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Delete Playlist?", "Elenco - Delete Playlist", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+				if (select == JOptionPane.YES_OPTION)
+				{		
+					deleteProcess(currentLoggedIn , txtPlaylistID2.getText() );
+					JOptionPane.showMessageDialog(null, "Playlist Has Benn Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+				}
+			}
+		});
+		btnDeleteList2.setEnabled(false);
+		btnDeleteList2.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnDeleteList2.setBounds(215, 315, 100, 25);
+		contentPane.add(btnDeleteList2);
+		
+		btnDeleteList3 = new JButton("Delete List");
+		btnDeleteList3.setToolTipText("Click To Delete Playlist");
+		btnDeleteList3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Delete Playlist?", "Elenco - Delete Playlist", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+				if (select == JOptionPane.YES_OPTION)
+				{		
+					deleteProcess(currentLoggedIn , txtPlaylistID3.getText() );
+					JOptionPane.showMessageDialog(null, "Playlist Has Benn Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+				}
+			}
+		});
+		btnDeleteList3.setEnabled(false);
+		btnDeleteList3.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnDeleteList3.setBounds(385, 315, 100, 25);
+		contentPane.add(btnDeleteList3);
+		
+		btnDeleteList4 = new JButton("Delete List");
+		btnDeleteList4.setToolTipText("Click To Delete Playlist");
+		btnDeleteList4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Delete Playlist?", "Elenco - Delete Playlist", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+				if (select == JOptionPane.YES_OPTION)
+				{		
+					deleteProcess(currentLoggedIn , txtPlaylistID4.getText() );
+					JOptionPane.showMessageDialog(null, "Playlist Has Benn Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+				}
+	
+			}
+		});
+		btnDeleteList4.setEnabled(false);
+		btnDeleteList4.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnDeleteList4.setBounds(555, 315, 100, 25);
+		contentPane.add(btnDeleteList4);
+		
+		btnDeleteList5 = new JButton("Delete List");
+		btnDeleteList5.setToolTipText("Click To Delete Playlist");
+		btnDeleteList5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Delete Playlist?", "Elenco - Delete Playlist", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+				if (select == JOptionPane.YES_OPTION)
+				{		
+					deleteProcess(currentLoggedIn , txtPlaylistID5.getText() );
+					JOptionPane.showMessageDialog(null, "Playlist Has Benn Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+				}
+			}
+		});
+		btnDeleteList5.setEnabled(false);
+		btnDeleteList5.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnDeleteList5.setBounds(725, 315, 100, 25);
+		contentPane.add(btnDeleteList5);
+		
+		btnDeleteList6 = new JButton("Delete List");
+		btnDeleteList6.setToolTipText("Click To Delete Playlist");
+		btnDeleteList6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Delete Playlist?", "Elenco - Delete Playlist", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+				if (select == JOptionPane.YES_OPTION)
+				{		
+					deleteProcess(currentLoggedIn , txtPlaylistID6.getText() );
+					JOptionPane.showMessageDialog(null, "Playlist Has Benn Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+				}
+			}
+		});
+		btnDeleteList6.setEnabled(false);
+		btnDeleteList6.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnDeleteList6.setBounds(50, 515, 100, 25);
+		contentPane.add(btnDeleteList6);
+		
+		btnDeleteList7 = new JButton("Delete List");
+		btnDeleteList7.setToolTipText("Click To Delete Playlist");
+		btnDeleteList7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Delete Playlist?", "Elenco - Delete Playlist", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+				if (select == JOptionPane.YES_OPTION)
+				{		
+					deleteProcess(currentLoggedIn , txtPlaylistID7.getText() );
+					JOptionPane.showMessageDialog(null, "Playlist Has Benn Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+				}
+			}
+		});
+		btnDeleteList7.setEnabled(false);
+		btnDeleteList7.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnDeleteList7.setBounds(215, 515, 100, 25);
+		contentPane.add(btnDeleteList7);
+		
+		btnDeleteList8 = new JButton("Delete List");
+		btnDeleteList8.setToolTipText("Click To Delete Playlist");
+		btnDeleteList8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Delete Playlist?", "Elenco - Delete Playlist", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+				if (select == JOptionPane.YES_OPTION)
+				{		
+					deleteProcess(currentLoggedIn , txtPlaylistID8.getText() );
+					JOptionPane.showMessageDialog(null, "Playlist Has Benn Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+				}
+				
+			}
+		});
+		btnDeleteList8.setEnabled(false);
+		btnDeleteList8.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnDeleteList8.setBounds(385, 515, 100, 25);
+		contentPane.add(btnDeleteList8);
+		
+		btnDeleteList9 = new JButton("Delete List");
+		btnDeleteList9.setToolTipText("Click To Delete Playlist");
+		btnDeleteList9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Delete Playlist?", "Elenco - Delete Playlist", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+				if (select == JOptionPane.YES_OPTION)
+				{		
+					deleteProcess(currentLoggedIn , txtPlaylistID9.getText() );
+					JOptionPane.showMessageDialog(null, "Playlist Has Benn Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+				}
+			}
+		});
+		btnDeleteList9.setEnabled(false);
+		btnDeleteList9.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnDeleteList9.setBounds(555, 515, 100, 25);
+		contentPane.add(btnDeleteList9);
+		
+		btnDeleteList10 = new JButton("Delete List");
+		btnDeleteList10.setToolTipText("Click To Delete Playlist");
+		btnDeleteList10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Delete Playlist?", "Elenco - Delete Playlist", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+				if (select == JOptionPane.YES_OPTION)
+				{		
+					deleteProcess(currentLoggedIn , txtPlaylistID10.getText() );
+					JOptionPane.showMessageDialog(null, "Playlist Has Benn Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+				}
+				
+			}
+		});
+		btnDeleteList10.setEnabled(false);
+		btnDeleteList10.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnDeleteList10.setBounds(725, 515, 100, 25);
+		contentPane.add(btnDeleteList10);
 
 	}
+	
+	public void loadContent(LoggedIn currentLoggedIn){
+		
+		ResultSet myLists = MySQLQueries.loadPlaylists(currentLoggedIn.getCurrentUserID());
+		
+		String playlistTitle = null;
+		String playListID = null;
+
+		int row = 1;
+		
+		try {
+
+			while (myLists.next())																	
+			{
+
+				playlistTitle = myLists.getString("PlaylistTitle");
+				playListID = myLists.getString("PlaylistID");
+				System.out.println(playlistTitle);
+
+				switch (row) {
+					case 1:
+						txtPlaylistTitle1.setText(playlistTitle);
+						btnPlaylist1.setText("View");
+						txtPlaylistID1.setText(playListID);
+						btnPlaylist2.setEnabled(true);
+						btnDeleteList1.setEnabled(true);
+						break;
+					case 2:
+						txtPlaylistTitle2.setText(playlistTitle);
+						btnPlaylist2.setText("View");
+						txtPlaylistID2.setText(playListID);
+						btnPlaylist3.setEnabled(true);
+						btnDeleteList2.setEnabled(true);
+						break;
+					case 3:
+						txtPlaylistTitle3.setText(playlistTitle);
+						btnPlaylist3.setText("View");
+						txtPlaylistID3.setText(playListID);							
+						btnPlaylist4.setEnabled(true);
+						btnDeleteList3.setEnabled(true);
+						break;
+					case 4:
+						txtPlaylistTitle4.setText(playlistTitle);
+						btnPlaylist4.setText("View");
+						txtPlaylistID4.setText(playListID);							
+						btnPlaylist5.setEnabled(true);
+						btnDeleteList4.setEnabled(true);
+						break;
+					case 5:
+						txtPlaylistTitle5.setText(playlistTitle);				
+						btnPlaylist5.setText("View");
+						txtPlaylistID5.setText(playListID);							
+						btnPlaylist6.setEnabled(true);
+						btnDeleteList5.setEnabled(true);
+						break;
+					case 6:
+						txtPlaylistTitle6.setText(playlistTitle);			
+						btnPlaylist6.setText("View");
+						txtPlaylistID6.setText(playListID);							
+						btnPlaylist7.setEnabled(true);
+						btnDeleteList6.setEnabled(true);
+						break;
+					case 7:
+						txtPlaylistTitle7.setText(playlistTitle);					
+						btnPlaylist7.setText("View");
+						txtPlaylistID7.setText(playListID);							
+						btnPlaylist8.setEnabled(true);
+						btnDeleteList7.setEnabled(true);
+						break;
+					case 8:
+						txtPlaylistTitle8.setText(playlistTitle);					
+						btnPlaylist8.setText("View");
+						txtPlaylistID8.setText(playListID);							
+						btnPlaylist9.setEnabled(true);
+						btnDeleteList8.setEnabled(true);
+						break;
+					case 9:
+						txtPlaylistTitle9.setText(playlistTitle);			
+						btnPlaylist9.setText("View");
+						txtPlaylistID9.setText(playListID);
+						btnPlaylist10.setEnabled(true);
+						btnDeleteList9.setEnabled(true);
+						break;
+					case 10:
+						txtPlaylistTitle10.setText(playlistTitle);	
+						btnPlaylist10.setText("View");
+						txtPlaylistID10.setText(playListID);
+						btnDeleteList10.setEnabled(true);
+						break;
+
+					default:
+						System.out.println("nothing matching search criteria\n");
+				}
+				row++;
+			}
+
+			
+		}
+		catch (SQLException sqe)
+		{
+			
+		}
+		
+	}
+	
+	public void clearScreen() {
+		
+		txtPlaylistTitle1.setText("");
+		btnPlaylist1.setText("Create List");
+		btnPlaylist1.setEnabled(true);
+		btnDeleteList1.setEnabled(false);
+		
+		txtPlaylistTitle2.setText("");
+		btnPlaylist2.setText("Create List");
+		btnPlaylist2.setEnabled(false);
+		btnDeleteList2.setEnabled(false);
+		
+		txtPlaylistTitle3.setText("");
+		btnPlaylist3.setText("Create List");
+		btnPlaylist3.setEnabled(false);
+		btnDeleteList3.setEnabled(false);
+		
+		txtPlaylistTitle4.setText("");
+		btnPlaylist4.setText("Create List");
+		btnPlaylist4.setEnabled(false);
+		btnDeleteList4.setEnabled(false);
+		
+		txtPlaylistTitle5.setText("");
+		btnPlaylist5.setText("Create List");
+		btnPlaylist5.setEnabled(false);
+		btnDeleteList5.setEnabled(false);
+		
+		txtPlaylistTitle6.setText("");
+		btnPlaylist6.setText("Create List");
+		btnPlaylist6.setEnabled(false);
+		btnDeleteList6.setEnabled(false);
+		
+		txtPlaylistTitle7.setText("");
+		btnPlaylist7.setText("Create List");
+		btnPlaylist7.setEnabled(false);
+		btnDeleteList7.setEnabled(false);
+		
+		txtPlaylistTitle8.setText("");
+		btnPlaylist8.setText("Create List");
+		btnPlaylist8.setEnabled(false);
+		btnDeleteList8.setEnabled(false);
+		
+		txtPlaylistTitle9.setText("");
+		btnPlaylist9.setText("Create List");
+		btnPlaylist9.setEnabled(false);
+		btnDeleteList9.setEnabled(false);
+		
+		txtPlaylistTitle10.setText("");
+		btnPlaylist10.setText("Create List");
+		btnPlaylist10.setEnabled(false);
+		btnDeleteList10.setEnabled(false);
+		
+		
+		
+	}
+	
+	public void deleteProcess(LoggedIn currentLoggedIn, String deletePlaylistID) {
+		
+		ResultSet getCurrentPlaylistTitle = MySQLQueries.getCurrentPlaylistTitle(deletePlaylistID);
+		
+		String currentPlaylistTitle = null;
+		
+		
+		try 
+		{
+			if(getCurrentPlaylistTitle.next()) 
+			{
+				currentPlaylistTitle = getCurrentPlaylistTitle.getString("PlaylistTitle");					
+
+				MySQLQueries.DeletePlaylist(currentLoggedIn.getCurrentUserID(),currentPlaylistTitle );
+				
+				clearScreen() ;
+				loadContent(currentLoggedIn);
+			}
+		} 
+		catch (SQLException errror) 
+		{
+	
+		}
+		
+		
+	}
+	
+	
+	
 }

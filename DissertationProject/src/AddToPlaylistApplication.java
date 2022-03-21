@@ -5,62 +5,69 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class AddToPlaylistApplication {
-	public static ResultSet search(String search, Object criteria, Object sort, String sortType) {
+	
+	
+public static ResultSet search(Object search, Object criteria, Object sort, String sortType, int offset, int count) {
 		
-		System.out.println(search);
-		System.out.println(checkBlank(search));
 		
-		if(checkBlank(search) == true)
+		if(search == null || search.equals(""))
 		{
 			try
 			{
 				Class.forName("com.mysql.cj.jdbc.Driver");																	
 				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
 				Statement statement = conn.createStatement();
-	
-				System.out.println("SELECT * FROM songs ORDER BY " + sort + " " + sortType );	
-				String query = "SELECT * FROM songs ORDER BY " + sort + " " + sortType;	
+				System.out.println("SELECT * FROM songs ORDER BY " + criteria  + " " + sortType+ ", " + sort+  " " + sortType + " LIMIT " + offset + "," + count +";");	
+				String query = "SELECT * FROM songs ORDER BY " + criteria + " " + sortType + ", " + sort + " " + sortType + " LIMIT " + offset + "," + count +";";		
+				
+				//System.out.println("SELECT songs.*, ratings.* FROM songs inner join ratings on songs.songID = ratings.songID GROUP BY songs.songID ORDER BY " + sort + " " + sortType );	
+				//String query = "SELECT songs.*, ratings.* FROM songs inner join ratings on songs.songID = ratings.songID GROUP BY songs.songID ORDER BY " + sort + " " + sortType;
 				System.out.println(query);
 				ResultSet results = statement.executeQuery(query);															
 				System.out.println("this here " + results);
-				
+			
+
+			
 				return results;
-				
-		
+			
+	
 			}
 
 			catch (ClassNotFoundException cnf)
 			{	
 				System.err.println("Could not load driver");
 				System.err.println(cnf.getMessage());
-				System.exit(-1);	
+		
 			}
-			
+		
 			catch (SQLException sqe)
 			{
 				System.out.println("Error performing SQL Query");
 				System.out.println(sqe.getMessage());
-				System.exit(-1);
+				
 			}
-			
-			return null;
-		}
-		else {
 		
+			return null;	
+		}
+		else
+		{
+			
 			try
 			{
 				Class.forName("com.mysql.cj.jdbc.Driver");																	
 				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
 				Statement statement = conn.createStatement();
-				System.out.println("SELECT * FROM songs where " + criteria + " = '" + search + "'" + " ORDER BY " + sort + " " + sortType);	
-				String query = "SELECT * FROM songs where " + criteria + " = '" + search + "'" + " ORDER BY " + sort + " " + sortType;	
+				System.out.println("SELECT * FROM songs where " + criteria + "='" + search + "'" + "ORDER BY " + sort + " " + sortType + " LIMIT " + offset + "," + count +";");	
+				String query = "SELECT * FROM songs where " + criteria + "='" + search + "'" + "ORDER BY " + sort + " " + sortType  + " LIMIT " + offset + "," + count +";";	
 				System.out.println(query);
 				ResultSet results = statement.executeQuery(query);															
 				System.out.println("this here " + results);
+			
 
+			
 				return results;
-				
-		
+			
+	
 			}
 
 			catch (ClassNotFoundException cnf)
@@ -69,24 +76,22 @@ public class AddToPlaylistApplication {
 				System.err.println(cnf.getMessage());
 				System.exit(-1);	
 			}
-			
+		
 			catch (SQLException sqe)
 			{
 				System.out.println("Error performing SQL Query");
 				System.out.println(sqe.getMessage());
 				System.exit(-1);
 			}
+		
+			return null;	
 			
-			return null;
 		}
-		
-		
-		
-		
+	
 	}
 	
 	
-public static ResultSet songOnPlaylist(String checkSongID, String currentUserID) {
+public static ResultSet songOnPlaylist(String checkSongID, String currentUserID, String playlistTitle) {
 		
 		try
 		{
@@ -95,7 +100,7 @@ public static ResultSet songOnPlaylist(String checkSongID, String currentUserID)
 			Statement statement = conn.createStatement();
 			//System.out.println("SELECT * FROM songs where SongID = '" + songID + "'");	
 			//String query = "SELECT * FROM songs where SongID = '" + songID + "'";	
-			String query = "SELECT * FROM playlists where songID = '" + checkSongID + "' AND userID = '" + currentUserID + "'";
+			String query = "SELECT * FROM playlists where songID = '" + checkSongID + "' AND userID = '" + currentUserID + "' AND playlistTitle = '" + playlistTitle + "'";
 		
 			System.out.println(query);
 			ResultSet results = statement.executeQuery(query);															
@@ -152,6 +157,51 @@ public static void addSong(String currentUserID, String selectedSongID, String c
 			System.exit(-1);
 		}
 	}
+
+
+public static ResultSet getPlaylistID(String currentUserID, String currentPlaylistTitle) {
+	
+	try
+	{
+		Class.forName("com.mysql.cj.jdbc.Driver");																	
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
+		Statement statement = conn.createStatement();
+		//System.out.println("SELECT * FROM songs where SongID = '" + songID + "'");	
+		//String query = "SELECT * FROM songs where SongID = '" + songID + "'";	
+		String query = "SELECT * FROM playlists where userID = '" + currentUserID + "' AND PlaylistTitle = '" + currentPlaylistTitle + "'";
+	
+		System.out.println(query);
+		ResultSet results = statement.executeQuery(query);															
+		System.out.println("this here " + results);
+	
+		return results;
+		
+
+	}
+
+	catch (ClassNotFoundException cnf)
+	{	
+		System.err.println("Could not load driver");
+		System.err.println(cnf.getMessage());
+		System.exit(-1);	
+	}
+	
+	catch (SQLException sqe)
+	{
+		System.out.println("Error performing SQL Query");
+		System.out.println(sqe.getMessage());
+		System.exit(-1);
+	}
+	
+	return null;	
+}
+
+
+
+
+
+
+
 
 public static boolean checkBlank(String text) {
 	

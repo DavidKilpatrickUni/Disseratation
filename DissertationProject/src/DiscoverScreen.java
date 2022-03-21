@@ -42,8 +42,7 @@ public class DiscoverScreen extends JFrame {
 	private JTextField txtRating1;
 	private JTextField txtReviews1;
 	private JTextField txtUploaded1;
-	private JComboBox comboBoxCriteria;
-	private JComboBox comboBoxSort;
+
 	private JTextField txtTitle2;
 	private JTextField txtArtist2;
 	private JTextField txtGenre2;
@@ -120,43 +119,21 @@ public class DiscoverScreen extends JFrame {
 	private JButton btnView10;
 	private JButton btnNext;
 	private JButton btnPrevious;
-
-	
-	private JComboBox comboBoxSearch;
 	private JButton btnMainMenu;
+	private JComboBox comboBoxCriteria;
+	private JComboBox comboBoxSort;
+	private JComboBox comboBoxSearch;
 	private JRadioButton rdbtnAscending;
 	private JRadioButton rdbtnDescending ;
-	
-
 	private JLabel lblPage;
 	private JTextField txtPage;
-	
-	private int pageCount = 0;
+	private int pageCount = 1;
 	private int sqlOffset = 0;
 	private int sqlRowCount = 10;
-	/**
-	 * Launch the application.
-	 */
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					DiscoverScreen frame = new DiscoverScreen();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-*/
-	/**
-	 * Create the frame.
-	 */
+
 	public DiscoverScreen(LoggedIn currentLoggedIn) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
-		setTitle("Elenco -Discover Songs");
+		setTitle("Elenco - Discover Songs");
 		setBackground(Color.WHITE);
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -173,33 +150,18 @@ public class DiscoverScreen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblHeader = new JLabel("Elenco - Discover Songs");
-		lblHeader.setFont(new Font("Georgia", Font.BOLD, 24));
-		lblHeader.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHeader.setBounds(400, 40, 300, 25);
-		lblHeader.setForeground(new Color(90, 192, 217));
-		contentPane.add(lblHeader);
-		
-		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));					// Create new instance of Icon using the given PNG file.
-		Image appImage = appIcon.getImage();															// Create image of icon variable.
-		Image appImageResize = appImage.getScaledInstance(50,50, java.awt.Image.SCALE_SMOOTH);		// Resize image to scale desired. 
-		appIcon = new ImageIcon(appImageResize);														// Set instance of Icon to the resized Image.
-		
-		JLabel lblLogo = new JLabel(appIcon);
-		lblLogo.setToolTipText("Elenco - Express Your Musical Opinion");
-		lblLogo.setBounds(304, 2, 100, 100);
-		contentPane.add(lblLogo);
-		
 		ButtonGroup radioButtons = new ButtonGroup();
 		
 		rdbtnAscending = new JRadioButton("Ascending");
+		rdbtnAscending.setToolTipText("Select An Ascending Order Of 'Sort By' Criteria");
 		rdbtnAscending.setFont(new Font("Georgia", Font.BOLD, 12));
 		rdbtnAscending.setBackground(Color.WHITE);
 		rdbtnAscending.setBounds(725, 125, 109, 25);
 		rdbtnAscending.setForeground(new Color(90, 192, 217));
 		contentPane.add(rdbtnAscending);
 		
-rdbtnDescending = new JRadioButton("Descending");
+		rdbtnDescending = new JRadioButton("Descending");
+		rdbtnDescending.setToolTipText("Select A Descending Order Of 'Sort By' Criteria");
 		rdbtnDescending.setFont(new Font("Georgia", Font.BOLD, 12));
 		rdbtnDescending.setBackground(Color.WHITE);
 		rdbtnDescending.setSelected(true);
@@ -209,6 +171,23 @@ rdbtnDescending = new JRadioButton("Descending");
 		
 		radioButtons.add(rdbtnAscending);																							
 		radioButtons.add(rdbtnDescending);
+		
+		JLabel lblHeader = new JLabel("Elenco - Discover Songs");
+		lblHeader.setFont(new Font("Georgia", Font.BOLD, 24));
+		lblHeader.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHeader.setBounds(400, 40, 300, 25);
+		lblHeader.setForeground(new Color(90, 192, 217));
+		contentPane.add(lblHeader);
+		
+		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));					
+		Image appImage = appIcon.getImage();															
+		Image appImageResize = appImage.getScaledInstance(50,50, java.awt.Image.SCALE_SMOOTH);		
+		appIcon = new ImageIcon(appImageResize);														
+		
+		JLabel lblLogo = new JLabel(appIcon);
+		lblLogo.setToolTipText("Elenco - Express Your Musical Opinion");
+		lblLogo.setBounds(304, 2, 100, 100);
+		contentPane.add(lblLogo);
 		
 		txtTitle1 = new JTextField();
 		txtTitle1.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
@@ -250,47 +229,54 @@ rdbtnDescending = new JRadioButton("Descending");
 		txtUploaded1.setColumns(10);
 		
 		JLabel lblTitle = new JLabel("Title");
+		lblTitle.setToolTipText("Title Of Song");
 		lblTitle.setFont(new Font("Georgia", Font.BOLD, 12));
 		lblTitle.setBounds(40, 200, 50, 20);
 		lblTitle.setForeground(new Color(90, 192, 217));
 		contentPane.add(lblTitle);
 		
 		JLabel lblArtist = new JLabel("Artist");
+		lblArtist.setToolTipText("Artist Of Song");
 		lblArtist.setFont(new Font("Georgia", Font.BOLD, 12));
 		lblArtist.setBounds(250, 200, 50, 20);
 		lblArtist.setForeground(new Color(90, 192, 217));
 		contentPane.add(lblArtist);
 		
 		JLabel lblGenre = new JLabel("Genre");
+		lblGenre.setToolTipText("Genre Of Song");
 		lblGenre.setFont(new Font("Georgia", Font.BOLD, 12));
 		lblGenre.setBounds(430, 200, 50, 20);
 		lblGenre.setForeground(new Color(90, 192, 217));
 		contentPane.add(lblGenre);
 		
 		JLabel lblRating = new JLabel("Rating");
+		lblRating.setToolTipText("Rating Of Song");
 		lblRating.setFont(new Font("Georgia", Font.BOLD, 12));
 		lblRating.setBounds(565, 200, 50, 20);
 		lblRating.setForeground(new Color(90, 192, 217));
 		contentPane.add(lblRating);
 		
 		JLabel lblViews = new JLabel("Reviews");
+		lblViews.setToolTipText("Reviews For Song");
 		lblViews.setFont(new Font("Georgia", Font.BOLD, 12));
 		lblViews.setBounds(645, 200, 100, 20);
 		lblViews.setForeground(new Color(90, 192, 217));
 		contentPane.add(lblViews);
 		
 		JLabel lblUploaded = new JLabel("Uploaded");
+		lblUploaded.setToolTipText("Upload Date Of Song");
 		lblUploaded.setFont(new Font("Georgia", Font.BOLD, 12));
 		lblUploaded.setBounds(750, 200, 100, 20);
 		lblUploaded.setForeground(new Color(90, 192, 217));
 		contentPane.add(lblUploaded);
 		
 		btnView1 = new JButton("View");
+		btnView1.setToolTipText("View Song For Given Return Result");
 		btnView1.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnView1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				
+	
 				ViewSongScreen frame = new ViewSongScreen(currentLoggedIn, txtSongID1.getText());
 				frame.setVisible(true);
 				dispose();
@@ -301,6 +287,7 @@ rdbtnDescending = new JRadioButton("Descending");
 		contentPane.add(btnView1);
 		
 		JButton btnSearch = new JButton("Search");
+		btnSearch.setToolTipText("Click To Search Elenco For Songs Based On Your Custome Search");
 		btnSearch.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -311,9 +298,7 @@ rdbtnDescending = new JRadioButton("Descending");
 				sqlOffset = 0;
 				clearScreen() ;
 				loadContent();
-			
-				
-				
+
 			}
 		});
 		btnSearch.setBounds(880, 140, 100, 25);
@@ -338,12 +323,14 @@ rdbtnDescending = new JRadioButton("Descending");
 		contentPane.add(lblSortBy);
 		
 		comboBoxCriteria = new JComboBox();
+		comboBoxCriteria.setToolTipText("Select Criteria To Customise Your Search");
 		comboBoxCriteria.setFont(new Font("Georgia", Font.PLAIN, 11));
 		comboBoxCriteria.setModel(new DefaultComboBoxModel(new String[] {"Title", "Artist", "Genre"}));
 		comboBoxCriteria.setBounds(385, 140, 110, 25);
 		contentPane.add(comboBoxCriteria);
 		
 		comboBoxSort = new JComboBox();
+		comboBoxSort.setToolTipText("Select Criteria To Customise Your Search");
 		comboBoxSort.setFont(new Font("Georgia", Font.PLAIN, 11));
 		comboBoxSort.setModel(new DefaultComboBoxModel(new String[] {"OverallRating", "TotalReviews", "Uploaded"}));
 		comboBoxSort.setBounds(580, 140, 110, 25);
@@ -387,8 +374,6 @@ rdbtnDescending = new JRadioButton("Descending");
 		txtUploaded2.setColumns(10);
 		txtUploaded2.setBounds(750, 250, 100, 20);
 		contentPane.add(txtUploaded2);
-		
-	
 		
 		txtSongID1 = new JTextField();
 		txtSongID1.setBounds(1000, 220, 20, 20);
@@ -763,6 +748,7 @@ rdbtnDescending = new JRadioButton("Descending");
 		contentPane.add(txtSongID3);
 		
 		btnView2 = new JButton("View");
+		btnView2.setToolTipText("View Song For Given Return Result");
 		btnView2.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnView2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -776,6 +762,7 @@ rdbtnDescending = new JRadioButton("Descending");
 		contentPane.add(btnView2);
 		
 		btnView3 = new JButton("View");
+		btnView3.setToolTipText("View Song For Given Return Result");
 		btnView3.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnView3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -789,6 +776,7 @@ rdbtnDescending = new JRadioButton("Descending");
 		contentPane.add(btnView3);
 		
 		btnView4 = new JButton("View");
+		btnView4.setToolTipText("View Song For Given Return Result");
 		btnView4.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnView4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -802,6 +790,7 @@ rdbtnDescending = new JRadioButton("Descending");
 		contentPane.add(btnView4);
 		
 		btnView5 = new JButton("View");
+		btnView5.setToolTipText("View Song For Given Return Result");
 		btnView5.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnView5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -815,6 +804,7 @@ rdbtnDescending = new JRadioButton("Descending");
 		contentPane.add(btnView5);
 		
 		btnView6 = new JButton("View");
+		btnView6.setToolTipText("View Song For Given Return Result");
 		btnView6.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnView6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -828,6 +818,7 @@ rdbtnDescending = new JRadioButton("Descending");
 		contentPane.add(btnView6);
 		
 		btnView7 = new JButton("View");
+		btnView7.setToolTipText("View Song For Given Return Result");
 		btnView7.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnView7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -840,9 +831,11 @@ rdbtnDescending = new JRadioButton("Descending");
 		contentPane.add(btnView7);
 		
 		btnView8 = new JButton("View");
+		btnView8.setToolTipText("View Song For Given Return Result");
 		btnView8.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnView8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				ViewSongScreen frame = new ViewSongScreen(currentLoggedIn, txtSongID8.getText());
 				frame.setVisible(true);
 				dispose();
@@ -852,9 +845,11 @@ rdbtnDescending = new JRadioButton("Descending");
 		contentPane.add(btnView8);
 		
 		btnView9 = new JButton("View");
+		btnView9.setToolTipText("View Song For Given Return Result");
 		btnView9.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnView9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				ViewSongScreen frame = new ViewSongScreen(currentLoggedIn, txtSongID9.getText());
 				frame.setVisible(true);
 				dispose();
@@ -864,9 +859,11 @@ rdbtnDescending = new JRadioButton("Descending");
 		contentPane.add(btnView9);
 		
 		btnView10 = new JButton("View");
+		btnView10.setToolTipText("View Song For Given Return Result");
 		btnView10.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnView10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				ViewSongScreen frame = new ViewSongScreen(currentLoggedIn, txtSongID10.getText());
 				frame.setVisible(true);
 				dispose();
@@ -876,6 +873,7 @@ rdbtnDescending = new JRadioButton("Descending");
 		contentPane.add(btnView10);
 		
 		btnNext = new JButton("Next Page");
+		btnNext.setToolTipText("Next Page Of Search Results");
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -891,11 +889,11 @@ rdbtnDescending = new JRadioButton("Descending");
 		contentPane.add(btnNext);
 		
 		btnPrevious = new JButton("Previous Page");
+		btnPrevious.setToolTipText("Previous Page Of Search Results");
 		btnPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				
-			pageCount = (pageCount - 1);
+				pageCount = (pageCount - 1);
 				txtPage.setText(String.valueOf(pageCount));
 				sqlOffset = (sqlOffset - 10);
 				clearScreen();
@@ -906,12 +904,13 @@ rdbtnDescending = new JRadioButton("Descending");
 		btnPrevious.setBounds(300, 530, 125, 25);
 		contentPane.add(btnPrevious);
 		
-	comboBoxSearch = new JComboBox();
-	comboBoxSearch.setFont(new Font("Georgia", Font.PLAIN, 11));
+		comboBoxSearch = new JComboBox();
+		comboBoxSearch.setToolTipText("This List Contains All The Current Material On Elenco Divided Into Caterogies By The 'Search By' Criteria Provided");
+		comboBoxSearch.setFont(new Font("Georgia", Font.PLAIN, 11));
 
-	comboBoxSearch.setMaximumRowCount(4);
-	comboBoxSearch.setEditable(true);
-	AutoCompleteDecorator.decorate(comboBoxSearch);
+		comboBoxSearch.setMaximumRowCount(4);
+		comboBoxSearch.setEditable(true);
+		AutoCompleteDecorator.decorate(comboBoxSearch);
 	
 	
 		comboBoxSearch.addPopupMenuListener(new PopupMenuListener() {
@@ -923,59 +922,32 @@ rdbtnDescending = new JRadioButton("Descending");
 			}
 			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 	
-
 				comboBoxSearch.removeAllItems();
-				try
-				{
-					
-					String sortType = "ASC";
-					
-					Class.forName("com.mysql.cj.jdbc.Driver");																	
-					Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
-					Statement statement = conn.createStatement();
-					System.out.println("SELECT * FROM songs GROUP BY "+ comboBoxCriteria.getSelectedItem().toString() + " ORDER BY " + comboBoxSort.getSelectedItem().toString() + " " + sortType + ", " + comboBoxCriteria.getSelectedItem().toString() +  " " + sortType);	
-					String query = "SELECT * FROM songs GROUP BY " + comboBoxCriteria.getSelectedItem().toString() + " ORDER BY " + comboBoxSort.getSelectedItem().toString() + " " + sortType + ", " + comboBoxCriteria.getSelectedItem().toString() + " " + sortType;		
-					
-					//System.out.println("SELECT songs.*, ratings.* FROM songs inner join ratings on songs.songID = ratings.songID GROUP BY songs.songID ORDER BY " + sort + " " + sortType );	
-					//String query = "SELECT songs.*, ratings.* FROM songs inner join ratings on songs.songID = ratings.songID GROUP BY songs.songID ORDER BY " + sort + " " + sortType;
-					System.out.println(query);
-					ResultSet results = statement.executeQuery(query);															
-					System.out.println("this here " + results);
+			
+				ResultSet populateComboBox = MySQLQueries.populateComboBox(comboBoxCriteria.getSelectedItem(), comboBoxSort.getSelectedItem());	
 				
-
+					try {
+						
+						while (populateComboBox.next())
+						{
+							comboBoxSearch.addItem(populateComboBox.getString(comboBoxCriteria.getSelectedItem().toString()));
+						}
+					} catch (SQLException sql) {
 				
-					while (results.next())
-					{
-						comboBoxSearch.addItem(results.getString(comboBoxCriteria.getSelectedItem().toString()));
 					}
-				
-		
-				}
-
-				catch (ClassNotFoundException cnf)
-				{	
-					System.err.println("Could not load driver");
-					System.err.println(cnf.getMessage());
-			
-				}
-			
-				catch (SQLException sqe)
-				{
-					System.out.println("Error performing SQL Query");
-					System.out.println(sqe.getMessage());
-				
-				}
-				
+	
 			}
 		});
 		comboBoxSearch.setBounds(110, 140, 180, 25);
 		contentPane.add(comboBoxSearch);
 		
 		btnMainMenu = new JButton("MainMenu");
+		btnMainMenu.setToolTipText("Return To Main Menu");
+		btnMainMenu.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				MainScreen gui = new MainScreen(currentLoggedIn);
+				MainMenuScreen gui = new MainMenuScreen(currentLoggedIn);
 				gui.setVisible(true);
 				dispose();
 			}
@@ -997,7 +969,9 @@ rdbtnDescending = new JRadioButton("Descending");
 		contentPane.add(txtPage);
 		txtPage.setColumns(10);
 	}
+	
 	public void loadContent() {
+		
 		String songID = null;
 		String title = null;
 		String artist = null;
@@ -1007,11 +981,11 @@ rdbtnDescending = new JRadioButton("Descending");
 		String reviews = null;
 		String sortType = null;
 		
-	txtPage.setText(String.valueOf(pageCount));
+		txtPage.setText(String.valueOf(pageCount));
 		
 		int row = 1;
 		
-	if (rdbtnAscending.isSelected()) {																											
+		if (rdbtnAscending.isSelected()) {																											
 			
 			sortType = "ASC";	
 			System.out.println("Ascending\n");
@@ -1023,22 +997,19 @@ rdbtnDescending = new JRadioButton("Descending");
 		}
 	
 	
-	if (sqlOffset > 9) {																											
+		if (sqlOffset > 9) {																											
 		
-		btnPrevious.setEnabled(true);
+			btnPrevious.setEnabled(true);
 		
-	}
-	else 
-	{																								
+		}
+		else 
+		{																								
 		
-		btnPrevious.setEnabled(false);
-	}
-		
-
-	
+			btnPrevious.setEnabled(false);
+		}
 		
 	
-		ResultSet searchAttempt = DiscoverApplication.search(comboBoxSearch.getSelectedItem(), comboBoxCriteria.getSelectedItem(), comboBoxSort.getSelectedItem(), sortType, sqlOffset, sqlRowCount);	
+		ResultSet searchAttempt = MySQLQueries.search(comboBoxSearch.getSelectedItem(), comboBoxCriteria.getSelectedItem(), comboBoxSort.getSelectedItem(), sortType, sqlOffset, sqlRowCount);	
 		
 		
 		try {		
@@ -1047,16 +1018,14 @@ rdbtnDescending = new JRadioButton("Descending");
 			{
 	
 			songID = searchAttempt.getString("SongID");
-				title = searchAttempt.getString("Title");
-				artist = searchAttempt.getString("Artist");
-				genre = searchAttempt.getString("Genre");
+			title = searchAttempt.getString("Title");
+			artist = searchAttempt.getString("Artist");
+			genre = searchAttempt.getString("Genre");
 			rating = searchAttempt.getString("OverallRating");
 			reviews = searchAttempt.getString("TotalReviews");
-				uploaded = searchAttempt.getString("uploaded");
+			uploaded = searchAttempt.getString("uploaded");	
 				
-				
-				
-				switch (row) {
+			switch (row) {
 				case 1:
 					txtSongID1.setText(songID);
 					txtTitle1.setText(title);
@@ -1158,19 +1127,14 @@ rdbtnDescending = new JRadioButton("Descending");
 					btnView10.setEnabled(true);
 					btnNext.setEnabled(true);
 					break;
-				
-				
-				
-				
+
 				default:
 					System.out.println("nothing matching search criteria\n");
 				}
 					
 			row++;
 			}
-			
-		
-			
+	
 		}
 		catch (SQLException sqe)
 		{
@@ -1182,7 +1146,6 @@ rdbtnDescending = new JRadioButton("Descending");
 	
 	public void clearScreen() {
 		
-
 		btnNext.setEnabled(false);
 		btnPrevious.setEnabled(false);
 
@@ -1265,9 +1228,6 @@ rdbtnDescending = new JRadioButton("Descending");
 		txtReviews10.setText("");
 		txtUploaded10.setText("");
 		btnView10.setEnabled(false);
-		
-		
-	
 
-}
+	}
 }

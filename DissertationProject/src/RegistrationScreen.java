@@ -34,43 +34,19 @@ import java.awt.Panel;
 public class RegistrationScreen extends JFrame {
 
 	private JPanel contentPane;
+	
+	private JTextField txtFirstName;
+	private JTextField txtSurname;
 	private JTextField txtEmail;
 	private JTextField txtUserName;
 	private JPasswordField passwordFieldPass;
 	private JPasswordField passwordFieldConfirm;
-	private JTextField txtSurname;
-	private JTextField txtFirstName;
 	private JDateChooser dateChooser;
 	private JRadioButton rdbtnMale;
 	private JRadioButton rdbtnFemale;
 	private JRadioButton rdbtnNB;
 	
 	
-	
-	
-	/**
-	 * Launch the application.
-	 */
-	
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RegistrationScreen frame = new RegistrationScreen();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-	*/
-
-	/**
-	 * Create the frame.
-	 */
 	public RegistrationScreen() {
 		setTitle("Elenco - Create Account");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
@@ -81,9 +57,7 @@ public class RegistrationScreen extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
 	
-		
 		txtEmail = new JTextField();
 		txtEmail.setToolTipText("Enter Your Email For This New Account Here");
 		txtEmail.setBorder(new LineBorder(new Color(171, 173, 179), 1, true));
@@ -160,9 +134,6 @@ public class RegistrationScreen extends JFrame {
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-	
-				
-				
 				txtFirstName.setBorder(new LineBorder(Color.LIGHT_GRAY));
 				txtSurname.setBorder(new LineBorder(Color.LIGHT_GRAY));
 				rdbtnMale.setForeground(new Color(90, 192, 217));
@@ -179,23 +150,22 @@ public class RegistrationScreen extends JFrame {
 				if (rdbtnMale.isSelected()) {																											
 					
 					myIdentity = "Male";	
-					System.out.println("Male\n");
 					
 				}else if (rdbtnFemale.isSelected()) {																								
 					
 					myIdentity = "Female";	
-					System.out.println("Female\n");
-					
+		
 				}else if (rdbtnNB.isSelected()){
+					
 					myIdentity = "Non-binary";
-					System.out.println("Non-binary\n");
+		
 				}else {
+					
 					myIdentity = "";
-					System.out.println("no identity selected\n");
+					
 				}
 				
 				System.out.println("Idetity selected: " + myIdentity);
-				
 				
 				try {
 					
@@ -209,20 +179,27 @@ public class RegistrationScreen extends JFrame {
 								passwordFieldConfirm.getText()) == "continue")
 			
 					{
+						
 						try
 						{
 							
-						String sentCode;
-						String confirmCode;
+							String sentCode;
+							String confirmCode;
+							String confirmEmail;
 						
+							sentCode = EmailServices.randomConfirmCode();
+							confirmEmail =  sentCode + txtEmail.getText().strip();
+							
+							EmailServices.confirmEmail(confirmEmail);
+							
+							confirmCode = (JOptionPane.showInputDialog("An Email Has Been Sent To The Address Provided With A 5-Digit Confirm Code - Enter The Code "));
 						
-						sentCode = EmailServices.randomConfirmCode();
-						confirmCode = (JOptionPane.showInputDialog("Enter Confrim Code"));
+							System.out.println("Confirm Code: " + confirmCode);
+							System.out.println("Sent Code: " + sentCode);
 						
-						System.out.println(confirmCode);
-						System.out.println(sentCode);
-						
-							if (confirmCode.toString().contentEquals(sentCode)) {	
+							if (confirmCode.toString().equals(sentCode)) {
+								
+								System.out.println("Codes Match");
 							
 								MySQLQueries.createAccount(txtFirstName.getText().strip(), 
 										txtSurname.getText().strip(), 									
@@ -244,90 +221,42 @@ public class RegistrationScreen extends JFrame {
 							JOptionPane.showMessageDialog(null, SQLError.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
 						}
 					}
-					}
-				 catch (CustomException error) {
+				}
+				catch (CustomException error) {
+					 
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
 					
 					switch(error.getReason())
 					{
-					case "firstname":
-						txtFirstName.setBorder(new LineBorder(Color.RED));
+						case "firstname":
+							txtFirstName.setBorder(new LineBorder(Color.RED));
+							break;
+						case "surname":
+							txtSurname.setBorder(new LineBorder(Color.RED));
+							break;
+						case "identity":
+							rdbtnMale.setForeground(Color.RED);
+							rdbtnFemale.setForeground(Color.RED);
+							rdbtnNB.setForeground(Color.RED);
 						break;
-					case "surname":
-						txtSurname.setBorder(new LineBorder(Color.RED));
-						break;
-					case "identity":
-						rdbtnMale.setForeground(Color.RED);
-						rdbtnFemale.setForeground(Color.RED);
-						rdbtnNB.setForeground(Color.RED);
-						break;
-					case "DOB":
-						dateChooser.setBorder(new LineBorder(Color.RED));
-						break;
-					case "username":
-						txtUserName.setBorder(new LineBorder(Color.RED));
-						break;
-					case "email":
-						txtEmail.setBorder(new LineBorder(Color.RED));
-						break;
-					case "password":
-						passwordFieldPass.setBorder(new LineBorder(Color.RED));
-						break;
-					case "confirm":
-						passwordFieldConfirm.setBorder(new LineBorder(Color.RED));
-						break;
-					}
-					
-					
-				}
+						case "DOB":
+							dateChooser.setBorder(new LineBorder(Color.RED));
+							break;
+						case "username":
+							txtUserName.setBorder(new LineBorder(Color.RED));
+							break;
+						case "email":
+							txtEmail.setBorder(new LineBorder(Color.RED));
+							break;
+						case "password":
+							passwordFieldPass.setBorder(new LineBorder(Color.RED));
+							break;
+						case "confirm":
+							passwordFieldConfirm.setBorder(new LineBorder(Color.RED));
+							break;
+					}	
 				
-			
-				
-
-				
-				
-
-				
-				
-				
-				
-				
-				
-				/*
-				System.out.println(dateChooser.getDate());
-				
-				System.out.println(Helper.changeDateFormat(dateChooser.getDate()));
-				
-				String formattedDate = Helper.changeDateFormat(dateChooser.getDate());
-				
-			
-				RegistrationApplication.compareDates(dateChooser.getDate());
-				RegistrationApplication.checkAge(dateChooser.getDate());
-				*/
-					
-				/*private JPanel contentPane;
-				private JTextField textEmail;
-				private JTextField textUserName;
-				private JPasswordField passwordFieldPass;
-				private JPasswordField passwordFieldConfirm;
-				private JTextField textSurname;
-				private JTextField textFirstName;
-				private JTextField textFieldDay;
-				private JTextField textFieldYear;
-				JComboBox comboBoxMonth
-				*/
-				///RegistrationApplication.createAccount( );
-				
-				
-				/*
-				System.out.println(Helper.properCase(txtFirstName.getText())+ 
-						Helper.properCase(txtSurname.getText())+
-						Helper.dateForDatabase(Helper.changeDateFormat(dateChooser.getDate()))+
-						myIdentity+
-						txtUserName.getText()+
-						passwordFieldPass.getText()+
-						txtEmail.getText());
-			*/
+				}				
 			}
 		});
 		btnCreate.setBounds(187, 500, 150, 25);
@@ -338,25 +267,27 @@ public class RegistrationScreen extends JFrame {
 		btnBack.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginScreen gui = new LoginScreen();
-				gui.setVisible(true);
-				dispose();
+				
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Return To Login Screen??", "Elenco - Return To Login Screen", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+				if (select == JOptionPane.YES_OPTION) {		
+				
+					LoginScreen gui = new LoginScreen();
+					gui.setVisible(true);
+					dispose();
+					
+				}
+				
 			}
 		});
 		btnBack.setBounds(212, 550, 100, 25);
 		contentPane.add(btnBack);
 		
-		
-		
-		
-		
-		
-		
-		
-
 		ButtonGroup radioButtons = new ButtonGroup();
 
-	
 		rdbtnMale = new JRadioButton("Male");
 		rdbtnMale.setToolTipText("Select Male As Prefered Identity");
 		rdbtnMale.setBorder(new LineBorder(Color.GREEN));
@@ -387,19 +318,7 @@ public class RegistrationScreen extends JFrame {
 		radioButtons.add(rdbtnMale);																							
 		radioButtons.add(rdbtnFemale);	
 		radioButtons.add(rdbtnNB);
-		
 
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		JLabel lblFirst = new JLabel("First Name");
 		lblFirst.setToolTipText("Enter Your First Name For This New Account Here");
 		lblFirst.setFont(new Font("Georgia", Font.BOLD, 12));
@@ -445,14 +364,14 @@ public class RegistrationScreen extends JFrame {
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				int select;																												// Variable for storing user response to message box.
+				int select;																												
 				
 				select = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Elenco - Exit", 					
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
 				
-				if (select == JOptionPane.YES_OPTION) {																					// If Statement. Variable value is YES.
+				if (select == JOptionPane.YES_OPTION) {																					
 					
-					System.exit(1);																								// Use connection with Controller to start method.																					
+					System.exit(1);																																												
 					
 				}
 			}
@@ -461,39 +380,7 @@ public class RegistrationScreen extends JFrame {
 		btnExit.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnExit.setBounds(212, 600, 100, 25);
 		contentPane.add(btnExit);
-		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				String sentCode;
-				String confirmCode;
-				String confirmEmail;
-				
-				sentCode = EmailServices.randomConfirmCode();
-				
-				confirmEmail =  sentCode + txtEmail.getText().strip();
-				
-				EmailServices.confirmEmail(confirmEmail);
-				
-				confirmCode = (JOptionPane.showInputDialog("An Email Has Been Sent To The Address Provided With A 5-Digit Confirm Code - Enter The Code "));
-				
-				System.out.println(confirmCode);
-				System.out.println(sentCode);
-				
-				if(sentCode.equals(confirmCode)) {
-					System.out.println("Codes Match");
-				}
-				
-			}
-		});
-		btnNewButton.setBounds(358, 516, 89, 23);
-		contentPane.add(btnNewButton);
-
-		
 	
-		
-		
 	
 	}
 }

@@ -83,7 +83,7 @@ public class ProfileScreen extends JFrame {
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				MainScreen gui = new MainScreen(currentLoggedIn);
+				MainMenuScreen gui = new MainMenuScreen(currentLoggedIn);
 				gui.setVisible(true);
 				dispose();
 			}

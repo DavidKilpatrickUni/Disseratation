@@ -43,37 +43,12 @@ public class SuggestSongScreen extends JFrame {
 	private JComboBox comboBoxMins;
 	private JComboBox comboBoxSecs; 
 	
-	
-	
-	/**
-	 * Launch the application.
-	 */
-	
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SuggestSongScreen frame = new SuggestSongScreen();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	*/
 
-	/**
-	 * Create the frame.
-	 */
 	public SuggestSongScreen(LoggedIn currentLoggedIn) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
 		setTitle("Elenco - Suggest Song");
 		setBackground(Color.WHITE);
-		
-		
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 699);
 		contentPane = new JPanel();
@@ -83,6 +58,7 @@ public class SuggestSongScreen extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnSuggestSong = new JButton("Suggest Song");
+		btnSuggestSong.setToolTipText("Suggest/Upload Song To Elenco");
 		btnSuggestSong.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnSuggestSong.addActionListener(new ActionListener() {
 			
@@ -99,21 +75,19 @@ public class SuggestSongScreen extends JFrame {
 				slider.setBorder(new LineBorder(Color.LIGHT_GRAY));
 	
 				
-			System.out.println("comboMin index: " + comboBoxMins.getSelectedIndex() + " ComboSec index: "+ comboBoxSecs.getSelectedIndex());
-				
-			System.out.println("slider value: " + slider.getValue());
+				System.out.println("comboMin index: " + comboBoxMins.getSelectedIndex() + " ComboSec index: "+ comboBoxSecs.getSelectedIndex());	
+				System.out.println("slider value: " + slider.getValue());
+					
+				int select;																																	// Variable for storing user response to message box.
 			
-			
-			int select;																																	// Variable for storing user response to message box.
-			
-			select = JOptionPane.showOptionDialog(null, "Suggest Song To Elenco", "Elenc0 - Suggest Song", 
+				select = JOptionPane.showOptionDialog(null, "Suggest Song To Elenco", "Elenco - Suggest Song", 
 					 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									// Sets variable to the value returned from YES_NO_Option message pop up.
 			
-			if (select == JOptionPane.YES_OPTION) {
+					 if (select == JOptionPane.YES_OPTION) {
 				
-				try {
-					
-					if (SuggestSongApplication.checkSuggestionForm(txtTitle.getText().strip(),
+						 try 
+						 {	
+							 if (SuggestSongApplication.checkSuggestionForm(txtTitle.getText().strip(),
 															txtArtist.getText().strip(), 
 															txtGenre.getText().strip(), 
 															comboBoxMins.getSelectedIndex(),  
@@ -122,98 +96,108 @@ public class SuggestSongScreen extends JFrame {
 															txtAlbum.getText().strip(), 
 															txtSongInfo.getText().strip(),
 															slider.getValue()) == "continue"){
-				
-				
-				
-				
-						try {
-							if (!MySQLQueries.checkIfSongExists(txtTitle.getText().strip(),txtArtist.getText().strip()).next()){
+								
+								 try 
+								 {
+									 if (!MySQLQueries.checkIfSongExists(txtTitle.getText().strip(),txtArtist.getText().strip()).next()){
 						
-								MySQLQueries.suggestSong((txtTitle.getText().strip()), 
-										txtArtist.getText().strip(), 
-										txtGenre.getText().strip(), 
-										comboBoxMins.getSelectedItem() + ":" + comboBoxSecs.getSelectedItem() ,
-										Helper.dateForDatabase(Helper.changeDateFormat(dateChooser.getDate())),
-										txtAlbum.getText().strip(),
-										"Song Info: " + txtSongInfo.getText().strip(),
-										slider.getValue());
+										 MySQLQueries.suggestSong((txtTitle.getText().strip()), 
+												 txtArtist.getText().strip(), 
+												 txtGenre.getText().strip(), 
+												 comboBoxMins.getSelectedItem() + ":" + comboBoxSecs.getSelectedItem() ,
+												 Helper.dateForDatabase(Helper.changeDateFormat(dateChooser.getDate())),
+												 txtAlbum.getText().strip(),
+												 "Song Info: " + txtSongInfo.getText().strip(),
+												 slider.getValue());
 								
-								ResultSet getSongID = MySQLQueries.getSongIDOfSuggestSong();
+										 ResultSet getSongID = MySQLQueries.getSongIDOfSuggestSong();
 								
-								String currentSongID = null;
+										 String currentSongID = null;
 								
-								getSongID.last(); 
+										 getSongID.last(); 
 									
-								currentSongID = getSongID.getString("SongID");
-									
-							
-								ViewSongApplication.createRating(currentSongID,currentLoggedIn.getCurrentUserID(),String.valueOf(slider.getValue()));
-							}
-							else {
-								JOptionPane.showMessageDialog(null,"Song Already Suggested - Try The Discover Feature To Find This Song", "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
-							}
+										 currentSongID = getSongID.getString("SongID");
+
+										 ViewSongApplication.createRating(currentSongID,currentLoggedIn.getCurrentUserID(),String.valueOf(slider.getValue()));
+								
+										 JOptionPane.showMessageDialog(null,"Song Suggested To Elenco", "Elenco - Sucess", JOptionPane.INFORMATION_MESSAGE,null);
+								
+										 SuggestSongScreen frame = new SuggestSongScreen(currentLoggedIn);
+										 frame.setVisible(true);
+										 dispose();
+								
+									 }
+									 else 
+									 {
+										 JOptionPane.showMessageDialog(null,"Song Already Suggested - Try The Discover Feature To Find This Song", "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+								
+										 SuggestSongScreen frame = new SuggestSongScreen(currentLoggedIn);
+										 frame.setVisible(true);
+										 dispose();
+									 }
 						
-						}catch (SQLException error)
-						{
-							
-								JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
-						}
+								 }
+								 catch (SQLException error)
+								 {
+									 JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+								 }
 					
-					
-					}
+							 }
 				
 				
-				}
-				catch (CustomException error)
-				{
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+						 }
+						 catch (CustomException error)
+						 {
+							 JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
 					
-					switch(error.getReason())
-					{
-					case "title":
-						txtTitle.setBorder(new LineBorder(Color.RED));
-						break;
-					case "artist":
-						txtArtist.setBorder(new LineBorder(Color.RED));
-						break;
-					case "genre":
-						txtGenre.setBorder(new LineBorder(Color.RED));
-						break;
-					case "songLength":
-						comboBoxMins.setBorder(new LineBorder(Color.RED));
-						comboBoxSecs.setBorder(new LineBorder(Color.RED));
-						break;
-					case "released":
-						dateChooser.setBorder(new LineBorder(Color.RED));
-						break;
-					case "album":
-						txtAlbum.setBorder(new LineBorder(Color.RED));
-						break;
-					case "songInfo":
-						txtSongInfo.setBorder(new LineBorder(Color.RED));
-						break;
-					case "rating":
-						slider.setBorder(new LineBorder(Color.RED));
-						break;
+							 switch(error.getReason())
+							 {
+							 	case "title":
+							 		txtTitle.setBorder(new LineBorder(Color.RED));
+							 		break;
+							 	case "artist":
+							 		txtArtist.setBorder(new LineBorder(Color.RED));
+							 		break;
+							 	case "genre":
+							 		txtGenre.setBorder(new LineBorder(Color.RED));
+							 		break;
+							 	case "songLength":
+							 		comboBoxMins.setBorder(new LineBorder(Color.RED));
+							 		comboBoxSecs.setBorder(new LineBorder(Color.RED));
+							 		break;
+							 	case "released":
+							 		dateChooser.setBorder(new LineBorder(Color.RED));
+							 		break;
+							 	case "album":
+							 		txtAlbum.setBorder(new LineBorder(Color.RED));
+							 		break;
+							 	case "songInfo":
+							 		txtSongInfo.setBorder(new LineBorder(Color.RED));
+							 		break;
+							 	case "rating":
+							 		slider.setBorder(new LineBorder(Color.RED));
+							 		break;
 				
-					}
+							 }
 						
-				}
+						 }
 			
-			}
-			}
+					 }
+				}
 		});
 		
 		btnSuggestSong.setBounds(325, 550, 250, 25);
 		contentPane.add(btnSuggestSong);
 		
 		txtTitle = new JTextField();
+		txtTitle.setToolTipText("Title Of Your Suggested Song");
 		txtTitle.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtTitle.setBounds(150, 250, 250, 25);
 		contentPane.add(txtTitle);
 		txtTitle.setColumns(10);
 		
 		txtArtist = new JTextField();
+		txtArtist.setToolTipText("Artist Of Your Suggested Song");
 		txtArtist.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtArtist.setBounds(150, 300, 250, 25);
 		contentPane.add(txtArtist);
@@ -238,6 +222,7 @@ public class SuggestSongScreen extends JFrame {
 		contentPane.add(lblGenre);
 		
 		txtGenre = new JTextField();
+		txtGenre.setToolTipText("Genre Of Your Suggested Song");
 		txtGenre.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtGenre.setBounds(150, 350, 250, 25);
 		contentPane.add(txtGenre);
@@ -262,6 +247,7 @@ public class SuggestSongScreen extends JFrame {
 		contentPane.add(lblAlbum);
 		
 		txtAlbum = new JTextField();
+		txtAlbum.setToolTipText("Album Of Your Suggested Song Is From Or Title Of Your Suggested Song If A Single");
 		txtAlbum.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtAlbum.setBounds(150, 500, 250, 25);
 		contentPane.add(txtAlbum);
@@ -274,7 +260,10 @@ public class SuggestSongScreen extends JFrame {
 		contentPane.add(lblRating);
 		
 		txtSongInfo = new JTextArea();
-		txtSongInfo.setFont(new Font("Georgia", Font.PLAIN, 12));
+		txtSongInfo.setLineWrap(true);
+		txtSongInfo.setWrapStyleWord(true);
+		txtSongInfo.setToolTipText("Song Infomation You Want To Add/Share About Your Suggested Song");
+		txtSongInfo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		txtSongInfo.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		txtSongInfo.setBounds(550, 250, 250, 175);
 		contentPane.add(txtSongInfo);
@@ -290,6 +279,7 @@ public class SuggestSongScreen extends JFrame {
 		contentPane.add(dateChooser);
 		
 		slider = new JSlider();
+		slider.setToolTipText("Move The Slider To Give Your Rating For Suggested Song");
 		slider.setValue(0);
 		slider.setFont(new Font("Georgia", Font.BOLD, 12));
 		slider.setBackground(Color.WHITE);
@@ -303,14 +293,16 @@ public class SuggestSongScreen extends JFrame {
 		slider.setForeground(new Color(90, 192, 217));
 		contentPane.add(slider);
 		
-		 comboBoxMins = new JComboBox();
+		comboBoxMins = new JComboBox();
+		comboBoxMins.setToolTipText("Minute Length Of Your Suggested Song");
 		comboBoxMins.setModel(new DefaultComboBoxModel(new String[] {"--", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"}));
 		comboBoxMins.setBounds(175, 400, 50, 25);
 		contentPane.add(comboBoxMins);
-	AutoCompleteDecorator.decorate(comboBoxMins);
+		AutoCompleteDecorator.decorate(comboBoxMins);
 		
 		
-		 comboBoxSecs = new JComboBox();
+		comboBoxSecs = new JComboBox();
+		comboBoxSecs.setToolTipText("Second Length Of Your Suggested Song");
 		comboBoxSecs.setModel(new DefaultComboBoxModel(new String[] {"--", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59"}));
 		comboBoxSecs.setBounds(285, 400, 50, 25);
 		contentPane.add(comboBoxSecs);
@@ -329,18 +321,19 @@ public class SuggestSongScreen extends JFrame {
 		contentPane.add(lblSeconds);
 		
 		JButton btnMainMenu = new JButton("Main Menu");
+		btnMainMenu.setToolTipText("Return To Main Menu");
 		btnMainMenu.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				int select;																																	// Variable for storing user response to message box.
+				int select;																																	
 				
 				select = JOptionPane.showOptionDialog(null, "Return To Main Menu - All Unconfirmed Input Will Be Lost", "Elence - Suggest Song", 
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									
 				
 				if (select == JOptionPane.YES_OPTION) {
 				
-				MainScreen gui = new MainScreen(currentLoggedIn);
+				MainMenuScreen gui = new MainMenuScreen(currentLoggedIn);
 				gui.setVisible(true);
 				dispose();
 				
@@ -358,15 +351,15 @@ public class SuggestSongScreen extends JFrame {
 		lblElenco.setBounds(325, 25, 250, 75);
 		contentPane.add(lblElenco);
 		
-		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));					// Create new instance of Icon using the given PNG file.
-		Image appImage = appIcon.getImage();															// Create image of icon variable.
-		Image appImageResize = appImage.getScaledInstance(100,100, java.awt.Image.SCALE_SMOOTH);		// Resize image to scale desired. 
+		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));					
+		Image appImage = appIcon.getImage();															
+		Image appImageResize = appImage.getScaledInstance(100,100, java.awt.Image.SCALE_SMOOTH);		
 		appIcon = new ImageIcon(appImageResize);
 		
 		
-		ImageIcon profileButton =  new ImageIcon(ApplicationStartup.class.getResource("/ColourProfileIcon.PNG"));					// Create new instance of Icon using the given PNG file.
-		Image buttonImage = profileButton.getImage();															// Create image of icon variable.
-		Image buttonImageResize = buttonImage.getScaledInstance(75,75, java.awt.Image.SCALE_SMOOTH);		// Resize image to scale desired. 
+		ImageIcon profileButton =  new ImageIcon(ApplicationStartup.class.getResource("/ColourProfileIcon.PNG"));					
+		Image buttonImage = profileButton.getImage();															
+		Image buttonImageResize = buttonImage.getScaledInstance(75,75, java.awt.Image.SCALE_SMOOTH);	 
 		profileButton = new ImageIcon(buttonImageResize);
 		
 		JLabel lblHeader = new JLabel("Suggest Song");

@@ -202,7 +202,7 @@ public class SearchPlaylistScreen extends JFrame {
 		btnMainmenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				MainScreen gui = new MainScreen(currentLoggedIn);
+				MainMenuScreen gui = new MainMenuScreen(currentLoggedIn);
 				gui.setVisible(true);
 				dispose();
 			}

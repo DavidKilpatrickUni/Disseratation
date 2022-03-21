@@ -16,25 +16,29 @@ public class Helper {
 	
 	public static boolean checkBlank(String text)  {
 		
+		System.out.println("Helper - checkBlank");
+		
 		if (text.strip().isBlank())
 		{
-			//JOptionPane.showMessageDialog(null, "More Information Required", "Simply Rugby - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
-			//throw new CustomException("More Input Required", "firstname");
+			
 			return true;
+			
 		}
 		else
 		{
 			
 			return false;
+			
 		}
 	}
 	
 	public static boolean checkBlankDate(Date date)  {
 		
+		System.out.println("Helper - checkBlankDate");
+		
 		if (date == null )
 		{
-			//JOptionPane.showMessageDialog(null, "More Information Required", "Simply Rugby - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
-			//throw new CustomException("More Input Required", "firstname");
+
 			return true;
 		}
 		else
@@ -47,6 +51,7 @@ public class Helper {
 	
 	public static String properCase(String text) {
 		
+		System.out.println("Helper - properCase");
 		
 		text = text.substring(0,1).toUpperCase() + text.substring(1);	
 		
@@ -57,33 +62,38 @@ public class Helper {
 
 	public static boolean checkLength(String text) {
 		
+		System.out.println("Helper - checkLength");
+		
 		if (text.trim().length() >= 8)
 		{
+			
 			return true;
+			
 		}
 		else
 		{
+			
 			return false;
+			
 		}
 	}
 	
 	public static String changeDateFormat(Date date) {
 		
-		
-	String pattern ="yyyy-MM-dd";
-	SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-	String formattedDate = formatter.format(date);
+		System.out.println("Helper - changeDateFormat");
+			
+		String pattern ="yyyy-MM-dd";
+		SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+		String formattedDate = formatter.format(date);
 	
-	
-	return formattedDate;
+		return formattedDate;
 	}
 	
 	
 	public static String changeLocalDateFormat(LocalDate localDate) {
 		
+		System.out.println("Helper - changeLocalDateFormat");
 		
-		
-
 		DateTimeFormatter myPattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String formattedDate = localDate.format(myPattern);
 
@@ -93,75 +103,81 @@ public class Helper {
 	
 	public static String dateForDatabase(String date) {
 		
-		
-	String replaceString = date.replace("-", "");
+		System.out.println("Helper - dateForDatabase");
+			
+		String replaceString = date.replace("-", "");
 	
-	
-	return replaceString;
+		return replaceString;
 	}
 	
 	public static boolean compareDates(Date date){
 		
+		System.out.println("Helper - compareDates");
 		
 		Date currentDate = new Date();
 		String pattern ="yyyy-MM-dd";
 		int compareDates;
 		
-		
 		SimpleDateFormat formatter = new SimpleDateFormat(pattern,Locale.ENGLISH);
 		
 		try {
 		
-		Date formattedDate = formatter.parse(Helper.changeDateFormat(date));
-		Date formattedCurrentDate = formatter.parse(Helper.changeDateFormat(currentDate));
+			Date formattedDate = formatter.parse(Helper.changeDateFormat(date));
+			Date formattedCurrentDate = formatter.parse(Helper.changeDateFormat(currentDate));
 		
-		compareDates = formattedCurrentDate.compareTo(formattedDate);
-		System.out.println( "compare Dates: " +compareDates);
+			compareDates = formattedCurrentDate.compareTo(formattedDate);
+			System.out.println( "compare Dates: " + compareDates);
 	
-		if (compareDates  < 0 ) {
-			System.out.println( "date in future \n");
+				if (compareDates  < 0 ) {
 			
-			return true;
-		}
-		
-		
-		else
-		{
-			System.out.println( "date in past \n");
-			return false;
-		}
-		}
-		catch(Exception e)
-		{	
+					System.out.println( "date in future \n");
+				
+					return true;
+				}
+				else
+				{
 			
-		}
+					System.out.println( "date in past \n");
+					return false;
+				}
+		
+			}
+			catch(Exception e)
+			{	
+			
+			}
 		return false;
 	
 	}
 	
 	public static boolean regexSQLInjection(String text)  {
 		
-		System.out.print(text+"\n");
+		System.out.println("Helper - regexSQLInjection");
+		
 		String regex = "(?=.*[='])";
-                
+              
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(text);
 		boolean matchFound = matcher.find();
 		
 		if (matchFound)
 		{
+			
 			return true;
+			
 		}
 		else
 		{
 
 			return false;
+			
 		}
 	}
 	
-public static boolean regexPassword(String text) {
+	public static boolean regexPassword(String text) {
 		
-		System.out.print(text+"\n");
+		System.out.println("Helper - regexPassword");
+	
 		String regex = "^(?=.*[0-9])"
                 + "(?=.*[A-Z])"
                 + "(?=.*[@#£$%^&+?!])"
@@ -172,15 +188,31 @@ public static boolean regexPassword(String text) {
 		
 		if (matchFound)
 		{
+			
 			return true;
+			
 		}
 		else
 		{
 		
 			return false;
+			
 		}
 	}
+	
+	public static boolean checkPlaylistTitle(String potentialPlaylistTitle){
+		
+		if (Helper.checkBlank(potentialPlaylistTitle) || Helper.regexSQLInjection(potentialPlaylistTitle))
+		{
+			return true;
+	
+		}
+		else
+		{
+			return false;
+		}
 
+	}
 
 
 }

@@ -106,8 +106,6 @@ public class ManagePlaylistScreen extends JFrame {
 	private JButton btnAdd9;
 	private JButton btnAdd10;
 	
-
-
 	private JButton btnUp2;
 	private JButton btnUp3;
 	private JButton btnUp4;
@@ -137,146 +135,18 @@ public class ManagePlaylistScreen extends JFrame {
 	private JLabel lblRanking;
 	private JLabel lblElencoManage;
 
-	/**
-	 * Launch the application.
-	 */
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ManagePlaylistScreen frame = new ManagePlaylistScreen();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	*/
 
-	/**
-	 * Create the frame.
-	 */
 	public ManagePlaylistScreen(LoggedIn currentLoggedIn, PlaylistInfo currentPlaylistInfo) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
 		setTitle("Elenco - Manage Playlist");
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				clearScreen();
-	
+				
+					clearScreen();
 					loadContent(currentPlaylistInfo);
-			
-				/*
-				ResultSet currentList = ManagePlaylistApplication.loadPlaylist(currentPlaylistTitle);
-				
-				String playlistTitle = null;
-				String playlistId = null;
-				String title = null;
-				String artist = null;
-				String genre = null;
-				String rating = null;
-				String ranking = null;
-				
-				
-				try {
-					
-					
-								
-								while (currentList.next())																	
-								{
-								
-									playlistTitle = currentList.getString("PlaylistTitle");
-									txtPlaylistTitle.setText(playlistTitle);
-									
-									System.out.println(playlistTitle);
-									
-									playlistId = currentList.getString("playlistID");
-									title = currentList.getString("Title");
-									artist = currentList.getString("Artist");
-									genre = currentList.getString("Genre");
-									rating = currentList.getString("Rating");
-									ranking = currentList.getString("Ranking");
-									
-									//
-									artist = songDetails.getString("Artist");
-									length = songDetails.getString("Song Length");
-									album = songDetails.getString("Album");
-									genre = songDetails.getString("Genre");
-									released = songDetails.getString("Released");
-									info = songDetails.getString("Song Info");
-									
-									textFieldTitle.setText(title);
-									textFieldArtist.setText(artist);
-									txtLength.setText(length);
-									txtAlbum.setText(album);
-									txtGenre.setText(genre);
-									 txtReleased.setText(released);
-									 textArea.setText(info);
-									 //
-									
-									switch (ranking) {
-									case "1":
-										System.out.println("id: " + playlistId);
-										txtID1.setText(playlistId);
-										txtTitle1.setText(title);
-										txtArtist1.setText(artist);
-										txtGenre1.setText(genre);
-										txtRating1.setText(artist);
-										btnAdd1.setEnabled(false);
-										btnRemove1.setEnabled(true);
-										break;
-									case "2":
-										System.out.println("id: " + playlistId);
-										txtID2.setText(playlistId);
-										txtTitle2.setText(title);
-										txtArtist2.setText(artist);
-										txtGenre2.setText(genre);
-										txtRating2.setText(artist);
-										break;
-									case "3":
-								
-										break;
-									case "4":
-								
-										break;
-									case "5":
-									
-										break;
-									case "6":
-								
-										break;
-									case "7":
-								
-										break;
-									case "8":
-									
-										break;
-									case "9":
-							
-										break;
-									case "10":
-									
-										break;
-									
-									
-									
-									
-									default:
-										System.out.println("nothing matching search criteria\n");
-									}
-									
-								}
-				
-								
-							}
-							catch (SQLException sqe)
-							{
-								
-							}
-							*/
-				
+					System.out.println(currentPlaylistInfo.getCurrentPlaylistTitle() + currentPlaylistInfo.getCurrentPlaylistID());
+
 			}
 	
 	
@@ -340,9 +210,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnAdd1.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnAdd1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-		
-				
+
 				AddToPlaylistScreen frame = new AddToPlaylistScreen(currentLoggedIn, currentPlaylistInfo, 1);
 				frame.setVisible(true);
 				dispose();
@@ -370,12 +238,36 @@ public class ManagePlaylistScreen extends JFrame {
 		contentPane.add(txtGenre2);
 		txtGenre2.setColumns(10);
 		
-		btnRename = new JButton("Create");
+		btnRename = new JButton("Rename");
+		btnRename.setEnabled(false);
 		btnRename.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				if (Helper.checkPlaylistTitle(txtPlaylistTitle.getText().strip()))
+				{
+					JOptionPane.showMessageDialog(null, "Valid Playlist Title Input Required - No Use Of Banned Special Characters", "Elenco - Invalid Playlist Title", JOptionPane.ERROR_MESSAGE,null);
+				}
+				else
+				{
+					ResultSet checkPlaylist = MySQLQueries.playlistTitleExists(currentLoggedIn.getCurrentUserID(), txtPlaylistTitle.getText().strip());
 				
-	
+					try {
+						if (checkPlaylist.next()) {
+							System.out.println("Playlist title exists for userID");
+							JOptionPane.showMessageDialog(null, "You Already Have A Playlist Using This Title", "Elenco - Duplicate Playlist Title", JOptionPane.ERROR_MESSAGE,null);
+						}
+						else
+						{
+							System.out.println("Playlist title does not exists for userID");
+							MySQLQueries.updatePlaylistTitle(currentLoggedIn.getCurrentUserID(), currentPlaylistInfo.getCurrentPlaylistTitle(), txtPlaylistTitle.getText().strip());
+							JOptionPane.showMessageDialog(null, "Playlist Title Renamed", "Elenco - Successful Name Change", JOptionPane.INFORMATION_MESSAGE,null);
+						}
+				
+					} catch (SQLException error) 
+					{
+					
+					}
+				}
 			}
 		});
 		btnRename.setBounds(435, 130, 100, 25);
@@ -399,14 +291,14 @@ public class ManagePlaylistScreen extends JFrame {
 		btnRemove1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-		int select;																												// Variable for storing user response to message box.
+				int select;																											
 				
 				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Remove Song From Playlist?", "Elenco - Remove Song?", 					
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
 				
 				if (select == JOptionPane.YES_OPTION) {	
-				ManagePlaylistApplication.removeFromList(currentLoggedIn.getCurrentUserID(), txtID1.getText());
-				loadContent(currentPlaylistInfo) ;
+					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID1.getText());
+					loadContent(currentPlaylistInfo) ;
 				}
 			}
 		});
@@ -625,6 +517,14 @@ public class ManagePlaylistScreen extends JFrame {
 		txtID1.setColumns(10);
 		
 		btnAdd2 = new JButton("Add");
+		btnAdd2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				AddToPlaylistScreen frame = new AddToPlaylistScreen(currentLoggedIn, currentPlaylistInfo, 2);
+				frame.setVisible(true);
+				dispose();
+			}
+		});
 		btnAdd2.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnAdd2.setBounds(860, 250, 75, 20);
 		contentPane.add(btnAdd2);
@@ -634,14 +534,14 @@ public class ManagePlaylistScreen extends JFrame {
 		btnRemove2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-	int select;																												// Variable for storing user response to message box.
+				int select;																												
 				
 				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Remove Song From Playlist?", "Elenco - Remove Song?", 					
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);		
 				
 				if (select == JOptionPane.YES_OPTION) {	
-				ManagePlaylistApplication.removeFromList(currentLoggedIn.getCurrentUserID(), txtID2.getText());
-				loadContent(currentPlaylistInfo) ;
+					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID2.getText());
+					loadContent(currentPlaylistInfo) ;
 				}
 			}
 		});
@@ -654,14 +554,12 @@ public class ManagePlaylistScreen extends JFrame {
 		contentPane.add(txtID2);
 		txtID2.setColumns(10);
 		
-		 btnDown1 = new JButton("Down");
+		btnDown1 = new JButton("Down");
 		btnDown1.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnDown1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-			
-		
-				ManagePlaylistApplication.swapRanking( txtID2.getText(), txtID1.getText());
+
+				MySQLQueries.swapRanking( txtID2.getText(), txtID1.getText());
 				loadContent(currentPlaylistInfo) ;
 			
 			}
@@ -669,21 +567,29 @@ public class ManagePlaylistScreen extends JFrame {
 		btnDown1.setBounds(160, 220, 75, 20);
 		contentPane.add(btnDown1);
 		
-		 btnUp2 = new JButton("Up");
+		btnUp2 = new JButton("Up");
 		btnUp2.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnUp2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				
 		
-				ManagePlaylistApplication.swapRanking( txtID2.getText(), txtID1.getText());
+				MySQLQueries.swapRanking( txtID2.getText(), txtID1.getText());
 				loadContent(currentPlaylistInfo) ;
 			}
 		});
 		btnUp2.setBounds(75, 250, 75, 20);
 		contentPane.add(btnUp2);
 		
-		 btnAdd3 = new JButton("Add");
+		btnAdd3 = new JButton("Add");
+		btnAdd3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				AddToPlaylistScreen frame = new AddToPlaylistScreen(currentLoggedIn, currentPlaylistInfo, 3);
+				frame.setVisible(true);
+				dispose();
+			}
+		});
 		btnAdd3.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnAdd3.setBounds(860, 280, 75, 20);
 		contentPane.add(btnAdd3);
@@ -692,14 +598,14 @@ public class ManagePlaylistScreen extends JFrame {
 		 btnRemove3.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
 		 		
-	int select;																												// Variable for storing user response to message box.
+		 		int select;																												
 				
 				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Remove Song From Playlist?", "Elenco - Remove Song?", 					
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
 				
 				if (select == JOptionPane.YES_OPTION) {	
-				ManagePlaylistApplication.removeFromList(currentLoggedIn.getCurrentUserID(), txtID3.getText());
-				loadContent(currentPlaylistInfo) ;
+					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID3.getText());
+					loadContent(currentPlaylistInfo) ;
 				}
 		 	}
 		 });
@@ -707,23 +613,31 @@ public class ManagePlaylistScreen extends JFrame {
 		btnRemove3.setBounds(945, 280, 75, 20);
 		contentPane.add(btnRemove3);
 		
-		 btnAdd4 = new JButton("Add");
+		btnAdd4 = new JButton("Add");
+		btnAdd4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				AddToPlaylistScreen frame = new AddToPlaylistScreen(currentLoggedIn, currentPlaylistInfo, 4);
+				frame.setVisible(true);
+				dispose();
+			}
+		});
 		btnAdd4.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnAdd4.setBounds(860, 310, 75, 20);
 		contentPane.add(btnAdd4);
 		
-		 btnRemove4 = new JButton("Remove");
-		 btnRemove4.addActionListener(new ActionListener() {
+		btnRemove4 = new JButton("Remove");
+		btnRemove4.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
 		 		
-	int select;																												// Variable for storing user response to message box.
+		 		int select;																												
 				
 				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Remove Song From Playlist?", "Elenco - Remove Song?", 					
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
 				
 				if (select == JOptionPane.YES_OPTION) {	
-				ManagePlaylistApplication.removeFromList(currentLoggedIn.getCurrentUserID(), txtID4.getText());
-				loadContent(currentPlaylistInfo) ;
+					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID4.getText());
+					loadContent(currentPlaylistInfo) ;
 				}
 		 	}
 		 });
@@ -731,23 +645,31 @@ public class ManagePlaylistScreen extends JFrame {
 		btnRemove4.setBounds(945, 310, 75, 20);
 		contentPane.add(btnRemove4);
 		
-		 btnAdd5 = new JButton("Add");
+		btnAdd5 = new JButton("Add");
+		btnAdd5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				AddToPlaylistScreen frame = new AddToPlaylistScreen(currentLoggedIn, currentPlaylistInfo, 5);
+				frame.setVisible(true);
+				dispose();
+			}
+		});
 		btnAdd5.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnAdd5.setBounds(860, 340, 75, 20);
 		contentPane.add(btnAdd5);
 		
-		 btnRemove5 = new JButton("Remove");
-		 btnRemove5.addActionListener(new ActionListener() {
+		btnRemove5 = new JButton("Remove");
+		btnRemove5.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
 		 		
-	int select;																												// Variable for storing user response to message box.
+		 		int select;																											
 				
 				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Remove Song From Playlist?", "Elenco - Remove Song?", 					
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
 				
 				if (select == JOptionPane.YES_OPTION) {	
-				ManagePlaylistApplication.removeFromList(currentLoggedIn.getCurrentUserID(), txtID5.getText());
-				loadContent(currentPlaylistInfo) ;
+					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID5.getText());
+					loadContent(currentPlaylistInfo) ;
 				}
 		 	}
 		 });
@@ -755,23 +677,31 @@ public class ManagePlaylistScreen extends JFrame {
 		btnRemove5.setBounds(945, 340, 75, 20);
 		contentPane.add(btnRemove5);
 		
-		 btnAdd6 = new JButton("Add");
+		btnAdd6 = new JButton("Add");
+		btnAdd6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				AddToPlaylistScreen frame = new AddToPlaylistScreen(currentLoggedIn, currentPlaylistInfo, 6);
+				frame.setVisible(true);
+				dispose();
+			}
+		});
 		btnAdd6.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnAdd6.setBounds(860, 370, 75, 20);
 		contentPane.add(btnAdd6);
 		
-		 btnRemove6 = new JButton("Remove");
-		 btnRemove6.addActionListener(new ActionListener() {
+		btnRemove6 = new JButton("Remove");
+		btnRemove6.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
 		 		
-	int select;																												// Variable for storing user response to message box.
+		 		int select;																												
 				
 				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Remove Song From Playlist?", "Elenco - Remove Song?", 					
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
 				
 				if (select == JOptionPane.YES_OPTION) {	
-				ManagePlaylistApplication.removeFromList(currentLoggedIn.getCurrentUserID(), txtID6.getText());
-				loadContent(currentPlaylistInfo) ;
+					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID6.getText());
+					loadContent(currentPlaylistInfo) ;
 				}
 		 	}
 		 });
@@ -779,23 +709,32 @@ public class ManagePlaylistScreen extends JFrame {
 		btnRemove6.setBounds(945, 370, 75, 20);
 		contentPane.add(btnRemove6);
 		
-		 btnAdd7 = new JButton("Add");
+		btnAdd7 = new JButton("Add");
+		btnAdd7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				AddToPlaylistScreen frame = new AddToPlaylistScreen(currentLoggedIn, currentPlaylistInfo, 7);
+				frame.setVisible(true);
+				dispose();
+				
+			}
+		});
 		btnAdd7.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnAdd7.setBounds(860, 400, 75, 20);
 		contentPane.add(btnAdd7);
 		
-		 btnRemove7 = new JButton("Remove");
-		 btnRemove7.addActionListener(new ActionListener() {
+		btnRemove7 = new JButton("Remove");
+		btnRemove7.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
 		 		
-	int select;																												// Variable for storing user response to message box.
+		 		int select;																												
 				
 				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Remove Song From Playlist?", "Elenco - Remove Song?", 					
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
 				
 				if (select == JOptionPane.YES_OPTION) {	
-				ManagePlaylistApplication.removeFromList(currentLoggedIn.getCurrentUserID(), txtID7.getText());
-				loadContent(currentPlaylistInfo) ;
+					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID7.getText());
+					loadContent(currentPlaylistInfo) ;
 				}
 		 	}
 		 });
@@ -803,33 +742,58 @@ public class ManagePlaylistScreen extends JFrame {
 		btnRemove7.setBounds(945, 400, 75, 20);
 		contentPane.add(btnRemove7);
 		
-		 btnAdd8 = new JButton("Add");
+		btnAdd8 = new JButton("Add");
+		btnAdd8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				AddToPlaylistScreen frame = new AddToPlaylistScreen(currentLoggedIn, currentPlaylistInfo, 8);
+				frame.setVisible(true);
+				dispose();
+				
+			}
+		});
 		btnAdd8.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnAdd8.setBounds(860, 430, 75, 20);
 		contentPane.add(btnAdd8);
 		
-		 btnAdd9 = new JButton("Add");
+		btnAdd9 = new JButton("Add");
+		btnAdd9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				AddToPlaylistScreen frame = new AddToPlaylistScreen(currentLoggedIn, currentPlaylistInfo, 9);
+				frame.setVisible(true);
+				dispose();
+			}
+		});
 		btnAdd9.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnAdd9.setBounds(860, 460, 75, 20);
 		contentPane.add(btnAdd9);
 		
-		 btnAdd10 = new JButton("Add");
+		btnAdd10 = new JButton("Add");
+		btnAdd10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				AddToPlaylistScreen frame = new AddToPlaylistScreen(currentLoggedIn, currentPlaylistInfo, 10);
+				frame.setVisible(true);
+				dispose();
+			}
+		});
 		btnAdd10.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnAdd10.setBounds(860, 490, 75, 20);
 		contentPane.add(btnAdd10);
 		
-		 btnRemove8 = new JButton("Remove");
-		 btnRemove8.addActionListener(new ActionListener() {
+		btnRemove8 = new JButton("Remove");
+		btnRemove8.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
 		 		
-	int select;																												// Variable for storing user response to message box.
+		 		int select;																												
 				
 				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Remove Song From Playlist?", "Elenco - Remove Song?", 					
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
 				
 				if (select == JOptionPane.YES_OPTION) {	
-				ManagePlaylistApplication.removeFromList(currentLoggedIn.getCurrentUserID(), txtID8.getText());
-				loadContent(currentPlaylistInfo) ;
+					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID8.getText());
+					loadContent(currentPlaylistInfo) ;
 				}
 		 	}
 		 });
@@ -837,17 +801,18 @@ public class ManagePlaylistScreen extends JFrame {
 		btnRemove8.setBounds(945, 430, 75, 20);
 		contentPane.add(btnRemove8);
 		
-		 btnRemove9 = new JButton("Remove");
-		 btnRemove9.addActionListener(new ActionListener() {
+		btnRemove9 = new JButton("Remove");
+		btnRemove9.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
-	int select;																												// Variable for storing user response to message box.
+		 		
+		 		int select;																												
 				
 				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Remove Song From Playlist?", "Elenco - Remove Song?", 					
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
 				
 				if (select == JOptionPane.YES_OPTION) {	
-				ManagePlaylistApplication.removeFromList(currentLoggedIn.getCurrentUserID(), txtID9.getText());
-				loadContent(currentPlaylistInfo) ;
+					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID9.getText());
+					loadContent(currentPlaylistInfo) ;
 				}
 		 	}
 		 });
@@ -855,17 +820,17 @@ public class ManagePlaylistScreen extends JFrame {
 		btnRemove9.setBounds(945, 460, 75, 20);
 		contentPane.add(btnRemove9);
 		
-		 btnRemove10 = new JButton("Remove");
-		 btnRemove10.addActionListener(new ActionListener() {
+		btnRemove10 = new JButton("Remove");
+		btnRemove10.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
-	int select;																												// Variable for storing user response to message box.
+		 		int select;																												
 				
 				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Remove Song From Playlist?", "Elenco - Remove Song?", 					
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
 				
 				if (select == JOptionPane.YES_OPTION) {	
-				ManagePlaylistApplication.removeFromList(currentLoggedIn.getCurrentUserID(), txtID10.getText());
-				loadContent(currentPlaylistInfo) ;
+					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID10.getText());
+					loadContent(currentPlaylistInfo) ;
 				}
 		 	}
 		 });
@@ -921,11 +886,10 @@ public class ManagePlaylistScreen extends JFrame {
 		contentPane.add(txtID10);
 		txtID10.setColumns(10);
 		
-		 btnUp3 = new JButton("Up");
-		 btnUp3.addActionListener(new ActionListener() {
-		 	public void actionPerformed(ActionEvent e) {
-		 		
-		 		ManagePlaylistApplication.swapRanking( txtID3.getText(), txtID2.getText());
+		btnUp3 = new JButton("Up");
+		btnUp3.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent e) {	
+		 		MySQLQueries.swapRanking( txtID3.getText(), txtID2.getText());
 				loadContent(currentPlaylistInfo) ;
 		 	}
 		 });
@@ -933,11 +897,10 @@ public class ManagePlaylistScreen extends JFrame {
 		btnUp3.setBounds(75, 280, 75, 20);
 		contentPane.add(btnUp3);
 		
-		 btnUp4 = new JButton("Up");
-		 btnUp4.addActionListener(new ActionListener() {
-		 	public void actionPerformed(ActionEvent e) {
-		 		
-		 		ManagePlaylistApplication.swapRanking( txtID4.getText(), txtID3.getText());
+		btnUp4 = new JButton("Up");
+		btnUp4.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent e) {	
+		 		MySQLQueries.swapRanking( txtID4.getText(), txtID3.getText());
 				loadContent(currentPlaylistInfo) ;
 		 	}
 		 });
@@ -945,10 +908,10 @@ public class ManagePlaylistScreen extends JFrame {
 		btnUp4.setBounds(75, 310, 75, 20);
 		contentPane.add(btnUp4);
 		
-		 btnUp5 = new JButton("Up");
-		 btnUp5.addActionListener(new ActionListener() {
+		btnUp5 = new JButton("Up");
+		btnUp5.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
-				ManagePlaylistApplication.swapRanking( txtID5.getText(), txtID4.getText());
+		 		MySQLQueries.swapRanking( txtID5.getText(), txtID4.getText());
 				loadContent(currentPlaylistInfo) ;
 		 	}
 		 });
@@ -956,11 +919,10 @@ public class ManagePlaylistScreen extends JFrame {
 		btnUp5.setBounds(75, 340, 75, 20);
 		contentPane.add(btnUp5);
 		
-		 btnUp6 = new JButton("Up");
-		 btnUp6.addActionListener(new ActionListener() {
-		 	public void actionPerformed(ActionEvent e) {
-		 		
-				ManagePlaylistApplication.swapRanking( txtID6.getText(), txtID5.getText());
+		btnUp6 = new JButton("Up");
+		btnUp6.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent e) {		
+		 		MySQLQueries.swapRanking( txtID6.getText(), txtID5.getText());
 				loadContent(currentPlaylistInfo) ;
 		 	}
 		 });
@@ -968,10 +930,10 @@ public class ManagePlaylistScreen extends JFrame {
 		btnUp6.setBounds(75, 370, 75, 20);
 		contentPane.add(btnUp6);
 		
-		 btnUp7 = new JButton("Up");
-		 btnUp7.addActionListener(new ActionListener() {
+		btnUp7 = new JButton("Up");
+		btnUp7.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
-				ManagePlaylistApplication.swapRanking( txtID7.getText(), txtID6.getText());
+		 		MySQLQueries.swapRanking( txtID7.getText(), txtID6.getText());
 				loadContent(currentPlaylistInfo) ;
 		 	}
 		 });
@@ -979,10 +941,10 @@ public class ManagePlaylistScreen extends JFrame {
 		btnUp7.setBounds(75, 400, 75, 20);
 		contentPane.add(btnUp7);
 		
-		 btnUp8 = new JButton("Up");
-		 btnUp8.addActionListener(new ActionListener() {
+		btnUp8 = new JButton("Up");
+		btnUp8.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
-				ManagePlaylistApplication.swapRanking( txtID8.getText(), txtID7.getText());
+		 		MySQLQueries.swapRanking( txtID8.getText(), txtID7.getText());
 				loadContent(currentPlaylistInfo) ;
 		 	}
 		 });
@@ -990,10 +952,10 @@ public class ManagePlaylistScreen extends JFrame {
 		btnUp8.setBounds(75, 430, 75, 20);
 		contentPane.add(btnUp8);
 		
-		 btnUp9 = new JButton("Up");
-		 btnUp9.addActionListener(new ActionListener() {
+		btnUp9 = new JButton("Up");
+		btnUp9.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
-				ManagePlaylistApplication.swapRanking( txtID9.getText(), txtID8.getText());
+		 		MySQLQueries.swapRanking( txtID9.getText(), txtID8.getText());
 				loadContent(currentPlaylistInfo) ;
 		 	}
 		 });
@@ -1001,11 +963,10 @@ public class ManagePlaylistScreen extends JFrame {
 		btnUp9.setBounds(75, 460, 75, 20);
 		contentPane.add(btnUp9);
 		
-		 btnUp10 = new JButton("Up");
-		 btnUp10.addActionListener(new ActionListener() {
-		 	public void actionPerformed(ActionEvent e) {
-		 		
-				ManagePlaylistApplication.swapRanking( txtID10.getText(), txtID9.getText());
+		btnUp10 = new JButton("Up");
+		btnUp10.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent e) {	
+		 		MySQLQueries.swapRanking( txtID10.getText(), txtID9.getText());
 				loadContent(currentPlaylistInfo) ;
 		 	}
 		 });
@@ -1013,11 +974,10 @@ public class ManagePlaylistScreen extends JFrame {
 		btnUp10.setBounds(75, 490, 75, 20);
 		contentPane.add(btnUp10);
 		
-		 btnDown2 = new JButton("Down");
-		 btnDown2.addActionListener(new ActionListener() {
-		 	public void actionPerformed(ActionEvent e) {
-		 		
-		 		ManagePlaylistApplication.swapRanking( txtID3.getText(), txtID2.getText());
+		btnDown2 = new JButton("Down");
+		btnDown2.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent e) {	
+		 		MySQLQueries.swapRanking( txtID3.getText(), txtID2.getText());
 				loadContent(currentPlaylistInfo) ;
 		 	}
 		 });
@@ -1025,11 +985,10 @@ public class ManagePlaylistScreen extends JFrame {
 		btnDown2.setBounds(160, 250, 75, 20);
 		contentPane.add(btnDown2);
 		
-		 btnDown3 = new JButton("Down");
-		 btnDown3.addActionListener(new ActionListener() {
-		 	public void actionPerformed(ActionEvent e) {
-		 		
-		 		ManagePlaylistApplication.swapRanking( txtID4.getText(), txtID3.getText());
+		btnDown3 = new JButton("Down");
+		btnDown3.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent e) { 		
+		 		MySQLQueries.swapRanking( txtID4.getText(), txtID3.getText());
 				loadContent(currentPlaylistInfo) ;
 		 	}
 		 });
@@ -1037,11 +996,10 @@ public class ManagePlaylistScreen extends JFrame {
 		btnDown3.setBounds(160, 280, 75, 20);
 		contentPane.add(btnDown3);
 		
-		 btnDown4 = new JButton("Down");
-		 btnDown4.addActionListener(new ActionListener() {
-		 	public void actionPerformed(ActionEvent e) {
-		 		
-		 		ManagePlaylistApplication.swapRanking( txtID5.getText(), txtID4.getText());
+		btnDown4 = new JButton("Down");
+		btnDown4.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent e) {	 		
+		 		MySQLQueries.swapRanking( txtID5.getText(), txtID4.getText());
 				loadContent(currentPlaylistInfo) ;
 		 	}
 		 });
@@ -1049,11 +1007,10 @@ public class ManagePlaylistScreen extends JFrame {
 		btnDown4.setBounds(160, 310, 75, 20);
 		contentPane.add(btnDown4);
 		
-		 btnDown5 = new JButton("Down");
-		 btnDown5.addActionListener(new ActionListener() {
+		btnDown5 = new JButton("Down");
+		btnDown5.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
-		 		
-				ManagePlaylistApplication.swapRanking( txtID6.getText(), txtID5.getText());
+		 		MySQLQueries.swapRanking( txtID6.getText(), txtID5.getText());
 				loadContent(currentPlaylistInfo) ;
 		 	}
 		 });
@@ -1061,11 +1018,10 @@ public class ManagePlaylistScreen extends JFrame {
 		btnDown5.setBounds(160, 340, 75, 20);
 		contentPane.add(btnDown5);
 		
-		 btnDown6 = new JButton("Down");
-		 btnDown6.addActionListener(new ActionListener() {
+		btnDown6 = new JButton("Down");
+		btnDown6.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
-		 		
-				ManagePlaylistApplication.swapRanking( txtID7.getText(), txtID6.getText());
+		 		MySQLQueries.swapRanking( txtID7.getText(), txtID6.getText());
 				loadContent(currentPlaylistInfo) ;
 		 	}
 		 });
@@ -1073,11 +1029,10 @@ public class ManagePlaylistScreen extends JFrame {
 		btnDown6.setBounds(160, 370, 75, 20);
 		contentPane.add(btnDown6);
 		
-		 btnDown7 = new JButton("Down");
-		 btnDown7.addActionListener(new ActionListener() {
+		btnDown7 = new JButton("Down");
+		btnDown7.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
-		 		
-				ManagePlaylistApplication.swapRanking( txtID8.getText(), txtID7.getText());
+		 		MySQLQueries.swapRanking( txtID8.getText(), txtID7.getText());
 				loadContent(currentPlaylistInfo) ;
 		 	}
 		 });
@@ -1085,10 +1040,10 @@ public class ManagePlaylistScreen extends JFrame {
 		btnDown7.setBounds(160, 400, 75, 20);
 		contentPane.add(btnDown7);
 		
-		 btnDown8 = new JButton("Down");
-		 btnDown8.addActionListener(new ActionListener() {
+		btnDown8 = new JButton("Down");
+		btnDown8.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
-				ManagePlaylistApplication.swapRanking( txtID9.getText(), txtID8.getText());
+		 		MySQLQueries.swapRanking( txtID9.getText(), txtID8.getText());
 				loadContent(currentPlaylistInfo) ;
 		 	}
 		 });
@@ -1099,7 +1054,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnDown9 = new JButton("Down");
 		btnDown9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ManagePlaylistApplication.swapRanking( txtID10.getText(), txtID9.getText());
+				MySQLQueries.swapRanking( txtID10.getText(), txtID9.getText());
 				loadContent(currentPlaylistInfo) ;
 			}
 		});
@@ -1193,25 +1148,24 @@ public class ManagePlaylistScreen extends JFrame {
 		
 		clearScreen();	
 	
-	/*
-		ResultSet getCurrentPlaylistTitle = ManagePlaylistApplication.getCurrentPlaylistTitle(currentPlaylisInfo.getCurrentPlaylistID());
-		
 		String currentPlaylistTitle = null;
+		ResultSet getCurrentPlaylistTitle = MySQLQueries.getCurrentPlaylistTitle(currentPlaylistInfo.getCurrentPlaylistID());
+	
+		try 
+		{
 		
-		try {
-		
-		while (getCurrentPlaylistTitle.next()) {
-			currentPlaylistTitle = getCurrentPlaylistTitle.getString("PlaylistTitle");
+			while (getCurrentPlaylistTitle.next()) {
+				
+				currentPlaylistTitle = getCurrentPlaylistTitle.getString("PlaylistTitle");
+				
+			}
 		}
-		}
-		catch (Exception error){
+		catch (Exception error)
+		{
 			
 		}
-		*/
 		
-		
-	
-		ResultSet currentList = ManagePlaylistApplication.loadPlaylist(currentPlaylistInfo.getCurrentPlaylistTitle());
+		ResultSet currentList = MySQLQueries.loadAPlaylist(currentPlaylistTitle);
 		
 		String playlistTitle = null;
 		String playlistId = null;
@@ -1221,298 +1175,268 @@ public class ManagePlaylistScreen extends JFrame {
 		String rating = null;
 		int ranking;
 		
-		
 		try {
 			
+						
+			while (currentList.next()){
+						
+				playlistTitle = currentList.getString("PlaylistTitle");
+				txtPlaylistTitle.setText(playlistTitle);
+							
+				System.out.println(playlistTitle);
+							
+				playlistId = currentList.getString("PlaylistID");
+				ranking = currentList.getInt("Ranking");
+				title = currentList.getString("Title");
+				artist = currentList.getString("Artist");
+				genre = currentList.getString("Genre");
+				rating = currentList.getString("OverallRating");
+							
+				currentPlaylistInfo.setCurrentPlaylistTitle(playlistTitle);
+							
+				if (playlistTitle != null || playlistTitle != "")	
+				{
+					btnRename.setEnabled(true);
+				}
+					
+							
+				switch (ranking) {
+					case 1:
+						
+						txtID1.setText(playlistId);
+						txtTitle1.setText(title);
+						txtArtist1.setText(artist);
+						txtGenre1.setText(genre);
+						txtRating1.setText(rating);
+						btnAdd1.setEnabled(false);
+						btnRemove1.setEnabled(true);
+						btnDown1.setEnabled(true);
+						break;
+					case 2:
+								
+						txtID2.setText(playlistId);
+						txtTitle2.setText(title);
+						txtArtist2.setText(artist);
+						txtGenre2.setText(genre);
+						txtRating2.setText(rating);
+						btnAdd2.setEnabled(false);
+						btnRemove2.setEnabled(true);
+								
+						btnUp2.setEnabled(true);
+						btnDown2.setEnabled(true);
+						break;
+					case 3:
+						txtID3.setText(playlistId);
+						txtTitle3.setText(title);
+						txtArtist3.setText(artist);
+						txtGenre3.setText(genre);
+						txtRating3.setText(rating);
+						btnAdd3.setEnabled(false);
+						btnRemove3.setEnabled(true);
+								
+						btnUp3.setEnabled(true);
+						btnDown3.setEnabled(true);
+						break;
+					case 4:
+						txtID4.setText(playlistId);
+						txtTitle4.setText(title);
+						txtArtist4.setText(artist);
+						txtGenre4.setText(genre);
+						txtRating4.setText(rating);
+						btnAdd4.setEnabled(false);
+						btnRemove4.setEnabled(true);
+								
+						btnUp4.setEnabled(true);
+						btnDown4.setEnabled(true);
+						break;
+					case 5:
+						txtID5.setText(playlistId);
+						txtTitle5.setText(title);
+						txtArtist5.setText(artist);
+						txtGenre5.setText(genre);
+						txtRating5.setText(rating);
+						btnAdd5.setEnabled(false);
+						btnRemove5.setEnabled(true);
+								
+						btnUp5.setEnabled(true);
+						btnDown5.setEnabled(true);
+						break;
+					case 6:
+						txtID6.setText(playlistId);
+						txtTitle6.setText(title);
+						txtArtist6.setText(artist);
+						txtGenre6.setText(genre);
+						txtRating6.setText(rating);
+						btnAdd6.setEnabled(false);
+						btnRemove6.setEnabled(true);
+								
+						btnUp6.setEnabled(true);
+						btnDown6.setEnabled(true);
+						break;
+					case 7:
+						txtID7.setText(playlistId);
+						txtTitle7.setText(title);
+						txtArtist7.setText(artist);
+						txtGenre7.setText(genre);
+						txtRating7.setText(rating);
+						btnAdd7.setEnabled(false);
+						btnRemove7.setEnabled(true);
+								
+						btnUp7.setEnabled(true);
+						btnDown7.setEnabled(true);
+						break;
+					case 8:
+						txtID8.setText(playlistId);
+						txtTitle8.setText(title);
+						txtArtist8.setText(artist);
+						txtGenre8.setText(genre);
+						txtRating8.setText(rating);
+						btnAdd8.setEnabled(false);
+						btnRemove8.setEnabled(true);
+								
+						btnUp8.setEnabled(true);
+						btnDown8.setEnabled(true);
+						break;
+					case 9:
+						txtID9.setText(playlistId);
+						txtTitle9.setText(title);
+						txtArtist9.setText(artist);
+						txtGenre9.setText(genre);
+						txtRating9.setText(rating);
+						btnAdd9.setEnabled(false);
+						btnRemove9.setEnabled(true);
+								
+						btnUp9.setEnabled(true);
+						btnDown9.setEnabled(true);
+						break;
+					case 10:
+						txtID10.setText(playlistId);
+						txtTitle10.setText(title);
+						txtArtist10.setText(artist);
+						txtGenre10.setText(genre);
+						txtRating10.setText(rating);
+						btnAdd10.setEnabled(false);
+						btnRemove10.setEnabled(true);
+								
+						btnUp10.setEnabled(true);
+						
+						break;
+						
+					default:
+						System.out.println("nothing matching search criteria\n");
+				}
+							
+			}
+		
+						
+		}
+		catch (SQLException sqe)
+		{
+						
+		}
 			
-						
-						while (currentList.next())																	
-						{
-						
-							playlistTitle = currentList.getString("PlaylistTitle");
-							txtPlaylistTitle.setText(playlistTitle);
-							
-							System.out.println(playlistTitle);
-							
-							playlistId = currentList.getString("PlaylistID");
-							ranking = currentList.getInt("Ranking");
-							
-							
-							title = currentList.getString("Title");
-							artist = currentList.getString("Artist");
-							genre = currentList.getString("Genre");
-							rating = currentList.getString("OverallRating");
-							
-							
-							//currentPlaylisInfo.setCurrentPlaylistTitle(playlistTitle);
-							
-							if (!playlistTitle.equals(""))	
-							{
-								btnRename.setText("Rename");
-							}
-							/*
-							artist = songDetails.getString("Artist");
-							length = songDetails.getString("Song Length");
-							album = songDetails.getString("Album");
-							genre = songDetails.getString("Genre");
-							released = songDetails.getString("Released");
-							info = songDetails.getString("Song Info");
-							
-							textFieldTitle.setText(title);
-							textFieldArtist.setText(artist);
-							txtLength.setText(length);
-							txtAlbum.setText(album);
-							txtGenre.setText(genre);
-							 txtReleased.setText(released);
-							 textArea.setText(info);
-							 */
-							
-							switch (ranking) {
-							case 1:
-						
-								txtID1.setText(playlistId);
-								txtTitle1.setText(title);
-								txtArtist1.setText(artist);
-								txtGenre1.setText(genre);
-								txtRating1.setText(rating);
-								btnAdd1.setEnabled(false);
-								btnRemove1.setEnabled(true);
-								btnDown1.setEnabled(true);
-								break;
-							case 2:
-								
-								txtID2.setText(playlistId);
-								txtTitle2.setText(title);
-								txtArtist2.setText(artist);
-								txtGenre2.setText(genre);
-								txtRating2.setText(rating);
-								btnAdd2.setEnabled(false);
-								btnRemove2.setEnabled(true);
-								
-								btnUp2.setEnabled(true);
-								btnDown2.setEnabled(true);
-								break;
-							case 3:
-								txtID3.setText(playlistId);
-								txtTitle3.setText(title);
-								txtArtist3.setText(artist);
-								txtGenre3.setText(genre);
-								txtRating3.setText(rating);
-								btnAdd3.setEnabled(false);
-								btnRemove3.setEnabled(true);
-								
-								btnUp3.setEnabled(true);
-								btnDown3.setEnabled(true);
-								break;
-							case 4:
-								txtID4.setText(playlistId);
-								txtTitle4.setText(title);
-								txtArtist4.setText(artist);
-								txtGenre4.setText(genre);
-								txtRating4.setText(rating);
-								btnAdd4.setEnabled(false);
-								btnRemove4.setEnabled(true);
-								
-								btnUp4.setEnabled(true);
-								btnDown4.setEnabled(true);
-								break;
-							case 5:
-								txtID5.setText(playlistId);
-								txtTitle5.setText(title);
-								txtArtist5.setText(artist);
-								txtGenre5.setText(genre);
-								txtRating5.setText(rating);
-								btnAdd5.setEnabled(false);
-								btnRemove5.setEnabled(true);
-								
-								btnUp5.setEnabled(true);
-								btnDown5.setEnabled(true);
-								break;
-							case 6:
-								txtID6.setText(playlistId);
-								txtTitle6.setText(title);
-								txtArtist6.setText(artist);
-								txtGenre6.setText(genre);
-								txtRating6.setText(rating);
-								btnAdd6.setEnabled(false);
-								btnRemove6.setEnabled(true);
-								
-								btnUp6.setEnabled(true);
-								btnDown6.setEnabled(true);
-								break;
-							case 7:
-								txtID7.setText(playlistId);
-								txtTitle7.setText(title);
-								txtArtist7.setText(artist);
-								txtGenre7.setText(genre);
-								txtRating7.setText(rating);
-								btnAdd7.setEnabled(false);
-								btnRemove7.setEnabled(true);
-								
-								btnUp7.setEnabled(true);
-								btnDown7.setEnabled(true);
-								break;
-							case 8:
-								txtID8.setText(playlistId);
-								txtTitle8.setText(title);
-								txtArtist8.setText(artist);
-								txtGenre8.setText(genre);
-								txtRating8.setText(rating);
-								btnAdd8.setEnabled(false);
-								btnRemove8.setEnabled(true);
-								
-								btnUp8.setEnabled(true);
-								btnDown8.setEnabled(true);
-								break;
-							case 9:
-								txtID9.setText(playlistId);
-								txtTitle9.setText(title);
-								txtArtist9.setText(artist);
-								txtGenre9.setText(genre);
-								txtRating9.setText(rating);
-								btnAdd9.setEnabled(false);
-								btnRemove9.setEnabled(true);
-								
-								btnUp9.setEnabled(true);
-								btnDown9.setEnabled(true);
-								break;
-							case 10:
-								txtID10.setText(playlistId);
-								txtTitle10.setText(title);
-								txtArtist10.setText(artist);
-								txtGenre10.setText(genre);
-								txtRating10.setText(rating);
-								btnAdd10.setEnabled(false);
-								btnRemove10.setEnabled(true);
-								
-								btnUp10.setEnabled(true);
-						
-								break;
-							
-							
-							
-							
-							default:
-								System.out.println("nothing matching search criteria\n");
-							}
-							
-						}
-		
-						
-					}
-					catch (SQLException sqe)
-					{
-						
-					}
-		
-		
-		
 	}
 	
 	public void clearScreen() {
 		
-
-						
-								txtID1.setText("");
-								txtTitle1.setText("");
-								txtArtist1.setText("");
-								txtGenre1.setText("");
-								txtRating1.setText("");
-								btnAdd1.setEnabled(true);
-								btnRemove1.setEnabled(false);
+		txtID1.setText("");
+		txtTitle1.setText("");
+		txtArtist1.setText("");
+		txtGenre1.setText("");
+		txtRating1.setText("");
+		btnAdd1.setEnabled(true);
+		btnRemove1.setEnabled(false);
 							
-								btnDown1.setEnabled(false);
+		btnDown1.setEnabled(false);
 								
-								txtID2.setText("");
-								txtTitle2.setText("");
-								txtArtist2.setText("");
-								txtGenre2.setText("");
-								txtRating2.setText("");
-								btnAdd2.setEnabled(true);
-								btnRemove2.setEnabled(false);
-								btnUp2.setEnabled(false);
-								btnDown2.setEnabled(false);
+		txtID2.setText("");
+		txtTitle2.setText("");
+		txtArtist2.setText("");
+		txtGenre2.setText("");
+		txtRating2.setText("");
+		btnAdd2.setEnabled(true);
+		btnRemove2.setEnabled(false);
+		btnUp2.setEnabled(false);
+		btnDown2.setEnabled(false);
 								
-								txtID3.setText("");
-								txtTitle3.setText("");
-								txtArtist3.setText("");
-								txtGenre3.setText("");
-								txtRating3.setText("");
-								btnAdd3.setEnabled(true);
-								btnRemove3.setEnabled(false);
-								btnUp3.setEnabled(false);
-								btnDown3.setEnabled(false);
+		txtID3.setText("");
+		txtTitle3.setText("");
+		txtArtist3.setText("");
+		txtGenre3.setText("");
+		txtRating3.setText("");
+		btnAdd3.setEnabled(true);
+		btnRemove3.setEnabled(false);
+		btnUp3.setEnabled(false);
+		btnDown3.setEnabled(false);
 								
-								txtID4.setText("");
-								txtTitle4.setText("");
-								txtArtist4.setText("");
-								txtGenre4.setText("");
-								txtRating4.setText("");
-								btnAdd4.setEnabled(true);
-								btnRemove4.setEnabled(false);
-								btnUp4.setEnabled(false);
-								btnDown4.setEnabled(false);
+		txtID4.setText("");
+		txtTitle4.setText("");
+		txtArtist4.setText("");
+		txtGenre4.setText("");
+		txtRating4.setText("");
+		btnAdd4.setEnabled(true);
+		btnRemove4.setEnabled(false);
+		btnUp4.setEnabled(false);
+		btnDown4.setEnabled(false);
 								
-								txtID5.setText("");
-								txtTitle5.setText("");
-								txtArtist5.setText("");
-								txtGenre5.setText("");
-								txtRating5.setText("");
-								btnAdd5.setEnabled(true);
-								btnRemove5.setEnabled(false);
-								btnUp5.setEnabled(false);
-								btnDown5.setEnabled(false);
+		txtID5.setText("");
+		txtTitle5.setText("");
+		txtArtist5.setText("");
+		txtGenre5.setText("");
+		txtRating5.setText("");
+		btnAdd5.setEnabled(true);
+		btnRemove5.setEnabled(false);
+		btnUp5.setEnabled(false);
+		btnDown5.setEnabled(false);
 								
-								txtID6.setText("");
-								txtTitle6.setText("");
-								txtArtist6.setText("");
-								txtGenre6.setText("");
-								txtRating6.setText("");
-								btnAdd6.setEnabled(true);
-								btnRemove6.setEnabled(false);
-								btnUp6.setEnabled(false);
-								btnDown6.setEnabled(false);
+		txtID6.setText("");
+		txtTitle6.setText("");
+		txtArtist6.setText("");
+		txtGenre6.setText("");
+		txtRating6.setText("");
+		btnAdd6.setEnabled(true);
+		btnRemove6.setEnabled(false);
+		btnUp6.setEnabled(false);
+		btnDown6.setEnabled(false);
 								
-								txtID7.setText("");
-								txtTitle7.setText("");
-								txtArtist7.setText("");
-								txtGenre7.setText("");
-								txtRating7.setText("");
-								btnAdd7.setEnabled(true);
-								btnRemove7.setEnabled(false);
-								btnUp7.setEnabled(false);
-								btnDown7.setEnabled(false);
+		txtID7.setText("");
+		txtTitle7.setText("");
+		txtArtist7.setText("");
+		txtGenre7.setText("");
+		txtRating7.setText("");
+		btnAdd7.setEnabled(true);
+		btnRemove7.setEnabled(false);
+		btnUp7.setEnabled(false);
+		btnDown7.setEnabled(false);
 								
-								txtID8.setText("");
-								txtTitle8.setText("");
-								txtArtist8.setText("");
-								txtGenre8.setText("");
-								txtRating8.setText("");
-								btnAdd8.setEnabled(true);
-								btnRemove8.setEnabled(false);
-								btnUp8.setEnabled(false);
-								btnDown8.setEnabled(false);
+		txtID8.setText("");
+		txtTitle8.setText("");
+		txtArtist8.setText("");
+		txtGenre8.setText("");
+		txtRating8.setText("");
+		btnAdd8.setEnabled(true);
+		btnRemove8.setEnabled(false);
+		btnUp8.setEnabled(false);
+		btnDown8.setEnabled(false);
 								
-								txtID9.setText("");
-								txtTitle9.setText("");
-								txtArtist9.setText("");
-								txtGenre9.setText("");
-								txtRating9.setText("");
-								btnAdd9.setEnabled(true);
-								btnRemove9.setEnabled(false);
-								btnUp9.setEnabled(false);
-								btnDown9.setEnabled(false);
+		txtID9.setText("");
+		txtTitle9.setText("");
+		txtArtist9.setText("");
+		txtGenre9.setText("");
+		txtRating9.setText("");
+		btnAdd9.setEnabled(true);
+		btnRemove9.setEnabled(false);
+		btnUp9.setEnabled(false);
+		btnDown9.setEnabled(false);
 								
-								txtID10.setText("");
-								txtTitle10.setText("");
-								txtArtist10.setText("");
-								txtGenre10.setText("");
-								txtRating10.setText("");
-								btnAdd10.setEnabled(true);
-								btnRemove10.setEnabled(false);
-								btnUp10.setEnabled(false);
-								
-			
-		
+		txtID10.setText("");
+		txtTitle10.setText("");
+		txtArtist10.setText("");
+		txtGenre10.setText("");
+		txtRating10.setText("");
+		btnAdd10.setEnabled(true);
+		btnRemove10.setEnabled(false);
+		btnUp10.setEnabled(false);
+									
 	}
 }

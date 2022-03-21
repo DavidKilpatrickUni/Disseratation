@@ -7,50 +7,13 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 
-
 public class LoginApplication {
 
-	/*
-public static ResultSet attemptLogin(String userName, String password) {
-	
-		try
-		{
-			Class.forName("com.mysql.cj.jdbc.Driver");																	
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
-			Statement statement = conn.createStatement();																
-			String query = "SELECT * FROM Accounts where UserName = '" + userName + "' AND Password = '" + password + "'";	
-			System.out.println(query);
-			ResultSet results = statement.executeQuery(query);															
-			System.out.println("this here " + results);
-			
-			return results;
-			
-	
-		}
 
-		catch (ClassNotFoundException cnf)
-		{	
-			System.err.println("Could not load driver");
-			System.err.println(cnf.getMessage());
-			System.exit(-1);	
-		}
-		
-		catch (SQLException sqe)
-		{
-			System.out.println("Error performing SQL Query");
-			System.out.println(sqe.getMessage());
-			System.exit(-1);
-		}
-		
-		return null;	
-	}
-	*/
-
-	public static void enterLogin(String username, String password, LoginScreen loginScreen) throws CustomException {
+	public static LoggedIn enterLogin(String username, String password) throws CustomException {
 	
 		boolean checkFields;																												// Variable to store result of method call
 
-	
 		try {									
 		
 			checkFields = checkFields(username,password);																					// Set variable to result of passing variables through given method.
@@ -65,52 +28,57 @@ public static ResultSet attemptLogin(String userName, String password) {
 						String currentUsername = null;
 			
 						try {
+							
 							if (loginAttempt.next()) 																								
 							{
+								System.out.println("LoginApplication - loginAttempt");
+								
 								currentUserID = loginAttempt.getString("UserID");
 								currentUsername = loginAttempt.getString("UserName");
 								
-						
 								System.out.println(currentUserID);
 								System.out.println(currentUsername);
 							
 								LoggedIn currentLoggedIn = new LoggedIn(currentUserID, currentUsername);
 								
-								
-								MainScreen mainScreen = new MainScreen(currentLoggedIn);
-								mainScreen.setVisible(true);
-								loginScreen.dispose();
+								return currentLoggedIn;
+							
 							}
 						
 							else
-							{
-							System.out.println("Invalid Account Details");
-							throw new CustomException("Invalid Details Provided");	
 							
+							{
+								throw new CustomException("Invalid Details Provided");	
 							}
+							
 						} catch (SQLException sqe){
 							
 						}
 					
 					}
 				
-				} catch (CustomException error) {																							// Exception
-					throw new CustomException("Enter Valid Details To Attempt Login", "login");
-	
+				} catch (CustomException error) {
+					
+					throw new CustomException("Enter Valid Details To Attempt Login", "login");	
+					
 				}
 			
-		} catch (CustomException error) {																									// Exception
+		} catch (CustomException error) {
+			
 			throw new CustomException("Enter Details To Attempt Login", "login");
+			
+		}
 		
+		return null;	
 		
-		}	
-}
+	}
 
 
 	private static boolean checkFields(String userName , String password) throws CustomException{								
 	
+		System.out.println("LoginApplication - CheckFields");
+		
 		boolean result;																									
-	
 		result = true;																									
 	
 		if (Helper.checkBlank(userName) || Helper.checkBlank(password)) {																	

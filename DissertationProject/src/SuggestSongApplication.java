@@ -14,23 +14,22 @@ public class SuggestSongApplication {
 		
 		
 		
-		if (Helper.checkBlank(title)  )
+		if (Helper.checkBlank(title)  || Helper.regexSQLInjection(title))
 		{
 			System.out.println("title error");
 			throw new CustomException("Valid Title Input Required", "title");
-			//return "firstname";
 		}
-		if (Helper.checkBlank(artist) )
+		
+		if (Helper.checkBlank(artist) || Helper.regexSQLInjection(artist) )
 		{
 			System.out.println("artist error");
 			throw new CustomException("Valid Artist Input Required", "artist");
-			//return "surname";
 		}
-		if (Helper.checkBlank(genre) )
+		
+		if (Helper.checkBlank(genre) || Helper.regexSQLInjection(genre) )
 		{
 			System.out.println("genre error");
 			throw new CustomException("Valid Genre Input Required", "genre");
-			//return "surname";
 		}
 		
 		if (checkSongLength(comboMin, comboSec) )
@@ -43,118 +42,63 @@ public class SuggestSongApplication {
 		{
 			System.out.println("released error");
 			throw new CustomException("Valid Release Date Input Required", "released");
-			//return "username";
 		}
-		if (Helper.checkBlank(album))
+		
+		if (Helper.checkBlank(album)  || Helper.regexSQLInjection(album) )
 		{
 			System.out.println("album error");
 			throw new CustomException("Valid Album Input Required", "album");
-			//return "username";
 		}
-		if (Helper.checkBlank(songInfo))
+		
+		if (Helper.checkBlank(songInfo)  || Helper.regexSQLInjection(songInfo))
 		{
 			System.out.println("songInfo error");
 			throw new CustomException("Valid SongInfo Input Required", "songInfo");
-			//return "username";
 		}
+		
 		if (checkRating(rating))
 		{
 			System.out.println("rating error");
 			throw new CustomException("Valid Rating Input Required - Rating Between 1 And 5", "rating");
-			//return "username";
 		}
 	
-
 		return "continue";
 	
 	}
 	
 	
 	
-public static boolean checkSongLength(int comboMin, int comboSec){
+	public static boolean checkSongLength(int comboMin, int comboSec){
 		
-	if (comboMin == 0 | comboSec == 0 | comboMin == 1 & comboSec == 1  ) 
-	{																											
+		System.out.println("SuggestSongApplication - checkSongLength");
 		
-
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-	
-	
-	}
-	
-	
-public static boolean checkRating(int sliderValue){
-	
-	if (sliderValue == 0 ) 
-	{																											
-		
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-	
-	
-	}
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-public static boolean checkBlank(String text) {
-		
-		if (text.strip().isBlank())
-		{
+		if (comboMin == 0 | comboSec == 0 | comboMin == 1 & comboSec == 1  ) 
+		{																											
 			return true;
 		}
 		else
 		{
 			return false;
 		}
+	
 	}
-
-	public static String changeDateFormat(LocalDate localDate) {
 	
 	
+	public static boolean checkRating(int sliderValue){
 	
-
-		DateTimeFormatter myPattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		String formattedDate = localDate.format(myPattern);
-
-		return formattedDate;
+		System.out.println("SuggestSongApplication - checkRating");
+		
+		if (sliderValue == 0 ) 
+		{																											
+			return true;
+		}
+		else
+		{
+		return false;
+		}
+	
+	
 	}
-
-	public static String dateForDatabase(String date) {
 	
-	
-		String replaceString = date.replace("-", "");
-
-
-		return replaceString;
-	}
-
-
 
 }

@@ -27,33 +27,11 @@ import javax.swing.SwingConstants;
 public class LoginScreen extends JFrame {
 
 	private JPanel contentPane;
+	
 	private JTextField txtUserName;
 	private JPasswordField passwordFieldPassword;
-	private static LoginScreen loginScreen;
 
-	/**
-	 * Launch the application.
-	 */
-	
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					loginScreen = new LoginScreen();
-					loginScreen.setVisible(true);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
 
-	/**
-	 * Create the frame.
-	 */
 	public LoginScreen() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
 		setTitle("Elenco - Login");
@@ -77,61 +55,30 @@ public class LoginScreen extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String username = "";
-				String password = "";
-			
+				String username = null;
+				String password = null;
+				LoggedIn loginAttempt = null;
 				
-				username = txtUserName.getText();
-				password = passwordFieldPassword.getText();
+				username = txtUserName.getText().strip();
+				password = passwordFieldPassword.getText().strip();
 
-					try 
-					{
-						LoginApplication.enterLogin(username, password, loginScreen);
-					} 
-					catch (CustomException loginError) 
-					{
-						JOptionPane.showMessageDialog(null, loginError.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);	
-					}
-					
-				
-			
-		
-				/*
-				ResultSet loginAttempt = LoginApplication.attemptLogin(txtUserName.getText(),passwordFieldPassword.getText());	
-				String name = null;
-				String pass = null;
-				String userID = null;
+				try 
+				{
+					loginAttempt = LoginApplication.enterLogin(username, password);
 						
-				try {
-					
-					if (loginAttempt.next())																	
-					{
-						userID = loginAttempt.getString("UserID");
-						name = loginAttempt.getString("UserName");
-						pass = loginAttempt.getString("Password");
-					
-						System.out.println(name);
-						System.out.println(pass);
-						
-						
-						MainScreen gui = new MainScreen(userID, name);
-						gui.setVisible(true);
+					if (loginAttempt != null)
+					{	
+						LoggedIn currentLoggedIn = new LoggedIn(loginAttempt.getCurrentUserID(), loginAttempt.getCurrentUserName());
+							
+						MainMenuScreen mainScreen = new MainMenuScreen(currentLoggedIn);
+						mainScreen.setVisible(true);
 						dispose();
 					}
-					
-					else
-					{
-						System.out.println("Invalid Account Details");
-					}
-					
-				}
-				catch (SQLException sqe)
+				} 
+				catch (CustomException loginError) 
 				{
-					
+					JOptionPane.showMessageDialog(null, loginError.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);	
 				}
-				
-				
-				*/
 			}
 			
 		});

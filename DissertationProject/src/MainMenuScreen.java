@@ -20,32 +20,11 @@ import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 
-public class MainScreen extends JFrame {
+public class MainMenuScreen extends JFrame {
 
 	private JPanel contentPane;
-	private static MainScreen mainScreen;
-	/**
-	 * Launch the application.
-	 */
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainScreen frame = new MainScreen();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	*/
 
-	/**
-	 * Create the frame.
-	 */
-	public MainScreen(LoggedIn currentLoggedIn) {
+	public MainMenuScreen(LoggedIn currentLoggedIn) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
 		setTitle("Elenco - Main Menu");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,14 +47,14 @@ public class MainScreen extends JFrame {
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				int select;																												// Variable for storing user response to message box.
+				int select;																												
 				
 				select = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Elenco - Exit", 					
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
 				
-				if (select == JOptionPane.YES_OPTION) {																					// If Statement. Variable value is YES.
+				if (select == JOptionPane.YES_OPTION) {																					
 					
-					System.exit(1);																								// Use connection with Controller to start method.																					
+					System.exit(1);																																											
 					
 				}
 			}
@@ -85,6 +64,7 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnExit);
 		
 		JButton btnDiscover = new JButton("Discover Songs");
+		btnDiscover.setToolTipText("Feature To Discover/Find A Song Suggested By The Elenco Community");
 		btnDiscover.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnDiscover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -98,9 +78,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnDiscover);
 		
 		JButton btnSuggest = new JButton("Suggest Songs");
+		btnSuggest.setToolTipText("Feature To Add/Upload/Suggest A Song To Elenco Community");
 		btnSuggest.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnSuggest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				SuggestSongScreen frame = new SuggestSongScreen(currentLoggedIn);
 				frame.setVisible(true);
 				dispose();
@@ -110,6 +92,7 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnSuggest);
 		
 		JButton btnNewMyPlaylist = new JButton("My Playlist");
+		btnNewMyPlaylist.setToolTipText("Feature To View/Create/Update Your Own Elenco Playlists");
 		btnNewMyPlaylist.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnNewMyPlaylist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -126,6 +109,7 @@ public class MainScreen extends JFrame {
 		btnNewButton.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				SearchPlaylistScreen frame = new SearchPlaylistScreen(currentLoggedIn);
 				frame.setVisible(true);
 				dispose();
@@ -141,16 +125,11 @@ public class MainScreen extends JFrame {
 		lblElenco.setBounds(150, 25, 200, 75);
 		contentPane.add(lblElenco);
 	
-
-		
-	
-		
 		ImageIcon profileButton =  new ImageIcon(ApplicationStartup.class.getResource("/ColourProfileIcon.PNG"));					// Create new instance of Icon using the given PNG file.
 		Image buttonImage = profileButton.getImage();															// Create image of icon variable.
 		Image buttonImageResize = buttonImage.getScaledInstance(75,75, java.awt.Image.SCALE_SMOOTH);		// Resize image to scale desired. 
 		profileButton = new ImageIcon(buttonImageResize);														// Set instance of Icon to the resized Image.
-		
-		
+
 		JButton btnCircle = new JButton(profileButton);
 		btnCircle.setForeground(Color.WHITE);
 		btnCircle.setBackground(Color.WHITE);
@@ -171,10 +150,7 @@ public class MainScreen extends JFrame {
 		lblMyProfile.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMyProfile.setBounds(400, 95, 75, 14);
 		lblMyProfile.setForeground(new Color(90, 192, 217));
-		contentPane.add(lblMyProfile);
-		
-	
-		
+		contentPane.add(lblMyProfile);	
 		
 	}
 }
