@@ -64,7 +64,7 @@ public class Helper {
 		
 		System.out.println("Helper - checkLength");
 		
-		if (text.trim().length() >= 8)
+		if (text.strip().length() >= 8)
 		{
 			
 			return true;

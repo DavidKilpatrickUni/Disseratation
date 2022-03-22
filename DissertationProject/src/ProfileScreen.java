@@ -20,26 +20,6 @@ public class ProfileScreen extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ProfileScreen frame = new ProfileScreen();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-*/
-	/**
-	 * Create the frame.
-	 */
 	public ProfileScreen(LoggedIn currentLoggedIn) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
 		setTitle("Elenco - Profile");
@@ -52,6 +32,7 @@ public class ProfileScreen extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnMyAccount = new JButton("Account Details");
+		btnMyAccount.setToolTipText("Click To View Account Details");
 		btnMyAccount.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnMyAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -65,6 +46,7 @@ public class ProfileScreen extends JFrame {
 		contentPane.add(btnMyAccount);
 		
 		JButton btnMyProfile = new JButton("Profile Details");
+		btnMyProfile.setToolTipText("Click To View Profile Details");
 		btnMyProfile.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnMyProfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -79,6 +61,7 @@ public class ProfileScreen extends JFrame {
 		contentPane.add(btnMyProfile);
 		
 		JButton btnMainMenu = new JButton("Main Menu");
+		btnMainMenu.setToolTipText("Click To Return To Main Menu");
 		btnMainMenu.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -92,20 +75,21 @@ public class ProfileScreen extends JFrame {
 		contentPane.add(btnMainMenu);
 		
 		JButton btnLogOut = new JButton("Log Out");
+		btnLogOut.setToolTipText("Click To Log Out Of Elenco");
 		btnLogOut.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 	
-				int select;																																	// Variable for storing user response to message box.
+				int select;																																	
 			
 				select = JOptionPane.showOptionDialog(null, "Confirm Log Out", "Elence - Suggest Song", 
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									
 				
 				if (select == JOptionPane.YES_OPTION) {
 				
-				LoginScreen gui = new LoginScreen();
-				gui.setVisible(true);
-				dispose();
+					LoginScreen gui = new LoginScreen();
+					gui.setVisible(true);
+					dispose();
 				}
 			}
 		});
@@ -119,26 +103,26 @@ public class ProfileScreen extends JFrame {
 		lblElenco.setBounds(150, 25, 200, 75);
 		contentPane.add(lblElenco);
 		
-		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));					// Create new instance of Icon using the given PNG file.
-		Image appImage = appIcon.getImage();															// Create image of icon variable.
-		Image appImageResize = appImage.getScaledInstance(100,100, java.awt.Image.SCALE_SMOOTH);		// Resize image to scale desired. 
+		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));					
+		Image appImage = appIcon.getImage();															
+		Image appImageResize = appImage.getScaledInstance(100,100, java.awt.Image.SCALE_SMOOTH);		
 		appIcon = new ImageIcon(appImageResize);
 		
 		JButton btnExit = new JButton("Exit");
+		btnExit.setToolTipText("Click To Exit Elenco");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int select;																												// Variable for storing user response to message box.
+				int select;																												
 				
 				select = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Elenco - Exit", 					
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
 				
-				if (select == JOptionPane.YES_OPTION) {																					// If Statement. Variable value is YES.
+				if (select == JOptionPane.YES_OPTION) {																					
 					
-					System.exit(1);																								// Use connection with Controller to start method.																					
+					System.exit(1);																																												
 					
 				}	
-			
-				
+	
 			}
 		});
 		btnExit.setFont(new Font("Georgia", Font.PLAIN, 11));

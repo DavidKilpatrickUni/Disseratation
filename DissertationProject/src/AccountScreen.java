@@ -37,30 +37,7 @@ public class AccountScreen extends JFrame {
 	private JTextField txtSurname;
 	private JComboBox comboBoxIdentity; 
 	
-	
-	/**
-	 * Launch the application.
-	 */
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AccountScreen frame = new AccountScreen();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-*/
-	/**
-	 * Create the frame.
-	 */
-	
-	
-	
+
 	public AccountScreen(LoggedIn currentLoggedIn) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
 		setTitle("Elenco - Account Details");
@@ -70,9 +47,7 @@ public class AccountScreen extends JFrame {
 			public void windowActivated(WindowEvent e) {
 				
 				ResultSet accountDetails  = MySQLQueries.getAccountsDetailDecrypted(currentLoggedIn.getCurrentUserID());
-				
-				
-				
+
 				String pass = null;
 				String userID = null;
 				String email = null;
@@ -90,15 +65,11 @@ public class AccountScreen extends JFrame {
 						pass = accountDetails.getString("AES_DECRYPT(Password,'encrypt')");
 						email = accountDetails.getString("Email");
 						firstname = accountDetails.getString("First Name");
-					surname = accountDetails.getString("Last Name");
-					identity = accountDetails.getString("Identity");
+						surname = accountDetails.getString("Last Name");
+						identity = accountDetails.getString("Identity");
 						DOB = accountDetails.getString("Date Of Birth");
 						
-				
 						System.out.println("password: " + pass);
-						
-						
-						//comboBoxIdentity.getSelectedItem();
 						
 						txtEmail.setText(email);
 						passwordField.setText(pass);
@@ -106,15 +77,7 @@ public class AccountScreen extends JFrame {
 						txtSurname.setText(surname);
 						comboBoxIdentity.setSelectedItem(identity);
 						txtDOB.setText(DOB);
-						/*
-						private JPanel contentPane;
-						private JTextField textFieldUserName;
-						private JTextField textFieldEmail;
-						private JTextField textFieldFullName;
-						private JTextField textFieldIdentity;
-						private JTextField textFieldDOB;
-						private JPasswordField passwordField;
-						*/
+
 					}
 					
 					else
@@ -138,21 +101,22 @@ public class AccountScreen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnBack = new JButton("My Profile");
+		JButton btnBack = new JButton("Profile Menu");
+		btnBack.setToolTipText("Return To Profile Screen");
 		btnBack.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-	int select;																																	// Variable for storing user response to message box.
+				int select;																																	
 				
 				select = JOptionPane.showOptionDialog(null, "Return To Main Menu - All Unconfirmed Input Will Be Lost", "Elenco - Suggest Song", 
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									
 				
 				if (select == JOptionPane.YES_OPTION) {
 				
-				ProfileScreen frame = new ProfileScreen(currentLoggedIn);
-				frame.setVisible(true);
-				dispose();
+					ProfileScreen frame = new ProfileScreen(currentLoggedIn);
+					frame.setVisible(true);
+					dispose();
 				}
 			}
 		});
@@ -196,48 +160,57 @@ public class AccountScreen extends JFrame {
 		txtFirstname.setColumns(10);
 		
 		JButton btnPassword = new JButton("Change Password");
+		btnPassword.setToolTipText("Click To Change Password To Input");
 		btnPassword.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				
-	int select;																																	// Variable for storing user response to message box.
+				int select;																																	
 				
 				select = JOptionPane.showOptionDialog(null, "Confirm Change Of Password", "Elenco - Suggest Song", 
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									
 				
-				if (select == JOptionPane.YES_OPTION) {
-				try {
-					
-					AccountApplication.checkValidPassword(passwordField.getText().strip());
-					
-					
+				if (select == JOptionPane.YES_OPTION) 
+				{
 					try 
 					{
-						
-						String confirmPassword;
-						confirmPassword = (JOptionPane.showInputDialog("Retype New Password To Confirm"));
-						
-						if(confirmPassword.equals(passwordField.getText().strip()))
-						{
-						MySQLQueries.updatePassword(currentLoggedIn.getCurrentUserID(), passwordField.getText().strip());
-						}
-						else
-						{
-							JOptionPane.showMessageDialog(null, "Confirm Code Doesnt Match - Change Of Password Unsuccessful" , "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
-						}
 					
-					} catch (CustomException error) {
+						AccountApplication.checkValidPassword(passwordField.getText().strip());
+				
+						try 
+						{
+						
+							String confirmPassword;
+							confirmPassword = (JOptionPane.showInputDialog("Retype New Password To Confirm"));
+						
+							if(confirmPassword.equals(passwordField.getText().strip()))
+							{
+							
+								MySQLQueries.updatePassword(currentLoggedIn.getCurrentUserID(), passwordField.getText().strip());
+							
+							}
+							else
+							{
+							
+								JOptionPane.showMessageDialog(null, "Confirm Code Doesnt Match - Change Of Password Unsuccessful" , "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+							
+							}
+					
+						} 
+						catch (CustomException error) 
+						{
+					
+							JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+						}
+				
+					}	
+					catch (CustomException error)
+					{
 					
 						JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
 					}
 				
-				}catch (CustomException error){
-					
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
 				}
-				
-				}
-				
 				
 			}
 		});
@@ -246,34 +219,41 @@ public class AccountScreen extends JFrame {
 		contentPane.add(btnPassword);
 		
 		JButton btnFirst = new JButton("Change First Name");
+		btnFirst.setToolTipText("Click To Change First Name To Input");
 		btnFirst.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				
-	int select;																																	// Variable for storing user response to message box.
+				int select;																																	
 				
 				select = JOptionPane.showOptionDialog(null, "Confirm Change Of First Name", "Elenco - Suggest Song", 
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									
 				
-				if (select == JOptionPane.YES_OPTION) {
-				try {
-					
-					AccountApplication.checkValidFirstname(txtFirstname.getText().strip());
-					
-					
+				if (select == JOptionPane.YES_OPTION) 
+				{
+				
 					try 
 					{
-						MySQLQueries.updateFirstname(currentLoggedIn.getCurrentUserID(), txtFirstname.getText().strip());
 					
-					} catch (CustomException error) {
+						AccountApplication.checkValidFirstname(txtFirstname.getText().strip());
 					
-						JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
-					}
+						try 
+						{
+							MySQLQueries.updateFirstname(currentLoggedIn.getCurrentUserID(), txtFirstname.getText().strip());
+					
+						} 
+						catch (CustomException error) 
+						{
+					
+							JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+						}
 				
-				}catch (CustomException error){
+					}
+					catch (CustomException error)
+					{
 					
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
-				}
+					}
 				
 				}
 				
@@ -284,27 +264,28 @@ public class AccountScreen extends JFrame {
 		contentPane.add(btnFirst);
 		
 		JButton btnIdentity = new JButton("Change Identity");
+		btnIdentity.setToolTipText("Click To Change Identity To Input");
 		btnIdentity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-	int select;																																	// Variable for storing user response to message box.
+				int select;																																	
 				
 				select = JOptionPane.showOptionDialog(null, "Confirm Change Of Identity", "Elenco - Suggest Song", 
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									
 				
-				if (select == JOptionPane.YES_OPTION) {
-				try 
-
+				if (select == JOptionPane.YES_OPTION) 
+				{
+					try 
 					{
 						MySQLQueries.updateIdentity(currentLoggedIn.getCurrentUserID(), comboBoxIdentity.getSelectedItem().toString());
 					
-					} catch (CustomException error) {
+					} 
+					catch (CustomException error) 
+					{
 					
 						JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
 					}
-				
-			
-				
+
 				}
 				
 				
@@ -352,39 +333,44 @@ public class AccountScreen extends JFrame {
 		txtSurname.setColumns(10);
 		
 		JButton btnSurname = new JButton("Change Surname");
+		btnSurname.setToolTipText("Click To Change Surame To Input");
 		btnSurname.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-	int select;																																	// Variable for storing user response to message box.
+				int select;																																	
 				
 				select = JOptionPane.showOptionDialog(null, "Confirm Change Of Surname", "Elenco - Suggest Song", 
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									
 				
-				if (select == JOptionPane.YES_OPTION) {
-				try {
-					
-					AccountApplication.checkValidSurname(txtSurname.getText().strip());
-					
-					
+				if (select == JOptionPane.YES_OPTION) 
+				{
+				
 					try 
 					{
-						
-						
-						MySQLQueries.updateSurname(currentLoggedIn.getCurrentUserID(), txtSurname.getText().strip());
+					
+							AccountApplication.checkValidSurname(txtSurname.getText().strip());
+					
+							try 
+							{
+	
+								MySQLQueries.updateSurname(currentLoggedIn.getCurrentUserID(), txtSurname.getText().strip());
 						
 					
-					} catch (CustomException error) {
+							} 	
+							catch (CustomException error) 
+							{
+					
+								JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+							}
+				
+					}
+					catch (CustomException error)
+					{
 					
 						JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
 					}
 				
-				}catch (CustomException error){
-					
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
 				}
-				
-				}
-				
 				
 			}
 		});
@@ -405,15 +391,5 @@ public class AccountScreen extends JFrame {
 		comboBoxIdentity.setBounds(25, 400, 250, 25);
 		AutoCompleteDecorator.decorate(comboBoxIdentity);
 		contentPane.add(comboBoxIdentity);
-		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				JOptionPane.showInputDialog("Input code");
-			}
-		});
-		btnNewButton.setBounds(328, 452, 89, 23);
-		contentPane.add(btnNewButton);
 	}
 }

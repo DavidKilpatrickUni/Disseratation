@@ -287,7 +287,7 @@ public class DiscoverScreen extends JFrame {
 		contentPane.add(btnView1);
 		
 		JButton btnSearch = new JButton("Search");
-		btnSearch.setToolTipText("Click To Search Elenco For Songs Based On Your Custome Search");
+		btnSearch.setToolTipText("Click To Search Elenco For Songs Based On Your Custom Search");
 		btnSearch.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -909,7 +909,6 @@ public class DiscoverScreen extends JFrame {
 		comboBoxSearch.setFont(new Font("Georgia", Font.PLAIN, 11));
 
 		comboBoxSearch.setMaximumRowCount(4);
-		comboBoxSearch.setEditable(true);
 		AutoCompleteDecorator.decorate(comboBoxSearch);
 	
 	
@@ -941,7 +940,7 @@ public class DiscoverScreen extends JFrame {
 		comboBoxSearch.setBounds(110, 140, 180, 25);
 		contentPane.add(comboBoxSearch);
 		
-		btnMainMenu = new JButton("MainMenu");
+		btnMainMenu = new JButton("Main Menu");
 		btnMainMenu.setToolTipText("Return To Main Menu");
 		btnMainMenu.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnMainMenu.addActionListener(new ActionListener() {

@@ -824,12 +824,7 @@ public class MySQLQueries {
 			{
 				Class.forName("com.mysql.cj.jdbc.Driver");																	
 				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
-		
-				//String query = "SELECT * FROM songs ORDER BY " + criteria + " " + sortType + ", " + sort + " " + sortType + " LIMIT " + offset + "," + count +";";		
-				
-
-				
-				
+	
 				String query = "SELECT * FROM songs ORDER BY " + criteria + " " + sortType + ", "+ sort + " " + sortType + " LIMIT ? , ?";
 				System.out.println("Query: " + query);
 				
@@ -918,7 +913,7 @@ public class MySQLQueries {
 			ResultSet results = statement.executeQuery(query);															
 
 
-		return results;
+			return results;
 		}
 		
 		catch (ClassNotFoundException cnf)
@@ -980,7 +975,7 @@ public class MySQLQueries {
 		return null;	
 	}
 	
-	public static ResultSet loadAPlaylist(String currentPlaylistTitle) {
+	public static ResultSet loadAPlaylist(String currentPlaylistTitle, String currentUserID) {
 		
 		try
 		{
@@ -988,12 +983,13 @@ public class MySQLQueries {
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
 		
 		
-			String query = "SELECT playlists.* , songs.* from playlists inner join songs on playlists.songID = songs.songID where playlists.playlistTitle = ? ORDER BY Ranking ASC";
+			String query = "SELECT playlists.* , songs.* from playlists INNER JOIN songs on playlists.songID = songs.songID where playlists.playlistTitle = ? AND playlists.userID = ? ORDER BY Ranking ASC";
 		
 			System.out.println("Query: " + query);
 				
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setString(1, currentPlaylistTitle);
+			stmt.setString(2, currentUserID);
 	
 			
 			System.out.println("Prepared: " + stmt);
@@ -1043,11 +1039,15 @@ public class MySQLQueries {
 			conn.close();											
 			
 			
-		} catch (ClassNotFoundException cnf) {
+		}
+		catch (ClassNotFoundException cnf) 
+		{
 			System.err.println("Could not load driver");
 			System.err.println(cnf.getMessage());
 
-		} catch (SQLException sqe) {
+		} 
+		catch (SQLException sqe) 
+		{
 			System.err.println("Error in SQL Update");
 			System.err.println(sqe.getMessage());
 		}
@@ -1116,15 +1116,16 @@ public class MySQLQueries {
 			stmt.close();										
 			conn.close();											
 			
-		} catch (ClassNotFoundException cnf) {
+		} 
+		catch (ClassNotFoundException cnf) 
+		{
 			System.err.println("Could not load driver");
 			System.err.println(cnf.getMessage());
-
-
-		} catch (SQLException sqe) {
+		} 
+		catch (SQLException sqe) 
+		{
 			System.err.println("Error in SQL Update");
 			System.err.println(sqe.getMessage());
-
 		}
 			
 		
@@ -1157,15 +1158,19 @@ public class MySQLQueries {
 			} 
 		
 
-		stmt.close();										// Close statement connection to database
-		conn.close();											// Close connection to database
+		stmt.close();									
+		conn.close();										
 			
-		} catch (ClassNotFoundException cnf) {
+		} 
+		catch (ClassNotFoundException cnf) 
+		{
 			System.err.println("Could not load driver");
 			System.err.println(cnf.getMessage());
 			System.exit(-1);
 
-		} catch (SQLException sqe) {
+		} 
+		catch (SQLException sqe) 
+		{
 			System.err.println("Error in SQL Update");
 			System.err.println(sqe.getMessage());
 			System.exit(-1);
@@ -1275,15 +1280,616 @@ public class MySQLQueries {
 			stmt.close();										
 			conn.close();											
 			
-		} catch (ClassNotFoundException cnf) {
+		} 
+		catch (ClassNotFoundException cnf) 
+		{
 			System.err.println("Could not load driver");
 			System.err.println(cnf.getMessage());
 
-		} catch (SQLException sqe) {
+		} 
+		catch (SQLException sqe)
+		{
 			System.err.println("Error in SQL Update");
 			System.err.println(sqe.getMessage());
 		}
 		
 	}
 	
+	public static ResultSet songDetails(String songID) {
+		
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");																	
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
+
+			String query = "SELECT * FROM songs WHERE SongID = ? ";
+			System.out.println("Query: " + query);
+			
+			
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, songID);
+	
+			
+			System.out.println("Prepared: " + stmt);
+			
+			ResultSet results = stmt.executeQuery();															
+
+			return results;
+	
+		}
+
+		catch (ClassNotFoundException cnf)
+		{	
+			System.err.println("Could not load driver");
+			System.err.println(cnf.getMessage());	
+		}
+		
+		catch (SQLException sqe)
+		{
+			System.out.println("Error performing SQL Query");
+			System.out.println(sqe.getMessage());
+		}
+		
+		return null;	
+	}
+	
+	public static ResultSet getComments(String songID, int offset, int count) {
+		
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");																	
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
+	
+			String query = "SELECT songs.* , comments.*, accounts.* from comments inner join accounts on accounts.UserID = comments.UserID inner join songs on songs.SongID = comments.SongID where songs.songID = ? LIMIT ? , ? ;";
+			System.out.println("Query: " + query);
+			
+			
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, songID);
+			stmt.setInt(2, offset);
+			stmt.setInt(3, count);
+	
+			
+			System.out.println("Prepared: " + stmt);
+			
+			ResultSet results = stmt.executeQuery();															
+
+			return results;
+			
+		}
+
+		catch (ClassNotFoundException cnf)
+		{	
+			System.err.println("Could not load driver");
+			System.err.println(cnf.getMessage());	
+		}
+		
+		catch (SQLException sqe)
+		{
+			System.out.println("Error performing SQL Query");
+			System.out.println(sqe.getMessage());
+		}
+		
+		return null;	
+	}
+	
+	public static void addComment(String currentSongID, String currentUserID, String comment) {
+		
+		String posted = Helper.changeLocalDateFormat(LocalDate.now());
+
+		try 
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");																	
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
+
+			String query = "INSERT INTO comments VALUES (NULL , ? , ? , ? , ?)";
+			System.out.println("Query: " + query);
+			
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, currentSongID);
+			stmt.setString(2, currentUserID);
+			stmt.setString(3, comment);
+			stmt.setString(4, posted);
+	
+
+			System.out.println("prepared: " + stmt);
+			
+			stmt.executeUpdate();	
+		
+			stmt.close();										
+			conn.close();											
+			
+		} 
+		catch (ClassNotFoundException cnf) 
+		{
+			System.err.println("Could not load driver");
+			System.err.println(cnf.getMessage());	
+		
+		} 
+		catch (SQLException sqe) 
+		{
+			System.err.println("Error in SQL Update");
+			System.err.println(sqe.getMessage());
+		}
+
+	}
+	
+
+	public static ResultSet myRating(String currentSongID, String currentUserID) {
+	
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");																	
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
+	
+			String query = "SELECT * FROM ratings WHERE SongID = ? AND UserID = ?";
+			
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, currentSongID);
+			stmt.setString(2, currentUserID);
+		
+
+		
+			System.out.println("Prepared: " + stmt);
+		
+			ResultSet results = stmt.executeQuery();															
+
+			return results;
+
+		}
+
+		catch (ClassNotFoundException cnf)
+		{	
+			System.err.println("Could not load driver");
+			System.err.println(cnf.getMessage());	
+		}
+	
+		catch (SQLException sqe)
+		{
+			System.out.println("Error performing SQL Query");
+			System.out.println(sqe.getMessage());
+		}
+	
+		return null;
+	
+	}
+	
+
+	public static void createRating(String currentSongID, String currentUserID, String rating) {
+	
+
+		try 
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");																	
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
+		
+			String query = "INSERT INTO ratings VALUES (NULL , ? , ? , ? )";
+			System.out.println("Query: " + query);
+			
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, currentSongID);
+			stmt.setString(2, currentUserID);
+			stmt.setString(3, rating);
+		
+
+			System.out.println("prepared: " + stmt);
+			
+			stmt.executeUpdate();
+	
+			stmt.close();										
+			conn.close();											
+		
+		} 
+		catch (ClassNotFoundException cnf) 
+		{
+			System.err.println("Could not load driver");
+			System.err.println(cnf.getMessage());
+	
+		} 
+		catch (SQLException sqe) 
+		{
+			System.err.println("Error in SQL Update");
+			System.err.println(sqe.getMessage());
+		}
+
+	}
+
+	public static void updateRating(String currentSongID, String currentUserID, String rating) {
+		
+
+		try 
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");																	
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
+	
+			String query = "UPDATE ratings SET Rating = ? WHERE songID = ? AND userID = ?";	
+			System.out.println("Query: " + query);
+			
+			PreparedStatement stmt = conn.prepareStatement(query,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+	
+			stmt.setString(1, rating);
+			stmt.setString(2, currentSongID);
+			stmt.setString(3, currentUserID);
+
+	
+			System.out.println("prepared: " + stmt);
+	
+			stmt.executeUpdate();
+		
+			stmt.close();										
+			conn.close();										
+			
+		} 
+		catch (ClassNotFoundException cnf)
+		{
+			System.err.println("Could not load driver");
+			System.err.println(cnf.getMessage());
+		} 
+		catch (SQLException sqe)
+		{
+			System.err.println("Error in SQL Update");
+			System.err.println(sqe.getMessage());
+		}
+
+	}
+	
+	public static ResultSet getAllRatings(String currentSongID) {
+		
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");																	
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
+		
+			String query = "SELECT * FROM ratings WHERE SongID = ? ";
+			
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, currentSongID);
+	
+			System.out.println("Prepared: " + stmt);
+		
+			ResultSet results = stmt.executeQuery();															
+	
+			return results;
+			
+
+		}
+
+		catch (ClassNotFoundException cnf)
+		{	
+			System.err.println("Could not load driver");
+			System.err.println(cnf.getMessage());	
+		}
+		
+		catch (SQLException sqe)
+		{
+			System.out.println("Error performing SQL Query");
+			System.out.println(sqe.getMessage());
+		}
+		
+		return null;
+		
+	}
+	
+	public static void updateTotals(String currentSongID, double overallRating, int totalReviews) {
+
+		try 
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");																	
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
+		
+			String query = "UPDATE songs SET OverallRating = FORMAT(?,2) , TotalReviews = ? WHERE songID = ?";	
+			System.out.println("Query: " + query);
+			
+			PreparedStatement stmt = conn.prepareStatement(query,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+	
+			stmt.setDouble(1, overallRating);
+			stmt.setInt(2, totalReviews);
+			stmt.setString(3, currentSongID);
+
+	
+			System.out.println("prepared: " + stmt);
+	
+			stmt.executeUpdate();
+		
+			stmt.close();										
+			conn.close();
+			
+		} catch (ClassNotFoundException cnf) {
+			System.err.println("Could not load driver");
+			System.err.println(cnf.getMessage());
+			System.exit(-1);
+		
+		} catch (SQLException sqe) {
+			System.err.println("Error in SQL Update");
+			System.err.println(sqe.getMessage());
+			System.exit(-1);
+		}
+
+	}
+	
+	public static ResultSet popoulateWithUserName() {
+
+		try
+		{
+		
+			Class.forName("com.mysql.cj.jdbc.Driver");																	
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
+			Statement statement = conn.createStatement();
+			System.out.println("SELECT accounts.* , playlists.* FROM accounts INNER JOIN playlists on accounts.UserID = playlists.UserID GROUP BY accounts.UserName");	
+			String query = "SELECT accounts.* , playlists.* FROM accounts INNER JOIN playlists on accounts.UserID = playlists.UserID GROUP BY accounts.UserName";		
+			
+			System.out.println("Query: " + query);
+			ResultSet results = statement.executeQuery(query);															
+
+		
+			return results;
+
+		}
+
+		catch (ClassNotFoundException cnf)
+		{	
+			System.err.println("Could not load driver");
+			System.err.println(cnf.getMessage());
+	
+		}
+	
+		catch (SQLException sqe)
+		{
+			System.out.println("Error performing SQL Query");
+			System.out.println(sqe.getMessage());
+	
+		}
+		return null;
+
+	}
+	
+	public static ResultSet popoulateWithPlaylistTitle() {
+
+		try
+		{
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");																	
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
+			Statement statement = conn.createStatement();
+			System.out.println("SELECT accounts.* , playlists.* FROM accounts INNER JOIN playlists on accounts.UserID = playlists.UserID GROUP BY playlists.PlaylistTitle");	
+			String query = "SELECT accounts.* , playlists.* FROM accounts INNER JOIN playlists on accounts.UserID = playlists.UserID GROUP BY playlists.PlaylistTitle";		
+		
+
+			System.out.println("Query: " + query);
+			ResultSet results = statement.executeQuery(query);															
+
+			return results;
+
+		}
+
+		catch (ClassNotFoundException cnf)
+		{	
+			System.err.println("Could not load driver");
+			System.err.println(cnf.getMessage());
+	
+		}
+	
+		catch (SQLException sqe)
+		{
+			System.out.println("Error performing SQL Query");
+			System.out.println(sqe.getMessage());
+	
+		}
+		
+		return null;
+	}
+	
+	public static ResultSet searchForPlaylists(Object search, Object criteria, int offset, int count) {
+		
+		if(search == null & criteria.equals("UserName"))
+		{
+		
+			try
+			{
+				System.out.println("no search + username");
+			
+				Class.forName("com.mysql.cj.jdbc.Driver");																	
+				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
+
+				String query = "SELECT playlists.*, accounts.* FROM playlists INNER JOIN accounts ON playlists.userID = accounts.userID GROUP BY playlistTitle, playlists.userID ORDER BY playlists.userID DESC, playlistTitle LIMIT ? , ?" ;
+				
+				PreparedStatement stmt = conn.prepareStatement(query);
+				stmt.setInt(1, offset);
+				stmt.setInt(2, count);
+		
+				System.out.println("Prepared: " + stmt);
+			
+				ResultSet results = stmt.executeQuery();															
+			
+
+				return results;
+			
+	
+			}
+
+			catch (ClassNotFoundException cnf)
+			{	
+				System.err.println("Could not load driver");
+				System.err.println(cnf.getMessage());
+	
+			}
+		
+			catch (SQLException sqe)
+			{
+				System.out.println("Error performing SQL Query");
+				System.out.println(sqe.getMessage());
+
+			}
+		
+			return null;	
+			}
+		
+		else if (criteria.equals("UserName"))
+		{
+			try
+			{
+				
+				System.out.println("just username");
+				
+				
+				Class.forName("com.mysql.cj.jdbc.Driver");																	
+				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
+
+				String query = "SELECT playlists.*, accounts.* FROM playlists INNER JOIN accounts ON playlists.userID = accounts.userID WHERE " + criteria +" = ? GROUP BY playlistTitle LIMIT ? , ? " ;
+				
+				PreparedStatement stmt = conn.prepareStatement(query);
+		
+				stmt.setString(1, search.toString());
+				stmt.setInt(2, offset);
+				stmt.setInt(3, count);
+				
+		
+				System.out.println("Prepared: " + stmt);
+			
+				ResultSet results = stmt.executeQuery();															
+			
+
+				return results;
+				
+		
+			}
+
+			catch (ClassNotFoundException cnf)
+			{	
+				System.err.println("Could not load driver");
+				System.err.println(cnf.getMessage());
+			}
+			
+			catch (SQLException sqe)
+			{
+				System.out.println("Error performing SQL Query");
+				System.out.println(sqe.getMessage());
+			}
+			
+			return null;	
+		}
+		
+		else if (search == null  & criteria.equals("PlaylistTitle") )
+		{
+			try
+			{
+				
+				System.out.println("no search + playlistTitle");
+				
+				Class.forName("com.mysql.cj.jdbc.Driver");																	
+				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
+				
+				String query = "SELECT playlists.*, accounts.* FROM playlists INNER JOIN accounts ON playlists.userID = accounts.userID GROUP BY playlistTitle, playlists.userID ORDER BY playlistTitle, playlists.userID DESC LIMIT ? , ?" ;
+				
+				PreparedStatement stmt = conn.prepareStatement(query);
+				stmt.setInt(1, offset);
+				stmt.setInt(2, count);
+		
+				System.out.println("Prepared: " + stmt);
+			
+				ResultSet results = stmt.executeQuery();															
+
+				return results;
+				
+		
+			}
+
+			catch (ClassNotFoundException cnf)
+			{	
+				System.err.println("Could not load driver");
+				System.err.println(cnf.getMessage());
+			}
+			
+			catch (SQLException sqe)
+			{
+				System.out.println("Error performing SQL Query");
+				System.out.println(sqe.getMessage());
+			}
+			
+			return null;
+		}
+		else 
+		{
+			try
+			{
+				System.out.println("else");
+				
+				Class.forName("com.mysql.cj.jdbc.Driver");																	
+				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
+		
+				String query = "SELECT playlists.*, accounts.* FROM playlists INNER JOIN accounts ON playlists.userID = accounts.userID WHERE " + criteria +" = ? GROUP BY userName LIMIT ? , ? " ;
+				
+				PreparedStatement stmt = conn.prepareStatement(query);
+		
+				stmt.setString(1, search.toString());
+				stmt.setInt(2, offset);
+				stmt.setInt(3, count);
+				
+		
+				System.out.println("Prepared: " + stmt);
+			
+				ResultSet results = stmt.executeQuery();															
+			
+
+				return results;
+
+			}
+
+			catch (ClassNotFoundException cnf)
+			{	
+				System.err.println("Could not load driver");
+				System.err.println(cnf.getMessage());
+			}
+			
+			catch (SQLException sqe)
+			{
+				System.out.println("Error performing SQL Query");
+				System.out.println(sqe.getMessage());
+			}
+			
+			return null;	
+		}
+			
+	}
+	
+	public static ResultSet getCurrentUsername(String IDOfUser)  {
+		
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");																	
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
+		
+			String query = "SELECT UserName FROM accounts WHERE UserID = ? ";
+			
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, IDOfUser);
+	
+			System.out.println("Prepared: " + stmt);
+		
+			ResultSet results = stmt.executeQuery();															
+	
+			return results;
+			
+
+		}
+
+		catch (ClassNotFoundException cnf)
+		{	
+			System.err.println("Could not load driver");
+			System.err.println(cnf.getMessage());	
+		}
+		
+		catch (SQLException sqe)
+		{
+			System.out.println("Error performing SQL Query");
+			System.out.println(sqe.getMessage());
+		}
+		
+		return null;
+		
+	}
+
+		
 }
+	
+

@@ -29,6 +29,8 @@ import javax.swing.border.MatteBorder;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.event.PopupMenuEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class SearchPlaylistScreen extends JFrame {
 
@@ -82,39 +84,22 @@ public class SearchPlaylistScreen extends JFrame {
 	private JButton btnPrevious;
 	private JButton btnNext;
 	
-	
-	
 	private JComboBox comboBoxSearch;
 	private JComboBox comboBoxCriteria;
 	private JButton btnSearch;
-	
 	
 	private int pageCount = 0;
 	private int sqlOffset = 0;
 	private int sqlRowCount = 10;
 
-	/**
-	 * Launch the application.
-	 */
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SearchPlaylistScreen frame = new SearchPlaylistScreen();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+
+	public SearchPlaylistScreen(LoggedIn currentLoggedIn) {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				clearScreen();
 			}
 		});
-	}
-	*/
-
-	/**
-	 * Create the frame.
-	 */
-	public SearchPlaylistScreen(LoggedIn currentLoggedIn) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
 		setTitle("Elenco - Find Playlist");
 		setBackground(Color.WHITE);
@@ -139,6 +124,7 @@ public class SearchPlaylistScreen extends JFrame {
 		txtTitle2.setColumns(10);
 		
 		txtUsername1 = new JTextField();
+		txtUsername1.setToolTipText("Username Of Search Result");
 		txtUsername1.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtUsername1.setBounds(25, 220, 200, 20);
 		contentPane.add(txtUsername1);
@@ -151,6 +137,7 @@ public class SearchPlaylistScreen extends JFrame {
 		txtUsername2.setColumns(10);
 		
 		btnView1 = new JButton("View");
+		btnView1.setToolTipText("Click To View Search Result");
 		btnView1.setEnabled(false);
 		btnView1.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnView1.addActionListener(new ActionListener() {
@@ -166,6 +153,7 @@ public class SearchPlaylistScreen extends JFrame {
 		contentPane.add(btnView1);
 		
 		btnView2 = new JButton("View");
+		btnView2.setToolTipText("Click To View Search Result");
 		btnView2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -180,6 +168,7 @@ public class SearchPlaylistScreen extends JFrame {
 		contentPane.add(btnView2);
 		
 		comboBoxCriteria = new JComboBox();
+		comboBoxCriteria.setToolTipText("Select Criteria To Customise Your Search");
 		comboBoxCriteria.setFont(new Font("Georgia", Font.PLAIN, 11));
 		comboBoxCriteria.setModel(new DefaultComboBoxModel(new String[] {"UserName", "PlaylistTitle"}));
 		comboBoxCriteria.setBounds(340, 140, 100, 25);
@@ -198,6 +187,7 @@ public class SearchPlaylistScreen extends JFrame {
 		txtUserID2.setColumns(10);
 		
 		btnMainmenu = new JButton("Main Menu");
+		btnMainmenu.setToolTipText("Return To Main Menu");
 		btnMainmenu.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnMainmenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -211,7 +201,7 @@ public class SearchPlaylistScreen extends JFrame {
 		contentPane.add(btnMainmenu);
 		
 		comboBoxSearch = new JComboBox();
-		comboBoxSearch.setEditable(true);
+		comboBoxSearch.setToolTipText("This List Contains All The Current Material On Elenco Divided Into Caterogies By The 'Search By' Criteria Provided");
 		comboBoxSearch.addPopupMenuListener(new PopupMenuListener() {
 			public void popupMenuCanceled(PopupMenuEvent e) {
 			}
@@ -222,99 +212,46 @@ public class SearchPlaylistScreen extends JFrame {
 				
 				comboBoxSearch.removeAllItems();
 				
-		
-				
 				if(comboBoxCriteria.getSelectedItem().toString().equals("UserName"))
 				{
+			
+					ResultSet results = MySQLQueries.popoulateWithUserName();
 					try
 					{
 						
-			
-						
-						Class.forName("com.mysql.cj.jdbc.Driver");																	
-						Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
-						Statement statement = conn.createStatement();
-						System.out.println("SELECT accounts.* , playlists.* FROM accounts INNER JOIN playlists on accounts.UserID = playlists.UserID GROUP BY accounts.UserName");	
-						String query = "SELECT accounts.* , playlists.* FROM accounts INNER JOIN playlists on accounts.UserID = playlists.UserID GROUP BY accounts.UserName";		
-						
-						//System.out.println("SELECT songs.*, ratings.* FROM songs inner join ratings on songs.songID = ratings.songID GROUP BY songs.songID ORDER BY " + sort + " " + sortType );	
-						//String query = "SELECT songs.*, ratings.* FROM songs inner join ratings on songs.songID = ratings.songID GROUP BY songs.songID ORDER BY " + sort + " " + sortType;
-						System.out.println(query);
-						ResultSet results = statement.executeQuery(query);															
-						System.out.println("this here " + results);
-					
-
-					
 						while (results.next())
 						{
 							comboBoxSearch.addItem(results.getString(comboBoxCriteria.getSelectedItem().toString()));
 						}
-					
+						
+					} 
+					catch (SQLException error) 
+					{
 			
 					}
-
-					catch (ClassNotFoundException cnf)
-					{	
-						System.err.println("Could not load driver");
-						System.err.println(cnf.getMessage());
-				
-					}
-				
-					catch (SQLException sqe)
-					{
-						System.out.println("Error performing SQL Query");
-						System.out.println(sqe.getMessage());
-				
-					}
+					
 				}
 				else
 				{
+					
+					ResultSet results = MySQLQueries.popoulateWithPlaylistTitle();
 					try
 					{
 						
-						String sortType = "ASC";
-						
-						Class.forName("com.mysql.cj.jdbc.Driver");																	
-						Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
-						Statement statement = conn.createStatement();
-						System.out.println("SELECT accounts.* , playlists.* FROM accounts INNER JOIN playlists on accounts.UserID = playlists.UserID GROUP BY playlists.PlaylistTitle");	
-						String query = "SELECT accounts.* , playlists.* FROM accounts INNER JOIN playlists on accounts.UserID = playlists.UserID GROUP BY playlists.PlaylistTitle";		
-						
-						//System.out.println("SELECT songs.*, ratings.* FROM songs inner join ratings on songs.songID = ratings.songID GROUP BY songs.songID ORDER BY " + sort + " " + sortType );	
-						//String query = "SELECT songs.*, ratings.* FROM songs inner join ratings on songs.songID = ratings.songID GROUP BY songs.songID ORDER BY " + sort + " " + sortType;
-						System.out.println(query);
-						ResultSet results = statement.executeQuery(query);															
-						System.out.println("this here " + results);
-					
-
-					
 						while (results.next())
 						{
 							comboBoxSearch.addItem(results.getString(comboBoxCriteria.getSelectedItem().toString()));
 						}
-					
+						
+					} 
+					catch (SQLException error)
+					{
 			
 					}
-
-					catch (ClassNotFoundException cnf)
-					{	
-						System.err.println("Could not load driver");
-						System.err.println(cnf.getMessage());
-				
-					}
-				
-					catch (SQLException sqe)
-					{
-						System.out.println("Error performing SQL Query");
-						System.out.println(sqe.getMessage());
-				
-					}
+			
+		
 				}
 				
-		
-				
-			
-	
 			}
 		});
 		comboBoxSearch.setFont(new Font("Georgia", Font.PLAIN, 11));
@@ -322,17 +259,17 @@ public class SearchPlaylistScreen extends JFrame {
 		contentPane.add(comboBoxSearch);
 		AutoCompleteDecorator.decorate(comboBoxSearch);
 		
-		JLabel lblHeader = new JLabel("Elenco - Discover Songs");
+		JLabel lblHeader = new JLabel("Elenco - Discover Playlists");
 		lblHeader.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHeader.setForeground(new Color(90, 192, 217));
 		lblHeader.setFont(new Font("Georgia", Font.BOLD, 24));
-		lblHeader.setBounds(187, 43, 300, 25);
+		lblHeader.setBounds(170, 43, 330, 25);
 		contentPane.add(lblHeader);
 		
-		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));					// Create new instance of Icon using the given PNG file.
-		Image appImage = appIcon.getImage();															// Create image of icon variable.
-		Image appImageResize = appImage.getScaledInstance(50,50, java.awt.Image.SCALE_SMOOTH);		// Resize image to scale desired. 
-		appIcon = new ImageIcon(appImageResize);														// Set instance of Icon to the resized Image.
+		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));					
+		Image appImage = appIcon.getImage();															
+		Image appImageResize = appImage.getScaledInstance(50,50, java.awt.Image.SCALE_SMOOTH);		
+		appIcon = new ImageIcon(appImageResize);													
 		
 		JLabel lblLogo = new JLabel(appIcon);
 		lblLogo.setToolTipText("Elenco - Express Your Musical Opinion");
@@ -460,6 +397,7 @@ public class SearchPlaylistScreen extends JFrame {
 		contentPane.add(txtTitle10);
 		
 		btnView3 = new JButton("View");
+		btnView3.setToolTipText("Click To View Search Result");
 		btnView3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -474,6 +412,7 @@ public class SearchPlaylistScreen extends JFrame {
 		contentPane.add(btnView3);
 		
 		btnView4 = new JButton("View");
+		btnView4.setToolTipText("Click To View Search Result");
 		btnView4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -488,6 +427,7 @@ public class SearchPlaylistScreen extends JFrame {
 		contentPane.add(btnView4);
 		
 		btnView5 = new JButton("View");
+		btnView5.setToolTipText("Click To View Search Result");
 		btnView5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ViewPlaylistScreen frame = new ViewPlaylistScreen(txtTitle5.getText(), txtUserID5.getText(), currentLoggedIn);
@@ -502,6 +442,7 @@ public class SearchPlaylistScreen extends JFrame {
 		contentPane.add(btnView5);
 		
 		btnView6 = new JButton("View");
+		btnView6.setToolTipText("Click To View Search Result");
 		btnView6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -516,6 +457,7 @@ public class SearchPlaylistScreen extends JFrame {
 		contentPane.add(btnView6);
 		
 		btnView7 = new JButton("View");
+		btnView7.setToolTipText("Click To View Search Result");
 		btnView7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -530,6 +472,7 @@ public class SearchPlaylistScreen extends JFrame {
 		contentPane.add(btnView7);
 		
 		btnView8 = new JButton("View");
+		btnView8.setToolTipText("Click To View Search Result");
 		btnView8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -544,6 +487,7 @@ public class SearchPlaylistScreen extends JFrame {
 		contentPane.add(btnView8);
 		
 		btnView9 = new JButton("View");
+		btnView9.setToolTipText("Click To View Search Result");
 		btnView9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -558,6 +502,7 @@ public class SearchPlaylistScreen extends JFrame {
 		contentPane.add(btnView9);
 		
 		btnView10 = new JButton("View");
+		btnView10.setToolTipText("Click To View Search Result");
 		btnView10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -620,12 +565,15 @@ public class SearchPlaylistScreen extends JFrame {
 		contentPane.add(txtUserID10);
 		
 		btnPrevious = new JButton("Previous Page");
+		btnPrevious.setEnabled(false);
+		btnPrevious.setToolTipText("Previous Page Of Search Results");
 		btnPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				pageCount = (pageCount - 1);
 				txtPage.setText(String.valueOf(pageCount));
 				sqlOffset = (sqlOffset - 10);
+				
 				clearScreen();
 				loadContent();
 			}
@@ -635,12 +583,15 @@ public class SearchPlaylistScreen extends JFrame {
 		contentPane.add(btnPrevious);
 		
 		btnNext = new JButton("Next Page");
+		btnNext.setEnabled(false);
+		btnNext.setToolTipText("Next Page Of Search Results");
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				pageCount = (pageCount + 1);
 				txtPage.setText(String.valueOf(pageCount));
 				sqlOffset = (sqlOffset + 10);
+				
 				clearScreen();
 				loadContent();
 			}
@@ -664,6 +615,7 @@ public class SearchPlaylistScreen extends JFrame {
 		contentPane.add(lblPage);
 		
 		btnSearch = new JButton("Search");
+		btnSearch.setToolTipText("Click To Search Elenco For Playlists Based On Your Custom Search");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -679,8 +631,6 @@ public class SearchPlaylistScreen extends JFrame {
 	}
 	
 	public void loadContent() {
-		
-			
 		
 		String userID = null;
 		String title = null;
@@ -699,103 +649,89 @@ public class SearchPlaylistScreen extends JFrame {
 			
 			btnPrevious.setEnabled(false);
 		}
-		
-		
-
-		
 	
-		ResultSet searchAttempt = SearchPlaylistApplication.search(comboBoxSearch.getSelectedItem(), comboBoxCriteria.getSelectedItem().toString(), 1, 1);	
-		
-		
+		ResultSet searchAttempt = MySQLQueries.searchForPlaylists(comboBoxSearch.getSelectedItem(), comboBoxCriteria.getSelectedItem().toString(), sqlOffset , sqlRowCount);	
 
-		try {
+		try 
+		{
 			
-		while (searchAttempt.next())																	
+			while (searchAttempt.next())																	
 			{
-	
-			userID = searchAttempt.getString("UserID");
+
+				userID = searchAttempt.getString("UserID");
 				title = searchAttempt.getString("PlaylistTitle");
 				username = searchAttempt.getString("UserName");
-
-				
 				
 				switch (row) {
-				case 1:
-					txtUserID1.setText(userID);
-					txtTitle1.setText(title);
-					txtUsername1.setText(username);
-					btnView1.setEnabled(true);
-					break;
-				case 2:
-					txtUserID2.setText(userID);
-					txtTitle2.setText(title);
-					txtUsername2.setText(username);
-					btnView2.setEnabled(true);
-					break;
-				case 3:
-					txtUserID3.setText(userID);
-					txtTitle3.setText(title);
-					txtUsername3.setText(username);
-					btnView3.setEnabled(true);
-					break;
-				case 4:
-					txtUserID4.setText(userID);
-					txtTitle4.setText(title);
-					txtUsername4.setText(username);
-					btnView4.setEnabled(true);
-					break;
-				case 5:
-					txtUserID5.setText(userID);
-					txtTitle5.setText(title);
-					txtUsername5.setText(username);
-					btnView5.setEnabled(true);
-					break;
-				case 6:
-					txtUserID6.setText(userID);
-					txtTitle6.setText(title);
-					txtUsername6.setText(username);
-					btnView6.setEnabled(true);
-					break;
-				case 7:
-					txtUserID7.setText(userID);
-					txtTitle7.setText(title);
-					txtUsername7.setText(username);
-					btnView7.setEnabled(true);
-					break;
-				case 8:
-					txtUserID8.setText(userID);
-					txtTitle8.setText(title);
-					txtUsername8.setText(username);
-					btnView8.setEnabled(true);
-					break;
-				case 9:
-					txtUserID9.setText(userID);
-					txtTitle9.setText(title);
-					txtUsername9.setText(username);
-					btnView9.setEnabled(true);
-					break;
-				case 10:
-					txtUserID10.setText(userID);
-					txtTitle10.setText(title);
-					txtUsername10.setText(username);
-					btnView10.setEnabled(true);
-					btnNext.setEnabled(true);
-					break;
-				
-				
-				
-				
-				default:
-					System.out.println("nothing matching search criteria\n");
+					case 1:
+						txtUserID1.setText(userID);
+						txtTitle1.setText(title);
+						txtUsername1.setText(username);
+						btnView1.setEnabled(true);
+						break;
+					case 2:
+						txtUserID2.setText(userID);
+						txtTitle2.setText(title);
+						txtUsername2.setText(username);
+						btnView2.setEnabled(true);
+						break;
+					case 3:
+						txtUserID3.setText(userID);
+						txtTitle3.setText(title);
+						txtUsername3.setText(username);
+						btnView3.setEnabled(true);
+						break;
+					case 4:
+						txtUserID4.setText(userID);
+						txtTitle4.setText(title);
+						txtUsername4.setText(username);
+						btnView4.setEnabled(true);
+						break;
+					case 5:
+						txtUserID5.setText(userID);
+						txtTitle5.setText(title);
+						txtUsername5.setText(username);
+						btnView5.setEnabled(true);
+						break;
+					case 6:
+						txtUserID6.setText(userID);
+						txtTitle6.setText(title);
+						txtUsername6.setText(username);
+						btnView6.setEnabled(true);
+						break;
+					case 7:
+						txtUserID7.setText(userID);
+						txtTitle7.setText(title);
+						txtUsername7.setText(username);
+						btnView7.setEnabled(true);
+						break;
+					case 8:
+						txtUserID8.setText(userID);
+						txtTitle8.setText(title);
+						txtUsername8.setText(username);
+						btnView8.setEnabled(true);
+						break;
+					case 9:
+						txtUserID9.setText(userID);
+						txtTitle9.setText(title);
+						txtUsername9.setText(username);
+						btnView9.setEnabled(true);
+						break;
+					case 10:
+						txtUserID10.setText(userID);
+						txtTitle10.setText(title);
+						txtUsername10.setText(username);
+						btnView10.setEnabled(true);
+						btnNext.setEnabled(true);
+						break;
+					default:
+					
+						System.out.println("default of switch");
 				}
-				
-
-				
+					
 			row++;
 			}
-			
-			
-			
+	
 		}
 		catch (SQLException sqe)
 		{
@@ -804,7 +740,7 @@ public class SearchPlaylistScreen extends JFrame {
 	
 	}
 	
-public void clearScreen() {
+	public void clearScreen() {
 		
 
 		btnNext.setEnabled(false);
@@ -849,10 +785,8 @@ public void clearScreen() {
 		txtTitle10.setText("");
 		txtUsername10.setText("");
 		btnView10.setEnabled(false);
-		
-	
 
-}
+	}
 	
 	
 }

@@ -80,29 +80,7 @@ public class ViewSongScreen extends JFrame {
 	private int pageCount = 0;
 	private int sqlOffset = 0;
 	private int sqlRowCount = 5;
-	/**
-	 * Launch the application.
-	 */
-	
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ViewSongScreen frame = new ViewSongScreen();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-	*/
 
-	/**
-	 * Create the frame.
-	 */
 	public ViewSongScreen(LoggedIn currentLoggedIn, String currentSongID) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
 		setTitle("Elenco - View Song");
@@ -113,102 +91,9 @@ public class ViewSongScreen extends JFrame {
 				clearScreen();
 				txtPage.setText(String.valueOf(pageCount));
 				loadComments(currentSongID);
-				
-				
-				ResultSet ratingValue = ViewSongApplication.myRating(currentSongID, currentLoggedIn.getCurrentUserID());
-					try {
-						while (ratingValue.next())
-						{
-							String rating = null;
-							rating = ratingValue.getString("Rating");
-							 comboBoxRating.setSelectedItem(rating.substring(0,1));
-							 System.out.println("My rating: " + rating);
-						}
-						
-					}
-					catch(SQLException sql)
-					{
-						
-					}
-				
-				
-				
-				ResultSet songDetails = ViewSongApplication.songDetails(currentSongID);
-				
-				
-				String title = null;
-				String artist = null;
-				String length = null;
-				String album = null;
-				String genre = null;
-				String released = null;
-				String info =null;
+				loadSongInfo(currentSongID);
+				loadRating(currentSongID, currentLoggedIn);
 	
-			
-	try {
-					
-					while (songDetails.next())																	
-					{
-						title = songDetails.getString("Title");
-						artist = songDetails.getString("Artist");
-						length = songDetails.getString("Song Length");
-						album = songDetails.getString("Album");
-						genre = songDetails.getString("Genre");
-						released = songDetails.getString("Released");
-						info = songDetails.getString("Song Info");
-						
-						
-						
-						textFieldTitle.setText(title);
-						textFieldArtist.setText(artist);
-						txtLength.setText(length);
-						txtAlbum.setText(album);
-						txtGenre.setText(genre);
-						 txtReleased.setText(released);
-						 textArea.setText(info);
-						
-						 
-						
-					}
-						
-					//textFieldCount.setText(String.valueOf(count));
-				
-						
-				/*
-				 * 
-				 * 	private JTextField txtLength;
-	private JTextField txtAlbum;
-	private JTextField txtGenre;
-	private JTextField txtReleased;
-	
-	
-						private JPanel contentPane;
-						private JTextField textFieldUserName;
-						private JTextField textFieldArtist1;
-						private JTextField textFieldArtist2;
-						private JTextField textFieldArtist3;
-						private JTextField textFieldGenre1;
-						private JTextField textFieldGenre2;
-						private JTextField textFieldGenre3;
-						*/
-						
-					
-						
-					
-					
-					
-				}
-				catch (SQLException sqe)
-				{
-					
-				}
-				
-				
-				
-
-				
-				
-				
 			}
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -220,12 +105,14 @@ public class ViewSongScreen extends JFrame {
 		contentPane.setLayout(null);
 		
 		textFieldTitle = new JTextField();
+		textFieldTitle.setToolTipText("Title Of Song");
 		textFieldTitle.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		textFieldTitle.setBounds(355, 120, 200, 25);
 		contentPane.add(textFieldTitle);
 		textFieldTitle.setColumns(10);
 		
 		textFieldArtist = new JTextField();
+		textFieldArtist.setToolTipText("Artist Of Song");
 		textFieldArtist.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		textFieldArtist.setBounds(355, 160, 200, 25);
 		contentPane.add(textFieldArtist);
@@ -253,37 +140,36 @@ public class ViewSongScreen extends JFrame {
 		txtCommentCount.setColumns(10);
 		
 		textFieldAddComment = new JTextField();
+		textFieldAddComment.setToolTipText("Type Your Comment Here");
 		textFieldAddComment.setBounds(209, 360, 500, 25);
 		contentPane.add(textFieldAddComment);
 		textFieldAddComment.setColumns(10);
 		
 		btnAddComment = new JButton("Add Comment");
+		btnAddComment.setToolTipText("Click To Add Your Comment To This Song");
 		btnAddComment.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnAddComment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-		int select;																												// Variable for storing user response to message box.
+				int select;																												
 				
 				select = JOptionPane.showOptionDialog(null, "Upload Comment?", "Elenco - Upload Comment", 					
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
 				
 				if (select == JOptionPane.YES_OPTION) {	
-				
-			
-						
-						if(!Helper.checkBlank(textFieldAddComment.getText().strip())) {
+
+						if(Helper.checkBlank(textFieldAddComment.getText().strip()) || Helper.regexSQLInjection(textFieldAddComment.getText().strip())) {
 							
-							ViewSongApplication.addComment(currentSongID, currentLoggedIn.getCurrentUserID(), textFieldAddComment.getText().strip());
-							JOptionPane.showMessageDialog(null, "Comment Successfully Uploaded", "Elenco - Upload Comment", JOptionPane.INFORMATION_MESSAGE,null);
-							textFieldAddComment.setText("");;
+							JOptionPane.showMessageDialog(null, "Valid Comment Input Required - Can Not Contain Banned Special Characters", "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
 						}
 						else
 						{
-							JOptionPane.showMessageDialog(null, "No Comment Written To Upload", "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+							
+							MySQLQueries.addComment(currentSongID, currentLoggedIn.getCurrentUserID(), textFieldAddComment.getText().strip());
+							JOptionPane.showMessageDialog(null, "Comment Successfully Uploaded", "Elenco - Upload Comment", JOptionPane.INFORMATION_MESSAGE,null);
+							textFieldAddComment.setText("");
+							
 						}
-			
-			
-				
 				}
 			}
 		});
@@ -321,30 +207,35 @@ public class ViewSongScreen extends JFrame {
 		contentPane.add(lblReleased);
 		
 		txtLength = new JTextField();
+		txtLength.setToolTipText("Length Of Song");
 		txtLength.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtLength.setBounds(680, 160, 100, 25);
 		contentPane.add(txtLength);
 		txtLength.setColumns(10);
 		
 		txtAlbum = new JTextField();
+		txtAlbum.setToolTipText("Album Song Is From Or Name Of Single");
 		txtAlbum.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtAlbum.setBounds(355, 200, 200, 25);
 		contentPane.add(txtAlbum);
 		txtAlbum.setColumns(10);
 		
 		txtGenre = new JTextField();
+		txtGenre.setToolTipText("Genre Of Song");
 		txtGenre.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtGenre.setBounds(680, 120, 100, 25);
 		contentPane.add(txtGenre);
 		txtGenre.setColumns(10);
 		
 		txtReleased = new JTextField();
+		txtReleased.setToolTipText("Release Date Of Song");
 		txtReleased.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtReleased.setBounds(680, 200, 100, 25);
 		contentPane.add(txtReleased);
 		txtReleased.setColumns(10);
 		
 		textArea = new JTextArea();
+		textArea.setToolTipText("Information/Detail About The Song");
 		textArea.setEditable(false);
 		textArea.setBorder(new LineBorder(new Color(192, 192, 192), 1, true));
 		textArea.setBounds(270, 249, 510, 100);
@@ -357,6 +248,7 @@ public class ViewSongScreen extends JFrame {
 		contentPane.add(lblMyRating);
 		
 		btn = new JButton("Back");
+		btn.setToolTipText("Reurn To Previous Screen");
 		btn.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -377,10 +269,10 @@ public class ViewSongScreen extends JFrame {
 		lblHeader.setForeground(new Color(90, 192, 217));
 		contentPane.add(lblHeader);
 		
-		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));					// Create new instance of Icon using the given PNG file.
-		Image appImage = appIcon.getImage();															// Create image of icon variable.
-		Image appImageResize = appImage.getScaledInstance(50,50, java.awt.Image.SCALE_SMOOTH);		// Resize image to scale desired. 
-		appIcon = new ImageIcon(appImageResize);														// Set instance of Icon to the resized Image.
+		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));					
+		Image appImage = appIcon.getImage();															
+		Image appImageResize = appImage.getScaledInstance(50,50, java.awt.Image.SCALE_SMOOTH);		
+		appIcon = new ImageIcon(appImageResize);														
 		
 		JLabel lblLogo = new JLabel(appIcon);
 		lblLogo.setToolTipText("Elenco - Express Your Musical Opinion");
@@ -395,6 +287,7 @@ public class ViewSongScreen extends JFrame {
 		panel.setLayout(null);
 		
 		txtUsername1 = new JTextField();
+		txtUsername1.setToolTipText("User Name Of Uploaded Comment");
 		txtUsername1.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtUsername1.setBounds(65, 10, 125, 25);
 		panel.add(txtUsername1);
@@ -425,6 +318,7 @@ public class ViewSongScreen extends JFrame {
 		txtUsername5.setColumns(10);
 		
 		txtComment1 = new JTextField();
+		txtComment1.setToolTipText("Comment Uploaded By User");
 		txtComment1.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtComment1.setBounds(200, 10, 500, 25);
 		panel.add(txtComment1);
@@ -437,6 +331,7 @@ public class ViewSongScreen extends JFrame {
 		txtComment2.setColumns(10);
 		
 		txtPosted1 = new JTextField();
+		txtPosted1.setToolTipText("Date The Comment Was Posted");
 		txtPosted1.setHorizontalAlignment(SwingConstants.CENTER);
 		txtPosted1.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		txtPosted1.setBounds(708, 10, 100, 25);
@@ -490,96 +385,29 @@ public class ViewSongScreen extends JFrame {
 		panel.add(txtPosted5);
 		
 		comboBoxRating = new JComboBox();
+		comboBoxRating.setToolTipText("Select Your Rating For This Song");
 		comboBoxRating.setFont(new Font("Georgia", Font.PLAIN, 11));
 		comboBoxRating.setModel(new DefaultComboBoxModel(new String[] {"Not Rated", "1", "2", "3", "4", "5"}));
 		comboBoxRating.setBounds(148, 270, 100, 25);
 		contentPane.add(comboBoxRating);
 		
 		JButton btnRate = new JButton("Update Rating");
+		btnRate.setToolTipText("Click To Update Your Rating For This Song");
 		btnRate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(comboBoxRating.getSelectedItem().toString().equals("Not Rated"))
+	
+				try 
 				{
-					
-			System.out.println(" No rating provided ");
-			
-				}
-				else
+					attemptRatingChange(currentLoggedIn, currentSongID , comboBoxRating.getSelectedItem().toString());
+					JOptionPane.showMessageDialog(null, "Rating For This Song Has Been Updated", "Elenco - Successful Change Of Rating", JOptionPane.INFORMATION_MESSAGE,null);
+				} 
+				catch (CustomException error) 
 				{
-					
-					ResultSet ratingValue = ViewSongApplication.myRating(currentSongID, currentLoggedIn.getCurrentUserID());
-					try {
-						
-						if (ratingValue.next())
-						{
-							ViewSongApplication.updateRating(currentSongID, currentLoggedIn.getCurrentUserID(), comboBoxRating.getSelectedItem().toString());
-							System.out.println("Up to here 1");
-							
-							
-							
-							
-							
-							
-							ResultSet  getAllRatings = ViewSongApplication.getAllRatings(currentSongID);
-							System.out.println("Up to here 2");
-					
-							int totalReviews = 0;
-							double totalRatings = 0 ;
-							double overallRating;
-						
-							
-							while(getAllRatings.next()) {
-							
-								totalRatings = totalRatings + getAllRatings.getDouble("Rating");
-								
-								totalReviews++;
-								}
-							
-							overallRating = (totalRatings/totalReviews);
-							System.out.println("Total number of reviews: " + totalReviews + " Total ratings: "+ totalRatings+ " Overall Rating: "+overallRating);
-						
-		
-							ViewSongApplication.updateTotals(currentSongID, overallRating, totalReviews);
-							
-							
-						}
-						else
-						{
-							ViewSongApplication.createRating(currentSongID, currentLoggedIn.getCurrentUserID(), comboBoxRating.getSelectedItem().toString());
-						
-							ResultSet  getTotals = ViewSongApplication.getAllRatings(currentSongID);
-							System.out.println("Up to here 2");
-					
-							int totalReviews = 0;
-							double totalRatings = 0 ;
-							double overallRating;
-						
-							
-							while(getTotals.next()) {
-							
-								totalRatings = totalRatings + getTotals.getDouble("Rating");
-								
-								totalReviews++;
-								}
-							
-							overallRating = (totalRatings/totalReviews);
-							System.out.println("Total number of reviews: " + totalReviews + " Total ratings: "+ totalRatings+ " Overall Rating: "+overallRating);
-						
-		
-							ViewSongApplication.updateTotals(currentSongID, overallRating, totalReviews);
-							
-			
-						}
-						
-					}
-					catch(SQLException sql)
-					{
-						
-					}
-					
-			
+					JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
 				}
+			
+			
 			}
 		});
 		btnRate.setFont(new Font("Georgia", Font.PLAIN, 11));
@@ -587,6 +415,7 @@ public class ViewSongScreen extends JFrame {
 		contentPane.add(btnRate);
 		
 		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setToolTipText("Song Image Place Holder");
 		lblNewLabel.setBounds(48, 38, 200, 200);
 		contentPane.add(lblNewLabel);
 		
@@ -597,6 +426,7 @@ public class ViewSongScreen extends JFrame {
 		contentPane.add(lblNumber2);
 		
 		btnPrevious = new JButton("Previous Page");
+		btnPrevious.setToolTipText("View Previous Page Of Comments");
 		btnPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -612,6 +442,7 @@ public class ViewSongScreen extends JFrame {
 		contentPane.add(btnPrevious);
 		
 		btnNext = new JButton("Next Page");
+		btnNext.setToolTipText("View Next Page Of Comments");
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -654,8 +485,7 @@ public class ViewSongScreen extends JFrame {
 		lblPage.setBounds(400, 626, 50, 14);
 		contentPane.add(lblPage);
 	}
-	
-	
+
 	
 	public void loadComments(String currentSongID) {	
 		
@@ -672,105 +502,74 @@ public class ViewSongScreen extends JFrame {
 			btnPrevious.setEnabled(false);
 		}
 	
-	ResultSet songComments  = ViewSongApplication.getComments(currentSongID, sqlOffset, sqlRowCount);
+		ResultSet songComments  = MySQLQueries.getComments(currentSongID, sqlOffset, sqlRowCount);
 
 
-	String userName = null;
-	String comment = null;
-	String posted = null;
-	int row = 1;
-
+		String userName = null;
+		String comment = null;
+		String posted = null;
+		int row = 1;
 	
-			
-	try {
+		try {
 		
-		while (songComments.next())																	
-		{
+			while (songComments.next())																	
+			{
 			
 			userName = songComments.getString("UserName");
 			comment = songComments.getString("Comment");
 			posted = songComments.getString("Posted");
 			
-	
-	txtCommentCount.setText(String.valueOf(songComments.getRow()));
+			txtCommentCount.setText(String.valueOf(songComments.getRow()));
 			
 			switch (row) {
-			case 1:
+				case 1:
 		
-				txtUsername1.setText(userName);
-				txtComment1.setText(comment);
-				txtPosted1.setText(posted);
-				break;
-			case 2:
+					txtUsername1.setText(userName);
+					txtComment1.setText(comment);
+					txtPosted1.setText(posted);
+					break;
+				case 2:
 			
-				txtUsername2.setText(userName);
-				txtComment2.setText(comment);
-				txtPosted2.setText(posted);
-				break;
-			case 3:
-				txtUsername3.setText(userName);
-				txtComment3.setText(comment);
-				txtPosted3.setText(posted);
-				break;
-			case 4:
-				txtUsername4.setText(userName);
-				txtComment4.setText(comment);
-				txtPosted4.setText(posted);
-				break;
-			case 5:
-				txtUsername5.setText(userName);
-				txtComment5.setText(comment);
-				txtPosted5.setText(posted);
-				btnNext.setEnabled(true);
-				break;
-	
-			
-			
-			
+					txtUsername2.setText(userName);
+					txtComment2.setText(comment);
+					txtPosted2.setText(posted);
+					break;
+				case 3:
+					txtUsername3.setText(userName);
+					txtComment3.setText(comment);
+					txtPosted3.setText(posted);
+					break;
+				case 4:
+					txtUsername4.setText(userName);
+					txtComment4.setText(comment);
+					txtPosted4.setText(posted);
+					break;
+				case 5:
+					txtUsername5.setText(userName);
+					txtComment5.setText(comment);
+					txtPosted5.setText(posted);
+					btnNext.setEnabled(true);
+					break;
 			
 			default:
 				System.out.println("nothing matching search criteria\n");
 			}
-			
-		
-		
-	
-			
-			
+
 		row++;
 		}
 			
-		//textFieldCount.setText(String.valueOf(count));
-	
 			
-	/*
-			private JPanel contentPane;
-			private JTextField textFieldUserName;
-			private JTextField textFieldArtist1;
-			private JTextField textFieldArtist2;
-			private JTextField textFieldArtist3;
-			private JTextField textFieldGenre1;
-			private JTextField textFieldGenre2;
-			private JTextField textFieldGenre3;
-			*/
-			
+		}
+		catch (SQLException sqe)
+		{
 		
-			
-		
-		
-		
-	}
-	catch (SQLException sqe)
-	{
-		
-	}
-	
-	
+		}
+
 }
 
 
-public void clearScreen() {
-		
+	public void clearScreen() {
+	
 
 		btnNext.setEnabled(false);
 		btnPrevious.setEnabled(false);
@@ -795,13 +594,146 @@ public void clearScreen() {
 		txtComment5.setText("");
 		txtPosted5.setText("");
 
-
-
-		
-
-		
-		
+		}
 	
 
-}
+	public void attemptRatingChange(LoggedIn currentLoggedIn, String currentSongID , String comboBoxRating ) throws CustomException {
+
+		if(comboBoxRating.equals("Not Rated"))
+		{
+			System.out.println(" No rating provided ");
+			throw new CustomException("Valid Rating Input Required - Rate Between 1 And 5", "rating");
+
+		}
+		else
+		{
+			
+			ResultSet ratingValue = MySQLQueries.myRating(currentSongID, currentLoggedIn.getCurrentUserID());
+			
+			try {
+				
+				if (ratingValue.next())
+				{
+					MySQLQueries.updateRating(currentSongID, currentLoggedIn.getCurrentUserID(), comboBoxRating);
+
+					ResultSet  getAllRatings = MySQLQueries.getAllRatings(currentSongID);
+
+			
+					int totalReviews = 0;
+					double totalRatings = 0 ;
+					double overallRating;
+				
+					
+					while(getAllRatings.next()) 
+					{
+					
+						totalRatings = totalRatings + getAllRatings.getDouble("Rating");
+						totalReviews++;
+					}
+					
+					overallRating = (totalRatings/totalReviews);
+					System.out.println("Total number of reviews: " + totalReviews + " Total ratings: "+ totalRatings+ " Overall Rating: "+overallRating);
+
+					MySQLQueries.updateTotals(currentSongID, overallRating, totalReviews);
+					
+					
+				}
+				else
+				{
+					MySQLQueries.createRating(currentSongID, currentLoggedIn.getCurrentUserID(), comboBoxRating);
+				
+					ResultSet  getTotals = MySQLQueries.getAllRatings(currentSongID);
+			
+					int totalReviews = 0;
+					double totalRatings = 0 ;
+					double overallRating;
+				
+					
+					while(getTotals.next()) 
+					{
+					
+						totalRatings = totalRatings + getTotals.getDouble("Rating");
+						totalReviews++;
+					}
+					
+					overallRating = (totalRatings/totalReviews);
+					System.out.println("Total number of reviews: " + totalReviews + " Total ratings: "+ totalRatings+ " Overall Rating: "+overallRating);
+				
+
+					MySQLQueries.updateTotals(currentSongID, overallRating, totalReviews);
+					
+				}
+				
+			}
+			catch(SQLException sql)
+			{
+				
+			}
+
+
+		}
+	}
+	public void loadSongInfo(String currentSongID) {
+	
+		ResultSet songDetails = MySQLQueries.songDetails(currentSongID);
+	
+		String title = null;
+		String artist = null;
+		String length = null;
+		String album = null;
+		String genre = null;
+		String released = null;
+		String info =null;
+
+		try 
+		{
+		
+			while (songDetails.next())																	
+			{
+				title = songDetails.getString("Title");
+				artist = songDetails.getString("Artist");
+				length = songDetails.getString("Song Length");
+				album = songDetails.getString("Album");
+				genre = songDetails.getString("Genre");
+				released = songDetails.getString("Released");
+				info = songDetails.getString("Song Info");
+
+				textFieldTitle.setText(title);
+				textFieldArtist.setText(artist);
+				txtLength.setText(length);
+				txtAlbum.setText(album);
+				txtGenre.setText(genre);
+				txtReleased.setText(released);
+				textArea.setText(info);
+				
+			}
+
+		}
+		catch (SQLException sqe)
+		{
+		
+		}
+	}
+	
+	public void loadRating(String currentSongID , LoggedIn currentLoggedIn) {
+		
+		ResultSet ratingValue = MySQLQueries.myRating(currentSongID, currentLoggedIn.getCurrentUserID());
+		
+		try 
+		{
+			while (ratingValue.next())
+			{
+				String rating = null;
+				rating = ratingValue.getString("Rating");
+				comboBoxRating.setSelectedItem(rating.substring(0,1));
+				System.out.println("My rating: " + rating);
+			}
+		
+		}
+		catch(SQLException sql)
+		{
+		
+		}
+	}
+	
 }

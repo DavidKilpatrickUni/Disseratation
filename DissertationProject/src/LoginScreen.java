@@ -120,14 +120,14 @@ public class LoginScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				
-				int select;																												// Variable for storing user response to message box.
+				int select;																												
 				
 				select = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Elenco - Exit", 					
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
 				
-				if (select == JOptionPane.YES_OPTION) {																					// If Statement. Variable value is YES.
+				if (select == JOptionPane.YES_OPTION) {																					
 					
-					System.exit(1);																								// Use connection with Controller to start method.																					
+					System.exit(1);																																													
 					
 				}	
 			
@@ -149,10 +149,10 @@ public class LoginScreen extends JFrame {
 		passwordFieldPassword.setBounds(150, 300, 250, 25);
 		contentPane.add(passwordFieldPassword);
 		
-		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));					// Create new instance of Icon using the given PNG file.
-		Image appImage = appIcon.getImage();															// Create image of icon variable.
-		Image appImageResize = appImage.getScaledInstance(100,100, java.awt.Image.SCALE_SMOOTH);		// Resize image to scale desired. 
-		appIcon = new ImageIcon(appImageResize);														// Set instance of Icon to the resized Image.
+		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));					
+		Image appImage = appIcon.getImage();															
+		Image appImageResize = appImage.getScaledInstance(100,100, java.awt.Image.SCALE_SMOOTH);		
+		appIcon = new ImageIcon(appImageResize);														
 		
 		JLabel lblLogo = new JLabel(appIcon);
 		lblLogo.setToolTipText("Elenco - Express Your Musical Opinion");

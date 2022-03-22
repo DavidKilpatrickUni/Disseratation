@@ -82,7 +82,7 @@ public class MyPlaylistsScreen extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-			
+				clearScreen() ;
 				loadContent(currentLoggedIn);
 
 			}
@@ -473,7 +473,9 @@ public class MyPlaylistsScreen extends JFrame {
 				if (select == JOptionPane.YES_OPTION)
 				{		
 					deleteProcess(currentLoggedIn , txtPlaylistID1.getText() );
-					JOptionPane.showMessageDialog(null, "Playlist Has Benn Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					JOptionPane.showMessageDialog(null, "Playlist Has Been Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					clearScreen() ;
+					loadContent(currentLoggedIn);
 				}
 				
 			}
@@ -496,7 +498,9 @@ public class MyPlaylistsScreen extends JFrame {
 				if (select == JOptionPane.YES_OPTION)
 				{		
 					deleteProcess(currentLoggedIn , txtPlaylistID2.getText() );
-					JOptionPane.showMessageDialog(null, "Playlist Has Benn Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					JOptionPane.showMessageDialog(null, "Playlist Has Been Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					clearScreen() ;
+					loadContent(currentLoggedIn);
 				}
 			}
 		});
@@ -518,7 +522,9 @@ public class MyPlaylistsScreen extends JFrame {
 				if (select == JOptionPane.YES_OPTION)
 				{		
 					deleteProcess(currentLoggedIn , txtPlaylistID3.getText() );
-					JOptionPane.showMessageDialog(null, "Playlist Has Benn Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					JOptionPane.showMessageDialog(null, "Playlist Has Been Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					clearScreen() ;
+					loadContent(currentLoggedIn);
 				}
 			}
 		});
@@ -540,7 +546,9 @@ public class MyPlaylistsScreen extends JFrame {
 				if (select == JOptionPane.YES_OPTION)
 				{		
 					deleteProcess(currentLoggedIn , txtPlaylistID4.getText() );
-					JOptionPane.showMessageDialog(null, "Playlist Has Benn Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					JOptionPane.showMessageDialog(null, "Playlist Has Been Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					clearScreen() ;
+					loadContent(currentLoggedIn);
 				}
 	
 			}
@@ -563,7 +571,9 @@ public class MyPlaylistsScreen extends JFrame {
 				if (select == JOptionPane.YES_OPTION)
 				{		
 					deleteProcess(currentLoggedIn , txtPlaylistID5.getText() );
-					JOptionPane.showMessageDialog(null, "Playlist Has Benn Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					JOptionPane.showMessageDialog(null, "Playlist Has Been Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					clearScreen() ;
+					loadContent(currentLoggedIn);
 				}
 			}
 		});
@@ -585,7 +595,9 @@ public class MyPlaylistsScreen extends JFrame {
 				if (select == JOptionPane.YES_OPTION)
 				{		
 					deleteProcess(currentLoggedIn , txtPlaylistID6.getText() );
-					JOptionPane.showMessageDialog(null, "Playlist Has Benn Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					JOptionPane.showMessageDialog(null, "Playlist Has Been Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					clearScreen() ;
+					loadContent(currentLoggedIn);
 				}
 			}
 		});
@@ -607,7 +619,9 @@ public class MyPlaylistsScreen extends JFrame {
 				if (select == JOptionPane.YES_OPTION)
 				{		
 					deleteProcess(currentLoggedIn , txtPlaylistID7.getText() );
-					JOptionPane.showMessageDialog(null, "Playlist Has Benn Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					JOptionPane.showMessageDialog(null, "Playlist Has Been Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					clearScreen() ;
+					loadContent(currentLoggedIn);
 				}
 			}
 		});
@@ -629,7 +643,9 @@ public class MyPlaylistsScreen extends JFrame {
 				if (select == JOptionPane.YES_OPTION)
 				{		
 					deleteProcess(currentLoggedIn , txtPlaylistID8.getText() );
-					JOptionPane.showMessageDialog(null, "Playlist Has Benn Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					JOptionPane.showMessageDialog(null, "Playlist Has Been Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					clearScreen() ;
+					loadContent(currentLoggedIn);
 				}
 				
 			}
@@ -652,7 +668,9 @@ public class MyPlaylistsScreen extends JFrame {
 				if (select == JOptionPane.YES_OPTION)
 				{		
 					deleteProcess(currentLoggedIn , txtPlaylistID9.getText() );
-					JOptionPane.showMessageDialog(null, "Playlist Has Benn Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					JOptionPane.showMessageDialog(null, "Playlist Has Been Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					clearScreen() ;
+					loadContent(currentLoggedIn);
 				}
 			}
 		});
@@ -674,7 +692,9 @@ public class MyPlaylistsScreen extends JFrame {
 				if (select == JOptionPane.YES_OPTION)
 				{		
 					deleteProcess(currentLoggedIn , txtPlaylistID10.getText() );
-					JOptionPane.showMessageDialog(null, "Playlist Has Benn Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					JOptionPane.showMessageDialog(null, "Playlist Has Been Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					clearScreen() ;
+					loadContent(currentLoggedIn);
 				}
 				
 			}

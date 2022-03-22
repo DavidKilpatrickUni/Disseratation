@@ -27,27 +27,27 @@ public class EmailServices {
 			
 			System.out.println("Email Server");
 			int port = Integer.parseInt("3");
-			ServerSocket server = new ServerSocket(port);																	// Create server socket
-			Socket sock = server.accept();																					// Accept 'client' connection and open server
+			ServerSocket server = new ServerSocket(port);																	
+			Socket sock = server.accept();																					
 			
 			System.out.println("Waiting");
 			
-			InputStream inputStream = sock.getInputStream();																// Create input stream
-	        DataInputStream dataInputStream = new DataInputStream(inputStream);												// Create data input stream
+			InputStream inputStream = sock.getInputStream();																
+	        DataInputStream dataInputStream = new DataInputStream(inputStream);												
 
-	        String message = dataInputStream.readUTF();																		// Set variable to message from 'client'
+	        String message = dataInputStream.readUTF();																		
 	        System.out.println("The message recieved: \n" + message + "\n");
 			
-			DataOutputStream network = new DataOutputStream(sock.getOutputStream());										// Create output data stream
+			DataOutputStream network = new DataOutputStream(sock.getOutputStream());										
 
-			confirmEmail(message);																								// Call method to send email with parameter message
+			confirmEmail(message);																								
 			
-			network.writeUTF("Email sent.  Date: " + new Date() + "\n");													// Send message back to 'client'
+			network.writeUTF("Email sent.  Date: " + new Date() + "\n");													
 			
-			dataInputStream.close();																						// Close data input stream
-			network.close();																								// Close output data stream
-			sock.close();																									// Close socket
-			server.close();																									// Close server
+			dataInputStream.close();																						
+			network.close();																							
+			sock.close();																									
+			server.close();																									
 			
 			return message;
 			
@@ -56,12 +56,12 @@ public class EmailServices {
 		{
 			System.err.println("Error in I/O");
 			System.err.println(ioe.getMessage());
-			//System.exit(-1);
+
 		}
 		return null;
 	}
 	 
-	// Method for setting up connection between 'client' and Email 'server' and allowing them to communicate through messages.
+
 	
 	public static void confirmEmail(String confirmEmail){
 		
@@ -71,24 +71,24 @@ public class EmailServices {
 			String ip = "192.168.0.16";
 			String port_string = "3";
 			int port = Integer.parseInt(port_string);
-			sock = new Socket(ip, port);																					// Create socket using ip address and port number variables to establish 'server'	
+			sock = new Socket(ip, port);																						
 		
-	        OutputStream outputStream = sock.getOutputStream();																// Create an output stream to the socket location
-	        DataOutputStream dataOutputStream = new DataOutputStream(outputStream);											// Create an output data stream	
+	        OutputStream outputStream = sock.getOutputStream();																
+	        DataOutputStream dataOutputStream = new DataOutputStream(outputStream);											
 			
-	        dataOutputStream.writeUTF(confirmEmail);																		// Create message to be sent to 'server'
-	        dataOutputStream.flush();																						// Send message 	
+	        dataOutputStream.writeUTF(confirmEmail);																		
+	        dataOutputStream.flush();																						
 
-			DataInputStream network = new DataInputStream(sock.getInputStream());											// Create input stream to receive message from 'server'
+			DataInputStream network = new DataInputStream(sock.getInputStream());										
 	
 			String line;
 			
-			while ((line = network.readUTF()) != null)																		// Read every line of the received message
+			while ((line = network.readUTF()) != null)																		
 			{
 				System.out.println(line);
 			}
 			
-			dataOutputStream.close(); 																						// Close data output stream
+			dataOutputStream.close(); 																						
 		}
 		
 		catch (IOException ioe)
@@ -103,18 +103,12 @@ public class EmailServices {
 		int randomNumber;
 		String randomCode;
 		
-	        Random random = new Random();
-	        randomNumber = random.nextInt(100000);
-	        randomCode = String.format("%05d", randomNumber);
-	       
+	    Random random = new Random();
+	    randomNumber = random.nextInt(100000);
+	    randomCode = String.format("%05d", randomNumber);
+
+	    return randomCode;
 	        
-	       
-	        
-	        
-	        
-	        return randomCode;
-	     
-	    
 	}
 
 }

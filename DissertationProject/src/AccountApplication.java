@@ -6,48 +6,12 @@ import java.sql.Statement;
 
 public class AccountApplication {
 
-	public static ResultSet getAccountsDetail(String userID) {
-		
-		try
-		{
-			Class.forName("com.mysql.cj.jdbc.Driver");																	
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
-			Statement statement = conn.createStatement();																
-			String query = "SELECT * FROM Accounts where UserID = '" + userID  + "'";	
-			
-			//AES_DECRYPT(AES_ENCRYPT('ABC', 'key_string'), 'key_string'); 
-			System.out.println(query);
-			ResultSet results = statement.executeQuery(query);															
-			System.out.println("this here " + results);
-			return results;
-			
-	
-		}
-
-		catch (ClassNotFoundException cnf)
-		{	
-			System.err.println("Could not load driver");
-			System.err.println(cnf.getMessage());
-			
-		}
-		
-		catch (SQLException sqe)
-		{
-			System.out.println("Error performing SQL Query");
-			System.out.println(sqe.getMessage());
-	
-		}
-		
-		return null;	
-	}
-		
 	public static void checkValidFirstname(String firstname) throws CustomException {
 		
 		if (Helper.checkBlank(firstname) |  Helper.regexSQLInjection(firstname)   )
 		{
 			System.out.println("firstname error");
 			throw new CustomException("Valid First Name Input Required", "firstname");
-			//return "firstname";
 		}
 		
 	}
@@ -58,7 +22,6 @@ public class AccountApplication {
 		{
 			System.out.println("surname error");
 			throw new CustomException("Valid Surname Input Required", "surname");
-			//return "firstname";
 		}
 		
 	}
@@ -68,8 +31,7 @@ public class AccountApplication {
 		if  (Helper.checkBlank(password) || !Helper.regexPassword(password) ||  Helper.regexSQLInjection(password))
 		{
 			System.out.println("password error");
-			throw new CustomException("Valid Password Input Required", "password");
-			//return "firstname";
+			throw new CustomException("Valid Password Input Required - Must Be 8-15 Length AND Have 1 Capital Letter, 1 Legal Special Character , 1 Number", "password");
 		}
 		
 	}

@@ -144,7 +144,7 @@ public class ManagePlaylistScreen extends JFrame {
 			public void windowActivated(WindowEvent e) {
 				
 					clearScreen();
-					loadContent(currentPlaylistInfo);
+					loadContent(currentPlaylistInfo, currentLoggedIn);
 					System.out.println(currentPlaylistInfo.getCurrentPlaylistTitle() + currentPlaylistInfo.getCurrentPlaylistID());
 
 			}
@@ -152,7 +152,7 @@ public class ManagePlaylistScreen extends JFrame {
 	
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1080, 666);
+		setBounds(100, 100, 1082, 666);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -173,18 +173,21 @@ public class ManagePlaylistScreen extends JFrame {
 		JLabel label1 = new JLabel("1");
 		label1.setFont(new Font("Georgia", Font.BOLD, 12));
 		label1.setHorizontalAlignment(SwingConstants.CENTER);
+		label1.setForeground(new Color(90, 192, 217));
 		label1.setBounds(21, 220, 48, 20);
 		contentPane.add(label1);
 		
 		JLabel label10 = new JLabel("10");
 		label10.setFont(new Font("Georgia", Font.BOLD, 12));
 		label10.setHorizontalAlignment(SwingConstants.CENTER);
+		label10.setForeground(new Color(90, 192, 217));
 		label10.setBounds(21, 490, 48, 20);
 		contentPane.add(label10);
 		
 		JLabel label2 = new JLabel("2");
 		label2.setFont(new Font("Georgia", Font.BOLD, 12));
 		label2.setHorizontalAlignment(SwingConstants.CENTER);
+		label2.setForeground(new Color(90, 192, 217));
 		label2.setBounds(21, 250, 48, 20);
 		contentPane.add(label2);
 		
@@ -298,7 +301,7 @@ public class ManagePlaylistScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {	
 					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID1.getText());
-					loadContent(currentPlaylistInfo) ;
+					loadContent(currentPlaylistInfo, currentLoggedIn) ;
 				}
 			}
 		});
@@ -541,7 +544,7 @@ public class ManagePlaylistScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {	
 					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID2.getText());
-					loadContent(currentPlaylistInfo) ;
+					loadContent(currentPlaylistInfo, currentLoggedIn) ;
 				}
 			}
 		});
@@ -560,7 +563,7 @@ public class ManagePlaylistScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				MySQLQueries.swapRanking( txtID2.getText(), txtID1.getText());
-				loadContent(currentPlaylistInfo) ;
+				loadContent(currentPlaylistInfo, currentLoggedIn) ;
 			
 			}
 		});
@@ -575,7 +578,7 @@ public class ManagePlaylistScreen extends JFrame {
 				
 		
 				MySQLQueries.swapRanking( txtID2.getText(), txtID1.getText());
-				loadContent(currentPlaylistInfo) ;
+				loadContent(currentPlaylistInfo, currentLoggedIn) ;
 			}
 		});
 		btnUp2.setBounds(75, 250, 75, 20);
@@ -605,7 +608,7 @@ public class ManagePlaylistScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {	
 					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID3.getText());
-					loadContent(currentPlaylistInfo) ;
+					loadContent(currentPlaylistInfo, currentLoggedIn) ;
 				}
 		 	}
 		 });
@@ -637,7 +640,7 @@ public class ManagePlaylistScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {	
 					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID4.getText());
-					loadContent(currentPlaylistInfo) ;
+					loadContent(currentPlaylistInfo, currentLoggedIn) ;
 				}
 		 	}
 		 });
@@ -669,7 +672,7 @@ public class ManagePlaylistScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {	
 					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID5.getText());
-					loadContent(currentPlaylistInfo) ;
+					loadContent(currentPlaylistInfo, currentLoggedIn) ;
 				}
 		 	}
 		 });
@@ -701,7 +704,7 @@ public class ManagePlaylistScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {	
 					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID6.getText());
-					loadContent(currentPlaylistInfo) ;
+					loadContent(currentPlaylistInfo, currentLoggedIn) ;
 				}
 		 	}
 		 });
@@ -734,7 +737,7 @@ public class ManagePlaylistScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {	
 					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID7.getText());
-					loadContent(currentPlaylistInfo) ;
+					loadContent(currentPlaylistInfo, currentLoggedIn) ;
 				}
 		 	}
 		 });
@@ -793,7 +796,7 @@ public class ManagePlaylistScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {	
 					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID8.getText());
-					loadContent(currentPlaylistInfo) ;
+					loadContent(currentPlaylistInfo, currentLoggedIn) ;
 				}
 		 	}
 		 });
@@ -812,7 +815,7 @@ public class ManagePlaylistScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {	
 					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID9.getText());
-					loadContent(currentPlaylistInfo) ;
+					loadContent(currentPlaylistInfo, currentLoggedIn) ;
 				}
 		 	}
 		 });
@@ -830,7 +833,7 @@ public class ManagePlaylistScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {	
 					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID10.getText());
-					loadContent(currentPlaylistInfo) ;
+					loadContent(currentPlaylistInfo, currentLoggedIn) ;
 				}
 		 	}
 		 });
@@ -890,7 +893,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnUp3.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {	
 		 		MySQLQueries.swapRanking( txtID3.getText(), txtID2.getText());
-				loadContent(currentPlaylistInfo) ;
+				loadContent(currentPlaylistInfo, currentLoggedIn) ;
 		 	}
 		 });
 		btnUp3.setFont(new Font("Georgia", Font.PLAIN, 11));
@@ -901,7 +904,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnUp4.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {	
 		 		MySQLQueries.swapRanking( txtID4.getText(), txtID3.getText());
-				loadContent(currentPlaylistInfo) ;
+				loadContent(currentPlaylistInfo, currentLoggedIn) ;
 		 	}
 		 });
 		btnUp4.setFont(new Font("Georgia", Font.PLAIN, 11));
@@ -912,7 +915,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnUp5.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
 		 		MySQLQueries.swapRanking( txtID5.getText(), txtID4.getText());
-				loadContent(currentPlaylistInfo) ;
+				loadContent(currentPlaylistInfo, currentLoggedIn) ;
 		 	}
 		 });
 		btnUp5.setFont(new Font("Georgia", Font.PLAIN, 11));
@@ -923,7 +926,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnUp6.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {		
 		 		MySQLQueries.swapRanking( txtID6.getText(), txtID5.getText());
-				loadContent(currentPlaylistInfo) ;
+				loadContent(currentPlaylistInfo, currentLoggedIn) ;
 		 	}
 		 });
 		btnUp6.setFont(new Font("Georgia", Font.PLAIN, 11));
@@ -934,7 +937,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnUp7.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
 		 		MySQLQueries.swapRanking( txtID7.getText(), txtID6.getText());
-				loadContent(currentPlaylistInfo) ;
+				loadContent(currentPlaylistInfo, currentLoggedIn) ;
 		 	}
 		 });
 		btnUp7.setFont(new Font("Georgia", Font.PLAIN, 11));
@@ -945,7 +948,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnUp8.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
 		 		MySQLQueries.swapRanking( txtID8.getText(), txtID7.getText());
-				loadContent(currentPlaylistInfo) ;
+				loadContent(currentPlaylistInfo, currentLoggedIn) ;
 		 	}
 		 });
 		btnUp8.setFont(new Font("Georgia", Font.PLAIN, 11));
@@ -956,7 +959,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnUp9.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
 		 		MySQLQueries.swapRanking( txtID9.getText(), txtID8.getText());
-				loadContent(currentPlaylistInfo) ;
+				loadContent(currentPlaylistInfo, currentLoggedIn) ;
 		 	}
 		 });
 		btnUp9.setFont(new Font("Georgia", Font.PLAIN, 11));
@@ -967,7 +970,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnUp10.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {	
 		 		MySQLQueries.swapRanking( txtID10.getText(), txtID9.getText());
-				loadContent(currentPlaylistInfo) ;
+				loadContent(currentPlaylistInfo, currentLoggedIn) ;
 		 	}
 		 });
 		btnUp10.setFont(new Font("Georgia", Font.PLAIN, 11));
@@ -978,7 +981,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnDown2.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {	
 		 		MySQLQueries.swapRanking( txtID3.getText(), txtID2.getText());
-				loadContent(currentPlaylistInfo) ;
+				loadContent(currentPlaylistInfo, currentLoggedIn) ;
 		 	}
 		 });
 		btnDown2.setFont(new Font("Georgia", Font.PLAIN, 11));
@@ -989,7 +992,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnDown3.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) { 		
 		 		MySQLQueries.swapRanking( txtID4.getText(), txtID3.getText());
-				loadContent(currentPlaylistInfo) ;
+				loadContent(currentPlaylistInfo, currentLoggedIn) ;
 		 	}
 		 });
 		btnDown3.setFont(new Font("Georgia", Font.PLAIN, 11));
@@ -1000,7 +1003,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnDown4.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {	 		
 		 		MySQLQueries.swapRanking( txtID5.getText(), txtID4.getText());
-				loadContent(currentPlaylistInfo) ;
+				loadContent(currentPlaylistInfo, currentLoggedIn) ;
 		 	}
 		 });
 		btnDown4.setFont(new Font("Georgia", Font.PLAIN, 11));
@@ -1011,7 +1014,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnDown5.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
 		 		MySQLQueries.swapRanking( txtID6.getText(), txtID5.getText());
-				loadContent(currentPlaylistInfo) ;
+				loadContent(currentPlaylistInfo, currentLoggedIn) ;
 		 	}
 		 });
 		btnDown5.setFont(new Font("Georgia", Font.PLAIN, 11));
@@ -1022,7 +1025,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnDown6.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
 		 		MySQLQueries.swapRanking( txtID7.getText(), txtID6.getText());
-				loadContent(currentPlaylistInfo) ;
+				loadContent(currentPlaylistInfo, currentLoggedIn) ;
 		 	}
 		 });
 		btnDown6.setFont(new Font("Georgia", Font.PLAIN, 11));
@@ -1033,7 +1036,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnDown7.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
 		 		MySQLQueries.swapRanking( txtID8.getText(), txtID7.getText());
-				loadContent(currentPlaylistInfo) ;
+				loadContent(currentPlaylistInfo, currentLoggedIn) ;
 		 	}
 		 });
 		btnDown7.setFont(new Font("Georgia", Font.PLAIN, 11));
@@ -1044,7 +1047,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnDown8.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
 		 		MySQLQueries.swapRanking( txtID9.getText(), txtID8.getText());
-				loadContent(currentPlaylistInfo) ;
+				loadContent(currentPlaylistInfo, currentLoggedIn) ;
 		 	}
 		 });
 		btnDown8.setFont(new Font("Georgia", Font.PLAIN, 11));
@@ -1055,7 +1058,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnDown9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MySQLQueries.swapRanking( txtID10.getText(), txtID9.getText());
-				loadContent(currentPlaylistInfo) ;
+				loadContent(currentPlaylistInfo, currentLoggedIn) ;
 			}
 		});
 		btnDown9.setFont(new Font("Georgia", Font.PLAIN, 11));
@@ -1065,41 +1068,48 @@ public class ManagePlaylistScreen extends JFrame {
 		JLabel label3 = new JLabel("3");
 		label3.setFont(new Font("Georgia", Font.BOLD, 12));
 		label3.setHorizontalAlignment(SwingConstants.CENTER);
+		label3.setForeground(new Color(90, 192, 217));
 		label3.setBounds(21, 280, 48, 20);
 		contentPane.add(label3);
 		
 		JLabel label4 = new JLabel("4");
 		label4.setFont(new Font("Georgia", Font.BOLD, 12));
 		label4.setHorizontalAlignment(SwingConstants.CENTER);
+		label4.setForeground(new Color(90, 192, 217));
 		label4.setBounds(21, 310, 48, 20);
 		contentPane.add(label4);
 		
 		JLabel label5 = new JLabel("5");
 		label5.setFont(new Font("Georgia", Font.BOLD, 12));
 		label5.setHorizontalAlignment(SwingConstants.CENTER);
+		label5.setForeground(new Color(90, 192, 217));
 		label5.setBounds(21, 340, 48, 20);
 		contentPane.add(label5);
 		
 		JLabel label6 = new JLabel("6");
 		label6.setFont(new Font("Georgia", Font.BOLD, 12));
 		label6.setHorizontalAlignment(SwingConstants.CENTER);
+		label6.setForeground(new Color(90, 192, 217));
 		label6.setBounds(21, 370, 48, 20);
 		contentPane.add(label6);
 		
 		JLabel label7 = new JLabel("7");
 		label7.setFont(new Font("Georgia", Font.BOLD, 12));
 		label7.setHorizontalAlignment(SwingConstants.CENTER);
+		label7.setForeground(new Color(90, 192, 217));
 		label7.setBounds(21, 400, 48, 20);
 		contentPane.add(label7);
 		
 		JLabel label8 = new JLabel("8");
 		label8.setFont(new Font("Georgia", Font.BOLD, 12));
+		label8.setForeground(new Color(90, 192, 217));
 		label8.setHorizontalAlignment(SwingConstants.CENTER);
 		label8.setBounds(21, 430, 48, 20);
 		contentPane.add(label8);
 		
 		JLabel label9 = new JLabel("9");
 		label9.setFont(new Font("Georgia", Font.BOLD, 12));
+		label9.setForeground(new Color(90, 192, 217));
 		label9.setHorizontalAlignment(SwingConstants.CENTER);
 		label9.setBounds(21, 460, 48, 20);
 		contentPane.add(label9);
@@ -1144,7 +1154,7 @@ public class ManagePlaylistScreen extends JFrame {
 	
 	
 	
-	public void loadContent( PlaylistInfo currentPlaylistInfo){
+	public void loadContent( PlaylistInfo currentPlaylistInfo, LoggedIn currentLoggedIn){
 		
 		clearScreen();	
 	
@@ -1165,7 +1175,7 @@ public class ManagePlaylistScreen extends JFrame {
 			
 		}
 		
-		ResultSet currentList = MySQLQueries.loadAPlaylist(currentPlaylistTitle);
+		ResultSet currentList = MySQLQueries.loadAPlaylist(currentPlaylistTitle, currentLoggedIn.getCurrentUserID());
 		
 		String playlistTitle = null;
 		String playlistId = null;

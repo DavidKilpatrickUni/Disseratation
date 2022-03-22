@@ -49,19 +49,19 @@ public class RegistrationApplication {
 		if (Helper.checkBlank(username) ||   Helper.regexSQLInjection(username))
 		{
 			System.out.println("username error");
-			throw new CustomException("Valid User Input Required", "username");
+			throw new CustomException("Valid Username Input Required", "username");
 		}
 		
 		if (Helper.checkBlank(email) || !regexEmail(email) ||  Helper.regexSQLInjection(email))
 		{
 			System.out.println("email error");
-			throw new CustomException("Valid Email Address Input Required", "email");
+			throw new CustomException("Valid Email Address Input Required - Requires @ AND .com OR .co.uk", "email");
 		}
 		
 		if (Helper.checkBlank(password) || !Helper.regexPassword(password) ||  Helper.regexSQLInjection(password))
 		{
 			System.out.println("password error");
-			throw new CustomException("Valid Password Input Required", "password");
+			throw new CustomException("Valid Password Input Required - Must Be 8-15 Length AND Have 1 Capital Letter, 1 Legal Special Character , 1 Number", "password");
 		}
 		
 		if (Helper.checkBlank(confirm) || Helper.regexSQLInjection(confirm) || !comparePassword(password, confirm))
@@ -133,7 +133,7 @@ public class RegistrationApplication {
 		
 	}
 	
-	
+
 	public static boolean checkAge(Date date) {
 		
 		System.out.println("RegistrationApplication - checkAge");
@@ -145,7 +145,7 @@ public class RegistrationApplication {
 	
 		int years = Period.between(birthDate, currentDate).getYears();
 
-		if (years  < 15 ) {
+		if (years  <= 15 ) {
 			System.out.println( "is under 16 \n");
 	
 			return true;

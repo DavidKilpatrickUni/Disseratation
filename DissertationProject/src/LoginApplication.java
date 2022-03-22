@@ -12,15 +12,15 @@ public class LoginApplication {
 
 	public static LoggedIn enterLogin(String username, String password) throws CustomException {
 	
-		boolean checkFields;																												// Variable to store result of method call
+		boolean checkFields;																												
 
 		try {									
 		
-			checkFields = checkFields(username,password);																					// Set variable to result of passing variables through given method.
+			checkFields = checkFields(username,password);																				
 	
 				try {
 				
-					if (checkFields) {																										// If Statement. The text boxes do contain content.
+					if (checkFields) {																										
 					
 						ResultSet loginAttempt = MySQLQueries.attemptLogin(username,password);	
 						
@@ -65,7 +65,7 @@ public class LoginApplication {
 			
 		} catch (CustomException error) {
 			
-			throw new CustomException("Enter Details To Attempt Login", "login");
+			throw new CustomException("Enter Valid Details To Attempt Login", "login");	
 			
 		}
 		
@@ -74,7 +74,7 @@ public class LoginApplication {
 	}
 
 
-	private static boolean checkFields(String userName , String password) throws CustomException{								
+	public static boolean checkFields(String userName , String password) throws CustomException{								
 	
 		System.out.println("LoginApplication - CheckFields");
 		

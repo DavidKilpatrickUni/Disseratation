@@ -933,7 +933,6 @@ public class AddToPlaylistScreen extends JFrame {
 		contentPane.add(txtSongID10);
 		
 		comboBoxSearch = new JComboBox();
-		comboBoxSearch.setEditable(true);
 		AutoCompleteDecorator.decorate(comboBoxSearch);
 		comboBoxSearch.addPopupMenuListener(new PopupMenuListener() {
 			public void popupMenuCanceled(PopupMenuEvent e) {

@@ -38,27 +38,6 @@ public class MyProfileScreen extends JFrame {
 	private JTextField txtUserIcon;
 	private JButton btnChangeIcon;
 
-	/**
-	 * Launch the application.
-	 */
-	
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MyProfileScreen frame = new MyProfileScreen();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-*/
-	/**
-	 * Create the frame.
-	 */
 	public MyProfileScreen(LoggedIn currentLoggedIn) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
 		setTitle("Elenco - My Profile Details");
@@ -66,14 +45,9 @@ public class MyProfileScreen extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				
-				
-				
+
 				ResultSet accountDetails  = MySQLQueries.getAccountsDetail(currentLoggedIn.getCurrentUserID());
 				
-				
-				
-			
 				String userName = null;
 				String artist1 = null;
 				String artist2 = null;
@@ -101,20 +75,7 @@ public class MyProfileScreen extends JFrame {
 						txtGenre1.setText(genre1);
 						txtGenre2.setText(genre2);
 						txtGenre3.setText(genre3);
-						
-				/*
-						private JPanel contentPane;
-						private JTextField textFieldUserName;
-						private JTextField textFieldArtist1;
-						private JTextField textFieldArtist2;
-						private JTextField textFieldArtist3;
-						private JTextField textFieldGenre1;
-						private JTextField textFieldGenre2;
-						private JTextField textFieldGenre3;
-						*/
-						
-					
-						
+							
 					}
 					
 					else
@@ -210,20 +171,20 @@ public class MyProfileScreen extends JFrame {
 		txtGenre3.setColumns(10);
 		
 		btnArtist = new JButton("Change Artist(s)");
+		btnArtist.setToolTipText("Click To Change Your Favourite Artists To Input Above");
 		btnArtist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-	int select;																																	// Variable for storing user response to message box.
+				int select;																																	
 				
 				select = JOptionPane.showOptionDialog(null, "Update Your Favourite Artists", "Elenco - Update Profile", 
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									
 				
-				if (select == JOptionPane.YES_OPTION) {
-			
-					
+				if (select == JOptionPane.YES_OPTION) 
+				{
+
 					MySQLQueries.updateArtist(currentLoggedIn.getCurrentUserID(),txtArtist1.getText().strip(), txtArtist2.getText().strip() ,txtArtist3.getText().strip() );
-				
-				
+
 				}
 				
 			}
@@ -233,43 +194,43 @@ public class MyProfileScreen extends JFrame {
 		contentPane.add(btnArtist);
 		
 		btnGenre = new JButton("Change Genre(s)");
+		btnGenre.setToolTipText("Click To Change Your Favourite Genres To Input Above");
 		btnGenre.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnGenre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-	int select;																																	// Variable for storing user response to message box.
+				int select;																																	
 				
 				select = JOptionPane.showOptionDialog(null, "Update Your Favourite Genres", "Elenco - Update Profile", 
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									// Sets variable to the value returned from YES_NO_Option message pop up.
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;								
 				
-				if (select == JOptionPane.YES_OPTION) {
+				if (select == JOptionPane.YES_OPTION) 
+				{
 				
-				MySQLQueries.updateGenre(currentLoggedIn.getCurrentUserID(),txtGenre1.getText().strip(), txtGenre2.getText().strip() ,txtGenre3.getText().strip() );
+					MySQLQueries.updateGenre(currentLoggedIn.getCurrentUserID(),txtGenre1.getText().strip(), txtGenre2.getText().strip() ,txtGenre3.getText().strip() );
 				
-				
-				
-				//MyProfileApplication.updateGenre(currentLoggedIn.getCurrentUserID(),txtGenre1.getText().strip(), txtGenre2.getText().strip() ,txtGenre3.getText().strip() );
-				//System.out.println(currentLoggedIn.getCurrentUserID() +txtGenre1.getText().strip()+ txtGenre2.getText().strip() +txtGenre3.getText().strip());
 				}
 			}
 		});
 		btnGenre.setBounds(287, 525, 150, 25);
 		contentPane.add(btnGenre);
 		
-		btnBack = new JButton("My Profile");
+		btnBack = new JButton("Profile Menu");
+		btnBack.setToolTipText("Return To Profile Screen");
 		btnBack.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-	int select;																																	// Variable for storing user response to message box.
+				int select;																																	
 				
-				select = JOptionPane.showOptionDialog(null, "Return To Main Menu - All Unconfirmed Input Will Be Lost", "Elenco - Suggest Song", 
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									// Sets variable to the value returned from YES_NO_Option message pop up.
+				select = JOptionPane.showOptionDialog(null, "Return To Main Menu - All Unconfirmed Input Will Be Lost", "Elenco - Profile", 
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									
 				
-				if (select == JOptionPane.YES_OPTION) {
-				ProfileScreen frame = new ProfileScreen(currentLoggedIn);
-				frame.setVisible(true);
-				dispose();
+				if (select == JOptionPane.YES_OPTION) 
+				{
+					ProfileScreen frame = new ProfileScreen(currentLoggedIn);
+					frame.setVisible(true);
+					dispose();
 				}
 			}
 		});
@@ -291,33 +252,36 @@ public class MyProfileScreen extends JFrame {
 		contentPane.add(lblHeader);
 		
 		JButton btnUsername = new JButton("Change User Name");
+		btnUsername.setToolTipText("Click To Change Username To Input Above");
 		btnUsername.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-	int select;																																	// Variable for storing user response to message box.
+				int select;																																	
 				
-				select = JOptionPane.showOptionDialog(null, "Confirm Change Of Username", "Elenco - Suggest Song", 
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									// Sets variable to the value returned from YES_NO_Option message pop up.
+				select = JOptionPane.showOptionDialog(null, "Confirm Change Of Username", "Elenco - Profile", 
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									
 				
 				if (select == JOptionPane.YES_OPTION) {
-				try {
-					
-					MyProfileApplication.checkValidUsername(txtUsername.getText().strip());
-					
-					
 					try 
 					{
-						MySQLQueries.updateUsername(currentLoggedIn.getCurrentUserID(), txtUsername.getText().strip());
 					
-					} catch (CustomException error) {
+						MyProfileApplication.checkValidUsername(txtUsername.getText().strip());
 					
-						JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+						try 
+						{
+							MySQLQueries.updateUsername(currentLoggedIn.getCurrentUserID(), txtUsername.getText().strip());
+					
+						} 
+						catch (CustomException error) {
+					
+							JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+						}
+						
 					}
-				
-				}catch (CustomException error){
+					catch (CustomException error){
 					
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
-				}
+					}
 				
 				}
 			}
@@ -339,6 +303,8 @@ public class MyProfileScreen extends JFrame {
 		contentPane.add(txtUserIcon);
 		
 		btnChangeIcon = new JButton("Change User Icon");
+		btnChangeIcon.setToolTipText("Demo Place Holder For Changing User Icon");
+		btnChangeIcon.setEnabled(false);
 		btnChangeIcon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				

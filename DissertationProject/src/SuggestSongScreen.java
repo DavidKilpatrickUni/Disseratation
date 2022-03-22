@@ -118,7 +118,7 @@ public class SuggestSongScreen extends JFrame {
 									
 										 currentSongID = getSongID.getString("SongID");
 
-										 ViewSongApplication.createRating(currentSongID,currentLoggedIn.getCurrentUserID(),String.valueOf(slider.getValue()));
+										 MySQLQueries.createRating(currentSongID,currentLoggedIn.getCurrentUserID(),String.valueOf(slider.getValue()));
 								
 										 JOptionPane.showMessageDialog(null,"Song Suggested To Elenco", "Elenco - Sucess", JOptionPane.INFORMATION_MESSAGE,null);
 								
