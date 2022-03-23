@@ -164,7 +164,7 @@ public class ViewSongScreen extends JFrame {
 						}
 						else
 						{
-							
+						
 							MySQLQueries.addComment(currentSongID, currentLoggedIn.getCurrentUserID(), textFieldAddComment.getText().strip());
 							JOptionPane.showMessageDialog(null, "Comment Successfully Uploaded", "Elenco - Upload Comment", JOptionPane.INFORMATION_MESSAGE,null);
 							textFieldAddComment.setText("");
@@ -396,7 +396,6 @@ public class ViewSongScreen extends JFrame {
 		btnRate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-	
 				try 
 				{
 					attemptRatingChange(currentLoggedIn, currentSongID , comboBoxRating.getSelectedItem().toString());
@@ -565,7 +564,7 @@ public class ViewSongScreen extends JFrame {
 		
 		}
 
-}
+	}
 
 
 	public void clearScreen() {

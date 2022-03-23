@@ -78,10 +78,10 @@ public class SuggestSongScreen extends JFrame {
 				System.out.println("comboMin index: " + comboBoxMins.getSelectedIndex() + " ComboSec index: "+ comboBoxSecs.getSelectedIndex());	
 				System.out.println("slider value: " + slider.getValue());
 					
-				int select;																																	// Variable for storing user response to message box.
+				int select;																																	
 			
 				select = JOptionPane.showOptionDialog(null, "Suggest Song To Elenco", "Elenco - Suggest Song", 
-					 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									// Sets variable to the value returned from YES_NO_Option message pop up.
+					 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									
 			
 					 if (select == JOptionPane.YES_OPTION) {
 				

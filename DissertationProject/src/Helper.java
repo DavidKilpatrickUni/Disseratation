@@ -134,7 +134,7 @@ public class Helper {
 				
 					return true;
 				}
-				else
+				else if (compareDates > 0)
 				{
 			
 					System.out.println( "date in past \n");
@@ -144,9 +144,9 @@ public class Helper {
 			}
 			catch(Exception e)
 			{	
-			
+				System.out.println(e);
 			}
-		return false;
+		return true;
 	
 	}
 	

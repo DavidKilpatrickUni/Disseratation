@@ -4,7 +4,6 @@ public class CustomException extends Exception {
 
 	private String errorMessage = "Error has occured";												
 	private String reason = "Generic Reason";
-
 		
 	public CustomException() {
 			

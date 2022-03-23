@@ -67,7 +67,6 @@ public class SuggestSongApplication {
 	}
 	
 	
-	
 	public static boolean checkSongLength(int comboMin, int comboSec){
 		
 		System.out.println("SuggestSongApplication - checkSongLength");
@@ -94,7 +93,7 @@ public class SuggestSongApplication {
 		}
 		else
 		{
-		return false;
+			return false;
 		}
 	
 	

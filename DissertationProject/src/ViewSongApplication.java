@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class ViewSongApplication {
-	
+	/*
 public static ResultSet songDetails(String songID) {
 		
 		try
@@ -81,7 +81,7 @@ public static ResultSet getComments(String songID, int offset, int count) {
 
 public static void addComment(String currentSongID, String currentUserID, String comment) {
 	
-	String posted = changeDateFormat(LocalDate.now());
+	String posted = Helper.changeLocalDateFormat(LocalDate.now());
 	
 	
 	
@@ -161,7 +161,7 @@ public static ResultSet myRating(String currentSongID, String currentUserID) {
 
 public static void createRating(String currentSongID, String currentUserID, String rating) {
 	
-	String posted = changeDateFormat(LocalDate.now());
+	String posted = Helper.changeLocalDateFormat(LocalDate.now());
 	
 	
 	
@@ -305,17 +305,8 @@ public static void updateTotals(String currentSongID, double overallRating, int 
 
 }
 
-public static String changeDateFormat(LocalDate localDate) {
-	
-	
-	
 
-	DateTimeFormatter myPattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	String formattedDate = localDate.format(myPattern);
-
-	return formattedDate;
-}
-
+*/
 
 
 

@@ -911,7 +911,6 @@ public class DiscoverScreen extends JFrame {
 		comboBoxSearch.setMaximumRowCount(4);
 		AutoCompleteDecorator.decorate(comboBoxSearch);
 	
-	
 		comboBoxSearch.addPopupMenuListener(new PopupMenuListener() {
 			public void popupMenuCanceled(PopupMenuEvent e) {
 			

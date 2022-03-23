@@ -1,11 +1,6 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 public class AddToPlaylistApplication {
-	
+	/*
 	
 public static ResultSet search(Object search, Object criteria, Object sort, String sortType, int offset, int count) {
 		
@@ -89,8 +84,8 @@ public static ResultSet search(Object search, Object criteria, Object sort, Stri
 		}
 	
 	}
-	
-	
+	*/
+	/*
 public static ResultSet songOnPlaylist(String checkSongID, String currentUserID, String playlistTitle) {
 		
 		try
@@ -128,6 +123,8 @@ public static ResultSet songOnPlaylist(String checkSongID, String currentUserID,
 		return null;	
 	}
 	
+	*/
+	/*
 public static void addSong(String currentUserID, String selectedSongID, String currentPlayListTitle, int ranking) {
 		
 		try 
@@ -158,7 +155,8 @@ public static void addSong(String currentUserID, String selectedSongID, String c
 		}
 	}
 
-
+*/
+	/*
 public static ResultSet getPlaylistID(String currentUserID, String currentPlaylistTitle) {
 	
 	try
@@ -196,22 +194,9 @@ public static ResultSet getPlaylistID(String currentUserID, String currentPlayli
 	return null;	
 }
 
+*/
 
 
 
 
-
-
-
-public static boolean checkBlank(String text) {
-	
-	if (text.strip().isBlank())
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
 }

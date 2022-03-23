@@ -14,7 +14,7 @@ public class LoginApplication {
 	
 		boolean checkFields;																												
 
-		try {									
+		try {								
 		
 			checkFields = checkFields(username,password);																				
 	

@@ -16,11 +16,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 
-public class ProfileScreen extends JFrame {
+public class ProfileMenuScreen extends JFrame {
 
 	private JPanel contentPane;
-
-	public ProfileScreen(LoggedIn currentLoggedIn) {
+	
+	public ProfileMenuScreen(LoggedIn currentLoggedIn) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
 		setTitle("Elenco - Profile");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

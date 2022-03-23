@@ -18,13 +18,13 @@ import java.util.Random;
 public class EmailServices {
 	
 	private static Socket sock;
-	
+
 	
 	 public static String recievedMessage() {
 			
 		 try
 		 {
-			
+		
 			System.out.println("Email Server");
 			int port = Integer.parseInt("3");
 			ServerSocket server = new ServerSocket(port);																	

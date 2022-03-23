@@ -41,7 +41,6 @@ public class MainMenuScreen extends JFrame {
 		lblHeader.setBounds(175, 175, 150, 25);
 		lblHeader.setForeground(new Color(90, 192, 217));
 		contentPane.add(lblHeader);
-	
 		
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
@@ -137,7 +136,7 @@ public class MainMenuScreen extends JFrame {
 		btnCircle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ProfileScreen frame = new ProfileScreen(currentLoggedIn);
+				ProfileMenuScreen frame = new ProfileMenuScreen(currentLoggedIn);
 				frame.setVisible(true);
 				dispose();
 				

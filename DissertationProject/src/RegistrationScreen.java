@@ -45,8 +45,7 @@ public class RegistrationScreen extends JFrame {
 	private JRadioButton rdbtnMale;
 	private JRadioButton rdbtnFemale;
 	private JRadioButton rdbtnNB;
-	
-	
+
 	public RegistrationScreen() {
 		setTitle("Elenco - Create Account");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
@@ -214,6 +213,10 @@ public class RegistrationScreen extends JFrame {
 								LoginScreen mainScreen = new LoginScreen();
 								mainScreen.setVisible(true);
 								dispose();
+							}
+							else 
+							{
+								JOptionPane.showMessageDialog(null, "Confirm Email Code Does Not Match Expected Input", "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
 							}
 						}
 						catch (CustomException SQLError)

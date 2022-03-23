@@ -10,17 +10,17 @@ import javax.swing.JOptionPane;
 
 public class MySQLQueries {
 
-	
+
 	public static ResultSet attemptLogin(String username, String password) throws CustomException {
 		
 		String decrypt = MyEncryption.getEncryptionKey();
-		
+	
 		try
 		{
-			Class.forName("com.mysql.cj.jdbc.Driver");																	
+			Class.forName("com.mysql.cj.jdbc.Driver");																
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
 
-			
+		
 			String query = "SELECT * FROM Accounts WHERE UserName = ? AND password = AES_ENCRYPT(?,?)";
 			System.out.println("Query: " + query);
 			
@@ -865,15 +865,21 @@ public class MySQLQueries {
 			{
 				Class.forName("com.mysql.cj.jdbc.Driver");																	
 				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
-				Statement statement = conn.createStatement();
+	
 				
-				String query = "SELECT * FROM songs WHERE " + criteria + "='" + search + "'" + "ORDER BY " + sort + " " + sortType  + " LIMIT " + offset + "," + count +";";	
-				System.out.println(query);
-				ResultSet results = statement.executeQuery(query);															
-	
+				String query = "SELECT * FROM songs WHERE " + criteria + "= ? ORDER BY " + sort + " " + sortType  + " LIMIT ?, ?;";	
+
+				PreparedStatement stmt = conn.prepareStatement(query);
+				
+				stmt.setString(1, search.toString());
+				stmt.setInt(2, offset);
+				stmt.setInt(3, count);
+				
+				System.out.println("Prepared: " + stmt);
+				
+				ResultSet results = stmt.executeQuery();															
+
 				return results;
-			
-	
 			}
 
 			catch (ClassNotFoundException cnf)
@@ -983,7 +989,7 @@ public class MySQLQueries {
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
 		
 		
-			String query = "SELECT playlists.* , songs.* from playlists INNER JOIN songs on playlists.songID = songs.songID where playlists.playlistTitle = ? AND playlists.userID = ? ORDER BY Ranking ASC";
+			String query = "SELECT playlists.* , songs.* FROM playlists INNER JOIN songs on playlists.songID = songs.songID WHERE playlists.playlistTitle = ? AND playlists.userID = ? ORDER BY Ranking ASC";
 		
 			System.out.println("Query: " + query);
 				
@@ -1340,7 +1346,7 @@ public class MySQLQueries {
 			Class.forName("com.mysql.cj.jdbc.Driver");																	
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
 	
-			String query = "SELECT songs.* , comments.*, accounts.* from comments inner join accounts on accounts.UserID = comments.UserID inner join songs on songs.SongID = comments.SongID where songs.songID = ? LIMIT ? , ? ;";
+			String query = "SELECT songs.* , comments.*, accounts.* FROM comments INNER JOIN accounts on accounts.UserID = comments.UserID INNER JOIN songs on songs.SongID = comments.SongID where songs.songID = ? LIMIT ? , ? ;";
 			System.out.println("Query: " + query);
 			
 			
@@ -1888,7 +1894,114 @@ public class MySQLQueries {
 		return null;
 		
 	}
+	
+	public static ResultSet songOnPlaylist(String checkSongID, String currentUserID, String playlistTitle) {
+		
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");																	
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
+		
+			String query = "SELECT * FROM playlists where songID = ? AND userID = ? AND playlistTitle = ?";
+			
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, checkSongID);
+			stmt.setString(2, currentUserID);
+			stmt.setString(3, playlistTitle);
+	
+			System.out.println("Prepared: " + stmt);
+		
+			ResultSet results = stmt.executeQuery();															
+	
+			return results;
 
+		}
+
+		catch (ClassNotFoundException cnf)
+		{	
+			System.err.println("Could not load driver");
+			System.err.println(cnf.getMessage());
+		}
+		
+		catch (SQLException sqe)
+		{
+			System.out.println("Error performing SQL Query");
+			System.out.println(sqe.getMessage());
+		}
+		
+		return null;	
+	}
+	
+	public static void addSong(String currentUserID, String selectedSongID, String currentPlayListTitle, int ranking) {
+		
+		try 
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");																	
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
+	
+			String query = "INSERT INTO playlists VALUES (NULL , ? , ? , ? , ?)";
+			System.out.println("Query: " + query);
+			
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, currentUserID);
+			stmt.setString(2, selectedSongID);
+			stmt.setString(3, currentPlayListTitle);
+			stmt.setInt(4, ranking);
+	
+			
+			System.out.println("prepared: " + stmt);
+			
+			stmt.executeUpdate();															
+		
+			stmt.close();										
+			conn.close();										
+			
+		} catch (ClassNotFoundException cnf) {
+			System.err.println("Could not load driver");
+			System.err.println(cnf.getMessage());
+		
+		} catch (SQLException sqe) {
+			System.err.println("Error in SQL Update");
+			System.err.println(sqe.getMessage());
+		}
+	}
+	
+	public static ResultSet getPlaylistID(String currentUserID, String currentPlaylistTitle) {
+		
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");																	
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
+	
+			String query = "SELECT * FROM playlists WHERE userID = ? AND PlaylistTitle = ? ";
+			
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, currentUserID);
+			stmt.setString(2, currentPlaylistTitle);
+			
+	
+			System.out.println("Prepared: " + stmt);
+		
+			ResultSet results = stmt.executeQuery();															
+	
+			return results;	
+
+		}
+
+		catch (ClassNotFoundException cnf)
+		{	
+			System.err.println("Could not load driver");
+			System.err.println(cnf.getMessage());
+		}
+		
+		catch (SQLException sqe)
+		{
+			System.out.println("Error performing SQL Query");
+			System.out.println(sqe.getMessage());
+		}
+		
+		return null;	
+	}
 		
 }
 	

@@ -31,7 +31,6 @@ public class LoginScreen extends JFrame {
 	private JTextField txtUserName;
 	private JPasswordField passwordFieldPassword;
 
-
 	public LoginScreen() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
 		setTitle("Elenco - Login");
@@ -61,7 +60,6 @@ public class LoginScreen extends JFrame {
 				
 				username = txtUserName.getText().strip();
 				password = passwordFieldPassword.getText().strip();
-
 				try 
 				{
 					loginAttempt = LoginApplication.enterLogin(username, password);

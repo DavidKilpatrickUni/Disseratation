@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 class HelperTest {
 
-	
+	Date date = new Date();
 
 	@Test
 	void testCheckBlankTrue1(){
@@ -154,16 +154,44 @@ class HelperTest {
 			
 	}
 	
+	
+	@Test
+	void testChangeDateFormatPass(){
+		
+		date.setYear(122);
+		
+		String testCase = "2022-03-22";
+		Date testObject = date;
+		
+		assertEquals(Helper.changeDateFormat(testObject), testCase);
+			
+	}
+	
+	@Test
+	void testChangeDateFormatFail(){
+		
+		date.setYear(2);
+		String testCase = "2022-03-20";
+		Date testObject = date;
+		
+		assertNotEquals(Helper.changeDateFormat(testObject), testCase);
+			
+	}
+	
+	
+	
+	// need to change to todays date
 	@Test
 	void testChangeLocalDateFormatPass(){
 		
-		String testCase = "2022-03-21";
+		String testCase = "2022-03-22";
 		LocalDate testObject = LocalDate.now();
 		
 		assertEquals(Helper.changeLocalDateFormat(testObject), testCase);
 			
 	}
 	
+	@Test
 	void testChangeLocalDateFormatFail(){
 		
 		String testCase = "2022-03-20";
@@ -192,6 +220,43 @@ class HelperTest {
 		assertNotEquals(Helper.dateForDatabase(testObject), testCase);
 			
 	}
+	
+	@Test
+	void testCompareDatesTrue1(){
+		
+		date.setYear(200);
+		
+		
+		Date testObject = date;
+		
+		assertTrue(Helper.compareDates(date));
+			
+	}
+	
+	@Test
+	void testCompareDatesTrue2(){
+		
+		
+		Date testObject = null;
+		
+		assertTrue(Helper.compareDates(date));
+			
+	}
+	
+	@Test
+	void testCompareDatesFalse1(){
+		
+		date.setYear(2);
+
+		
+		Date testObject = date;
+		
+		assertFalse(Helper.compareDates(date));
+			
+	}
+	
+	
+	
 	
 	//banned character '
 	@Test

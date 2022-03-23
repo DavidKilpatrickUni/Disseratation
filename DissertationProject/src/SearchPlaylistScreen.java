@@ -88,10 +88,9 @@ public class SearchPlaylistScreen extends JFrame {
 	private JComboBox comboBoxCriteria;
 	private JButton btnSearch;
 	
-	private int pageCount = 0;
+	private int pageCount = 1;
 	private int sqlOffset = 0;
 	private int sqlRowCount = 10;
-
 
 	public SearchPlaylistScreen(LoggedIn currentLoggedIn) {
 		addWindowListener(new WindowAdapter() {

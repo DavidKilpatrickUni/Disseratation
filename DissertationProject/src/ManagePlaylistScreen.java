@@ -149,7 +149,6 @@ public class ManagePlaylistScreen extends JFrame {
 
 			}
 	
-	
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1082, 666);
@@ -575,8 +574,6 @@ public class ManagePlaylistScreen extends JFrame {
 		btnUp2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				
-		
 				MySQLQueries.swapRanking( txtID2.getText(), txtID1.getText());
 				loadContent(currentPlaylistInfo, currentLoggedIn) ;
 			}

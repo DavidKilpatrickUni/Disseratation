@@ -74,7 +74,6 @@ public class MyPlaylistsScreen extends JFrame {
 	private JButton btnDeleteList8;
 	private JButton btnDeleteList9;
 	private JButton btnDeleteList10;
-
 	
 	public MyPlaylistsScreen( LoggedIn currentLoggedIn) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));

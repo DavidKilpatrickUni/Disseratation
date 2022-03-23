@@ -58,7 +58,7 @@ public class MyProfileScreen extends JFrame {
 						
 				try {
 					
-					if (accountDetails.next())																	
+					if (accountDetails.next())																
 					{
 						userName = accountDetails.getString("UserName");
 						artist1 = accountDetails.getString("Artist One");
@@ -228,7 +228,7 @@ public class MyProfileScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) 
 				{
-					ProfileScreen frame = new ProfileScreen(currentLoggedIn);
+					ProfileMenuScreen frame = new ProfileMenuScreen(currentLoggedIn);
 					frame.setVisible(true);
 					dispose();
 				}

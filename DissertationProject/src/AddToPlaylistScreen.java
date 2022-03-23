@@ -136,7 +136,7 @@ public class AddToPlaylistScreen extends JFrame {
 	private JButton btnAdd8;
 	private JButton btnAdd9;
 	private JButton btnAdd10;
-	
+
 	private int pageCount = 1;
 	private int sqlOffset = 0;
 	private int sqlRowCount = 10;
@@ -162,8 +162,6 @@ public class AddToPlaylistScreen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		
-		
 		btnSearch = new JButton("Search");
 		btnSearch.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnSearch.addActionListener(new ActionListener() {
@@ -179,10 +177,6 @@ public class AddToPlaylistScreen extends JFrame {
 		});
 		btnSearch.setBounds(860, 140, 125, 25);
 		contentPane.add(btnSearch);
-		
-	
-		
-		
 		
 		ButtonGroup radioButtons = new ButtonGroup();
 		
@@ -282,9 +276,11 @@ public class AddToPlaylistScreen extends JFrame {
 		btnBack.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
 				gui.setVisible(true);
 				dispose();
+				
 			}
 		});
 		btnBack.setBounds(440, 610, 100, 25);
@@ -939,57 +935,26 @@ public class AddToPlaylistScreen extends JFrame {
 			}
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
 			}
-			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {	
 				
 				comboBoxSearch.removeAllItems();
-				try
-				{
-					
-					String sortType = "ASC";
-					
-					Class.forName("com.mysql.cj.jdbc.Driver");																	
-					Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
-					Statement statement = conn.createStatement();
-					System.out.println("SELECT * FROM songs GROUP BY "+ comboBoxCriteria.getSelectedItem().toString() + " ORDER BY " + comboBoxSort.getSelectedItem().toString() + " " + sortType + ", " + comboBoxCriteria.getSelectedItem().toString() +  " " + sortType);	
-					String query = "SELECT * FROM songs GROUP BY " + comboBoxCriteria.getSelectedItem().toString() + " ORDER BY " + comboBoxSort.getSelectedItem().toString() + " " + sortType + ", " + comboBoxCriteria.getSelectedItem().toString() + " " + sortType;		
-					
-					//System.out.println("SELECT songs.*, ratings.* FROM songs inner join ratings on songs.songID = ratings.songID GROUP BY songs.songID ORDER BY " + sort + " " + sortType );	
-					//String query = "SELECT songs.*, ratings.* FROM songs inner join ratings on songs.songID = ratings.songID GROUP BY songs.songID ORDER BY " + sort + " " + sortType;
-					System.out.println(query);
-					ResultSet results = statement.executeQuery(query);															
-					System.out.println("this here " + results);
 				
-
+				ResultSet populateComboBox = MySQLQueries.populateComboBox(comboBoxCriteria.getSelectedItem(), comboBoxSort.getSelectedItem());	
 				
-					while (results.next())
-					{
-						comboBoxSearch.addItem(results.getString(comboBoxCriteria.getSelectedItem().toString()));
+					try {
+						
+						while (populateComboBox.next())
+						{
+							comboBoxSearch.addItem(populateComboBox.getString(comboBoxCriteria.getSelectedItem().toString()));
+						}
+					} catch (SQLException sql) {
+				
 					}
-				
-		
-				}
-
-				catch (ClassNotFoundException cnf)
-				{	
-					System.err.println("Could not load driver");
-					System.err.println(cnf.getMessage());
-			
-				}
-			
-				catch (SQLException sqe)
-				{
-					System.out.println("Error performing SQL Query");
-					System.out.println(sqe.getMessage());
-				
-				}
+					
 			}
 		});
 		comboBoxSearch.setBounds(110, 140, 180, 25);
 		contentPane.add(comboBoxSearch);
-	
-		
-
-
 		
 		JLabel lblSearchFor = new JLabel("Search For");
 		lblSearchFor.setForeground(new Color(90, 192, 217));
@@ -1057,8 +1022,7 @@ public class AddToPlaylistScreen extends JFrame {
 		comboBoxSort.setModel(new DefaultComboBoxModel(new String[] {"OverallRating", "TotalReviews", "Uploaded"}));
 		comboBoxSort.setBounds(585, 140, 110, 25);
 		contentPane.add(comboBoxSort);
-		
-
+	
 		
 	}
 	
@@ -1101,147 +1065,135 @@ public class AddToPlaylistScreen extends JFrame {
 		btnPrevious.setEnabled(false);
 	}
 		
-	System.out.println("this crap");
-	System.out.println(comboBoxSearch.getSelectedItem());
-	System.out.println(comboBoxCriteria.getSelectedItem());
-	System.out.println(comboBoxSort.getSelectedItem());
-	System.out.println(sortType);
-	System.out.println("crap covered");
-		
-	ResultSet searchAttempt = AddToPlaylistApplication.search(comboBoxSearch.getSelectedItem(), comboBoxCriteria.getSelectedItem(), comboBoxSort.getSelectedItem(), sortType, sqlOffset, sqlRowCount);	
+	ResultSet searchAttempt = MySQLQueries.search(comboBoxSearch.getSelectedItem(), comboBoxCriteria.getSelectedItem(), comboBoxSort.getSelectedItem(), sortType, sqlOffset, sqlRowCount);	
 
 		
 		
 		try {		
 			
-		while (searchAttempt.next())																	
+			while (searchAttempt.next())																	
 			{
 	
-			songID = searchAttempt.getString("SongID");
+				songID = searchAttempt.getString("SongID");
 				title = searchAttempt.getString("Title");
 				artist = searchAttempt.getString("Artist");
 				genre = searchAttempt.getString("Genre");
-			rating = searchAttempt.getString("OverallRating");
-			reviews = searchAttempt.getString("TotalReviews");
+				rating = searchAttempt.getString("OverallRating");
+				reviews = searchAttempt.getString("TotalReviews");
 				uploaded = searchAttempt.getString("uploaded");
 				
 				
 				
 				switch (row) {
-				case 1:
-					txtSongID1.setText(songID);
-					txtTitle1.setText(title);
-					txtArtist1.setText(artist);
-					txtGenre1.setText(genre);
-					txtRating1.setText(rating);
-					txtReviews1.setText(reviews);
-					txtUploaded1.setText(uploaded);
-					btnAdd1.setEnabled(true);
-					break;
-				case 2:
-					txtSongID2.setText(songID);
-					txtTitle2.setText(title);
-					txtArtist2.setText(artist);
-					txtGenre2.setText(genre);
-					txtRating2.setText(rating);
-					txtReviews2.setText(reviews);
-					txtUploaded2.setText(uploaded);
-					btnAdd2.setEnabled(true);
-					break;
-				case 3:
-					txtSongID3.setText(songID);
-					txtTitle3.setText(title);
-					txtArtist3.setText(artist);
-					txtGenre3.setText(genre);
-					txtRating3.setText(rating);
-					txtReviews3.setText(reviews);
-					txtUploaded3.setText(uploaded);
-					btnAdd3.setEnabled(true);
-					break;
-				case 4:
-					txtSongID4.setText(songID);
-					txtTitle4.setText(title);
-					txtArtist4.setText(artist);
-					txtGenre4.setText(genre);
-					txtRating4.setText(rating);
-					txtReviews4.setText(reviews);
-					txtUploaded4.setText(uploaded);
-					btnAdd4.setEnabled(true);
-					break;
-				case 5:
-					txtSongID5.setText(songID);
-					txtTitle5.setText(title);
-					txtArtist5.setText(artist);
-					txtGenre5.setText(genre);
-					txtRating5.setText(rating);
-					txtReviews5.setText(reviews);
-					txtUploaded5.setText(uploaded);
-					btnAdd5.setEnabled(true);
-					break;
-				case 6:
-					txtSongID6.setText(songID);
-					txtTitle6.setText(title);
-					txtArtist6.setText(artist);
-					txtGenre6.setText(genre);
-					txtRating6.setText(rating);
-					txtReviews6.setText(reviews);
-					txtUploaded6.setText(uploaded);
-					btnAdd6.setEnabled(true);
-					break;
-				case 7:
-					txtSongID7.setText(songID);
-					txtTitle7.setText(title);
-					txtArtist7.setText(artist);
-					txtGenre7.setText(genre);
-					txtRating7.setText(rating);
-					txtReviews7.setText(reviews);
-					txtUploaded7.setText(uploaded);
-					btnAdd7.setEnabled(true);
-					break;
-				case 8:
-					txtSongID8.setText(songID);
-					txtTitle8.setText(title);
-					txtArtist8.setText(artist);
-					txtGenre8.setText(genre);
-					txtRating8.setText(rating);
-					txtReviews8.setText(reviews);
-					txtUploaded8.setText(uploaded);
-					btnAdd8.setEnabled(true);
-					break;
-				case 9:
-					txtSongID9.setText(songID);
-					txtTitle9.setText(title);
-					txtArtist9.setText(artist);
-					txtGenre9.setText(genre);
-					txtRating9.setText(rating);
-					txtReviews9.setText(reviews);
-					txtUploaded9.setText(uploaded);
-					btnAdd9.setEnabled(true);
-					break;
-				case 10:
-					txtSongID10.setText(songID);
-					txtTitle10.setText(title);
-					txtArtist10.setText(artist);
-					txtGenre10.setText(genre);
-					txtRating10.setText(rating);
-					txtReviews10.setText(reviews);
-					txtUploaded10.setText(uploaded);
-					btnAdd10.setEnabled(true);
-					btnNext.setEnabled(true);
-					break;
+					case 1:
+						txtSongID1.setText(songID);
+						txtTitle1.setText(title);
+						txtArtist1.setText(artist);
+						txtGenre1.setText(genre);
+						txtRating1.setText(rating);
+						txtReviews1.setText(reviews);
+						txtUploaded1.setText(uploaded);
+						btnAdd1.setEnabled(true);
+						break;
+					case 2:
+						txtSongID2.setText(songID);
+						txtTitle2.setText(title);
+						txtArtist2.setText(artist);
+						txtGenre2.setText(genre);
+						txtRating2.setText(rating);
+						txtReviews2.setText(reviews);
+						txtUploaded2.setText(uploaded);
+						btnAdd2.setEnabled(true);
+						break;
+					case 3:
+						txtSongID3.setText(songID);
+						txtTitle3.setText(title);
+						txtArtist3.setText(artist);
+						txtGenre3.setText(genre);
+						txtRating3.setText(rating);
+						txtReviews3.setText(reviews);
+						txtUploaded3.setText(uploaded);
+						btnAdd3.setEnabled(true);
+						break;
+					case 4:
+						txtSongID4.setText(songID);
+						txtTitle4.setText(title);
+						txtArtist4.setText(artist);
+						txtGenre4.setText(genre);
+						txtRating4.setText(rating);
+						txtReviews4.setText(reviews);
+						txtUploaded4.setText(uploaded);
+						btnAdd4.setEnabled(true);
+						break;
+					case 5:
+						txtSongID5.setText(songID);
+						txtTitle5.setText(title);
+						txtArtist5.setText(artist);
+						txtGenre5.setText(genre);
+						txtRating5.setText(rating);
+						txtReviews5.setText(reviews);
+						txtUploaded5.setText(uploaded);
+						btnAdd5.setEnabled(true);
+						break;
+					case 6:
+						txtSongID6.setText(songID);
+						txtTitle6.setText(title);
+						txtArtist6.setText(artist);
+						txtGenre6.setText(genre);
+						txtRating6.setText(rating);
+						txtReviews6.setText(reviews);
+						txtUploaded6.setText(uploaded);
+						btnAdd6.setEnabled(true);
+						break;
+					case 7:
+						txtSongID7.setText(songID);
+						txtTitle7.setText(title);
+						txtArtist7.setText(artist);
+						txtGenre7.setText(genre);
+						txtRating7.setText(rating);
+						txtReviews7.setText(reviews);
+						txtUploaded7.setText(uploaded);
+						btnAdd7.setEnabled(true);
+						break;
+					case 8:
+						txtSongID8.setText(songID);
+						txtTitle8.setText(title);
+						txtArtist8.setText(artist);
+						txtGenre8.setText(genre);
+						txtRating8.setText(rating);
+						txtReviews8.setText(reviews);
+						txtUploaded8.setText(uploaded);
+						btnAdd8.setEnabled(true);
+						break;
+					case 9:
+						txtSongID9.setText(songID);
+						txtTitle9.setText(title);
+						txtArtist9.setText(artist);
+						txtGenre9.setText(genre);
+						txtRating9.setText(rating);
+						txtReviews9.setText(reviews);
+						txtUploaded9.setText(uploaded);
+						btnAdd9.setEnabled(true);
+						break;
+					case 10:
+						txtSongID10.setText(songID);
+						txtTitle10.setText(title);
+						txtArtist10.setText(artist);
+						txtGenre10.setText(genre);
+						txtRating10.setText(rating);
+						txtReviews10.setText(reviews);
+						txtUploaded10.setText(uploaded);
+						btnAdd10.setEnabled(true);
+						btnNext.setEnabled(true);
+						break;
 				
-				
-				
-				
-				default:
-					System.out.println("nothing matching search criteria\n");
+					default:
+						System.out.println("nothing matching search criteria\n");
 				}
 					
 			row++;
 			}
-			
-		
-			
+	
 		}
 		catch (SQLException sqe)
 		{
@@ -1250,102 +1202,100 @@ public class AddToPlaylistScreen extends JFrame {
 		
 	
 	}
-	
-	
 
 
-public void clearScreen() {
+	public void clearScreen() {
 	
 
-	btnNext.setEnabled(false);
-	btnPrevious.setEnabled(false);
+		btnNext.setEnabled(false);
+		btnPrevious.setEnabled(false);
 
-	txtTitle1.setText("");
-	txtArtist1.setText("");
-	txtGenre1.setText("");
-	txtRating1.setText("");
-	txtReviews1.setText("");
-	txtUploaded1.setText("");
-	btnAdd1.setEnabled(false);
+		txtTitle1.setText("");
+		txtArtist1.setText("");
+		txtGenre1.setText("");
+		txtRating1.setText("");
+		txtReviews1.setText("");
+		txtUploaded1.setText("");
+		btnAdd1.setEnabled(false);
 
-	txtTitle2.setText("");
-	txtArtist2.setText("");
-	txtGenre2.setText("");
-	txtRating2.setText("");
-	txtReviews2.setText("");
-	txtUploaded2.setText("");
-	btnAdd2.setEnabled(false);
+		txtTitle2.setText("");
+		txtArtist2.setText("");
+		txtGenre2.setText("");
+		txtRating2.setText("");
+		txtReviews2.setText("");
+		txtUploaded2.setText("");
+		btnAdd2.setEnabled(false);
 	
-	txtTitle3.setText("");
-	txtArtist3.setText("");
-	txtGenre3.setText("");
-	txtRating3.setText("");
-	txtReviews3.setText("");
-	txtUploaded3.setText("");
-	btnAdd3.setEnabled(false);
+		txtTitle3.setText("");
+		txtArtist3.setText("");
+		txtGenre3.setText("");
+		txtRating3.setText("");
+		txtReviews3.setText("");
+		txtUploaded3.setText("");
+		btnAdd3.setEnabled(false);
 	
-	txtTitle4.setText("");
-	txtArtist4.setText("");
-	txtGenre4.setText("");
-	txtRating4.setText("");
-	txtReviews4.setText("");
-	txtUploaded4.setText("");
-	btnAdd4.setEnabled(false);
+		txtTitle4.setText("");
+		txtArtist4.setText("");
+		txtGenre4.setText("");
+		txtRating4.setText("");
+		txtReviews4.setText("");
+		txtUploaded4.setText("");
+		btnAdd4.setEnabled(false);
 	
-	txtTitle5.setText("");
-	txtArtist5.setText("");
-	txtGenre5.setText("");
-	txtRating5.setText("");
-	txtReviews5.setText("");
-	txtUploaded5.setText("");
-	btnAdd5.setEnabled(false);
+		txtTitle5.setText("");
+		txtArtist5.setText("");
+		txtGenre5.setText("");
+		txtRating5.setText("");
+		txtReviews5.setText("");
+		txtUploaded5.setText("");
+		btnAdd5.setEnabled(false);
 	
-	txtTitle6.setText("");
-	txtArtist6.setText("");
-	txtGenre6.setText("");
-	txtRating6.setText("");
-	txtReviews6.setText("");
-	txtUploaded6.setText("");
-	btnAdd6.setEnabled(false);
+		txtTitle6.setText("");
+		txtArtist6.setText("");
+		txtGenre6.setText("");
+		txtRating6.setText("");
+		txtReviews6.setText("");
+		txtUploaded6.setText("");
+		btnAdd6.setEnabled(false);
 	
-	txtTitle7.setText("");
-	txtArtist7.setText("");
-	txtGenre7.setText("");
-	txtRating7.setText("");
-	txtReviews7.setText("");
-	txtUploaded7.setText("");
-	btnAdd7.setEnabled(false);
+		txtTitle7.setText("");
+		txtArtist7.setText("");
+		txtGenre7.setText("");
+		txtRating7.setText("");
+		txtReviews7.setText("");
+		txtUploaded7.setText("");
+		btnAdd7.setEnabled(false);
 	
-	txtTitle8.setText("");
-	txtArtist8.setText("");
-	txtGenre8.setText("");
-	txtRating8.setText("");
-	txtReviews8.setText("");
-	txtUploaded8.setText("");
-	btnAdd8.setEnabled(false);
+		txtTitle8.setText("");
+		txtArtist8.setText("");
+		txtGenre8.setText("");
+		txtRating8.setText("");
+		txtReviews8.setText("");
+		txtUploaded8.setText("");
+		btnAdd8.setEnabled(false);
 	
-	txtTitle9.setText("");
-	txtArtist9.setText("");
-	txtGenre9.setText("");
-	txtRating9.setText("");
-	txtReviews9.setText("");
-	txtUploaded9.setText("");
-	btnAdd9.setEnabled(false);
+		txtTitle9.setText("");
+		txtArtist9.setText("");
+		txtGenre9.setText("");
+		txtRating9.setText("");
+		txtReviews9.setText("");
+		txtUploaded9.setText("");
+		btnAdd9.setEnabled(false);
 	
-	txtTitle10.setText("");
-	txtArtist10.setText("");
-	txtGenre10.setText("");
-	txtRating10.setText("");
-	txtReviews10.setText("");
-	txtUploaded10.setText("");
-	btnAdd10.setEnabled(false);
+		txtTitle10.setText("");
+		txtArtist10.setText("");
+		txtGenre10.setText("");
+		txtRating10.setText("");
+		txtReviews10.setText("");
+		txtUploaded10.setText("");
+		btnAdd10.setEnabled(false);
 	
 	
-}
+	}
 
 	public void tryAddSong(LoggedIn currentLoggedIn, PlaylistInfo currentPlaylistInfo,int ranking, String songID) throws CustomException {
 		
-		ResultSet checksong = AddToPlaylistApplication.songOnPlaylist(songID,currentLoggedIn.getCurrentUserID(),currentPlaylistInfo.getCurrentPlaylistTitle() );
+		ResultSet checksong = MySQLQueries.songOnPlaylist(songID,currentLoggedIn.getCurrentUserID(),currentPlaylistInfo.getCurrentPlaylistTitle() );
 
 		try
 		{
@@ -1360,7 +1310,7 @@ public void clearScreen() {
 				System.out.print("song not already on list");
 	
 				if (currentPlaylistInfo.getCurrentPlaylistTitle() != null) {
-					AddToPlaylistApplication.addSong(currentLoggedIn.getCurrentUserID(), songID ,currentPlaylistInfo.getCurrentPlaylistTitle(), ranking);
+					MySQLQueries.addSong(currentLoggedIn.getCurrentUserID(), songID ,currentPlaylistInfo.getCurrentPlaylistTitle(), ranking);
 	
 					ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
 					gui.setVisible(true);
@@ -1400,10 +1350,10 @@ public void clearScreen() {
 							{
 								currentPlaylistInfo.setCurrentPlaylistTitle(getPlaylistTitle.strip());
 				
-								AddToPlaylistApplication.addSong(currentLoggedIn.getCurrentUserID(), songID ,currentPlaylistInfo.getCurrentPlaylistTitle(), ranking);
+								MySQLQueries.addSong(currentLoggedIn.getCurrentUserID(), songID ,currentPlaylistInfo.getCurrentPlaylistTitle(), ranking);
 								System.out.println(currentPlaylistInfo.getCurrentPlaylistTitle() + currentPlaylistInfo.getCurrentPlaylistID());
 				
-								ResultSet getPlaylistID = AddToPlaylistApplication.getPlaylistID(currentLoggedIn.getCurrentUserID(),currentPlaylistInfo.getCurrentPlaylistTitle());
+								ResultSet getPlaylistID = MySQLQueries.getPlaylistID(currentLoggedIn.getCurrentUserID(),currentPlaylistInfo.getCurrentPlaylistTitle());
 				
 								String playlistID = null;
 				

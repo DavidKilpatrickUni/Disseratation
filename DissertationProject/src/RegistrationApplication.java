@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 public class RegistrationApplication {
 	
 	public static String checkRegistrationForm(String firstname, String surname, String myIdentity, Date date,  String username, String email, String password, String confirm) throws CustomException {
-		
+	
 
 		if (Helper.checkBlank(firstname) ||  Helper.regexSQLInjection(firstname) )
 		{

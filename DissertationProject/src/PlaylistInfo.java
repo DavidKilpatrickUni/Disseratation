@@ -20,7 +20,7 @@ public class PlaylistInfo {
 		this.currentPlaylistTitle = currentPlaylistTitle;
 
 	}
-
+	
 	public String getCurrentPlaylistID() {
 	
 		return currentPlaylistID;

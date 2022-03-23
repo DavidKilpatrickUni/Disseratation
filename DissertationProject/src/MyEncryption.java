@@ -7,7 +7,6 @@ public class MyEncryption {
 	
 	public static String getEncryptionKey() {
 		
-
 		return encryptionKey;
 		
 	}

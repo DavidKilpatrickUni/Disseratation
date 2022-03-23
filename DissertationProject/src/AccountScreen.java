@@ -36,7 +36,6 @@ public class AccountScreen extends JFrame {
 	private JPasswordField passwordField;
 	private JTextField txtSurname;
 	private JComboBox comboBoxIdentity; 
-	
 
 	public AccountScreen(LoggedIn currentLoggedIn) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
@@ -114,7 +113,7 @@ public class AccountScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {
 				
-					ProfileScreen frame = new ProfileScreen(currentLoggedIn);
+					ProfileMenuScreen frame = new ProfileMenuScreen(currentLoggedIn);
 					frame.setVisible(true);
 					dispose();
 				}
@@ -371,7 +370,7 @@ public class AccountScreen extends JFrame {
 					}
 				
 				}
-				
+			
 			}
 		});
 		btnSurname.setFont(new Font("Georgia", Font.PLAIN, 11));
