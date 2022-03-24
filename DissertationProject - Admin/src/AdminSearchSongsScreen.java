@@ -95,6 +95,7 @@ public class AdminSearchSongsScreen extends JFrame {
 	private JButton btnMenu;
 
 	public AdminSearchSongsScreen(AdminLoggedIn currentAdmin) {
+		setTitle("Admin - Search For Song");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1048, 624);
 		contentPane = new JPanel();
@@ -598,7 +599,7 @@ public class AdminSearchSongsScreen extends JFrame {
 		contentPane.add(txtPage);
 		txtPage.setColumns(10);
 		
-		btnMenu = new JButton("main Menu");
+		btnMenu = new JButton("Main Menu");
 		btnMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -608,7 +609,7 @@ public class AdminSearchSongsScreen extends JFrame {
 				
 			}
 		});
-		btnMenu.setBounds(425, 520, 89, 23);
+		btnMenu.setBounds(425, 520, 125, 23);
 		contentPane.add(btnMenu);
 	}
 	

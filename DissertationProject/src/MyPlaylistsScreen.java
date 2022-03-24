@@ -26,6 +26,26 @@ import java.awt.Image;
 import javax.swing.SwingConstants;
 import javax.swing.Icon;
 
+/**
+ * <h1> Class </h1>
+ * 
+ * <p>
+ * View part of the Tired architecture structure.
+ * </p>
+ * 
+ * <p>
+ * MyPlaylistScreen
+ * </p>
+ * 
+ * <p>
+ * Allows users to view or create their own playlists using songs from the Elenco database part of the program. 
+ * <br>Has a direct link with <code>MyPlaylistsApplication</code> that takes user input/tasks to process.
+ * </p>
+ * 
+ *
+ * @see DiscoverSongApplication
+ */
+
 public class MyPlaylistsScreen extends JFrame {
 
 	private JPanel contentPane;
@@ -74,6 +94,32 @@ public class MyPlaylistsScreen extends JFrame {
 	private JButton btnDeleteList8;
 	private JButton btnDeleteList9;
 	private JButton btnDeleteList10;
+	
+	// Constructors
+	
+	// Overloaded
+	
+	/**
+	 * <h1> Constructor </h1>
+	 * 
+	 * <p>
+	 * Default constructor for the <code>MyPlaylistsScreen</code> class. 
+	 * </p>
+	 * 
+	 * <p>
+	 * Sets up GUI elements and adds them to JPanel variable.
+	 * <br>Has ActionListeners to act on user input.
+	 * </p>
+	 * 
+	 * <p>
+	 * Parameter is the current information of the user currently logged into the application. A <code>LoggedIn</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentLoggedIn		<code>LoggedIn</code> object to store current user information.
+	 * 
+	 * @see MyPlaylistsScreen
+	 * @see LoggedIN
+	 */
 	
 	public MyPlaylistsScreen( LoggedIn currentLoggedIn) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
@@ -471,7 +517,7 @@ public class MyPlaylistsScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION)
 				{		
-					deleteProcess(currentLoggedIn , txtPlaylistID1.getText() );
+					deleteProcess(currentLoggedIn , txtPlaylistID1.getText() );																							// Delete the selected Playlist of given userID																						
 					JOptionPane.showMessageDialog(null, "Playlist Has Been Deleted", "Elenco - Successful Removed Playlist", JOptionPane.INFORMATION_MESSAGE,null);
 					clearScreen() ;
 					loadContent(currentLoggedIn);
@@ -704,10 +750,24 @@ public class MyPlaylistsScreen extends JFrame {
 		contentPane.add(btnDeleteList10);
 
 	}
+
+	
+	/**
+	 * <h1> Method </h1>
+	 * <p>
+	 * Receives parameter from <code>MyPlaylistsScreen</code> and uses it to search the database to find all playlists for the matching userID and populates the screen with the appropriate content.
+	 * </p>
+	 * @param currentLoggedIn		<code>LoggedIn</code> object to store current user information.
+	 *
+	 * @see MyPlaylistsScreenScreen
+	 * @see String
+	 * @see int
+	 * @see ResultSet
+	 */
 	
 	public void loadContent(LoggedIn currentLoggedIn){
 		
-		ResultSet myLists = MySQLQueries.loadPlaylists(currentLoggedIn.getCurrentUserID());
+		ResultSet myLists = MySQLQueries.loadPlaylists(currentLoggedIn.getCurrentUserID());				// Search database for all playlists by current user
 		
 		String playlistTitle = null;
 		String playListID = null;
@@ -716,14 +776,13 @@ public class MyPlaylistsScreen extends JFrame {
 		
 		try {
 
-			while (myLists.next())																	
+			while (myLists.next())																		// while a search result is found, set following variables to data in stated 'column' names of the database 												
 			{
-
 				playlistTitle = myLists.getString("PlaylistTitle");
 				playListID = myLists.getString("PlaylistID");
 				System.out.println(playlistTitle);
 
-				switch (row) {
+				switch (row) {																			// Switch to fill the appropriate section of the GUI i.e populate each section for ever iteration of while loop. Only 10 results are on screen at a time 	
 					case 1:
 						txtPlaylistTitle1.setText(playlistTitle);
 						btnPlaylist1.setText("View");
@@ -809,6 +868,16 @@ public class MyPlaylistsScreen extends JFrame {
 		
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * <p>
+	 * Clears and resets all GUI elements to the desired state.
+	 * </p>
+	 * 
+	 *
+	 * @see MyPlaylistsScreen
+	 */
+	
 	public void clearScreen() {
 		
 		txtPlaylistTitle1.setText("");
@@ -865,23 +934,39 @@ public class MyPlaylistsScreen extends JFrame {
 		
 	}
 	
+	
+	/**
+	 * <h1> Method </h1>
+	 * <p>
+	 * Receives parameter from <code>MyPlaylistsScreen</code> and uses it to delete database entries matching the mySQL search.
+	 * <br> Deletes a row from Playlist table that has same playlistID as provided.
+	 * <br> Then reloads the <code>MyPlaylistsScreen</code> ,so the changes to the database can be taken into consideration and only populate the GUI with playlists that exist for the current user.
+	 * </p>
+	 * @param currentLoggedIn		<code>LoggedIn</code> object to store current user information.
+	 * @param deletePlaylistID		<code>String</code> object to store current user information.
+	 *
+	 * @see MyPlaylistsScreenScreen
+	 * @see String
+	 * @see ResultSet
+	 */
+	
 	public void deleteProcess(LoggedIn currentLoggedIn, String deletePlaylistID) {
 		
-		ResultSet getCurrentPlaylistTitle = MySQLQueries.getCurrentPlaylistTitle(deletePlaylistID);
-		
+		ResultSet getCurrentPlaylistTitle = MySQLQueries.getCurrentPlaylistTitle(deletePlaylistID);				// Search for the name of playlist using playlistID parameter - this is because every song entry in a playlist has a unique playlistID,
+																												// once the playlist name is established all database entries with a userID and playlistTitle can be removed
 		String currentPlaylistTitle = null;
 		
 		
 		try 
 		{
-			if(getCurrentPlaylistTitle.next()) 
+			if(getCurrentPlaylistTitle.next()) 																	// If the ResultSet has rows remaining - i.e we want to delete all rows found
 			{
-				currentPlaylistTitle = getCurrentPlaylistTitle.getString("PlaylistTitle");					
+				currentPlaylistTitle = getCurrentPlaylistTitle.getString("PlaylistTitle");						// Set variable to data in row of ResultSet under specified column name			
 
-				MySQLQueries.DeletePlaylist(currentLoggedIn.getCurrentUserID(),currentPlaylistTitle );
+				MySQLQueries.DeletePlaylist(currentLoggedIn.getCurrentUserID(),currentPlaylistTitle );			// Delete from the database entries that have userID and playlistTitle we desire 
 				
 				clearScreen() ;
-				loadContent(currentLoggedIn);
+				loadContent(currentLoggedIn);																	// Refresh, reset and reload GUI
 			}
 		} 
 		catch (SQLException errror) 

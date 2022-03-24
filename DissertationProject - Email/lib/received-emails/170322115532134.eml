@@ -1,0 +1,15 @@
+        Thu, 17 Mar 2022 23:55:32 +0000 (GMT)
+From: InventoryControl@DE-Store.com
+To: StoreManager@DE-Store.com
+Message-ID: <2107896458.0.1647561332060.JavaMail.Random@I7Lenovo-PC>
+Subject: Stock Warning
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+
+StockID: 1      Item Name: Hammer      Stock: 20
+StockID: 2      Item Name: Spanner      Stock: 15
+StockID: 3      Item Name: Screwdriver      Stock: 25
+StockID: 4      Item Name: Saw      Stock: 23
+StockID: 5      Item Name: Pliers      Stock: 19
+StockID: 6      Item Name: Wrench      Stock: 22

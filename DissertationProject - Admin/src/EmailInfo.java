@@ -3,7 +3,7 @@ public class EmailInfo {
 	
 	private String firstname;
 	private String surname;
-	private String email;
+	private String emailAddress;
 	private String message;
 	
 	public EmailInfo() {
@@ -15,7 +15,7 @@ public class EmailInfo {
 	
 		this.firstname = firstname;
 		this.surname = surname;
-		this.email = email;
+		this.emailAddress = email;
 	
 	}
 
@@ -43,15 +43,15 @@ public class EmailInfo {
 	
 	}
 	
-	public String getEmail() {
+	public String getEmailAddress() {
 		
-		return email;
+		return emailAddress;
 	
 	}
 
-	public void setEmail(String email) {
+	public void setEmailAddress(String emailAddress) {
 	
-		this.email = email;
+		this.emailAddress = emailAddress;
 	
 	}
 	

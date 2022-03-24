@@ -246,14 +246,21 @@ public class AddToPlaylistScreen extends JFrame {
 		btnAdd1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				try 
-				{
-					tryAddSong(currentLoggedIn, currentPlaylistInfo,ranking, txtSongID1.getText());
-					JOptionPane.showMessageDialog(null, "Song Has Been Added To Playlist", "Elenco - Successful Added Song To Playlist", JOptionPane.INFORMATION_MESSAGE,null);
-				}
-				catch (CustomException error)
-				{
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Add Song To Playlist?", "Elenco - Add Song To Playlist", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+				if (select == JOptionPane.YES_OPTION) {		
+					try 
+					{
+						tryAddSong(currentLoggedIn, currentPlaylistInfo,ranking, txtSongID1.getText());
+						JOptionPane.showMessageDialog(null, "Song Has Been Added To Playlist", "Elenco - Successful Added Song To Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					}
+					catch (CustomException error)
+					{
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+					}
 				}
 				
 			}
@@ -268,6 +275,7 @@ public class AddToPlaylistScreen extends JFrame {
 		contentPane.add(comboBoxCriteria);
 		
 		txtSongID1 = new JTextField();
+		txtSongID1.setVisible(false);
 		txtSongID1.setBounds(995, 219, 25, 20);
 		contentPane.add(txtSongID1);
 		txtSongID1.setColumns(10);
@@ -702,15 +710,21 @@ public class AddToPlaylistScreen extends JFrame {
 		btnAdd2.setEnabled(false);
 		btnAdd2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int select;																												
 				
-				try 
-				{
-					tryAddSong(currentLoggedIn, currentPlaylistInfo,ranking, txtSongID2.getText());
-					JOptionPane.showMessageDialog(null, "Song Has Been Added To Playlist", "Elenco - Successful Added Song To Playlist", JOptionPane.INFORMATION_MESSAGE,null);
-				}
-				catch (CustomException error)
-				{
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Add Song To Playlist?", "Elenco - Add Song To Playlist", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+				if (select == JOptionPane.YES_OPTION) {	
+					try 
+					{
+						tryAddSong(currentLoggedIn, currentPlaylistInfo,ranking, txtSongID2.getText());
+						JOptionPane.showMessageDialog(null, "Song Has Been Added To Playlist", "Elenco - Successful Added Song To Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					}
+					catch (CustomException error)
+					{
+						JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+					}
 				}
 			}
 		});
@@ -721,15 +735,21 @@ public class AddToPlaylistScreen extends JFrame {
 		btnAdd3 = new JButton("Add To Playlist");
 		btnAdd3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int select;																												
 				
-				try 
-				{
-					tryAddSong(currentLoggedIn, currentPlaylistInfo,ranking, txtSongID3.getText());
-					JOptionPane.showMessageDialog(null, "Song Has Been Added To Playlist", "Elenco - Successful Added Song To Playlist", JOptionPane.INFORMATION_MESSAGE,null);
-				}
-				catch (CustomException error)
-				{
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Add Song To Playlist?", "Elenco - Add Song To Playlist", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+				if (select == JOptionPane.YES_OPTION) {	
+					try 
+					{
+						tryAddSong(currentLoggedIn, currentPlaylistInfo,ranking, txtSongID3.getText());
+						JOptionPane.showMessageDialog(null, "Song Has Been Added To Playlist", "Elenco - Successful Added Song To Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					}
+					catch (CustomException error)
+					{
+						JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+					}
 				}
 				
 			}
@@ -742,17 +762,22 @@ public class AddToPlaylistScreen extends JFrame {
 		btnAdd4 = new JButton("Add To Playlist");
 		btnAdd4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int select;																												
 				
-				try 
-				{
-					tryAddSong(currentLoggedIn, currentPlaylistInfo,ranking, txtSongID4.getText());
-					JOptionPane.showMessageDialog(null, "Song Has Been Added To Playlist", "Elenco - Successful Added Song To Playlist", JOptionPane.INFORMATION_MESSAGE,null);
-				}
-				catch (CustomException error)
-				{
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
-				}
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Add Song To Playlist?", "Elenco - Add Song To Playlist", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
 				
+				if (select == JOptionPane.YES_OPTION) {	
+					try 
+					{
+						tryAddSong(currentLoggedIn, currentPlaylistInfo,ranking, txtSongID4.getText());
+						JOptionPane.showMessageDialog(null, "Song Has Been Added To Playlist", "Elenco - Successful Added Song To Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					}
+					catch (CustomException error)
+					{
+						JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+					}
+				}
 			}
 		});
 		btnAdd4.setEnabled(false);
@@ -763,17 +788,22 @@ public class AddToPlaylistScreen extends JFrame {
 		btnAdd5 = new JButton("Add To Playlist");
 		btnAdd5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int select;																												
 				
-				try 
-				{
-					tryAddSong(currentLoggedIn, currentPlaylistInfo,ranking, txtSongID5.getText());
-					JOptionPane.showMessageDialog(null, "Song Has Been Added To Playlist", "Elenco - Successful Added Song To Playlist", JOptionPane.INFORMATION_MESSAGE,null);
-				}
-				catch (CustomException error)
-				{
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
-				}
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Add Song To Playlist?", "Elenco - Add Song To Playlist", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
 				
+				if (select == JOptionPane.YES_OPTION) {	
+					try 
+					{
+						tryAddSong(currentLoggedIn, currentPlaylistInfo,ranking, txtSongID5.getText());
+						JOptionPane.showMessageDialog(null, "Song Has Been Added To Playlist", "Elenco - Successful Added Song To Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					}
+					catch (CustomException error)
+					{
+						JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+					}
+				}
 			}
 		});
 		btnAdd5.setEnabled(false);
@@ -784,17 +814,22 @@ public class AddToPlaylistScreen extends JFrame {
 		btnAdd6 = new JButton("Add To Playlist");
 		btnAdd6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int select;																												
 				
-				try 
-				{
-					tryAddSong(currentLoggedIn, currentPlaylistInfo,ranking, txtSongID6.getText());
-					JOptionPane.showMessageDialog(null, "Song Has Been Added To Playlist", "Elenco - Successful Added Song To Playlist", JOptionPane.INFORMATION_MESSAGE,null);
-				}
-				catch (CustomException error)
-				{
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
-				}
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Add Song To Playlist?", "Elenco - Add Song To Playlist", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
 				
+				if (select == JOptionPane.YES_OPTION) {	
+					try 
+					{
+						tryAddSong(currentLoggedIn, currentPlaylistInfo,ranking, txtSongID6.getText());
+						JOptionPane.showMessageDialog(null, "Song Has Been Added To Playlist", "Elenco - Successful Added Song To Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					}
+					catch (CustomException error)
+					{
+						JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+					}
+				}
 			}
 		});
 		btnAdd6.setEnabled(false);
@@ -805,15 +840,21 @@ public class AddToPlaylistScreen extends JFrame {
 		btnAdd7 = new JButton("Add To Playlist");
 		btnAdd7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int select;																												
 				
-				try 
-				{
-					tryAddSong(currentLoggedIn, currentPlaylistInfo,ranking, txtSongID7.getText());
-					JOptionPane.showMessageDialog(null, "Song Has Been Added To Playlist", "Elenco - Successful Added Song To Playlist", JOptionPane.INFORMATION_MESSAGE,null);
-				}
-				catch (CustomException error)
-				{
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Add Song To Playlist?", "Elenco - Add Song To Playlist", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+				if (select == JOptionPane.YES_OPTION) {		
+					try 
+					{
+						tryAddSong(currentLoggedIn, currentPlaylistInfo,ranking, txtSongID7.getText());
+						JOptionPane.showMessageDialog(null, "Song Has Been Added To Playlist", "Elenco - Successful Added Song To Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					}
+					catch (CustomException error)
+					{
+						JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+					}
 				}
 			}
 		});
@@ -825,15 +866,21 @@ public class AddToPlaylistScreen extends JFrame {
 		btnAdd8 = new JButton("Add To Playlist");
 		btnAdd8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int select;																												
 				
-				try 
-				{
-					tryAddSong(currentLoggedIn, currentPlaylistInfo,ranking, txtSongID8.getText());
-					JOptionPane.showMessageDialog(null, "Song Has Been Added To Playlist", "Elenco - Successful Added Song To Playlist", JOptionPane.INFORMATION_MESSAGE,null);
-				}
-				catch (CustomException error)
-				{
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Add Song To Playlist?", "Elenco - Add Song To Playlist", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+				if (select == JOptionPane.YES_OPTION) {	
+					try 
+					{
+						tryAddSong(currentLoggedIn, currentPlaylistInfo,ranking, txtSongID8.getText());
+						JOptionPane.showMessageDialog(null, "Song Has Been Added To Playlist", "Elenco - Successful Added Song To Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					}
+					catch (CustomException error)
+					{
+						JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+					}
 				}
 			}
 		});
@@ -845,15 +892,21 @@ public class AddToPlaylistScreen extends JFrame {
 		btnAdd9 = new JButton("Add To Playlist");
 		btnAdd9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int select;																												
 				
-				try 
-				{
-					tryAddSong(currentLoggedIn, currentPlaylistInfo,ranking, txtSongID9.getText());
-					JOptionPane.showMessageDialog(null, "Song Has Been Added To Playlist", "Elenco - Successful Added Song To Playlist", JOptionPane.INFORMATION_MESSAGE,null);
-				}
-				catch (CustomException error)
-				{
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Add Song To Playlist?", "Elenco - Add Song To Playlist", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+				if (select == JOptionPane.YES_OPTION) {	
+					try 
+					{
+						tryAddSong(currentLoggedIn, currentPlaylistInfo,ranking, txtSongID9.getText());
+						JOptionPane.showMessageDialog(null, "Song Has Been Added To Playlist", "Elenco - Successful Added Song To Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					}
+					catch (CustomException error)
+					{
+						JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+					}
 				}
 			}
 		});
@@ -865,15 +918,21 @@ public class AddToPlaylistScreen extends JFrame {
 		btnAdd10 = new JButton("Add To Playlist");
 		btnAdd10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int select;																												
 				
-				try 
-				{
-					tryAddSong(currentLoggedIn, currentPlaylistInfo,ranking, txtSongID10.getText());
-					JOptionPane.showMessageDialog(null, "Song Has Been Added To Playlist", "Elenco - Successful Added Song To Playlist", JOptionPane.INFORMATION_MESSAGE,null);
-				}
-				catch (CustomException error)
-				{
-					JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Add Song To Playlist?", "Elenco - Add Song To Playlist", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+				if (select == JOptionPane.YES_OPTION) {	
+					try 
+					{
+						tryAddSong(currentLoggedIn, currentPlaylistInfo,ranking, txtSongID10.getText());
+						JOptionPane.showMessageDialog(null, "Song Has Been Added To Playlist", "Elenco - Successful Added Song To Playlist", JOptionPane.INFORMATION_MESSAGE,null);
+					}
+					catch (CustomException error)
+					{
+						JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
+					}
 				}
 				
 			}
@@ -884,46 +943,55 @@ public class AddToPlaylistScreen extends JFrame {
 		contentPane.add(btnAdd10);
 		
 		txtSongID2 = new JTextField();
+		txtSongID2.setVisible(false);
 		txtSongID2.setColumns(10);
 		txtSongID2.setBounds(995, 249, 25, 20);
 		contentPane.add(txtSongID2);
 		
 		txtSongID3 = new JTextField();
+		txtSongID3.setVisible(false);
 		txtSongID3.setColumns(10);
 		txtSongID3.setBounds(995, 279, 25, 20);
 		contentPane.add(txtSongID3);
 		
 		txtSongID4 = new JTextField();
+		txtSongID4.setVisible(false);
 		txtSongID4.setColumns(10);
 		txtSongID4.setBounds(995, 309, 25, 20);
 		contentPane.add(txtSongID4);
 		
 		txtSongID5 = new JTextField();
+		txtSongID5.setVisible(false);
 		txtSongID5.setColumns(10);
 		txtSongID5.setBounds(995, 339, 25, 20);
 		contentPane.add(txtSongID5);
 		
 		txtSongID6 = new JTextField();
+		txtSongID6.setVisible(false);
 		txtSongID6.setColumns(10);
 		txtSongID6.setBounds(995, 369, 25, 20);
 		contentPane.add(txtSongID6);
 		
 		txtSongID7 = new JTextField();
+		txtSongID7.setVisible(false);
 		txtSongID7.setColumns(10);
 		txtSongID7.setBounds(995, 399, 25, 20);
 		contentPane.add(txtSongID7);
 		
 		txtSongID8 = new JTextField();
+		txtSongID8.setVisible(false);
 		txtSongID8.setColumns(10);
 		txtSongID8.setBounds(995, 429, 25, 20);
 		contentPane.add(txtSongID8);
 		
 		txtSongID9 = new JTextField();
+		txtSongID9.setVisible(false);
 		txtSongID9.setColumns(10);
 		txtSongID9.setBounds(995, 460, 25, 20);
 		contentPane.add(txtSongID9);
 		
 		txtSongID10 = new JTextField();
+		txtSongID10.setVisible(false);
 		txtSongID10.setColumns(10);
 		txtSongID10.setBounds(995, 489, 25, 20);
 		contentPane.add(txtSongID10);

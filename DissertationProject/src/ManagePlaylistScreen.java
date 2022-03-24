@@ -26,8 +26,32 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JToggleButton;
 
+/**
+ * <h1> Class </h1>
+ * 
+ * <p>
+ * View part of the Tired architecture structure.
+ * </p>
+ * 
+ * <p>
+ * MyPlaylistScreen
+ * </p>
+ * 
+ * <p>
+ * Allows users to view, add or delete songs part of their own current playlist from the Elenco database part of the program. 
+ * <br> Also has the ability to rename a playlist that exists and 'rank' songs within the playlist to the users liking.
+ * <br>Has a direct link with <code>ManagePlaylistApplication</code> that takes user input/tasks to process.
+ * </p>
+ * 
+ *
+ * @see ManagePlaylistApplication
+ */
+
 public class ManagePlaylistScreen extends JFrame {
 
+	
+	// Variables
+	
 	private JPanel contentPane;
 	private static JTextField txtPlaylistTitle;
 	private JTextField txtTitle1;
@@ -134,7 +158,37 @@ public class ManagePlaylistScreen extends JFrame {
 	private JLabel lblRating;
 	private JLabel lblRanking;
 	private JLabel lblElencoManage;
+	private JTextField txtTag;
 
+	
+	// Constructors
+	
+	// Overloaded
+	
+	/**
+	 * <h1> Constructor </h1>
+	 * 
+	 * <p>
+	 * Default constructor for the <code>MyPlaylistsScreen</code> class. 
+	 * </p>
+	 * 
+	 * <p>
+	 * Sets up GUI elements and adds them to JPanel variable.
+	 * <br>Has ActionListeners to act on user input.
+	 * </p>
+	 * 
+	 * <p>
+	 * Parameter one is the current information of the user currently logged into the application. A <code>LoggedIn</code> object is used to store the data.
+	 * Parameter two is the current playlist information of the playListID selected on previous GUI <code>MyPlaylistScreen</code>. A <code>PlayListInfo</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentLoggedIn		<code>LoggedIn</code> object to store current user information.
+	 * @param currentLoggedIn		<code>PlayListInfo</code> object to store current playlist information.
+	 * 
+	 * @see MyPlaylistsScreen
+	 * @see LoggedIN
+	 * @see PlayListInfo
+	 */
 
 	public ManagePlaylistScreen(LoggedIn currentLoggedIn, PlaylistInfo currentPlaylistInfo) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
@@ -213,7 +267,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnAdd1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				AddToPlaylistScreen frame = new AddToPlaylistScreen(currentLoggedIn, currentPlaylistInfo, 1);
+				AddToPlaylistScreen frame = new AddToPlaylistScreen(currentLoggedIn, currentPlaylistInfo, 1);						// Open next GUI with correct user info, playlist info and int 'rank' - the slot on which to add the song to for given playlist 
 				frame.setVisible(true);
 				dispose();
 			
@@ -245,13 +299,13 @@ public class ManagePlaylistScreen extends JFrame {
 		btnRename.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if (Helper.checkPlaylistTitle(txtPlaylistTitle.getText().strip()))
+				if (Helper.checkPlaylistTitle(txtPlaylistTitle.getText().strip()))			// Check Rename is not blank and sql sanitised 
 				{
 					JOptionPane.showMessageDialog(null, "Valid Playlist Title Input Required - No Use Of Banned Special Characters", "Elenco - Invalid Playlist Title", JOptionPane.ERROR_MESSAGE,null);
 				}
 				else
 				{
-					ResultSet checkPlaylist = MySQLQueries.playlistTitleExists(currentLoggedIn.getCurrentUserID(), txtPlaylistTitle.getText().strip());
+					ResultSet checkPlaylist = MySQLQueries.playlistTitleExists(currentLoggedIn.getCurrentUserID(), txtPlaylistTitle.getText().strip());	// Check that the current user does not have a playlist of the same name as desired name
 				
 					try {
 						if (checkPlaylist.next()) {
@@ -261,7 +315,7 @@ public class ManagePlaylistScreen extends JFrame {
 						else
 						{
 							System.out.println("Playlist title does not exists for userID");
-							MySQLQueries.updatePlaylistTitle(currentLoggedIn.getCurrentUserID(), currentPlaylistInfo.getCurrentPlaylistTitle(), txtPlaylistTitle.getText().strip());
+							MySQLQueries.updatePlaylistTitle(currentLoggedIn.getCurrentUserID(), currentPlaylistInfo.getCurrentPlaylistTitle(), txtPlaylistTitle.getText().strip());	// If false update the playlist title of all appropriate rows in database 
 							JOptionPane.showMessageDialog(null, "Playlist Title Renamed", "Elenco - Successful Name Change", JOptionPane.INFORMATION_MESSAGE,null);
 						}
 				
@@ -299,8 +353,8 @@ public class ManagePlaylistScreen extends JFrame {
 						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
 				
 				if (select == JOptionPane.YES_OPTION) {	
-					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID1.getText());
-					loadContent(currentPlaylistInfo, currentLoggedIn) ;
+					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID1.getText());			// Remove selected GUI row entry and remove its equivalent database entry from database using userID and playlistID (i.e every song on a playlist has a unique playlistID
+					loadContent(currentPlaylistInfo, currentLoggedIn) ;											// Reload GUI with new accurate info from database. (i.e song has been removed)
 				}
 			}
 		});
@@ -561,7 +615,7 @@ public class ManagePlaylistScreen extends JFrame {
 		btnDown1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				MySQLQueries.swapRanking( txtID2.getText(), txtID1.getText());
+				MySQLQueries.swapRanking( txtID2.getText(), txtID1.getText());			// Swap 'ranking' of songs on playlist. Moves one song up the ranking list and other down
 				loadContent(currentPlaylistInfo, currentLoggedIn) ;
 			
 			}
@@ -1147,21 +1201,49 @@ public class ManagePlaylistScreen extends JFrame {
 		lblElencoManage.setFont(new Font("Georgia", Font.BOLD, 24));
 		lblElencoManage.setBounds(373, 51, 300, 25);
 		contentPane.add(lblElencoManage);
+		
+		JLabel lblPlaylistTag = new JLabel("Playlist Tag");
+		lblPlaylistTag.setForeground(new Color(90, 192, 217));
+		lblPlaylistTag.setFont(new Font("Georgia", Font.BOLD, 12));
+		lblPlaylistTag.setBounds(593, 130, 100, 25);
+		contentPane.add(lblPlaylistTag);
+		
+		txtTag = new JTextField();
+		txtTag.setColumns(10);
+		txtTag.setBounds(687, 130, 150, 25);
+		contentPane.add(txtTag);
+		
+		JButton btnTag = new JButton("Rename");
+		btnTag.setEnabled(false);
+		btnTag.setBounds(860, 130, 100, 25);
+		contentPane.add(btnTag);
 	}
 	
-	
+	/**
+	 * <h1> Method </h1>
+	 * <p>
+	 * Receives parameter from <code>MangaePlayListScreen</code> and uses it to search the database to find all songs for the matching userID and playlist title and populates the screen with the appropriate content.
+	 * </p>
+	 * @param currentPlaylistInfo	<code>PlaylistInfo</code> object to store current playlist information.
+	 * @param currentLoggedIn		<code>LoggedIn</code> object to store current user information.
+	 *
+	 * @see ManagePlayListScreen
+	 * @see String
+	 * @see int
+	 * @see ResultSet
+	 */
 	
 	public void loadContent( PlaylistInfo currentPlaylistInfo, LoggedIn currentLoggedIn){
 		
 		clearScreen();	
 	
 		String currentPlaylistTitle = null;
-		ResultSet getCurrentPlaylistTitle = MySQLQueries.getCurrentPlaylistTitle(currentPlaylistInfo.getCurrentPlaylistID());
+		ResultSet getCurrentPlaylistTitle = MySQLQueries.getCurrentPlaylistTitle(currentPlaylistInfo.getCurrentPlaylistID());	// Search database for current playlistTitle using the parameter playlistID	
 	
 		try 
 		{
 		
-			while (getCurrentPlaylistTitle.next()) {
+			while (getCurrentPlaylistTitle.next()) {																			// When a database entry is found make the variable below equal row content of database column
 				
 				currentPlaylistTitle = getCurrentPlaylistTitle.getString("PlaylistTitle");
 				
@@ -1172,9 +1254,9 @@ public class ManagePlaylistScreen extends JFrame {
 			
 		}
 		
-		ResultSet currentList = MySQLQueries.loadAPlaylist(currentPlaylistTitle, currentLoggedIn.getCurrentUserID());
+		ResultSet currentList = MySQLQueries.loadAPlaylist(currentPlaylistTitle, currentLoggedIn.getCurrentUserID());			// With the information established find all songs in playlist table that have matching userID and playlistTitle
 		
-		String playlistTitle = null;
+		String playlistTitle = null;																							
 		String playlistId = null;
 		String title = null;
 		String artist = null;
@@ -1185,7 +1267,7 @@ public class ManagePlaylistScreen extends JFrame {
 		try {
 			
 						
-			while (currentList.next()){
+			while (currentList.next()){																							// For all entries in Result Set, make the variable below equal row content of database column
 						
 				playlistTitle = currentList.getString("PlaylistTitle");
 				txtPlaylistTitle.setText(playlistTitle);
@@ -1201,13 +1283,13 @@ public class ManagePlaylistScreen extends JFrame {
 							
 				currentPlaylistInfo.setCurrentPlaylistTitle(playlistTitle);
 							
-				if (playlistTitle != null || playlistTitle != "")	
+				if (playlistTitle != null || playlistTitle != "")																// Quick Check to see if a playlist exists. If true change GUI to allow renaming of playlist
 				{
 					btnRename.setEnabled(true);
 				}
 					
 							
-				switch (ranking) {
+				switch (ranking) {										// Switch to fill the appropriate line of the search result section of the GUI i.e populate each row inturn for ever iteration of while loop. Only 10 results are on screen at a time 
 					case 1:
 						
 						txtID1.setText(playlistId);
@@ -1343,6 +1425,16 @@ public class ManagePlaylistScreen extends JFrame {
 		}
 			
 	}
+	
+	/**
+	 * <h1> Method </h1>
+	 * <p>
+	 * Clears and resets all GUI elements to the desired state.
+	 * </p>
+	 * 
+	 *
+	 * @see ManagePlaylistScreen
+	 */
 	
 	public void clearScreen() {
 		

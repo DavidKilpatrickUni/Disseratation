@@ -87,6 +87,7 @@ public class AdminSearchPlaylistScreen extends JFrame {
 
 
 	public AdminSearchPlaylistScreen(AdminLoggedIn currentAdmin) {
+		setTitle("Admin - Search Playlists");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 696, 679);
 		contentPane = new JPanel();
@@ -664,7 +665,7 @@ public class AdminSearchPlaylistScreen extends JFrame {
 			}
 		});
 		btnNext.setEnabled(false);
-		btnNext.setBounds(305, 562, 89, 23);
+		btnNext.setBounds(399, 562, 89, 23);
 		contentPane.add(btnNext);
 		
 		btnPrevious = new JButton("Previous");
@@ -680,7 +681,7 @@ public class AdminSearchPlaylistScreen extends JFrame {
 			}
 		});
 		btnPrevious.setEnabled(false);
-		btnPrevious.setBounds(104, 562, 89, 23);
+		btnPrevious.setBounds(208, 562, 89, 23);
 		contentPane.add(btnPrevious);
 		
 		btnMain = new JButton("Main Menu");
@@ -692,12 +693,12 @@ public class AdminSearchPlaylistScreen extends JFrame {
 				dispose();
 			}
 		});
-		btnMain.setBounds(214, 606, 100, 23);
+		btnMain.setBounds(303, 606, 100, 23);
 		contentPane.add(btnMain);
 		
 		txtPage = new JTextField();
 		txtPage.setText("");
-		txtPage.setBounds(222, 563, 50, 20);
+		txtPage.setBounds(324, 563, 50, 20);
 		contentPane.add(txtPage);
 		txtPage.setColumns(10);
 		

@@ -36,6 +36,7 @@ public class AdminViewSongScreen extends JFrame {
 	private JTextArea txtSongInfo;
 
 	public AdminViewSongScreen(AdminLoggedIn currentAdmin, String currentSongID) {
+		setTitle("Admin - Song Detail");
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -44,38 +45,38 @@ public class AdminViewSongScreen extends JFrame {
 			}
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 852, 698);
+		setBounds(100, 100, 829, 609);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblTitle = new JLabel("Title");
-		lblTitle.setBounds(43, 203, 48, 14);
+		lblTitle.setBounds(42, 112, 48, 14);
 		contentPane.add(lblTitle);
 		
 		JLabel lblArtist = new JLabel("Artist");
-		lblArtist.setBounds(43, 255, 48, 14);
+		lblArtist.setBounds(42, 164, 48, 14);
 		contentPane.add(lblArtist);
 		
 		JLabel lblGenre = new JLabel("Genre");
-		lblGenre.setBounds(43, 303, 48, 14);
+		lblGenre.setBounds(42, 212, 48, 14);
 		contentPane.add(lblGenre);
 		
 		JLabel lblSongLength = new JLabel("Song Length");
-		lblSongLength.setBounds(43, 354, 71, 14);
+		lblSongLength.setBounds(42, 263, 71, 14);
 		contentPane.add(lblSongLength);
 		
 		JLabel lblReleased = new JLabel("Released");
-		lblReleased.setBounds(43, 400, 48, 14);
+		lblReleased.setBounds(42, 309, 75, 14);
 		contentPane.add(lblReleased);
 		
 		JLabel lblAlbum = new JLabel("Album");
-		lblAlbum.setBounds(43, 453, 48, 14);
+		lblAlbum.setBounds(42, 362, 48, 14);
 		contentPane.add(lblAlbum);
 		
 		JLabel lblSongInfo = new JLabel("Song Info");
-		lblSongInfo.setBounds(425, 208, 48, 14);
+		lblSongInfo.setBounds(424, 117, 75, 14);
 		contentPane.add(lblSongInfo);
 		
 		JButton btnUpdate = new JButton("Update");
@@ -98,7 +99,7 @@ public class AdminViewSongScreen extends JFrame {
 				
 			}
 		});
-		btnUpdate.setBounds(278, 538, 89, 23);
+		btnUpdate.setBounds(350, 418, 125, 23);
 		contentPane.add(btnUpdate);
 		
 		JButton btnDelete = new JButton("Delete");
@@ -130,7 +131,7 @@ public class AdminViewSongScreen extends JFrame {
 				}
 			}
 		});
-		btnDelete.setBounds(425, 538, 89, 23);
+		btnDelete.setBounds(350, 468, 125, 23);
 		contentPane.add(btnDelete);
 		
 		JButton btnBack = new JButton("Back");
@@ -142,46 +143,46 @@ public class AdminViewSongScreen extends JFrame {
 				dispose();
 			}
 		});
-		btnBack.setBounds(350, 602, 89, 23);
+		btnBack.setBounds(364, 532, 100, 23);
 		contentPane.add(btnBack);
 		
 		txtTitle = new JTextField();
-		txtTitle.setBounds(150, 200, 200, 20);
+		txtTitle.setBounds(149, 109, 200, 20);
 		contentPane.add(txtTitle);
 		txtTitle.setColumns(10);
 		
 		txtArtist = new JTextField();
-		txtArtist.setBounds(150, 250, 200, 20);
+		txtArtist.setBounds(149, 159, 200, 20);
 		contentPane.add(txtArtist);
 		txtArtist.setColumns(10);
 		
 		txtGenre = new JTextField();
-		txtGenre.setBounds(152, 300, 200, 20);
+		txtGenre.setBounds(151, 209, 200, 20);
 		contentPane.add(txtGenre);
 		txtGenre.setColumns(10);
 		
 		txtAlbum = new JTextField();
-		txtAlbum.setBounds(152, 450, 200, 20);
+		txtAlbum.setBounds(151, 359, 200, 20);
 		contentPane.add(txtAlbum);
 		txtAlbum.setColumns(10);
 		
 		txtSongInfo = new JTextArea();
-		txtSongInfo.setBounds(509, 203, 257, 264);
+		txtSongInfo.setBounds(508, 112, 257, 264);
 		contentPane.add(txtSongInfo);
 		
 		txtSongLength = new JTextField();
-		txtSongLength.setBounds(150, 351, 200, 20);
+		txtSongLength.setBounds(149, 260, 200, 20);
 		contentPane.add(txtSongLength);
 		txtSongLength.setColumns(10);
 		
 		txtReleased = new JTextField();
-		txtReleased.setBounds(150, 397, 200, 20);
+		txtReleased.setBounds(149, 306, 200, 20);
 		contentPane.add(txtReleased);
 		txtReleased.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Song Detail");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel.setBounds(334, 39, 257, 59);
+		lblNewLabel.setBounds(332, 11, 257, 59);
 		contentPane.add(lblNewLabel);
 	}
 	

@@ -16,6 +16,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.ButtonGroup;
@@ -33,8 +34,32 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.border.MatteBorder;
 
-public class DiscoverScreen extends JFrame {
+/**
+ * <h1> Class </h1>
+ * 
+ * <p>
+ * View part of the Tired architecture structure.
+ * </p>
+ * 
+ * <p>
+ * DiscoverSongScreen
+ * </p>
+ * 
+ * <p>
+ * Allows users to custom search, view and interact with all the songs on Elenco database part of the program. 
+ * <br>Viewing has greater detail than the normal search result contains.
+ * <br>Also is the area to allow user commenting and rating of the selected song.
+ * <br>Has a direct link with <code>DiscoverSongApplication</code> that takes user input/tasks to process.
+ * </p>
+ * 
+ *
+ * @see DiscoverSongApplication
+ */
 
+public class DiscoverSongScreen extends JFrame {
+
+	// Variables
+	
 	private JPanel contentPane;
 	private JTextField txtTitle1;
 	private JTextField txtArtist1;
@@ -127,11 +152,41 @@ public class DiscoverScreen extends JFrame {
 	private JRadioButton rdbtnDescending ;
 	private JLabel lblPage;
 	private JTextField txtPage;
+	
+	
 	private int pageCount = 1;
-	private int sqlOffset = 0;
-	private int sqlRowCount = 10;
+	private int sqlOffset = 0;			// variable for offset during mysql LIMIT queries
+	private int sqlRowCount = 10;		// variable for count during mysql LIMIT queries
 
-	public DiscoverScreen(LoggedIn currentLoggedIn) {
+	// Constructors
+	
+	// Overloaded
+	
+	/**
+	 * <h1> Constructor </h1>
+	 * 
+	 * <p>
+	 * Default constructor for the <code>DiscoverSongScreen</code> class. 
+	 * </p>
+	 * 
+	 * <p>
+	 * Sets up GUI elements and adds them to JPanel variable.
+	 * <br>Has ActionListeners to act on user input.
+	 * <br>Makes use of CustomException to rely feedback to user.
+	 * </p>
+	 * 
+	 * <p>
+	 * Parameter is the current information of the user currently logged into the application. A <code>LoggedIn</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentLoggedIn		<code>LoggedIn</code> object to store current user information.
+	 * 
+	 * @see DiscoverSongScreen
+	 * @see LoggedIN
+	 * @see CustomException
+	 */
+	
+	public DiscoverSongScreen(LoggedIn currentLoggedIn) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
 		setTitle("Elenco - Discover Songs");
 		setBackground(Color.WHITE);
@@ -376,9 +431,9 @@ public class DiscoverScreen extends JFrame {
 		contentPane.add(txtUploaded2);
 		
 		txtSongID1 = new JTextField();
+		txtSongID1.setVisible(false);
 		txtSongID1.setBounds(1000, 220, 20, 20);
 		contentPane.add(txtSongID1);
-		txtSongID1.setVisible(false);
 		txtSongID1.setColumns(10);
 		
 		txtTitle3 = new JTextField();
@@ -673,45 +728,45 @@ public class DiscoverScreen extends JFrame {
 		contentPane.add(txtUploaded10);
 		
 		txtSongID4 = new JTextField();
+		txtSongID4.setVisible(false);
 		txtSongID4.setColumns(10);
 		txtSongID4.setBounds(1000, 310, 20, 20);
-		txtSongID4.setVisible(false);
 		contentPane.add(txtSongID4);
 		
 		txtSongID5 = new JTextField();
+		txtSongID5.setVisible(false);
 		txtSongID5.setColumns(10);
 		txtSongID5.setBounds(1000, 340, 20, 20);
-		txtSongID5.setVisible(false);
 		contentPane.add(txtSongID5);
 		
 		txtSongID6 = new JTextField();
+		txtSongID6.setVisible(false);
 		txtSongID6.setColumns(10);
 		txtSongID6.setBounds(1000, 370, 20, 20);
-		txtSongID6.setVisible(false);
 		contentPane.add(txtSongID6);
 		
 		txtSongID7 = new JTextField();
+		txtSongID7.setVisible(false);
 		txtSongID7.setColumns(10);
 		txtSongID7.setBounds(1000, 400, 20, 20);
-		txtSongID7.setVisible(false);
 		contentPane.add(txtSongID7);
 		
 		txtSongID8 = new JTextField();
+		txtSongID8.setVisible(false);
 		txtSongID8.setColumns(10);
 		txtSongID8.setBounds(1000, 430, 20, 20);
-		txtSongID8.setVisible(false);
 		contentPane.add(txtSongID8);
 		
 		txtSongID9 = new JTextField();
+		txtSongID9.setVisible(false);
 		txtSongID9.setColumns(10);
 		txtSongID9.setBounds(1000, 460, 20, 20);
-		txtSongID9.setVisible(false);
 		contentPane.add(txtSongID9);
 		
 		txtSongID10 = new JTextField();
+		txtSongID10.setVisible(false);
 		txtSongID10.setColumns(10);
 		txtSongID10.setBounds(1000, 490, 20, 20);
-		txtSongID10.setVisible(false);
 		contentPane.add(txtSongID10);
 		
 		txtRating3 = new JTextField();
@@ -736,15 +791,15 @@ public class DiscoverScreen extends JFrame {
 		txtUploaded3.setColumns(10);
 		
 		txtSongID2 = new JTextField();
+		txtSongID2.setVisible(false);
 		txtSongID2.setColumns(10);
 		txtSongID2.setBounds(1000, 250, 20, 20);
-		txtSongID2.setVisible(false);
 		contentPane.add(txtSongID2);
 		
 		txtSongID3 = new JTextField();
+		txtSongID3.setVisible(false);
 		txtSongID3.setColumns(10);
 		txtSongID3.setBounds(1000, 280, 20, 20);
-		txtSongID3.setVisible(false);
 		contentPane.add(txtSongID3);
 		
 		btnView2 = new JButton("View");
@@ -907,10 +962,9 @@ public class DiscoverScreen extends JFrame {
 		comboBoxSearch = new JComboBox();
 		comboBoxSearch.setToolTipText("This List Contains All The Current Material On Elenco Divided Into Caterogies By The 'Search By' Criteria Provided");
 		comboBoxSearch.setFont(new Font("Georgia", Font.PLAIN, 11));
-
-		comboBoxSearch.setMaximumRowCount(4);
 		AutoCompleteDecorator.decorate(comboBoxSearch);
 	
+		// Populates the comboBox with elements from the database determined by user selected criteria
 		comboBoxSearch.addPopupMenuListener(new PopupMenuListener() {
 			public void popupMenuCanceled(PopupMenuEvent e) {
 			
@@ -922,11 +976,11 @@ public class DiscoverScreen extends JFrame {
 	
 				comboBoxSearch.removeAllItems();
 			
-				ResultSet populateComboBox = MySQLQueries.populateComboBox(comboBoxCriteria.getSelectedItem(), comboBoxSort.getSelectedItem());	
+				ResultSet populateComboBox = MySQLQueries.populateComboBox(comboBoxCriteria.getSelectedItem(), comboBoxSort.getSelectedItem());		// Search database
 				
 					try {
 						
-						while (populateComboBox.next())
+						while (populateComboBox.next())																								// while a search result is found add item to comboBox
 						{
 							comboBoxSearch.addItem(populateComboBox.getString(comboBoxCriteria.getSelectedItem().toString()));
 						}
@@ -968,6 +1022,19 @@ public class DiscoverScreen extends JFrame {
 		txtPage.setColumns(10);
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * <p>
+	 * Receives user input from <code>DiscoverSongScreen</code> and uses them to search the database to find entries matching the search criteria and populates the screen with the appropriate content.
+	 * </p>
+	 * 
+	 *
+	 * @see DiscoverSongScreen
+	 * @see String
+	 * @see int
+	 * @see ResultSet
+	 */
+	
 	public void loadContent() {
 		
 		String songID = null;
@@ -983,7 +1050,7 @@ public class DiscoverScreen extends JFrame {
 		
 		int row = 1;
 		
-		if (rdbtnAscending.isSelected()) {																											
+		if (rdbtnAscending.isSelected()) {								// Finds out which radio button is selected 																			
 			
 			sortType = "ASC";	
 			System.out.println("Ascending\n");
@@ -995,7 +1062,7 @@ public class DiscoverScreen extends JFrame {
 		}
 	
 	
-		if (sqlOffset > 9) {																											
+		if (sqlOffset > 9) {											// Makes the 'Previous' button only selectable when viable																									
 		
 			btnPrevious.setEnabled(true);
 		
@@ -1007,12 +1074,12 @@ public class DiscoverScreen extends JFrame {
 		}
 		
 	
-		ResultSet searchAttempt = MySQLQueries.search(comboBoxSearch.getSelectedItem(), comboBoxCriteria.getSelectedItem(), comboBoxSort.getSelectedItem(), sortType, sqlOffset, sqlRowCount);	
+		ResultSet searchAttempt = MySQLQueries.search(comboBoxSearch.getSelectedItem(), comboBoxCriteria.getSelectedItem(), comboBoxSort.getSelectedItem(), sortType, sqlOffset, sqlRowCount);		// Search database for custom search criteria Limited to 10 results
 		
 		
 		try {		
 			
-		while (searchAttempt.next())																	
+		while (searchAttempt.next())																// while a search result is found, set following variables to data in stated 'column' names of the database 															
 			{
 	
 			songID = searchAttempt.getString("SongID");
@@ -1023,7 +1090,7 @@ public class DiscoverScreen extends JFrame {
 			reviews = searchAttempt.getString("TotalReviews");
 			uploaded = searchAttempt.getString("uploaded");	
 				
-			switch (row) {
+			switch (row) {																			// Switch to fill the appropriate line of the search result section of the GUI i.e populate each row inturn for ever iteration of while loop. Only 10 results are on screen at a time 
 				case 1:
 					txtSongID1.setText(songID);
 					txtTitle1.setText(title);
@@ -1130,7 +1197,7 @@ public class DiscoverScreen extends JFrame {
 					System.out.println("nothing matching search criteria\n");
 				}
 					
-			row++;
+			row++;																		
 			}
 	
 		}
@@ -1141,6 +1208,16 @@ public class DiscoverScreen extends JFrame {
 		
 	
 	}
+	
+	/**
+	 * <h1> Method </h1>
+	 * <p>
+	 * Clears and resets all GUI elements to the desired state.
+	 * </p>
+	 * 
+	 *
+	 * @see DiscoverSongScreen
+	 */
 	
 	public void clearScreen() {
 		

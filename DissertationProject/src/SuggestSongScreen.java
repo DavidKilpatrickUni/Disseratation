@@ -30,8 +30,31 @@ import java.awt.Toolkit;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
+/**
+ * <h1> Class </h1>
+ * 
+ * <p>
+ * View part of the Tired architecture structure.
+ * </p>
+ * 
+ * <p>
+ * SuggestSongScreen
+ * </p>
+ * 
+ * <p>
+ * Allows users to suggest songs to Elenco part of the program. 
+ * <br>Allows users to create new songs details that can be made into database entries in the Elenco database.
+ * <br>Has a direct link with <code>SuggestSongApplication</code> that takes user input/tasks to process.
+ * </p>
+ * 
+ *
+ * @see SuggestSongApplication
+ */
+
 public class SuggestSongScreen extends JFrame {
 
+	// Variables
+	
 	private JPanel contentPane;
 	private JTextField txtTitle;
 	private JTextField txtArtist;
@@ -43,6 +66,33 @@ public class SuggestSongScreen extends JFrame {
 	private JComboBox comboBoxMins;
 	private JComboBox comboBoxSecs; 
 	
+	// Constructors
+	
+	// Overloaded
+	
+	/**
+	 * <h1> Constructor </h1>
+	 * 
+	 * <p>
+	 * Default constructor for the <code>SuggestSongScreen</code> class. 
+	 * </p>
+	 * 
+	 * <p>
+	 * Sets up GUI elements and adds them to JPanel variable.
+	 * <br>Has ActionListeners to act on user input.
+	 * <br>Makes use of CustomException to rely feedback to user.
+	 * </p>
+	 * 
+	 * <p>
+	 * Parameter is the current information of the user currently logged into the application. A <code>LoggedIn</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentLoggedIn		<code>LoggedIn</code> object to store current user information.
+	 * 
+	 * @see SuggestSongScreen
+	 * @see LoggedIN
+	 * @see CustomException
+	 */
 
 	public SuggestSongScreen(LoggedIn currentLoggedIn) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
@@ -61,6 +111,10 @@ public class SuggestSongScreen extends JFrame {
 		btnSuggestSong.setToolTipText("Suggest/Upload Song To Elenco");
 		btnSuggestSong.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnSuggestSong.addActionListener(new ActionListener() {
+			
+			// Listener that starts many processes. It takes all current user input for all fields and firstly checks if the inputs are valid. If so checks if the suggested song already exists on the Elenco database.
+			// If false creates a new database entry with all the song details provided. CustomException has been use to stop processes in the application linked to this GUI. These throws result in feedback onscreen 
+			// for the user.
 			
 			public void actionPerformed(ActionEvent e) {
 				
@@ -81,13 +135,13 @@ public class SuggestSongScreen extends JFrame {
 				int select;																																	
 			
 				select = JOptionPane.showOptionDialog(null, "Suggest Song To Elenco", "Elenco - Suggest Song", 
-					 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									
-			
+					 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;								
+					  
 					 if (select == JOptionPane.YES_OPTION) {
 				
 						 try 
 						 {	
-							 if (SuggestSongApplication.checkSuggestionForm(txtTitle.getText().strip(),
+							 if (SuggestSongApplication.checkSuggestionForm(txtTitle.getText().strip(),												// Validation
 															txtArtist.getText().strip(), 
 															txtGenre.getText().strip(), 
 															comboBoxMins.getSelectedIndex(),  
@@ -99,9 +153,9 @@ public class SuggestSongScreen extends JFrame {
 								
 								 try 
 								 {
-									 if (!MySQLQueries.checkIfSongExists(txtTitle.getText().strip(),txtArtist.getText().strip()).next()){
+									 if (!MySQLQueries.checkIfSongExists(txtTitle.getText().strip(),txtArtist.getText().strip()).next()){			// Check database for song existing 
 						
-										 MySQLQueries.suggestSong((txtTitle.getText().strip()), 
+										 MySQLQueries.suggestSong((txtTitle.getText().strip()), 													// If false create new entry with user provided parameters
 												 txtArtist.getText().strip(), 
 												 txtGenre.getText().strip(), 
 												 comboBoxMins.getSelectedItem() + ":" + comboBoxSecs.getSelectedItem() ,
@@ -110,15 +164,15 @@ public class SuggestSongScreen extends JFrame {
 												 "Song Info: " + txtSongInfo.getText().strip(),
 												 slider.getValue());
 								
-										 ResultSet getSongID = MySQLQueries.getSongIDOfSuggestSong();
+										 ResultSet getSongID = MySQLQueries.getSongIDOfSuggestSong();												// Since database is auto increment we need to find the newly created database entry(last) songID, in table								
 								
 										 String currentSongID = null;
 								
-										 getSongID.last(); 
+										 getSongID.last(); 																							// Set to last result in database search
 									
 										 currentSongID = getSongID.getString("SongID");
 
-										 MySQLQueries.createRating(currentSongID,currentLoggedIn.getCurrentUserID(),String.valueOf(slider.getValue()));
+										 MySQLQueries.createRating(currentSongID,currentLoggedIn.getCurrentUserID(),String.valueOf(slider.getValue()));				// Create rating database entry to match new song upload
 								
 										 JOptionPane.showMessageDialog(null,"Song Suggested To Elenco", "Elenco - Sucess", JOptionPane.INFORMATION_MESSAGE,null);
 								
@@ -146,7 +200,7 @@ public class SuggestSongScreen extends JFrame {
 				
 				
 						 }
-						 catch (CustomException error)
+						 catch (CustomException error)																										// Catch throws and do appropriate action based on reason for throw 
 						 {
 							 JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
 					

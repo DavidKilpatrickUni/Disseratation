@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
@@ -20,9 +21,57 @@ import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 
+/**
+ * <h1> Class </h1>
+ * 
+ * <p>
+ * View part of the Tired architecture structure.
+ * </p>
+ * 
+ * <p>
+ * MainMenuScreen
+ * </p>
+ * 
+ * <p>
+ * Main Menu screen of the program that allows easy access to other areas/features of the application through GUI navigation.
+ * <br>Has a direct link with <code>MainMenuApplication</code> that takes user input/tasks to process.
+ * </p>
+ * 
+ *
+ * @see MainMenuApplication
+ */
+
 public class MainMenuScreen extends JFrame {
 
+	// Variables
+	
 	private JPanel contentPane;
+	
+	// Constructors
+	
+	// Overloaded
+	
+	/**
+	 * <h1> Constructor </h1>
+	 * 
+	 * <p>
+	 * Default constructor for the <code>MainMenuScreen</code> class. 
+	 * </p>
+	 * 
+	 * <p>
+	 * Sets up GUI elements and adds them to JPanel variable.
+	 * <br>Has ActionListeners to act on user input.
+	 * </p>
+	 * 
+	 * <p>
+	 * Parameter is the current information of the user currently logged into the application. A <code>LoggedIn</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentLoggedIn		<code>LoggedIn</code> object to store current user information.
+	 * 
+	 * @see MainMenuScreen
+	 * @see LoggedIN
+	 */
 
 	public MainMenuScreen(LoggedIn currentLoggedIn) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
@@ -68,7 +117,7 @@ public class MainMenuScreen extends JFrame {
 		btnDiscover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				DiscoverScreen frame = new DiscoverScreen(currentLoggedIn);
+				DiscoverSongScreen frame = new DiscoverSongScreen(currentLoggedIn);
 				frame.setVisible(true);
 				dispose();
 			}
@@ -124,10 +173,10 @@ public class MainMenuScreen extends JFrame {
 		lblElenco.setBounds(150, 25, 200, 75);
 		contentPane.add(lblElenco);
 	
-		ImageIcon profileButton =  new ImageIcon(ApplicationStartup.class.getResource("/ColourProfileIcon.PNG"));					// Create new instance of Icon using the given PNG file.
-		Image buttonImage = profileButton.getImage();															// Create image of icon variable.
-		Image buttonImageResize = buttonImage.getScaledInstance(75,75, java.awt.Image.SCALE_SMOOTH);		// Resize image to scale desired. 
-		profileButton = new ImageIcon(buttonImageResize);														// Set instance of Icon to the resized Image.
+		ImageIcon profileButton =  new ImageIcon(ApplicationStartup.class.getResource("/ColourProfileIcon.PNG"));					
+		Image buttonImage = profileButton.getImage();															
+		Image buttonImageResize = buttonImage.getScaledInstance(75,75, java.awt.Image.SCALE_SMOOTH);		
+		profileButton = new ImageIcon(buttonImageResize);														
 
 		JButton btnCircle = new JButton(profileButton);
 		btnCircle.setForeground(Color.WHITE);

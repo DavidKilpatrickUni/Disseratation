@@ -34,8 +34,35 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.MatteBorder;
 
+/**
+ * <h1> Class </h1>
+ * 
+ * <p>
+ * View part of the Tired architecture structure.
+ * </p>
+ * 
+ * <p>
+ * ViewSongScreen
+ * </p>
+ * 
+ * <p>
+ * Allows users view and interact with a selected song on Elenco database part of the program. 
+ * <br> Can read the extra details about the song
+ * <br> View comments uploaded by other Elenco users about the song.
+ * <br> Create and upload their own comment about the selected song.
+ * <br> Set a personal rating for the selected song that impacts overall rating of the song.
+ * <br>Has a direct link with <code>ViewSongApplication</code> that takes user input/tasks to process.
+ * </p>
+ * 
+ *
+ * @see DiscoverSongApplication
+ */
+
 public class ViewSongScreen extends JFrame {
 
+	
+	// variables
+	
 	private JPanel contentPane;
 	private JTextField textFieldTitle;
 	private JTextField textFieldArtist;
@@ -77,11 +104,36 @@ public class ViewSongScreen extends JFrame {
 	private JLabel lblPage;
 	private JComboBox comboBoxRating;
 	
-	private int pageCount = 0;
-	private int sqlOffset = 0;
-	private int sqlRowCount = 5;
+	private int pageCount = 1;
+	private int sqlOffset = 0;					// variable for offset during mysql LIMIT queries
+	private int sqlRowCount = 5;				// variable for count during mysql LIMIT queries
 	private JLabel lblSongImage;
-	private JButton btnImage;
+	
+	/**
+	 * <h1> Constructor </h1>
+	 * 
+	 * <p>
+	 * Default constructor for the <code>ViewSongScreen</code> class. 
+	 * </p>
+	 * 
+	 * <p>
+	 * Sets up GUI elements and adds them to JPanel variable.
+	 * <br>Has ActionListeners to act on user input.
+	 * <br>Makes use of CustomException to rely feedback to user.
+	 * </p>
+	 * <p>
+	 * Parameter one is the current information of the user currently logged into the application. A <code>LoggedIn</code> object is used to store the data.
+	 * Parameter two is the current songID that has been selected by the user on previous GUI. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentLoggedIn		<code>LoggedIn</code> object to store current user information.
+	 * @param currentSongID			<code>String</code> object to store current songID information.
+	 * 
+	 * @see ViewSongScreen
+	 * @see LoggedIN
+	 * @see String
+	 * @see CustomException
+	 */
 
 	public ViewSongScreen(LoggedIn currentLoggedIn, String currentSongID) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
@@ -160,14 +212,14 @@ public class ViewSongScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {	
 
-						if(Helper.checkBlank(textFieldAddComment.getText().strip()) || Helper.regexSQLInjection(textFieldAddComment.getText().strip())) {
+						if(Helper.checkBlank(textFieldAddComment.getText().strip()) || Helper.regexSQLInjection(textFieldAddComment.getText().strip())) {	// check comment user input is not blank and sql sanitised 
 							
 							JOptionPane.showMessageDialog(null, "Valid Comment Input Required - Can Not Contain Banned Special Characters", "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
 						}
 						else
 						{
 						
-							MySQLQueries.addComment(currentSongID, currentLoggedIn.getCurrentUserID(), textFieldAddComment.getText().strip());
+							MySQLQueries.addComment(currentSongID, currentLoggedIn.getCurrentUserID(), textFieldAddComment.getText().strip());							// Upload comment and create new database entry using user input
 							JOptionPane.showMessageDialog(null, "Comment Successfully Uploaded", "Elenco - Upload Comment", JOptionPane.INFORMATION_MESSAGE,null);
 							textFieldAddComment.setText("");
 							
@@ -240,7 +292,7 @@ public class ViewSongScreen extends JFrame {
 		textArea.setToolTipText("Information/Detail About The Song");
 		textArea.setEditable(false);
 		textArea.setBorder(new LineBorder(new Color(192, 192, 192), 1, true));
-		textArea.setBounds(270, 249, 288, 100);
+		textArea.setBounds(25, 249, 533, 100);
 		contentPane.add(textArea);
 		
 		JLabel lblMyRating = new JLabel("My Rating");
@@ -255,7 +307,7 @@ public class ViewSongScreen extends JFrame {
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				DiscoverScreen frame = new DiscoverScreen(currentLoggedIn);
+				DiscoverSongScreen frame = new DiscoverSongScreen(currentLoggedIn);
 				frame.setVisible(true);
 				dispose();
 
@@ -400,7 +452,7 @@ public class ViewSongScreen extends JFrame {
 				
 				try 
 				{
-					attemptRatingChange(currentLoggedIn, currentSongID , comboBoxRating.getSelectedItem().toString());
+					attemptRatingChange(currentLoggedIn, currentSongID , comboBoxRating.getSelectedItem().toString());																// Change current userID's rating for selected song
 					JOptionPane.showMessageDialog(null, "Rating For This Song Has Been Updated", "Elenco - Successful Change Of Rating", JOptionPane.INFORMATION_MESSAGE,null);
 				} 
 				catch (CustomException error) 
@@ -487,20 +539,28 @@ public class ViewSongScreen extends JFrame {
 		songIcon = new ImageIcon(songImageResize);
 		
 		lblSongImage = new JLabel(songIcon);
-		lblSongImage.setBounds(25, 70, 200, 200);
+		lblSongImage.setBounds(25, 30, 200, 200);
 		contentPane.add(lblSongImage);
-		
-		btnImage = new JButton("Upload Image");
-		btnImage.setBounds(60, 290, 125, 23);
-		contentPane.add(btnImage);
 	}
 
+	/**
+	 * <h1> Method </h1>
+	 * <p>
+	 * Receives parameter from <code>DiscoverSongScreen</code> and uses it to search the database to find all comments for the matching songID and populates the screen with the appropriate content.
+	 * </p>
+	 * @param currentSongID		<code>String</code> object to store current songID information. 
+	 *
+	 * @see DiscoverSongScreen
+	 * @see String
+	 * @see int
+	 * @see ResultSet
+	 */
 	
 	public void loadComments(String currentSongID) {	
 		
 		txtPage.setText(String.valueOf(pageCount));
 		
-		if (sqlOffset > 4) {																											
+		if (sqlOffset > 4) {														// Makes the 'Previous' button only selectable when viable																							
 			
 			btnPrevious.setEnabled(true);
 			
@@ -511,7 +571,7 @@ public class ViewSongScreen extends JFrame {
 			btnPrevious.setEnabled(false);
 		}
 	
-		ResultSet songComments  = MySQLQueries.getComments(currentSongID, sqlOffset, sqlRowCount);
+		ResultSet songComments  = MySQLQueries.getComments(currentSongID, sqlOffset, sqlRowCount);	// Search database for comments about current songID  Limited to 5 results
 
 
 		String userName = null;
@@ -521,14 +581,14 @@ public class ViewSongScreen extends JFrame {
 	
 		try {
 		
-			while (songComments.next())																	
+			while (songComments.next())														// while a search result is found, set following variables to data in stated 'column' names of the database 																
 			{
 			
 			userName = songComments.getString("UserName");
 			comment = songComments.getString("Comment");
 			posted = songComments.getString("Posted");
 			
-			txtCommentCount.setText(String.valueOf(songComments.getRow()));
+			txtCommentCount.setText(String.valueOf(songComments.getRow()));					// Switch to fill the appropriate line of the search result section of the GUI i.e populate each row inturn for ever iteration of while loop. Only 5 results are on screen at a time 
 			
 			switch (row) {
 				case 1:
@@ -576,7 +636,16 @@ public class ViewSongScreen extends JFrame {
 
 	}
 
-
+	/**
+	 * <h1> Method </h1>
+	 * <p>
+	 * Clears and resets all GUI elements to the desired state.
+	 * </p>
+	 * 
+	 *
+	 * @see ViewSongScreen
+	 */
+	
 	public void clearScreen() {
 	
 
@@ -605,71 +674,90 @@ public class ViewSongScreen extends JFrame {
 
 		}
 	
+	/**
+	 * <h1> Method </h1>
+	 * <p>
+	 * Method for updating a individuals rating for a song
+	 * <br> Firstly checks if rating valid then if rating already exists for song by the individual
+	 * <br> Dependent on outcome, it either UPDATES the database using mySQL or INSERTs a new database entry.
+	 * <br> Throws CustomException if user inputs invalid inputs for feedback purposes
+	 * </p>
+	 * @param currentLoggedIn		<code>LoggedIn</code> object to store current user information. 
+	 * @param currentSongID			<code>String</code> object to store current songID information. 
+	 * @param comboBoxRating		<code>String</code> object to store new song rating.
+	 *
+	 * @see ViewSongScreen
+	 * @see LoggedIn
+	 * @see CustomException
+	 * @see String
+	 * @see int
+	 * @see ResultSet
+	 */
 
 	public void attemptRatingChange(LoggedIn currentLoggedIn, String currentSongID , String comboBoxRating ) throws CustomException {
 
-		if(comboBoxRating.equals("Not Rated"))
+		if(comboBoxRating.equals("Not Rated"))																		// Checks current value of comboBox to see if valid input
 		{
 			System.out.println(" No rating provided ");
-			throw new CustomException("Valid Rating Input Required - Rate Between 1 And 5", "rating");
+			throw new CustomException("Valid Rating Input Required - Rate Between 1 And 5", "rating");				// Throw if false
 
 		}
 		else
 		{
 			
-			ResultSet ratingValue = MySQLQueries.myRating(currentSongID, currentLoggedIn.getCurrentUserID());
+			ResultSet ratingValue = MySQLQueries.myRating(currentSongID, currentLoggedIn.getCurrentUserID());		// Search database for rating of the current song by user
 			
 			try {
 				
-				if (ratingValue.next())
+				if (ratingValue.next())																				// If a database row is returned UPDATE the database													
 				{
-					MySQLQueries.updateRating(currentSongID, currentLoggedIn.getCurrentUserID(), comboBoxRating);
+					MySQLQueries.updateRating(currentSongID, currentLoggedIn.getCurrentUserID(), comboBoxRating);	// Update rating
 
-					ResultSet  getAllRatings = MySQLQueries.getAllRatings(currentSongID);
-
-			
+					ResultSet  getAllRatings = MySQLQueries.getAllRatings(currentSongID);							// Since rating has change we must establish overall rating for song
+																													// This is done by finding all ratings for song, totalling them and dividing by number of users who have a rating
 					int totalReviews = 0;
 					double totalRatings = 0 ;
 					double overallRating;
 				
 					
-					while(getAllRatings.next()) 
+					while(getAllRatings.next()) 																	// While rows in ResultSet exist
 					{
 					
-						totalRatings = totalRatings + getAllRatings.getDouble("Rating");
-						totalReviews++;
+						totalRatings = totalRatings + getAllRatings.getDouble("Rating");							// Ratings equals itself plus rating contained in ResultSet row
+						totalReviews++;	
 					}
 					
-					overallRating = (totalRatings/totalReviews);
+					overallRating = (totalRatings/totalReviews);													// Quick math to find overall rating
 					System.out.println("Total number of reviews: " + totalReviews + " Total ratings: "+ totalRatings+ " Overall Rating: "+overallRating);
 
-					MySQLQueries.updateTotals(currentSongID, overallRating, totalReviews);
-					
-					
+					MySQLQueries.updateTotals(currentSongID, overallRating, totalReviews);							// Update the overallrating of the song to the established new amount and set totalReviews to number of rows
+																													// in ResultSet (i.e number of users who rated song)
+																													
 				}
-				else
+				else																								// User has not rated song before
 				{
-					MySQLQueries.createRating(currentSongID, currentLoggedIn.getCurrentUserID(), comboBoxRating);
+					MySQLQueries.createRating(currentSongID, currentLoggedIn.getCurrentUserID(), comboBoxRating);	// Create a rating for database
 				
-					ResultSet  getTotals = MySQLQueries.getAllRatings(currentSongID);
+					ResultSet  getTotals = MySQLQueries.getAllRatings(currentSongID);								// Since a new rating exists that has not been included in totals we must update totals
 			
 					int totalReviews = 0;
 					double totalRatings = 0 ;
 					double overallRating;
 				
 					
-					while(getTotals.next()) 
+					while(getTotals.next()) 																		// While rows in ResultSet exist
 					{
 					
-						totalRatings = totalRatings + getTotals.getDouble("Rating");
-						totalReviews++;
+						totalRatings = totalRatings + getTotals.getDouble("Rating");	
+						totalReviews++;																				// Ratings equals itself plus rating contained in ResultSet row
 					}
 					
 					overallRating = (totalRatings/totalReviews);
 					System.out.println("Total number of reviews: " + totalReviews + " Total ratings: "+ totalRatings+ " Overall Rating: "+overallRating);
 				
 
-					MySQLQueries.updateTotals(currentSongID, overallRating, totalReviews);
+					MySQLQueries.updateTotals(currentSongID, overallRating, totalReviews);							// Update the overallrating of the song to the established new amount and set totalReviews to number of rows
+																													// in ResultSet (i.e number of users who rated song)
 					
 				}
 				
@@ -682,9 +770,21 @@ public class ViewSongScreen extends JFrame {
 
 		}
 	}
+	
+	/**
+	 * <h1> Method </h1>
+	 * <p>
+	 * Method for loading the current song details using parameter
+	 * <p>
+	 * @param currentSongID			<code>String</code> object to store current songID information. 
+	 *
+	 * @see ViewSongScreen
+	 * @see String
+	 * @see ResultSet
+	 */
 	public void loadSongInfo(String currentSongID) {
 	
-		ResultSet songDetails = MySQLQueries.songDetails(currentSongID);
+		ResultSet songDetails = MySQLQueries.songDetails(currentSongID);				// Search for current song using songID so the screen can be populated with appropriate details 
 	
 		String title = null;
 		String artist = null;
@@ -697,7 +797,7 @@ public class ViewSongScreen extends JFrame {
 		try 
 		{
 		
-			while (songDetails.next())																	
+			while (songDetails.next())													// While a entry in the database equals the provided songID, set following variables to data in stated 'column' names of the database 													
 			{
 				title = songDetails.getString("Title");
 				artist = songDetails.getString("Artist");
@@ -724,13 +824,26 @@ public class ViewSongScreen extends JFrame {
 		}
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * <p>
+	 * Method for loading the current rating that the current user has specified using parameter
+	 * <p>
+	 * @param currentSongID			<code>String</code> object to store current songID information. 
+	 * @param currentLoggedIn		<code>LoggedIn</code> object to store current user information. 
+	 * 
+	 * @see ViewSongScreen
+	 * @see LoggedIn
+	 * @see String
+	 * @see ResultSet
+	 */
 	public void loadRating(String currentSongID , LoggedIn currentLoggedIn) {
 		
-		ResultSet ratingValue = MySQLQueries.myRating(currentSongID, currentLoggedIn.getCurrentUserID());
+		ResultSet ratingValue = MySQLQueries.myRating(currentSongID, currentLoggedIn.getCurrentUserID());			// Retrieve the rating of the song provided by the current user
 		
 		try 
 		{
-			while (ratingValue.next())
+			while (ratingValue.next())																				// If an entry is found, set comboBox to found value. The comboBox is set to 'Not Rated' by default 
 			{
 				String rating = null;
 				rating = ratingValue.getString("Rating");

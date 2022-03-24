@@ -138,7 +138,9 @@ public class EmailApplication {
 	 
 	 public static void sendEmailFromAdmin(String email) {    
 
-	      String to = "customer@email.co.uk";															
+		  int cutoff = email.indexOf("Dear");
+		 
+	      String to = email.substring(0,cutoff);															
 	      String from = "Elenco.com";													
 	      String host = "localhost";																		
 	      
@@ -155,8 +157,8 @@ public class EmailApplication {
 	         message.setFrom(new InternetAddress(from));													
 	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));						
 
-	         message.setSubject("Welcome To Elenco");															
-	         message.setText(email);														
+	         message.setSubject("Message From Elenco");															
+	         message.setText(email.substring(cutoff));														
 
 	         Transport.send(message);																		
 	         

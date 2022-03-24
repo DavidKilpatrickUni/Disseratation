@@ -191,10 +191,12 @@ public class RegistrationScreen extends JFrame {
 							
 							EmailServices.confirmEmail(confirmEmail);
 							
-							confirmCode = (JOptionPane.showInputDialog("An Email Has Been Sent To The Address Provided With A 5-Digit Confirm Code - Enter The Code "));
-						
-							System.out.println("Confirm Code: " + confirmCode);
 							System.out.println("Sent Code: " + sentCode);
+							
+							confirmCode = (JOptionPane.showInputDialog("An Email Has Been Sent To The Address Provided With A 5-Digit Confirm Code - Enter The Code "));
+							
+							System.out.println("Confirm Code: " + confirmCode);
+							
 						
 							if (confirmCode.toString().equals(sentCode)) {
 								

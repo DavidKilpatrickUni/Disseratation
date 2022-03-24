@@ -49,7 +49,7 @@ public class AdminSendEmail extends JFrame {
 						
 						
 						txtTo.setText(emailInfo.getFirstname() + " " + emailInfo.getSurname());
-						txtEmailAddress.setText(emailInfo.getEmail());
+						txtEmailAddress.setText(emailInfo.getEmailAddress());
 						
 						}
 				} catch (SQLException error) {
@@ -80,16 +80,27 @@ public class AdminSendEmail extends JFrame {
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				String email = null;
 				emailInfo.setMessage(txtMessage.getText());
-				AdminEmailServices.sendEmail(emailInfo.getEmail());
+				
+				email =(emailInfo.getEmailAddress() + " Dear " + emailInfo.getFirstname() + " " + emailInfo.getSurname() + "\n" + emailInfo.getMessage());
+				AdminEmailServices.sendEmail(email);
 			}
 		});
 		btnSend.setBounds(251, 478, 89, 23);
 		contentPane.add(btnSend);
 		
-		JButton btnExit = new JButton("Exit");
-		btnExit.setBounds(251, 529, 89, 23);
-		contentPane.add(btnExit);
+		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				AdminSearchAccountsScreen adminSearchAccountsScreen = new AdminSearchAccountsScreen(currentAdmin);
+				adminSearchAccountsScreen.setVisible(true);
+				dispose();
+			}
+		});
+		btnBack.setBounds(251, 529, 89, 23);
+		contentPane.add(btnBack);
 		
 		txtTo = new JTextField();
 		txtTo.setBounds(176, 79, 357, 20);

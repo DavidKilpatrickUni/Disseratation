@@ -83,6 +83,7 @@ public class AdminSearchCommentsScreen extends JFrame {
 
 
 	public AdminSearchCommentsScreen(AdminLoggedIn currentAdmin) {
+		setTitle("Admin - Search Comments");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 997, 651);
 		contentPane = new JPanel();
@@ -185,38 +186,178 @@ public class AdminSearchCommentsScreen extends JFrame {
 		contentPane.add(btnDelete1);
 		
 		btnDelete2 = new JButton("Delete");
+		btnDelete2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Delete This Comment?", "Elenco - Admin", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+					if (select == JOptionPane.YES_OPTION) {	
+						AdminSQL.deleteComment(txtCommentID2.getText());
+						JOptionPane.showMessageDialog(null, "Successfully Deleted Comment", "Elenco - Admin", JOptionPane.INFORMATION_MESSAGE,null);
+						clearScreen();
+						loadContent();
+					}
+			}
+		});
 		btnDelete2.setBounds(835, 205, 89, 23);
 		contentPane.add(btnDelete2);
 		
 		btnDelete3 = new JButton("Delete");
+		btnDelete3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Delete This Comment?", "Elenco - Admin", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+					if (select == JOptionPane.YES_OPTION) {	
+						AdminSQL.deleteComment(txtCommentID3.getText());
+						JOptionPane.showMessageDialog(null, "Successfully Deleted Comment", "Elenco - Admin", JOptionPane.INFORMATION_MESSAGE,null);
+						clearScreen();
+						loadContent();
+					}
+			}
+		});
 		btnDelete3.setBounds(835, 239, 89, 23);
 		contentPane.add(btnDelete3);
 		
 		btnDelete4 = new JButton("Delete");
+		btnDelete4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Delete This Comment?", "Elenco - Admin", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+					if (select == JOptionPane.YES_OPTION) {	
+						AdminSQL.deleteComment(txtCommentID4.getText());
+						JOptionPane.showMessageDialog(null, "Successfully Deleted Comment", "Elenco - Admin", JOptionPane.INFORMATION_MESSAGE,null);
+						clearScreen();
+						loadContent();
+					}
+			}
+		});
 		btnDelete4.setBounds(835, 273, 89, 23);
 		contentPane.add(btnDelete4);
 		
 		btnDelete5 = new JButton("Delete");
+		btnDelete5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Delete This Comment?", "Elenco - Admin", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+					if (select == JOptionPane.YES_OPTION) {	
+						AdminSQL.deleteComment(txtCommentID5.getText());
+						JOptionPane.showMessageDialog(null, "Successfully Deleted Comment", "Elenco - Admin", JOptionPane.INFORMATION_MESSAGE,null);
+						clearScreen();
+						loadContent();
+					}
+			}
+		});
 		btnDelete5.setBounds(835, 307, 89, 23);
 		contentPane.add(btnDelete5);
 		
 		btnDelete6 = new JButton("Delete");
+		btnDelete6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Delete This Comment?", "Elenco - Admin", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+					if (select == JOptionPane.YES_OPTION) {	
+						AdminSQL.deleteComment(txtCommentID6.getText());
+						JOptionPane.showMessageDialog(null, "Successfully Deleted Comment", "Elenco - Admin", JOptionPane.INFORMATION_MESSAGE,null);
+						clearScreen();
+						loadContent();
+					}
+			}
+		});
 		btnDelete6.setBounds(835, 341, 89, 23);
 		contentPane.add(btnDelete6);
 		
 		btnDelete7 = new JButton("Delete");
+		btnDelete7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Delete This Comment?", "Elenco - Admin", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+					if (select == JOptionPane.YES_OPTION) {	
+						AdminSQL.deleteComment(txtCommentID7.getText());
+						JOptionPane.showMessageDialog(null, "Successfully Deleted Comment", "Elenco - Admin", JOptionPane.INFORMATION_MESSAGE,null);
+						clearScreen();
+						loadContent();
+					}
+			}
+		});
 		btnDelete7.setBounds(835, 375, 89, 23);
 		contentPane.add(btnDelete7);
 		
 		btnDelete8 = new JButton("Delete");
+		btnDelete8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Delete This Comment?", "Elenco - Admin", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+					if (select == JOptionPane.YES_OPTION) {	
+						AdminSQL.deleteComment(txtCommentID8.getText());
+						JOptionPane.showMessageDialog(null, "Successfully Deleted Comment", "Elenco - Admin", JOptionPane.INFORMATION_MESSAGE,null);
+						clearScreen();
+						loadContent();
+					}
+			}
+		});
 		btnDelete8.setBounds(835, 409, 89, 23);
 		contentPane.add(btnDelete8);
 		
 		btnDelete9 = new JButton("Delete");
+		btnDelete9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Delete This Comment?", "Elenco - Admin", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+					if (select == JOptionPane.YES_OPTION) {	
+						AdminSQL.deleteComment(txtCommentID9.getText());
+						JOptionPane.showMessageDialog(null, "Successfully Deleted Comment", "Elenco - Admin", JOptionPane.INFORMATION_MESSAGE,null);
+						clearScreen();
+						loadContent();
+					}
+			}
+		});
 		btnDelete9.setBounds(835, 443, 89, 23);
 		contentPane.add(btnDelete9);
 		
 		btnDelete10 = new JButton("Delete");
+		btnDelete10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Delete This Comment?", "Elenco - Admin", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+					if (select == JOptionPane.YES_OPTION) {	
+						AdminSQL.deleteComment(txtCommentID10.getText());
+						JOptionPane.showMessageDialog(null, "Successfully Deleted Comment", "Elenco - Admin", JOptionPane.INFORMATION_MESSAGE,null);
+						clearScreen();
+						loadContent();
+					}
+			}
+		});
 		btnDelete10.setBounds(835, 477, 89, 23);
 		contentPane.add(btnDelete10);
 		
@@ -384,7 +525,7 @@ public class AdminSearchCommentsScreen extends JFrame {
 			}
 		});
 		btnNext.setEnabled(false);
-		btnNext.setBounds(506, 522, 89, 23);
+		btnNext.setBounds(579, 522, 89, 23);
 		contentPane.add(btnNext);
 		
 		btnPrevious = new JButton("Previous");
@@ -400,11 +541,11 @@ public class AdminSearchCommentsScreen extends JFrame {
 			}
 		});
 		btnPrevious.setEnabled(false);
-		btnPrevious.setBounds(275, 522, 89, 23);
+		btnPrevious.setBounds(330, 522, 89, 23);
 		contentPane.add(btnPrevious);
 		
 		txtPage = new JTextField();
-		txtPage.setBounds(386, 523, 96, 20);
+		txtPage.setBounds(454, 523, 96, 20);
 		contentPane.add(txtPage);
 		txtPage.setColumns(10);
 		
@@ -417,7 +558,7 @@ public class AdminSearchCommentsScreen extends JFrame {
 				dispose();
 			}
 		});
-		btnMain.setBounds(393, 578, 125, 23);
+		btnMain.setBounds(441, 578, 125, 23);
 		contentPane.add(btnMain);
 		
 		txtCommentID1 = new JTextField();

@@ -5,7 +5,25 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
+/**
+ * <h1> Class </h1>
+ * 
+ * <p>
+ * Application part of the Tired architecture structure.
+ * </p>
+ * 
+ * <p>
+ * View Song Application
+ * </p>
+ * 
+ * <p>
+ * View Song Application of the program that stores methods/process/tasks quickly available to the ViewSongScreen.
+ * <br>Has a direct link with <code>DiscoverSongScreen</code> that receives user input.
+ * </p>
+ * 
+ *
+ * @see ViewSongScreen
+ */
 public class ViewSongApplication {
 	/*
 public static ResultSet songDetails(String songID) {

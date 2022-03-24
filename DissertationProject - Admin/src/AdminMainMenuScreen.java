@@ -16,6 +16,7 @@ public class AdminMainMenuScreen extends JFrame {
 
 
 	public AdminMainMenuScreen(AdminLoggedIn currentAdmin) {
+		setTitle("Admin - Main Menu");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 601);
 		contentPane = new JPanel();
@@ -37,7 +38,7 @@ public class AdminMainMenuScreen extends JFrame {
 				dispose();
 			}
 		});
-		btnSongs.setBounds(194, 199, 89, 23);
+		btnSongs.setBounds(170, 201, 125, 23);
 		contentPane.add(btnSongs);
 		
 		JButton btnPlaylists = new JButton("Playlists");
@@ -49,7 +50,7 @@ public class AdminMainMenuScreen extends JFrame {
 				dispose();
 			}
 		});
-		btnPlaylists.setBounds(194, 251, 89, 23);
+		btnPlaylists.setBounds(170, 253, 125, 23);
 		contentPane.add(btnPlaylists);
 		
 		JButton btnAccounts = new JButton("Accounts");
@@ -61,7 +62,7 @@ public class AdminMainMenuScreen extends JFrame {
 				dispose();
 			}
 		});
-		btnAccounts.setBounds(194, 299, 89, 23);
+		btnAccounts.setBounds(170, 301, 125, 23);
 		contentPane.add(btnAccounts);
 		
 		JButton btnComments = new JButton("Comments");
@@ -73,7 +74,7 @@ public class AdminMainMenuScreen extends JFrame {
 				dispose();
 			}
 		});
-		btnComments.setBounds(194, 353, 89, 23);
+		btnComments.setBounds(170, 355, 125, 23);
 		contentPane.add(btnComments);
 		
 		JButton btnExit = new JButton("Exit");

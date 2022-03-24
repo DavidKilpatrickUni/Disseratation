@@ -825,7 +825,8 @@ public class MySQLQueries {
 				Class.forName("com.mysql.cj.jdbc.Driver");																	
 				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
 	
-				String query = "SELECT * FROM songs ORDER BY " + criteria + " " + sortType + ", "+ sort + " " + sortType + " LIMIT ? , ?";
+				//String query = "SELECT * FROM songs ORDER BY " + criteria + " " + sortType + ", "+ sort + " " + sortType + " LIMIT ? , ?";
+				String query = "SELECT * FROM songs ORDER BY " + sort + " " + sortType + ", "+ criteria + " ASC  LIMIT ? , ?";
 				System.out.println("Query: " + query);
 				
 				
@@ -912,8 +913,9 @@ public class MySQLQueries {
 			Class.forName("com.mysql.cj.jdbc.Driver");																	
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
 			Statement statement = conn.createStatement();
-			System.out.println("SELECT * FROM songs GROUP BY "+ comboBoxCriteria.toString() + " ORDER BY " + comboBoxSort.toString() + " " + sortType + ", " + comboBoxCriteria.toString() +  " " + sortType);	
-			String query = "SELECT * FROM songs GROUP BY " + comboBoxCriteria.toString() + " ORDER BY " + comboBoxSort.toString() + " " + sortType + ", " + comboBoxCriteria.toString() + " " + sortType;		
+			
+			//String query = "SELECT * FROM songs GROUP BY " + comboBoxCriteria.toString() + " ORDER BY " + comboBoxSort.toString() + " " + sortType + ", " + comboBoxCriteria.toString() + " " + sortType;		
+			String query = "SELECT * FROM songs GROUP BY " + comboBoxCriteria.toString() + " ORDER BY " + comboBoxCriteria.toString() + " " + sortType;		
 
 			System.out.println(query);
 			ResultSet results = statement.executeQuery(query);															
