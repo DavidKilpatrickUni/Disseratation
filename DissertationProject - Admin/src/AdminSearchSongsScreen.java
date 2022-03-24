@@ -197,6 +197,8 @@ public class AdminSearchSongsScreen extends JFrame {
 		JButton btnSearch = new JButton("Search");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				pageCount = 1;
+				sqlOffset = 0;
 				clearScreen();
 				loadContent();
 			}

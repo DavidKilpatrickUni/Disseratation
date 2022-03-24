@@ -8,6 +8,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Font;
 import java.sql.ResultSet;
@@ -76,7 +77,9 @@ public class AdminSearchCommentsScreen extends JFrame {
 	private JButton btnNext;
 	private JComboBox comboBoxSearch;
 	private JComboBox comboBoxCriteria;
-
+	private int pageCount = 1;
+	private int sqlOffset = 0;
+	private int sqlRowCount = 10;
 
 
 	public AdminSearchCommentsScreen(AdminLoggedIn currentAdmin) {
@@ -149,12 +152,35 @@ public class AdminSearchCommentsScreen extends JFrame {
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				pageCount = 1;
+				sqlOffset = 0;
+				clearScreen();
+				loadContent();
+			
+				
 			}
 		});
 		btnSearch.setBounds(657, 91, 89, 25);
 		contentPane.add(btnSearch);
 		
 		btnDelete1 = new JButton("Delete");
+		btnDelete1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int select;																												
+				
+				select = JOptionPane.showOptionDialog(null, "Are You Sure You Want To Delete This Comment?", "Elenco - Admin", 					
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);				
+				
+					if (select == JOptionPane.YES_OPTION) {	
+						AdminSQL.deleteComment(txtCommentID1.getText());
+						JOptionPane.showMessageDialog(null, "Successfully Deleted Comment", "Elenco - Admin", JOptionPane.INFORMATION_MESSAGE,null);
+						clearScreen();
+						loadContent();
+					}
+				
+			}
+		});
 		btnDelete1.setBounds(835, 171, 89, 23);
 		contentPane.add(btnDelete1);
 		
@@ -346,10 +372,34 @@ public class AdminSearchCommentsScreen extends JFrame {
 		contentPane.add(txtSongID10);
 		
 		btnNext = new JButton("Next");
+		btnNext.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				pageCount = (pageCount + 1);
+				txtPage.setText(String.valueOf(pageCount));
+				sqlOffset = (sqlOffset + 10);
+				
+				clearScreen();
+				loadContent();
+			}
+		});
+		btnNext.setEnabled(false);
 		btnNext.setBounds(506, 522, 89, 23);
 		contentPane.add(btnNext);
 		
 		btnPrevious = new JButton("Previous");
+		btnPrevious.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				pageCount = (pageCount - 1);
+				txtPage.setText(String.valueOf(pageCount));
+				sqlOffset = (sqlOffset - 10);
+				
+				clearScreen();
+				loadContent();
+			}
+		});
+		btnPrevious.setEnabled(false);
 		btnPrevious.setBounds(275, 522, 89, 23);
 		contentPane.add(btnPrevious);
 		
@@ -359,6 +409,14 @@ public class AdminSearchCommentsScreen extends JFrame {
 		txtPage.setColumns(10);
 		
 		JButton btnMain = new JButton("Main Menu");
+		btnMain.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				AdminMainMenuScreen mainScreen = new AdminMainMenuScreen(currentAdmin);
+				mainScreen.setVisible(true);
+				dispose();
+			}
+		});
 		btnMain.setBounds(393, 578, 125, 23);
 		contentPane.add(btnMain);
 		
@@ -448,49 +506,191 @@ public class AdminSearchCommentsScreen extends JFrame {
 		contentPane.add(lblHeader);
 	}
 	
+	public void loadContent() {
+		
+		String songID = null;
+		String username = null;
+		String comment = null;
+		String commentID = null;
+		int row = 1;
+		
+		txtPage.setText(String.valueOf(pageCount));
+		
+		if (sqlOffset > 9) {																											
+			
+			btnPrevious.setEnabled(true);
+			
+		}
+		else 
+		{																								
+			
+			btnPrevious.setEnabled(false);
+		}
+	
+		ResultSet searchAttempt = AdminSQL.searchComments(comboBoxSearch.getSelectedItem(), comboBoxCriteria.getSelectedItem(),  sqlOffset , sqlRowCount);	
+
+		try 
+		{
+			
+			while (searchAttempt.next())																	
+			{
+
+				songID = searchAttempt.getString("SongID");
+				username = searchAttempt.getString("UserName");
+				comment = searchAttempt.getString("Comment");
+				commentID = searchAttempt.getString("CommentID");
+				
+				switch (row) {
+					case 1:
+						txtSongID1.setText(songID);
+						txtUsername1.setText(username);
+						txtComment1.setText(comment);
+						txtCommentID1.setText(commentID);
+						btnDelete1.setEnabled(true);
+						break;
+					case 2:
+						txtSongID2.setText(songID);
+						txtUsername2.setText(username);
+						txtComment2.setText(comment);
+						txtCommentID2.setText(commentID);
+						btnDelete2.setEnabled(true);
+						break;
+					case 3:
+						txtSongID3.setText(songID);
+						txtUsername3.setText(username);
+						txtComment3.setText(comment);
+						txtCommentID3.setText(commentID);
+						btnDelete3.setEnabled(true);
+						break;
+					case 4:
+						txtSongID4.setText(songID);
+						txtUsername4.setText(username);
+						txtComment4.setText(comment);
+						txtCommentID4.setText(commentID);
+						btnDelete4.setEnabled(true);
+						break;
+					case 5:
+						txtSongID5.setText(songID);
+						txtUsername5.setText(username);
+						txtComment5.setText(comment);
+						txtCommentID5.setText(commentID);
+						btnDelete5.setEnabled(true);
+						break;
+					case 6:
+						txtSongID6.setText(songID);
+						txtUsername6.setText(username);
+						txtComment6.setText(comment);	
+						txtCommentID6.setText(commentID);
+						btnDelete6.setEnabled(true);
+						break;
+					case 7:
+						txtSongID7.setText(songID);
+						txtUsername7.setText(username);
+						txtComment7.setText(comment);
+						txtCommentID7.setText(commentID);
+						btnDelete7.setEnabled(true);
+						break;
+					case 8:
+						txtSongID8.setText(songID);
+						txtUsername8.setText(username);
+						txtComment8.setText(comment);
+						txtCommentID8.setText(commentID);
+						btnDelete8.setEnabled(true);
+						break;
+					case 9:
+						txtSongID9.setText(songID);
+						txtUsername9.setText(username);
+						txtComment9.setText(comment);
+						txtCommentID9.setText(commentID);
+						btnDelete9.setEnabled(true);
+						break;
+					case 10:
+						txtSongID10.setText(songID);
+						txtUsername10.setText(username);
+						txtComment10.setText(comment);
+						txtCommentID10.setText(commentID);
+						btnDelete10.setEnabled(true);
+						btnNext.setEnabled(true);
+						break;
+					default:
+					
+						System.out.println("default of switch");
+				}
+					
+			row++;
+			}
+	
+		}
+		catch (SQLException sqe)
+		{
+			
+		}
+	
+	}
+	
 	public void clearScreen() {
 		
 		btnNext.setEnabled(false);
 		btnPrevious.setEnabled(false);
 		
 		txtUsername1.setText("");
-		txtUsername1.setText("");
+		txtSongID1.setText("");
+		txtComment1.setText("");
+		txtCommentID1.setText("");
 		btnDelete1.setEnabled(false);
 		
 		txtUsername2.setText("");
-		txtUsername2.setText("");
+		txtSongID2.setText("");
+		txtComment2.setText("");
+		txtCommentID2.setText("");
 		btnDelete2.setEnabled(false);
 		
 		txtUsername3.setText("");
-		txtUsername3.setText("");
+		txtSongID3.setText("");
+		txtComment3.setText("");
+		txtCommentID3.setText("");
 		btnDelete3.setEnabled(false);
 		
 		txtUsername4.setText("");
-		txtUsername4.setText("");
+		txtSongID4.setText("");
+		txtComment4.setText("");
+		txtCommentID4.setText("");
 		btnDelete4.setEnabled(false);
 		
 		txtUsername5.setText("");
-		txtUsername5.setText("");
+		txtSongID5.setText("");
+		txtComment5.setText("");
+		txtCommentID5.setText("");
 		btnDelete5.setEnabled(false);
 		
 		txtUsername6.setText("");
-		txtUsername6.setText("");
+		txtSongID6.setText("");
+		txtComment6.setText("");
+		txtCommentID6.setText("");
 		btnDelete6.setEnabled(false);
 		
 		txtUsername7.setText("");
-		txtUsername7.setText("");
+		txtSongID7.setText("");
+		txtComment7.setText("");
+		txtCommentID7.setText("");
 		btnDelete7.setEnabled(false);
 		
 		txtUsername8.setText("");
-		txtUsername8.setText("");
+		txtSongID8.setText("");
+		txtComment8.setText("");
+		txtCommentID8.setText("");
 		btnDelete8.setEnabled(false);
 		
 		txtUsername9.setText("");
-		txtUsername9.setText("");
+		txtSongID9.setText("");
+		txtComment9.setText("");
+		txtCommentID9.setText("");
 		btnDelete9.setEnabled(false);
 		
 		txtUsername10.setText("");
-		txtUsername10.setText("");
+		txtSongID10.setText("");
+		txtComment10.setText("");
+		txtCommentID10.setText("");
 		btnDelete10.setEnabled(false);
 
 	}

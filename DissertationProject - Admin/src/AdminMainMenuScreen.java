@@ -53,6 +53,14 @@ public class AdminMainMenuScreen extends JFrame {
 		contentPane.add(btnPlaylists);
 		
 		JButton btnAccounts = new JButton("Accounts");
+		btnAccounts.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				AdminSearchAccountsScreen adminSearchAccountsScreen = new AdminSearchAccountsScreen(currentAdmin);
+				adminSearchAccountsScreen.setVisible(true);
+				dispose();
+			}
+		});
 		btnAccounts.setBounds(194, 299, 89, 23);
 		contentPane.add(btnAccounts);
 		

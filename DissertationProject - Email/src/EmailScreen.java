@@ -51,16 +51,16 @@ public class EmailScreen extends JFrame {
 		lblHeader.setBounds(35, 62, 209, 57);
 		contentPane.add(lblHeader);
 		
-		JButton btnOpenPort = new JButton("Open Port");
-		btnOpenPort.addActionListener(new ActionListener() {
+		JButton btnPort1 = new JButton("User Port");
+		btnPort1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				EmailApplication.recievedMessage();															
+				EmailApplication.recievedMessageFromCustomer();															
 				
 			}
 		});
-		btnOpenPort.setBounds(81, 195, 100, 23);
-		contentPane.add(btnOpenPort);
+		btnPort1.setBounds(81, 195, 100, 23);
+		contentPane.add(btnPort1);
 		
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
@@ -72,6 +72,16 @@ public class EmailScreen extends JFrame {
 		});
 		btnExit.setBounds(81, 322, 100, 23);
 		contentPane.add(btnExit);
+		
+		JButton btnPort2 = new JButton("Admin Port");
+		btnPort2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				EmailApplication.recievedMessageFromAdmin();
+			}
+		});
+		btnPort2.setBounds(81, 253, 89, 23);
+		contentPane.add(btnPort2);
 	}
 
 }

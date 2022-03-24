@@ -156,9 +156,9 @@ public class AdminSearchPlaylistScreen extends JFrame {
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				System.out.println(comboBoxSearch.getSelectedItem());
-				System.out.println(comboBoxCriteria.getSelectedItem());
 				
+				pageCount = 1;
+				sqlOffset = 0;
 				clearScreen();
 				loadContent();
 			}

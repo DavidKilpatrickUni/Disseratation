@@ -169,7 +169,7 @@ public class AddToPlaylistScreen extends JFrame {
 				
 				System.out.println(comboBoxSearch.getSelectedItem());
 				System.out.println(comboBoxCriteria.getSelectedItem());
-				
+				pageCount = 1;
 				sqlOffset = 0;
 				clearScreen() ;
 				loadContent();

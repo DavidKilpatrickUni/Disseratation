@@ -96,6 +96,7 @@ public class SearchPlaylistScreen extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
+				pageCount = 1;
 				clearScreen();
 			}
 		});

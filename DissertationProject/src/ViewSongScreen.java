@@ -80,6 +80,8 @@ public class ViewSongScreen extends JFrame {
 	private int pageCount = 0;
 	private int sqlOffset = 0;
 	private int sqlRowCount = 5;
+	private JLabel lblSongImage;
+	private JButton btnImage;
 
 	public ViewSongScreen(LoggedIn currentLoggedIn, String currentSongID) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
@@ -238,12 +240,12 @@ public class ViewSongScreen extends JFrame {
 		textArea.setToolTipText("Information/Detail About The Song");
 		textArea.setEditable(false);
 		textArea.setBorder(new LineBorder(new Color(192, 192, 192), 1, true));
-		textArea.setBounds(270, 249, 510, 100);
+		textArea.setBounds(270, 249, 288, 100);
 		contentPane.add(textArea);
 		
 		JLabel lblMyRating = new JLabel("My Rating");
 		lblMyRating.setFont(new Font("Georgia", Font.BOLD, 12));
-		lblMyRating.setBounds(48, 270, 75, 25);
+		lblMyRating.setBounds(580, 270, 75, 25);
 		lblMyRating.setForeground(new Color(90, 192, 217));
 		contentPane.add(lblMyRating);
 		
@@ -388,7 +390,7 @@ public class ViewSongScreen extends JFrame {
 		comboBoxRating.setToolTipText("Select Your Rating For This Song");
 		comboBoxRating.setFont(new Font("Georgia", Font.PLAIN, 11));
 		comboBoxRating.setModel(new DefaultComboBoxModel(new String[] {"Not Rated", "1", "2", "3", "4", "5"}));
-		comboBoxRating.setBounds(148, 270, 100, 25);
+		comboBoxRating.setBounds(680, 270, 100, 25);
 		contentPane.add(comboBoxRating);
 		
 		JButton btnRate = new JButton("Update Rating");
@@ -410,13 +412,8 @@ public class ViewSongScreen extends JFrame {
 			}
 		});
 		btnRate.setFont(new Font("Georgia", Font.PLAIN, 11));
-		btnRate.setBounds(93, 310, 125, 25);
+		btnRate.setBounds(620, 310, 125, 25);
 		contentPane.add(btnRate);
-		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setToolTipText("Song Image Place Holder");
-		lblNewLabel.setBounds(48, 38, 200, 200);
-		contentPane.add(lblNewLabel);
 		
 		lblNumber2 = new JLabel("Comments");
 		lblNumber2.setFont(new Font("Georgia", Font.PLAIN, 11));
@@ -483,6 +480,19 @@ public class ViewSongScreen extends JFrame {
 		lblPage.setFont(new Font("Georgia", Font.BOLD, 12));
 		lblPage.setBounds(400, 626, 50, 14);
 		contentPane.add(lblPage);
+		
+		ImageIcon songIcon =  new ImageIcon(ApplicationStartup.class.getResource("/ProfileIcon.PNG"));					
+		Image songImage = songIcon.getImage();															
+		Image songImageResize = songImage.getScaledInstance(200,200, java.awt.Image.SCALE_SMOOTH);		
+		songIcon = new ImageIcon(songImageResize);
+		
+		lblSongImage = new JLabel(songIcon);
+		lblSongImage.setBounds(25, 70, 200, 200);
+		contentPane.add(lblSongImage);
+		
+		btnImage = new JButton("Upload Image");
+		btnImage.setBounds(60, 290, 125, 23);
+		contentPane.add(btnImage);
 	}
 
 	
