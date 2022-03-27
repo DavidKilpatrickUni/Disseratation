@@ -6,7 +6,7 @@
  * </p>
  * 
  * <p>
- * My Playlists Application
+ * MyPlaylistsApplication
  * </p>
  * 
  * <p>

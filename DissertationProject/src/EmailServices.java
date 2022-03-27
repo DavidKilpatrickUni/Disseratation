@@ -15,24 +15,54 @@ import java.sql.Statement;
 import java.util.Date;
 import java.util.Random;
 
+/**
+ * <h1> Class </h1>
+ * 
+ * <p>
+ * Lower level part of the Tired architecture structure.
+ * </p>
+ * 
+ * <p>
+ * EmailServices
+ * </p>
+ * 
+ * <p>
+ * A class for housing methods involved in creating a socket connection with the Elenco Email server. 
+ * <br> This is so confirm code Emails can be sent to users during account creation to verify the email is valid and legitimate.
+ * <br> The final function is to randomly generate the confirm codes that are sent in the email.
+ * </p>
+ * 
+ */
 public class EmailServices {
+	
+	// Variables
 	
 	private static Socket sock;
 
-	
+	/**
+	 * <h1> Method </h1>
+	 * <p>
+	 * To 'listen' on determined port for response from email server.
+	 * <br> When a response is detect, accept the response and unpack the <code>String</code> sent from server. 
+	 * <br> This response then can be used in a meaningful way.
+	 * </p>
+	 * 
+	 * @see String
+	 * @see EmailServices
+	 */
 	 public static String recievedMessage() {
 			
 		try
 		{
 		
 			System.out.println("Email Server");
-			int port = Integer.parseInt("3");
-			ServerSocket server = new ServerSocket(port);																	
+			int port = Integer.parseInt("3");										
+			ServerSocket server = new ServerSocket(port);																					
 			Socket sock = server.accept();																					
 			
 			System.out.println("Waiting");
 			
-			InputStream inputStream = sock.getInputStream();																
+			InputStream inputStream = sock.getInputStream();														
 	        DataInputStream dataInputStream = new DataInputStream(inputStream);												
 
 	        String message = dataInputStream.readUTF();																		
@@ -62,6 +92,20 @@ public class EmailServices {
 	}
 	 
 
+		/**
+		 * <h1> Method </h1>
+		 * <p>
+		 * To send parameter(email) to email server so it can be sent to new account.
+		 * </p>
+		 * <p>
+		 * Parameter is the email address, message and confirm code. A <code>String</code> object is used to store the data.
+		 * </p>
+		 * 
+		 * @param confirmEmail					<code>String</code> object to store email info.
+		 * 
+		 * @see String
+		 * @see EmailServices
+		 */
 	
 	public static void confirmEmail(String confirmEmail){
 		
@@ -97,6 +141,17 @@ public class EmailServices {
 			System.err.println(ioe.getMessage());
 		}
 	}
+	
+	/**
+	 * <h1> Method </h1>
+	 * <p>
+	 * To randomly generate a 5 digit String. Used as the confirm code on an email
+	 * </p>
+	 * 
+	 *
+	 * @see String
+	 * @see EmailServices
+	 */
 	
 	public static String randomConfirmCode() {
 	  

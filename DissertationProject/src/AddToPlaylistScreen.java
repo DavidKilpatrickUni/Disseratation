@@ -33,8 +33,31 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * <h1> Class </h1>
+ * 
+ * <p>
+ * View part of the Tired architecture structure.
+ * </p>
+ * 
+ * <p>
+ * AddToPlaylistScreen
+ * </p>
+ * 
+ * <p>
+ * Allows users to custom search through all the songs on Elenco database part of the program. 
+ * <br> Once desired song has been found it can be added to the newly created playlist or to the existing playlist selected
+ * <br>Has a direct link with <code>AddToPlaylistApplication</code> that takes user input/tasks to process.
+ * </p>
+ * 
+ *
+ * @see AddToPlaylistApplication
+ */
+
 public class AddToPlaylistScreen extends JFrame {
 
+	// Variables 
+	
 	private JPanel contentPane;
 	private JTextField txtTitle1;
 	private JTextField txtArtist1;
@@ -137,11 +160,40 @@ public class AddToPlaylistScreen extends JFrame {
 	private JButton btnAdd9;
 	private JButton btnAdd10;
 
-	private int pageCount = 1;
-	private int sqlOffset = 0;
-	private int sqlRowCount = 10;
+	private int pageCount = 1;		
+	private int sqlOffset = 0;		// variable for offset during mysql LIMIT queries
+	private int sqlRowCount = 10;	// variable for count during mysql LIMIT queries
 	private JButton btnSearch;
 	private JComboBox comboBoxSort;
+	
+	/**
+	 * <h1> Constructor </h1>
+	 * 
+	 * <p>
+	 * Constructor for the <code>AddToPlaylistScreen</code> class. 
+	 * </p>
+	 * 
+	 * <p>
+	 * Sets up GUI elements and adds them to JPanel variable.
+	 * <br>Has ActionListeners to act on user input.
+	 * <br>Makes use of CustomException to rely feedback to user.
+	 * </p>
+	 * 
+	 * <p>
+	 * Parameter is the current information of the user currently logged into the application. A <code>LoggedIn</code> object is used to store the data.
+	 * <br>Parameter is the current playlist information - Title, Id etc. A <code>PlaylistInfo</code> object is used to store the data.
+	 * <br>Parameter is the rank that the song will be added to the playlist, determined by which 'row' add button the user selected . A <code>Integer</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentLoggedIn			<code>LoggedIn</code> object to store current user information.
+	 * @param currentPlaylistInfo		<code>PlaylistInfo</code> object to store current playlist information.
+	 * @param ranking					<code>Integer</code> object to store current rank information.
+	 * 
+	 * @see AddToPlaylistScreen
+	 * @see LoggedIN
+	 * @see PlaylistInfo
+	 * @see Integer
+	 */
 
 	public AddToPlaylistScreen(LoggedIn currentLoggedIn, PlaylistInfo currentPlaylistInfo, int ranking) {
 		addWindowListener(new WindowAdapter() {
@@ -998,6 +1050,8 @@ public class AddToPlaylistScreen extends JFrame {
 		
 		comboBoxSearch = new JComboBox();
 		AutoCompleteDecorator.decorate(comboBoxSearch);
+		
+		// Populates the comboBox with elements from the database determined by user selected criteria
 		comboBoxSearch.addPopupMenuListener(new PopupMenuListener() {
 			public void popupMenuCanceled(PopupMenuEvent e) {
 			}
@@ -1007,13 +1061,13 @@ public class AddToPlaylistScreen extends JFrame {
 				
 				comboBoxSearch.removeAllItems();
 				
-				ResultSet populateComboBox = MySQLQueries.populateComboBox(comboBoxCriteria.getSelectedItem(), comboBoxSort.getSelectedItem());	
+				ResultSet populateComboBox = MySQLQueries.populateComboBox(comboBoxCriteria.getSelectedItem(), comboBoxSort.getSelectedItem());		// Search database
 				
 					try {
 						
 						while (populateComboBox.next())
 						{
-							comboBoxSearch.addItem(populateComboBox.getString(comboBoxCriteria.getSelectedItem().toString()));
+							comboBoxSearch.addItem(populateComboBox.getString(comboBoxCriteria.getSelectedItem().toString()));						// while a search result is found add item to comboBox
 						}
 					} catch (SQLException sql) {
 				
@@ -1094,6 +1148,18 @@ public class AddToPlaylistScreen extends JFrame {
 		
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * <p>
+	 * Receives user input from <code>AddToPlaylistgScreen</code> and uses them to search the database to find entries matching the search criteria and populates the screen with the appropriate content.
+	 * </p>
+	 * 
+	 *
+	 * @see AddToPlaylistgScreen
+	 * @see String
+	 * @see Integer
+	 * @see ResultSet
+	 */
 	
 	public void loadContent() {
 	
@@ -1110,7 +1176,7 @@ public class AddToPlaylistScreen extends JFrame {
 		
 		int row = 1;
 		
-	if (rdbtnAscending.isSelected()) {																											
+	if (rdbtnAscending.isSelected()) {								// Finds out which radio button is selected 																									
 			
 			sortType = "ASC";	
 			System.out.println("Ascending\n");
@@ -1122,7 +1188,7 @@ public class AddToPlaylistScreen extends JFrame {
 		}
 	
 	
-	if (sqlOffset > 9) {																											
+	if (sqlOffset > 9) {											// Makes the 'Previous' button only selectable when viable																									
 		
 		btnPrevious.setEnabled(true);
 		
@@ -1133,13 +1199,13 @@ public class AddToPlaylistScreen extends JFrame {
 		btnPrevious.setEnabled(false);
 	}
 		
-	ResultSet searchAttempt = MySQLQueries.search(comboBoxSearch.getSelectedItem(), comboBoxCriteria.getSelectedItem(), comboBoxSort.getSelectedItem(), sortType, sqlOffset, sqlRowCount);	
+	ResultSet searchAttempt = MySQLQueries.search(comboBoxSearch.getSelectedItem(), comboBoxCriteria.getSelectedItem(), comboBoxSort.getSelectedItem(), sortType, sqlOffset, sqlRowCount);	// Search database for custom search criteria Limited to 10 results
 
 		
 		
 		try {		
 			
-			while (searchAttempt.next())																	
+			while (searchAttempt.next())										// while a search result is found, set following variables to data in stated 'column' names of the database 																	
 			{
 	
 				songID = searchAttempt.getString("SongID");
@@ -1152,7 +1218,7 @@ public class AddToPlaylistScreen extends JFrame {
 				
 				
 				
-				switch (row) {
+				switch (row) {													// Switch to fill the appropriate line of the search result section of the GUI i.e populate each row inturn for ever iteration of while loop. Only 10 results are on screen at a time 
 					case 1:
 						txtSongID1.setText(songID);
 						txtTitle1.setText(title);
@@ -1270,7 +1336,16 @@ public class AddToPlaylistScreen extends JFrame {
 		
 	
 	}
-
+	
+	/**
+	 * <h1> Method </h1>
+	 * <p>
+	 * Clears and resets all GUI elements to the desired state.
+	 * </p>
+	 * 
+	 *
+	 * @see AddToPlaylistScreen
+	 */
 
 	public void clearScreen() {
 	
@@ -1360,14 +1435,47 @@ public class AddToPlaylistScreen extends JFrame {
 	
 	
 	}
+	
+	/**
+	 * <h1> Method </h1>
+	 * <p>
+	 * Receives user input from <code>AddToPlaylistgScreen</code> and uses them to do different sql queries.
+	 * <br> Firstly establishes if the selected song is already exists on selected playlist.
+	 * <br> If false adds the song to a playlist b following 1 of 2 paths
+	 * <br> 1. The playlist exists and the song is only being added to the current list. Or
+	 * <br> 2. A playlist title does not exist so the user is asked for a title so a new playlist can be created.
+	 * <br> This new playlist title can not be the same as any other playlist title for the current user.
+	 * <br> Failed points in the method throw a <code>CustomException</code>, so feedback can be shown to the user.
+	 * </p>
+	 *	
+	 * <p>
+	 * Parameter is the current information of the user currently logged into the application. A <code>LoggedIn</code> object is used to store the data.
+	 * <br>Parameter is the current playlist information - Title, Id etc. A <code>PlaylistInfo</code> object is used to store the data.
+	 * <br>Parameter is the rank that the song will be added to the playlist, determined by which 'row' add button the user selected . A <code>Integer</code> object is used to store the data.
+	 * <br>Parameter is the currently selected songID that the user wants to add to playlist.
+	 * </p>
+	 * 
+	 * @param currentLoggedIn			<code>LoggedIn</code> object to store current user information.
+	 * @param currentPlaylistInfo		<code>PlaylistInfo</code> object to store current playlist information.
+	 * @param ranking					<code>Integer</code> object to store current ranking information.
+	 * @param songID					<code>String</code> object to store current songID information.
+	 *
+	 * @see AddToPlaylistgScreen
+	 * @see CustomException
+	 * @see LoggedIn
+	 * @see PlaylistInfo
+	 * @see String
+	 * @see Integer
+	 * @see ResultSet
+	 */
 
 	public void tryAddSong(LoggedIn currentLoggedIn, PlaylistInfo currentPlaylistInfo,int ranking, String songID) throws CustomException {
 		
-		ResultSet checksong = MySQLQueries.songOnPlaylist(songID,currentLoggedIn.getCurrentUserID(),currentPlaylistInfo.getCurrentPlaylistTitle() );
+		ResultSet checksong = MySQLQueries.songOnPlaylist(songID,currentLoggedIn.getCurrentUserID(),currentPlaylistInfo.getCurrentPlaylistTitle() );		// Check if song is already on the current palylist of user
 
 		try
 		{
-			if (checksong.next()){
+			if (checksong.next()){																															// Response if true
 				System.out.print("song already on list");
 				throw new CustomException("You Already Have This Song In This Playlist", "playlistTitle");
 
@@ -1376,9 +1484,9 @@ public class AddToPlaylistScreen extends JFrame {
 			{
 	
 				System.out.print("song not already on list");
-	
-				if (currentPlaylistInfo.getCurrentPlaylistTitle() != null) {
-					MySQLQueries.addSong(currentLoggedIn.getCurrentUserID(), songID ,currentPlaylistInfo.getCurrentPlaylistTitle(), ranking);
+				
+				if (currentPlaylistInfo.getCurrentPlaylistTitle() != null) {																				// Check if the current playlist exists Has title) or needs to be created(no title)
+					MySQLQueries.addSong(currentLoggedIn.getCurrentUserID(), songID ,currentPlaylistInfo.getCurrentPlaylistTitle(), ranking);				// True - Add selected song to current playlist of user
 	
 					ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
 					gui.setVisible(true);
@@ -1388,16 +1496,16 @@ public class AddToPlaylistScreen extends JFrame {
 				{
 					System.out.println("no playlistTitle");
 		
-					String getPlaylistTitle = (JOptionPane.showInputDialog("Enter A Name For Playlist"));
+					String getPlaylistTitle = (JOptionPane.showInputDialog("Enter A Name For Playlist"));													// False -  Get a new title for playlist
 					
 					System.out.println("Title given: " + getPlaylistTitle);
 					
-					if (getPlaylistTitle == null)
+					if (getPlaylistTitle == null)																											// Validation check
 					{
 						throw new CustomException("Valid Playlist Title Input Required - No Use Of Banned Special Characters", "playlistTitle");
 					}
 		
-					if (Helper.checkPlaylistTitle(getPlaylistTitle.strip()))
+					if (Helper.checkPlaylistTitle(getPlaylistTitle.strip()))																				// validation check
 					{
 						throw new CustomException("Valid Playlist Title Input Required - No Use Of Banned Special Characters", "playlistTitle");
 		
@@ -1405,7 +1513,7 @@ public class AddToPlaylistScreen extends JFrame {
 					else
 					{
 			
-						ResultSet checkPlaylist = MySQLQueries.playlistTitleExists(currentLoggedIn.getCurrentUserID(), getPlaylistTitle.strip());
+						ResultSet checkPlaylist = MySQLQueries.playlistTitleExists(currentLoggedIn.getCurrentUserID(), getPlaylistTitle.strip());			// Check that new title of playlist does not match a playlist that already exists for user
 		
 		
 						try {
@@ -1418,10 +1526,10 @@ public class AddToPlaylistScreen extends JFrame {
 							{
 								currentPlaylistInfo.setCurrentPlaylistTitle(getPlaylistTitle.strip());
 				
-								MySQLQueries.addSong(currentLoggedIn.getCurrentUserID(), songID ,currentPlaylistInfo.getCurrentPlaylistTitle(), ranking);
+								MySQLQueries.addSong(currentLoggedIn.getCurrentUserID(), songID ,currentPlaylistInfo.getCurrentPlaylistTitle(), ranking);				// Add song to the newly created playlist 
 								System.out.println(currentPlaylistInfo.getCurrentPlaylistTitle() + currentPlaylistInfo.getCurrentPlaylistID());
 				
-								ResultSet getPlaylistID = MySQLQueries.getPlaylistID(currentLoggedIn.getCurrentUserID(),currentPlaylistInfo.getCurrentPlaylistTitle());
+								ResultSet getPlaylistID = MySQLQueries.getPlaylistID(currentLoggedIn.getCurrentUserID(),currentPlaylistInfo.getCurrentPlaylistTitle());	// Because of design - The new playlist ID must be found and passed as parameter to populate next GUI correctly
 				
 								String playlistID = null;
 				
@@ -1430,7 +1538,7 @@ public class AddToPlaylistScreen extends JFrame {
 									playlistID = getPlaylistID.getString("PlaylistID");
 								}
 				
-								currentPlaylistInfo.setCurrentPlaylistID(playlistID);
+								currentPlaylistInfo.setCurrentPlaylistID(playlistID);											// Add the playlist details to the playlistInfo object
 								ManagePlaylistScreen gui = new ManagePlaylistScreen(currentLoggedIn, currentPlaylistInfo);
 								gui.setVisible(true);
 								dispose();

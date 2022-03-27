@@ -1,3 +1,22 @@
+/**
+ * <h1> Class </h1>
+ * 
+ * <p>
+ * Application part of the Tired architecture structure.
+ * </p>
+ * 
+ * <p>
+ * AddToPlaylistApplication
+ * </p>
+ * 
+ * <p>
+ * AddToPlaylist Application of the program that stores methods/process/tasks quickly available to the AddToPlaylistScreen.
+ * <br>Has a direct link with <code>AddToPlaylistScreen</code> that receives user input.
+ * </p>
+ * 
+ *
+ * @see AddToPlaylistScreen
+ */
 
 public class AddToPlaylistApplication {
 	/*

@@ -24,13 +24,56 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.SwingConstants;
 
+/**
+ * <h1> Class </h1>
+ * 
+ * <p>
+ * View part of the Tired architecture structure.
+ * </p>
+ * 
+ * <p>
+ * LoginScreen
+ * </p>
+ * 
+ * <p>
+ * First Screen shown on application startup.
+ * <br>Offers the choice of attempting a login, creating a new account or exiting the application to the user.
+ * <br>A login attempt requires 2 valid pieces of user input that match a database account row - Username and password.
+ * <br>Register takes user to a new GUI to begin account creation process. 
+ * <br>Has a direct link with <code>AccountApplication</code> that takes user input/tasks to process.
+ * </p>
+ * 
+ *
+ * @see LoginApplication
+ */
 public class LoginScreen extends JFrame {
 
-	private JPanel contentPane;
+	// Variables
 	
+	private JPanel contentPane;
 	private JTextField txtUserName;
 	private JPasswordField passwordFieldPassword;
 
+	// Constructors
+	
+	// Default 
+	
+	/**
+	 * <h1> Constructor </h1>
+	 * 
+	 * <p>
+	 * Constructor for the <code>LoginScreen</code> class. 
+	 * </p>
+	 * 
+	 * <p>
+	 * Sets up GUI elements and adds them to JPanel variable.
+	 * <br>Has ActionListeners to act on user input.
+	 * </p>
+	 * 
+	 * 
+	 * @see LoginScreen
+	 */
+	
 	public LoginScreen() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
 		setTitle("Elenco - Login");
@@ -62,13 +105,13 @@ public class LoginScreen extends JFrame {
 				password = passwordFieldPassword.getText().strip();
 				try 
 				{
-					loginAttempt = LoginApplication.enterLogin(username, password);
-						
-					if (loginAttempt != null)
-					{	
-						LoggedIn currentLoggedIn = new LoggedIn(loginAttempt.getCurrentUserID(), loginAttempt.getCurrentUserName());
+					loginAttempt = LoginApplication.enterLogin(username, password);														// Make variable equal result of method call
 							
-						MainMenuScreen mainScreen = new MainMenuScreen(currentLoggedIn);
+					if (loginAttempt != null)																							// If method call not null - i.e the user input is valid and match a database row
+					{	
+						LoggedIn currentLoggedIn = new LoggedIn(loginAttempt.getCurrentUserID(), loginAttempt.getCurrentUserName());	// Created new instance of object to store details conveniently and ideal for parameter passing 
+							
+						MainMenuScreen mainScreen = new MainMenuScreen(currentLoggedIn);												// Progress to main menu
 						mainScreen.setVisible(true);
 						dispose();
 					}

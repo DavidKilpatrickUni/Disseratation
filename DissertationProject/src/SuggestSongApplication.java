@@ -36,17 +36,39 @@ public class SuggestSongApplication {
 	 * <h1> Method </h1>
 	 * <p>
 	 * Receives user input from <code>SuggestSongScreen</code> and calls other methods to process and validate the inputs given.
-	 * <br> Uses many methods from <code>Helper</code> class.
+	 * <br> This method itself is a quick and convenient way to process multiple input parameters.
+	 * <br> Uses many methods from <code>Helper</code> class to validate the inputs.
 	 * <br> Any validation error is thrown using <code>CustomException</code>
 	 * </p>
 	 * 
+	 * <p>
+	 * Parameter 1 is the user input for song title. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 2 is the user input for song artist. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 3 is the user input for song genre. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 4 is the user input for song length in minutes. A <code>Integer</code> object is used to store the data.
+	 * <br>Parameter 5 is the user input for song length in seconds. A <code>Integer</code> object is used to store the data.
+	 * <br>Parameter 6 is the user input for song released date. A <code>Date</code> object is used to store the data.
+	 * <br>Parameter 7 is the user input for song album name. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 8 is the user input for song information text. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 9 is the user input for personal rating for song. A <code>Integer</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param title			<code>String</code> object to store song title input.
+	 * @param artist		<code>String</code> object to store song artist input.
+	 * @param genre			<code>String</code> object to store song genre input.
+	 * @param comboMin		<code>Integer</code> object to store song length in minutes input.
+	 * @param comboSec		<code>Integer</code> object to store song length in seconds input.
+	 * @param released		<code>Date</code> object to store song release date input.
+	 * @param album			<code>String</code> object to store song album input.
+	 * @param songInfo		<code>String</code> object to store song information input.
+	 * @param rating		<code>Integer</code> object to store personal rating input.
 	 *
 	 * @see SuggestSongApplication
 	 * @see SuggestSongScreen
 	 * @see CustomException
 	 * @see Helper
 	 * @see String
-	 * @see int
+	 * @see Integer
 	 * @see Date
 	 */
 	
@@ -78,7 +100,7 @@ public class SuggestSongApplication {
 			throw new CustomException("Valid SongLength Input Required", "songLength");
 		}
 		
-		if (Helper.checkBlankDate(released)  ||  Helper.compareDates(released) )							// Check date input is relistic - if fail throw
+		if (Helper.checkBlankDate(released)  ||  Helper.compareDates(released) )							// Check date input is realistic - if fail throw
 		{
 			System.out.println("released error");
 			throw new CustomException("Valid Release Date Input Required", "released");
@@ -111,9 +133,16 @@ public class SuggestSongApplication {
 	 * <p>
 	 * Method for checking user input is of a valid time. It takes the selected index of comboBoxes and checks them against certain values. 
 	 * </p>
+	 * <p>
+	 * Parameter 1 is the user input for song length in minutes. A <code>Integer</code> object is used to store the data.
+	 * <br>Parameter 2 is the user input for song length in seconds. A <code>Integer</code> object is used to store the data.
+	 * </p>
 	 * 
+	 * @param comboMin			<code>Integer</code> object to store personal rating input.
+	 * @param comboSec			<code>Integer</code> object to store personal rating input.
+	 *
 	 * @see SuggestSongApplication
-	 * @see int
+	 * @see Integer
 	 * @see Boolean
 	 */
 	
@@ -138,8 +167,14 @@ public class SuggestSongApplication {
 	 * Method for checking user input is of a valid rating. It takes the selected value of a slider GUI element and checks them against certain values. 
 	 * </p>
 	 * 
+	 * <p>
+	 * <br>Parameter is the user input for my song rating. A <code>Integer</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param sliderValue			<code>Integer</code> object to store personal rating input.
+	 * 
 	 * @see SuggestSongApplication
-	 * @see int
+	 * @see Integer
 	 * @see Boolean
 	 */
 	

@@ -16,10 +16,58 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 
+/**
+ * <h1> Class </h1>
+ * 
+ * <p>
+ * View part of the Tired architecture structure.
+ * </p>
+ * 
+ * <p>
+ * ProfileMenuScreen
+ * </p>
+ * 
+ * <p>
+ * ProfileMenuScreen of the program that allows easy access to other areas/features relevant to a user profile - View account details, profile details or logout.
+ * <br>Has a direct link with <code>MainMenuApplication</code> that takes user input/tasks to process.
+ * </p>
+ * 
+ *
+ * @see MainMenuApplication
+ */
+
 public class ProfileMenuScreen extends JFrame {
 
+	// Variables
+	
 	private JPanel contentPane;
 	
+	
+	// Constructors
+	
+	// Overloaded
+	
+	/**
+	 * <h1> Constructor </h1>
+	 * 
+	 * <p>
+	 * Constructor for the <code>ProfileMenuScreen</code> class. 
+	 * </p>
+	 * 
+	 * <p>
+	 * Sets up GUI elements and adds them to JPanel variable.
+	 * <br>Has ActionListeners to act on user input.
+	 * </p>
+	 * 
+	 * <p>
+	 * Parameter is the current information of the user currently logged into the application. A <code>LoggedIn</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentLoggedIn		<code>LoggedIn</code> object to store current user information.
+	 * 
+	 * @see MyProfileScreen
+	 * @see LoggedIN
+	 */
 	public ProfileMenuScreen(LoggedIn currentLoggedIn) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
 		setTitle("Elenco - Profile");

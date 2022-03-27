@@ -169,7 +169,7 @@ public class ManagePlaylistScreen extends JFrame {
 	 * <h1> Constructor </h1>
 	 * 
 	 * <p>
-	 * Default constructor for the <code>MyPlaylistsScreen</code> class. 
+	 * Constructor for the <code>MyPlaylistsScreen</code> class. 
 	 * </p>
 	 * 
 	 * <p>

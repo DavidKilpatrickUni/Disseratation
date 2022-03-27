@@ -27,8 +27,30 @@ import java.awt.Toolkit;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.MatteBorder;
 
+/**
+ * <h1> Class </h1>
+ * 
+ * <p>
+ * View part of the Tired architecture structure.
+ * </p>
+ * 
+ * <p>
+ * AccountScreen
+ * </p>
+ * 
+ * <p>
+ * Allows user to view their Account details and update/change some of their details that maybe wrong/out of date  
+ * <br>Has a direct link with <code>AccountApplication</code> that takes user input/tasks to process.
+ * </p>
+ * 
+ *
+ * @see AccountApplication
+ */
+
 public class AccountScreen extends JFrame {
 
+	// Variables
+	
 	private JPanel contentPane;
 	private JTextField txtEmail;
 	private JTextField txtFirstname;
@@ -37,6 +59,34 @@ public class AccountScreen extends JFrame {
 	private JTextField txtSurname;
 	private JComboBox comboBoxIdentity; 
 
+	// Constructors
+	
+	// Overloaded
+	
+	/**
+	 * <h1> Constructor </h1>
+	 * 
+	 * <p>
+	 * Constructor for the <code>AccountScreen</code> class. 
+	 * </p>
+	 * 
+	 * <p>
+	 * Sets up GUI elements and adds them to JPanel variable.
+	 * <br>Has ActionListeners to act on user input.
+	 * <br>Makes use of CustomException to relay feedback to user.
+	 * </p>
+	 * 
+	 * <p>
+	 * Parameter is the current information of the user currently logged into the application. A <code>LoggedIn</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentLoggedIn		<code>LoggedIn</code> object to store current user information.
+	 * 
+	 * @see AccountScreen
+	 * @see LoggedIN
+	 * @see CustomException
+	 */
+	
 	public AccountScreen(LoggedIn currentLoggedIn) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
 		setTitle("Elenco - Account Details");
@@ -45,7 +95,7 @@ public class AccountScreen extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				
-				ResultSet accountDetails  = MySQLQueries.getAccountsDetailDecrypted(currentLoggedIn.getCurrentUserID());
+				ResultSet accountDetails  = MySQLQueries.getAccountsDetailDecrypted(currentLoggedIn.getCurrentUserID());	// Call sql method to populate screen with current user details.
 
 				String pass = null;
 				String userID = null;
@@ -57,7 +107,7 @@ public class AccountScreen extends JFrame {
 						
 				try {
 					
-					if (accountDetails.next())																	
+					if (accountDetails.next())														// If a database row is returned set variables to row values of stated column titles															
 					{
 						
 						
@@ -174,18 +224,18 @@ public class AccountScreen extends JFrame {
 					try 
 					{
 					
-						AccountApplication.checkValidPassword(passwordField.getText().strip());
+						AccountApplication.checkValidPassword(passwordField.getText().strip());		// Check password input is valid
 				
 						try 
 						{
 						
 							String confirmPassword;
-							confirmPassword = (JOptionPane.showInputDialog("Retype New Password To Confirm"));
+							confirmPassword = (JOptionPane.showInputDialog("Retype New Password To Confirm")); 		// A popup confirm password is shown to user
 						
-							if(confirmPassword.equals(passwordField.getText().strip()))
+							if(confirmPassword.equals(passwordField.getText().strip()))								// If original and popup Strings match		 
 							{
 							
-								MySQLQueries.updatePassword(currentLoggedIn.getCurrentUserID(), passwordField.getText().strip());
+								MySQLQueries.updatePassword(currentLoggedIn.getCurrentUserID(), passwordField.getText().strip());		// Update users current password with the new input 
 							
 							}
 							else
@@ -234,11 +284,11 @@ public class AccountScreen extends JFrame {
 					try 
 					{
 					
-						AccountApplication.checkValidFirstname(txtFirstname.getText().strip());
+						AccountApplication.checkValidFirstname(txtFirstname.getText().strip());				// Check firstname input is valid
 					
 						try 
 						{
-							MySQLQueries.updateFirstname(currentLoggedIn.getCurrentUserID(), txtFirstname.getText().strip());
+							MySQLQueries.updateFirstname(currentLoggedIn.getCurrentUserID(), txtFirstname.getText().strip());	// Update current user first name with new input 
 					
 						} 
 						catch (CustomException error) 
@@ -276,7 +326,7 @@ public class AccountScreen extends JFrame {
 				{
 					try 
 					{
-						MySQLQueries.updateIdentity(currentLoggedIn.getCurrentUserID(), comboBoxIdentity.getSelectedItem().toString());
+						MySQLQueries.updateIdentity(currentLoggedIn.getCurrentUserID(), comboBoxIdentity.getSelectedItem().toString());			// Update current user identity with new input
 					
 					} 
 					catch (CustomException error) 
@@ -347,12 +397,12 @@ public class AccountScreen extends JFrame {
 					try 
 					{
 					
-							AccountApplication.checkValidSurname(txtSurname.getText().strip());
+							AccountApplication.checkValidSurname(txtSurname.getText().strip());				// Check surname input is valid
 					
 							try 
 							{
 	
-								MySQLQueries.updateSurname(currentLoggedIn.getCurrentUserID(), txtSurname.getText().strip());
+								MySQLQueries.updateSurname(currentLoggedIn.getCurrentUserID(), txtSurname.getText().strip());		// Udate current user surname with new input 
 						
 					
 							} 	

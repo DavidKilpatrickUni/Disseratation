@@ -43,11 +43,13 @@ import javax.swing.Icon;
  * </p>
  * 
  *
- * @see DiscoverSongApplication
+ * @see MyPlaylistsApplication
  */
 
 public class MyPlaylistsScreen extends JFrame {
 
+	// Variables
+	
 	private JPanel contentPane;
 	private JTextField txtPlaylistTitle1;
 	private JTextField txtPlaylistTitle2;
@@ -103,7 +105,7 @@ public class MyPlaylistsScreen extends JFrame {
 	 * <h1> Constructor </h1>
 	 * 
 	 * <p>
-	 * Default constructor for the <code>MyPlaylistsScreen</code> class. 
+	 * Constructor for the <code>MyPlaylistsScreen</code> class. 
 	 * </p>
 	 * 
 	 * <p>

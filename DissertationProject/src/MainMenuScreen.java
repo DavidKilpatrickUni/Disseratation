@@ -55,7 +55,7 @@ public class MainMenuScreen extends JFrame {
 	 * <h1> Constructor </h1>
 	 * 
 	 * <p>
-	 * Default constructor for the <code>MainMenuScreen</code> class. 
+	 * Constructor for the <code>MainMenuScreen</code> class. 
 	 * </p>
 	 * 
 	 * <p>

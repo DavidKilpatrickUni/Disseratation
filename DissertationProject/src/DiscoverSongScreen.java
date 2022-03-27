@@ -166,7 +166,7 @@ public class DiscoverSongScreen extends JFrame {
 	 * <h1> Constructor </h1>
 	 * 
 	 * <p>
-	 * Default constructor for the <code>DiscoverSongScreen</code> class. 
+	 * Constructor for the <code>DiscoverSongScreen</code> class. 
 	 * </p>
 	 * 
 	 * <p>
@@ -1031,7 +1031,7 @@ public class DiscoverSongScreen extends JFrame {
 	 *
 	 * @see DiscoverSongScreen
 	 * @see String
-	 * @see int
+	 * @see Integer
 	 * @see ResultSet
 	 */
 	

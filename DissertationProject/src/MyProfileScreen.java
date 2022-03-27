@@ -21,8 +21,31 @@ import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import javax.swing.border.MatteBorder;
 
+/**
+ * <h1> Class </h1>
+ * 
+ * <p>
+ * View part of the Tired architecture structure.
+ * </p>
+ * 
+ * <p>
+ * MyProfileScreen
+ * </p>
+ * 
+ * <p>
+ * Allows users to view and change profile details. These include username and favourite genre or artists.
+ * <br>The favourite sections are to provided more personal touches to account and share ones prefrences. These 'favourites' will hopefully in future builds be an aid in a suggestion system.
+ * <br>Also has a userIcon feature that is not part of this build but again is hoped to be included in the future. User icons or badges is a MoSCoW item that would further push the program to envisioned end state.
+ * <br>Has a direct link with <code>MyProfileApplication</code> that takes user input/tasks to process.
+ * </p>
+ * 
+ *
+ * @see MyProfileApplication
+ */
 public class MyProfileScreen extends JFrame {
 
+	// Variables 
+	
 	private JPanel contentPane;
 	private JTextField txtUsername;
 	private JTextField txtArtist1;
@@ -38,6 +61,32 @@ public class MyProfileScreen extends JFrame {
 	private JTextField txtUserIcon;
 	private JButton btnChangeIcon;
 
+	
+	// Constructors
+	
+	// Overloaded
+	
+	/**
+	 * <h1> Constructor </h1>
+	 * 
+	 * <p>
+	 * Constructor for the <code>MyProfileScreen</code> class. 
+	 * </p>
+	 * 
+	 * <p>
+	 * Sets up GUI elements and adds them to JPanel variable.
+	 * <br>Has ActionListeners to act on user input.
+	 * </p>
+	 * 
+	 * <p>
+	 * Parameter is the current information of the user currently logged into the application. A <code>LoggedIn</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentLoggedIn		<code>LoggedIn</code> object to store current user information.
+	 * 
+	 * @see MyProfileScreen
+	 * @see LoggedIN
+	 */
 	public MyProfileScreen(LoggedIn currentLoggedIn) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
 		setTitle("Elenco - My Profile Details");
@@ -46,7 +95,9 @@ public class MyProfileScreen extends JFrame {
 			@Override
 			public void windowActivated(WindowEvent e) {
 
-				ResultSet accountDetails  = MySQLQueries.getAccountsDetail(currentLoggedIn.getCurrentUserID());
+				// Populate screen GUI elements with relevant user data collected from database
+				
+				ResultSet accountDetails  = MySQLQueries.getAccountsDetail(currentLoggedIn.getCurrentUserID());			// Search for database account row with matching current userID
 				
 				String userName = null;
 				String artist1 = null;
@@ -58,7 +109,7 @@ public class MyProfileScreen extends JFrame {
 						
 				try {
 					
-					if (accountDetails.next())																
+					if (accountDetails.next())																			// If a row is found, make following variables equal row content of column title													
 					{
 						userName = accountDetails.getString("UserName");
 						artist1 = accountDetails.getString("Artist One");
@@ -68,7 +119,7 @@ public class MyProfileScreen extends JFrame {
 						genre2 = accountDetails.getString("Genre Two");
 						genre3 = accountDetails.getString("Genre Three");
 						
-						txtUsername.setText(userName);
+						txtUsername.setText(userName);															
 						txtArtist1.setText(artist1);
 						txtArtist2.setText(artist2);
 						txtArtist3.setText(artist3);
@@ -183,7 +234,7 @@ public class MyProfileScreen extends JFrame {
 				if (select == JOptionPane.YES_OPTION) 
 				{
 
-					MySQLQueries.updateArtist(currentLoggedIn.getCurrentUserID(),txtArtist1.getText().strip(), txtArtist2.getText().strip() ,txtArtist3.getText().strip() );
+					MySQLQueries.updateArtist(currentLoggedIn.getCurrentUserID(),txtArtist1.getText().strip(), txtArtist2.getText().strip() ,txtArtist3.getText().strip() ); // Update the users account with the parameters provided
 
 				}
 				
@@ -207,7 +258,7 @@ public class MyProfileScreen extends JFrame {
 				if (select == JOptionPane.YES_OPTION) 
 				{
 				
-					MySQLQueries.updateGenre(currentLoggedIn.getCurrentUserID(),txtGenre1.getText().strip(), txtGenre2.getText().strip() ,txtGenre3.getText().strip() );
+					MySQLQueries.updateGenre(currentLoggedIn.getCurrentUserID(),txtGenre1.getText().strip(), txtGenre2.getText().strip() ,txtGenre3.getText().strip() );  // Update the users account with the parameters provided
 				
 				}
 			}
@@ -265,11 +316,11 @@ public class MyProfileScreen extends JFrame {
 					try 
 					{
 					
-						MyProfileApplication.checkValidUsername(txtUsername.getText().strip());
+						MyProfileApplication.checkValidUsername(txtUsername.getText().strip());										// Check that new user input for username is valid
 					
 						try 
 						{
-							MySQLQueries.updateUsername(currentLoggedIn.getCurrentUserID(), txtUsername.getText().strip());
+							MySQLQueries.updateUsername(currentLoggedIn.getCurrentUserID(), txtUsername.getText().strip());			// If valid username, update user account database row to match
 					
 						} 
 						catch (CustomException error) {
