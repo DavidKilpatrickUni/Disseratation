@@ -8,6 +8,27 @@ import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
 
+/**
+ * <h1> Class </h1>
+ * 
+ * <p>
+ * Utility Layer of the Tiered architecture structure.
+ * </p>
+ * 
+ * <p>
+ * MySQLQueries
+ * </p>
+ * 
+ * <p>
+ * Class created to house all the mySQL queries used throughout the Elenco program. 
+ * <br> Having queries on every application layer meant code was being rewritten, cluttering up the code and making the size of the program code excessively larger.
+ * <br> This method removes duplicate and redundant code and makes all the sql queries accessible at one location.
+ * <br> All the queries that are suitable or require prepared statements has so.
+ * <br> Many mySQL reserved words have been used with some of the queries being very completed.  
+ * </p>
+ * 
+
+ */
 public class MySQLQueries {
 
 

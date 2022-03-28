@@ -3,7 +3,7 @@
  * <h1> Class </h1>
  * 
  * <p>
- * User Layer of the Tiered architecture structure.
+ * Utility Layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>
