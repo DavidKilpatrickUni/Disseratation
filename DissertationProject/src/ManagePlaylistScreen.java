@@ -30,7 +30,7 @@ import javax.swing.JToggleButton;
  * <h1> Class </h1>
  * 
  * <p>
- * View part of the Tired architecture structure.
+ * User Layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>

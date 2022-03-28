@@ -32,8 +32,29 @@ import javax.swing.event.PopupMenuEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class SearchPlaylistScreen extends JFrame {
+/**
+ * <h1> Class </h1>
+ * 
+ * <p>
+ * User layer of the Tiered architecture structure.
+ * </p>
+ * 
+ * <p>
+ * CommunityPlaylistScreen
+ * </p>
+ * 
+ * <p>
+ * Allows user to view their Account details and update/change some of their details that maybe wrong/out of date  
+ * <br>Has a direct link with <code>CommunityPlaylistApplication</code> that takes user input/tasks to process.
+ * </p>
+ * 
+ *
+ * @see CommunityPlaylistApplication
+ */
+public class CommunityPlaylistScreen extends JFrame {
 
+	// Variables
+	
 	private JPanel contentPane;
 	private JTextField txtTitle1;
 	private JTextField txtTitle2;
@@ -89,10 +110,38 @@ public class SearchPlaylistScreen extends JFrame {
 	private JButton btnSearch;
 	
 	private int pageCount = 1;
-	private int sqlOffset = 0;
-	private int sqlRowCount = 10;
+	private int sqlOffset = 0;  		// variable for offset during mysql LIMIT queries
+	private int sqlRowCount = 10;		// variable for count during mysql LIMIT queries
 
-	public SearchPlaylistScreen(LoggedIn currentLoggedIn) {
+	
+	// Constructors
+	
+	// Overloaded
+	
+	/**
+	 * <h1> Constructor </h1>
+	 * 
+	 * <p>
+	 * Constructor for the <code>CommunityPlaylistScreen</code> class. 
+	 * </p>
+	 * 
+	 * <p>
+	 * Sets up GUI elements and adds them to JPanel variable.
+	 * <br>Has ActionListeners to act on user input.
+	 * <br>Makes use of <code>CustomException</code> to relay feedback to user.
+	 * </p>
+	 * 
+	 * <p>
+	 * Parameter is the current information of the user currently logged into the application. A <code>LoggedIn</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentLoggedIn		<code>LoggedIn</code> object to store current user information.
+	 * 
+	 * @see CommunityPlaylistScreen
+	 * @see LoggedIN
+	 * @see CustomException
+	 */
+	public CommunityPlaylistScreen(LoggedIn currentLoggedIn) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -143,7 +192,7 @@ public class SearchPlaylistScreen extends JFrame {
 		btnView1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ViewPlaylistScreen frame = new ViewPlaylistScreen(txtTitle1.getText(), txtUserID1.getText(), currentLoggedIn);
+				ViewPlaylistScreen frame = new ViewPlaylistScreen(txtTitle1.getText(), txtUserID1.getText(), currentLoggedIn);			// View playlist by passing parameters to next GUI so screen content can be accurately loaded
 				frame.setVisible(true);
 				dispose();
 				
@@ -202,6 +251,8 @@ public class SearchPlaylistScreen extends JFrame {
 		
 		comboBoxSearch = new JComboBox();
 		comboBoxSearch.setToolTipText("This List Contains All The Current Material On Elenco Divided Into Caterogies By The 'Search By' Criteria Provided");
+		
+		// Populates the comboBox with elements from the database determined by user selected criteria
 		comboBoxSearch.addPopupMenuListener(new PopupMenuListener() {
 			public void popupMenuCanceled(PopupMenuEvent e) {
 			}
@@ -215,13 +266,13 @@ public class SearchPlaylistScreen extends JFrame {
 				if(comboBoxCriteria.getSelectedItem().toString().equals("UserName"))
 				{
 			
-					ResultSet results = MySQLQueries.popoulateWithUserName();
+					ResultSet results = MySQLQueries.popoulateWithUserName();											// Search database using username parameter - Query by username
 					try
 					{
 						
 						while (results.next())
 						{
-							comboBoxSearch.addItem(results.getString(comboBoxCriteria.getSelectedItem().toString()));
+							comboBoxSearch.addItem(results.getString(comboBoxCriteria.getSelectedItem().toString()));	// while a search result is found add item to comboBox
 						}
 						
 					} 
@@ -234,13 +285,13 @@ public class SearchPlaylistScreen extends JFrame {
 				else
 				{
 					
-					ResultSet results = MySQLQueries.popoulateWithPlaylistTitle();
+					ResultSet results = MySQLQueries.popoulateWithPlaylistTitle();										// Search database using plyylistTitle parameter - Query by playlistTitle
 					try
 					{
 						
 						while (results.next())
 						{
-							comboBoxSearch.addItem(results.getString(comboBoxCriteria.getSelectedItem().toString()));
+							comboBoxSearch.addItem(results.getString(comboBoxCriteria.getSelectedItem().toString()));	// while a search result is found add item to comboBox
 						}
 						
 					} 
@@ -266,7 +317,7 @@ public class SearchPlaylistScreen extends JFrame {
 		lblHeader.setBounds(170, 43, 330, 25);
 		contentPane.add(lblHeader);
 		
-		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));					
+		ImageIcon appIcon =  new ImageIcon(ElencoStartup.class.getResource("/BlueIcon-Circle.PNG"));					
 		Image appImage = appIcon.getImage();															
 		Image appImageResize = appImage.getScaledInstance(50,50, java.awt.Image.SCALE_SMOOTH);		
 		appIcon = new ImageIcon(appImageResize);													
@@ -630,6 +681,19 @@ public class SearchPlaylistScreen extends JFrame {
 		contentPane.add(btnSearch);
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * <p>
+	 * Receives user input from <code>CommunityPlaylistScreen</code> and uses them to search the database to find entries matching the search criteria and populates the screen with the appropriate content.
+	 * </p>
+	 * 
+	 *
+	 * @see DiscoverSongScreen
+	 * @see String
+	 * @see Integer
+	 * @see ResultSet
+	 */
+	
 	public void loadContent() {
 		
 		String userID = null;
@@ -639,7 +703,7 @@ public class SearchPlaylistScreen extends JFrame {
 		
 		txtPage.setText(String.valueOf(pageCount));
 		
-		if (sqlOffset > 9) {																											
+		if (sqlOffset > 9) {									// Makes the 'Previous' button only selectable when viable	 																								
 			
 			btnPrevious.setEnabled(true);
 			
@@ -650,19 +714,19 @@ public class SearchPlaylistScreen extends JFrame {
 			btnPrevious.setEnabled(false);
 		}
 	
-		ResultSet searchAttempt = MySQLQueries.searchForPlaylists(comboBoxSearch.getSelectedItem(), comboBoxCriteria.getSelectedItem().toString(), sqlOffset , sqlRowCount);	
+		ResultSet searchAttempt = MySQLQueries.searchForPlaylists(comboBoxSearch.getSelectedItem(), comboBoxCriteria.getSelectedItem().toString(), sqlOffset , sqlRowCount);		// Search database for custom search criteria Limited to 10 results	
 
 		try 
 		{
 			
-			while (searchAttempt.next())																	
+			while (searchAttempt.next())								// while a search result is found, set following variables to data in stated 'column' names of the database 														
 			{
 
 				userID = searchAttempt.getString("UserID");
 				title = searchAttempt.getString("PlaylistTitle");
 				username = searchAttempt.getString("UserName");
 				
-				switch (row) {
+				switch (row) {											// Switch to fill the appropriate line of the search result section of the GUI i.e populate each row inturn for ever iteration of while loop. Only 10 results are on screen at a time 
 					case 1:
 						txtUserID1.setText(userID);
 						txtTitle1.setText(title);
@@ -739,6 +803,16 @@ public class SearchPlaylistScreen extends JFrame {
 		}
 	
 	}
+	
+	/**
+	 * <h1> Method </h1>
+	 * <p>
+	 * Clears and resets all GUI elements to the desired state.
+	 * </p>
+	 * 
+	 *
+	 * @see CommunityPlaylistScreen
+	 */
 	
 	public void clearScreen() {
 		

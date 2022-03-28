@@ -9,16 +9,16 @@ import java.time.format.DateTimeFormatter;
  * <h1> Class </h1>
  * 
  * <p>
- * Application part of the Tired architecture structure.
+ * Application Layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>
- * View Song Application
+ * ViewSongApplication
  * </p>
  * 
  * <p>
- * View Song Application of the program that stores methods/process/tasks quickly available to the ViewSongScreen.
- * <br>Has a direct link with <code>DiscoverSongScreen</code> that receives user input.
+ * View Song Application class of the program that stores methods/process/tasks quickly available to the <code>ViewSongScreen</code>.
+ * <br>Has a direct link with <code>ViewSongScreen</code> that receives user input.
  * </p>
  * 
  *

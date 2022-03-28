@@ -2,27 +2,27 @@
  * <h1> Class </h1>
  * 
  * <p>
- * Application part of the Tired architecture structure.
+ * Application Layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>
- * Account Application
+ * AccountDetailsApplication
  * </p>
  * 
  * <p>
- * Account Application of the program that stores methods/process/tasks quickly available to the AccountScreen.
- * <br>Has a direct link with <code>AccountScreen</code> that receives user input.
+ * Account Details Application class of the program that stores methods/process/tasks quickly available to the <code>AccountDetailsScreen</code>.
+ * <br>Has a direct link with <code>AccountDetailsScreen</code> that receives user input.
  * </p>
  * 
  *
- * @see AccountScreen
+ * @see AccountDetailsScreen
  */
-public class AccountApplication {
+public class AccountDetailsApplication {
 
 	/**
 	 * <h1> Method </h1>
 	 * <p>
-	 * Method for checking user firstname is valid . It takes the user input from <code>AccountScreen</code>as a parameter and checks its not blank and sql sanitises. 
+	 * Method for checking user firstname is valid . It takes the user input from <code>AccountDetailsScreen</code>as a parameter and checks its not blank and sql sanitises. 
 	 * <br> Uses methods from <code>Helper</code>.
 	 * <br> If invalid a CutomException is thrown for user feedback purposes.
 	 * </p>
@@ -32,8 +32,8 @@ public class AccountApplication {
 	 * 
 	 * @param firstname		<code>String</code> object to store current user input. 
 	 * 
-	 * @see Account Screen
-	 * @see AccountApplication
+	 * @see AccountDetailsScreen
+	 * @see AccountDetailsApplication
 	 * @see Helper
 	 * @see CustomException
 	 * @see String
@@ -52,7 +52,7 @@ public class AccountApplication {
 	/**
 	 * <h1> Method </h1>
 	 * <p>
-	 * Method for checking user surname is valid . It takes the user input from <code>AccountScreen</code>as a parameter and checks its not blank and sql sanitises. 
+	 * Method for checking user surname is valid . It takes the user input from <code>AccountDetailsScreen</code>as a parameter and checks its not blank and sql sanitises. 
 	 * <br> Uses methods from <code>Helper</code>.
 	 * <br> If invalid a CutomException is thrown for user feedback purposes.
 	 * </p>
@@ -62,8 +62,8 @@ public class AccountApplication {
 	 * 
 	 * @param surname		<code>String</code> object to store current user input. 
 	 * 
-	 * @see Account Screen
-	 * @see AccountApplication
+	 * @see AccountDetailsScreen
+	 * @see AccountDetailsApplication
 	 * @see Helper
 	 * @see CustomException
 	 * @see String
@@ -83,7 +83,7 @@ public class AccountApplication {
 	/**
 	 * <h1> Method </h1>
 	 * <p>
-	 * Method for checking user password is valid . It takes the user input from <code>AccountScreen</code>as a parameter and checks its not blank, meets password standard and sql sanitises. 
+	 * Method for checking user password is valid . It takes the user input from <code>AccountDetailsScreen</code>as a parameter and checks its not blank, meets password standard and sql sanitises. 
 	 * <br> Uses methods from <code>Helper</code>.
 	 * <br> If invalid a CutomException is thrown for user feedback purposes.
 	 * </p>
@@ -93,8 +93,8 @@ public class AccountApplication {
 	 * 
 	 * @param password		<code>String</code> object to store current user input. 
 	 * 
-	 * @see Account Screen
-	 * @see AccountApplication
+	 * @see AccountDetailsScreen
+	 * @see AccountDetailsApplication
 	 * @see Helper
 	 * @see CustomException
 	 * @see String

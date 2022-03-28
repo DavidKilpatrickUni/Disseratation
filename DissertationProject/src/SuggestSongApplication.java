@@ -12,15 +12,15 @@ import java.util.Date;
  * <h1> Class </h1>
  * 
  * <p>
- * Application part of the Tired architecture structure.
+ * Application Layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>
- * Suggest Song Application
+ * SuggestSongApplication
  * </p>
  * 
  * <p>
- * Suggest Song Application of the program that stores methods/process/tasks quickly available to the SuggestSongScreen.
+ * Suggest Song Application class of the program that stores methods/process/tasks quickly available to the SuggestSongScreen.
  * <br>Has a direct link with <code>SuggestSongScreen</code> that receives user input.
  * <br> Uses CustomException to throw exceptions - this is when validation errors occur to give user feedback onscreen 
  * </p>

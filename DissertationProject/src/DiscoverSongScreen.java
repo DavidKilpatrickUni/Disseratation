@@ -38,7 +38,7 @@ import javax.swing.border.MatteBorder;
  * <h1> Class </h1>
  * 
  * <p>
- * View part of the Tired architecture structure.
+ * User Layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>
@@ -234,7 +234,7 @@ public class DiscoverSongScreen extends JFrame {
 		lblHeader.setForeground(new Color(90, 192, 217));
 		contentPane.add(lblHeader);
 		
-		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));					
+		ImageIcon appIcon =  new ImageIcon(ElencoStartup.class.getResource("/BlueIcon-Circle.PNG"));					
 		Image appImage = appIcon.getImage();															
 		Image appImageResize = appImage.getScaledInstance(50,50, java.awt.Image.SCALE_SMOOTH);		
 		appIcon = new ImageIcon(appImageResize);														

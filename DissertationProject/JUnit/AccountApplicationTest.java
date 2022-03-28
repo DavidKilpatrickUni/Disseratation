@@ -9,7 +9,7 @@ class AccountApplicationTest {
 	void checkThrowValidFirstnameBlank() {
 
 	
-		CustomException thrown = assertThrows(CustomException.class, () -> AccountApplication.checkValidFirstname(""));
+		CustomException thrown = assertThrows(CustomException.class, () -> AccountDetailsApplication.checkValidFirstname(""));
 
 		String expectedMessage = "Valid First Name Input Required";
 		String expectedReason = "firstname";
@@ -22,7 +22,7 @@ class AccountApplicationTest {
 	@Test
 	void checkThrowValidFirstnameInjection1() {
 
-		CustomException thrown = assertThrows(CustomException.class, () -> AccountApplication.checkValidFirstname("firstname="));
+		CustomException thrown = assertThrows(CustomException.class, () -> AccountDetailsApplication.checkValidFirstname("firstname="));
 
 		String expectedMessage = "Valid First Name Input Required";
 		String expectedReason = "firstname";
@@ -36,7 +36,7 @@ class AccountApplicationTest {
 	@Test
 	void checkThrowValidFirstnameInjection2() {
 		
-		CustomException thrown = assertThrows(CustomException.class, () -> AccountApplication.checkValidFirstname("firstname'"));
+		CustomException thrown = assertThrows(CustomException.class, () -> AccountDetailsApplication.checkValidFirstname("firstname'"));
 
 		String expectedMessage = "Valid First Name Input Required";
 		String expectedReason = "firstname";
@@ -52,7 +52,7 @@ class AccountApplicationTest {
 	void checkThrowValidSurnameBlank() {
 
 	
-		CustomException thrown = assertThrows(CustomException.class, () -> AccountApplication.checkValidSurname(""));
+		CustomException thrown = assertThrows(CustomException.class, () -> AccountDetailsApplication.checkValidSurname(""));
 
 		String expectedMessage = "Valid Surname Input Required";
 		String expectedReason = "surname";
@@ -65,7 +65,7 @@ class AccountApplicationTest {
 	@Test
 	void checkThrowValidSurnameInjection1() {
 
-		CustomException thrown = assertThrows(CustomException.class, () -> AccountApplication.checkValidSurname("surname="));
+		CustomException thrown = assertThrows(CustomException.class, () -> AccountDetailsApplication.checkValidSurname("surname="));
 
 		String expectedMessage = "Valid Surname Input Required";
 		String expectedReason = "surname";
@@ -80,7 +80,7 @@ class AccountApplicationTest {
 	@Test
 	void checkThrowValidSurnameInjection2() {
 		
-		CustomException thrown = assertThrows(CustomException.class, () -> AccountApplication.checkValidSurname("surname'"));
+		CustomException thrown = assertThrows(CustomException.class, () -> AccountDetailsApplication.checkValidSurname("surname'"));
 
 		String expectedMessage = "Valid Surname Input Required";
 		String expectedReason = "surname";
@@ -95,7 +95,7 @@ class AccountApplicationTest {
 	void checkThrowValidPasswordBlank() {
 
 	
-		CustomException thrown = assertThrows(CustomException.class, () -> AccountApplication.checkValidPassword(""));
+		CustomException thrown = assertThrows(CustomException.class, () -> AccountDetailsApplication.checkValidPassword(""));
 
 		String expectedMessage = "Valid Password Input Required - Must Be 8-15 Length AND Have 1 Capital Letter, 1 Legal Special Character , 1 Number";
 		String expectedReason = "password";
@@ -108,7 +108,7 @@ class AccountApplicationTest {
 	@Test
 	void checkThrowValidPasswordInjection1() {
 
-		CustomException thrown = assertThrows(CustomException.class, () -> AccountApplication.checkValidPassword("A123456!="));
+		CustomException thrown = assertThrows(CustomException.class, () -> AccountDetailsApplication.checkValidPassword("A123456!="));
 
 		String expectedMessage = "Valid Password Input Required - Must Be 8-15 Length AND Have 1 Capital Letter, 1 Legal Special Character , 1 Number";
 		String expectedReason = "password";
@@ -123,7 +123,7 @@ class AccountApplicationTest {
 	@Test
 	void checkThrowValidPasswordInjection2() {
 		
-		CustomException thrown = assertThrows(CustomException.class, () -> AccountApplication.checkValidPassword("A123456!'"));
+		CustomException thrown = assertThrows(CustomException.class, () -> AccountDetailsApplication.checkValidPassword("A123456!'"));
 
 		String expectedMessage = "Valid Password Input Required - Must Be 8-15 Length AND Have 1 Capital Letter, 1 Legal Special Character , 1 Number";
 		String expectedReason = "password";
@@ -139,7 +139,7 @@ class AccountApplicationTest {
 	@Test
 	void checkThrowValidPasswordRegex1() {
 		
-		CustomException thrown = assertThrows(CustomException.class, () -> AccountApplication.checkValidPassword("A12345!"));
+		CustomException thrown = assertThrows(CustomException.class, () -> AccountDetailsApplication.checkValidPassword("A12345!"));
 
 		String expectedMessage = "Valid Password Input Required - Must Be 8-15 Length AND Have 1 Capital Letter, 1 Legal Special Character , 1 Number";
 		String expectedReason = "password";
@@ -154,7 +154,7 @@ class AccountApplicationTest {
 	@Test
 	void checkThrowValidPasswordRegex2() {
 		
-		CustomException thrown = assertThrows(CustomException.class, () -> AccountApplication.checkValidPassword("A123dsfjkbweifiwefiwebfk456!"));
+		CustomException thrown = assertThrows(CustomException.class, () -> AccountDetailsApplication.checkValidPassword("A123dsfjkbweifiwefiwebfk456!"));
 
 		String expectedMessage = "Valid Password Input Required - Must Be 8-15 Length AND Have 1 Capital Letter, 1 Legal Special Character , 1 Number";
 		String expectedReason = "password";
@@ -169,7 +169,7 @@ class AccountApplicationTest {
 	@Test
 	void checkThrowValidPasswordRegex3() {
 			
-		CustomException thrown = assertThrows(CustomException.class, () -> AccountApplication.checkValidPassword("a123456!"));
+		CustomException thrown = assertThrows(CustomException.class, () -> AccountDetailsApplication.checkValidPassword("a123456!"));
 
 		String expectedMessage = "Valid Password Input Required - Must Be 8-15 Length AND Have 1 Capital Letter, 1 Legal Special Character , 1 Number";
 		String expectedReason = "password";
@@ -184,7 +184,7 @@ class AccountApplicationTest {
 	@Test
 	void checkThrowValidPasswordRegex4() {
 			
-		CustomException thrown = assertThrows(CustomException.class, () -> AccountApplication.checkValidPassword("ASDFGHJK!"));
+		CustomException thrown = assertThrows(CustomException.class, () -> AccountDetailsApplication.checkValidPassword("ASDFGHJK!"));
 
 		String expectedMessage = "Valid Password Input Required - Must Be 8-15 Length AND Have 1 Capital Letter, 1 Legal Special Character , 1 Number";
 		String expectedReason = "password";
@@ -199,7 +199,7 @@ class AccountApplicationTest {
 	@Test
 	void checkThrowValidPasswordRegex5() {
 			
-		CustomException thrown = assertThrows(CustomException.class, () -> AccountApplication.checkValidPassword("A1234567"));
+		CustomException thrown = assertThrows(CustomException.class, () -> AccountDetailsApplication.checkValidPassword("A1234567"));
 
 		String expectedMessage = "Valid Password Input Required - Must Be 8-15 Length AND Have 1 Capital Letter, 1 Legal Special Character , 1 Number";
 		String expectedReason = "password";
@@ -214,7 +214,7 @@ class AccountApplicationTest {
 		
 		String testFirstname= "firstname";
 		
-		AccountApplication.checkValidFirstname(testFirstname);
+		AccountDetailsApplication.checkValidFirstname(testFirstname);
 		
 	}
 	
@@ -223,7 +223,7 @@ class AccountApplicationTest {
 		
 		String testSurname= "surname";
 		
-		AccountApplication.checkValidSurname(testSurname);
+		AccountDetailsApplication.checkValidSurname(testSurname);
 		
 	}
 	
@@ -232,7 +232,7 @@ class AccountApplicationTest {
 		
 		String testPassword= "A123456!";
 		
-		AccountApplication.checkValidPassword(testPassword);
+		AccountDetailsApplication.checkValidPassword(testPassword);
 		
 	}
 

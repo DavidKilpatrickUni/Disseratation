@@ -2,7 +2,7 @@
  * <h1> Class </h1>
  * 
  * <p>
- * Application part of the Tired architecture structure.
+ * Application layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>
@@ -10,7 +10,7 @@
  * </p>
  * 
  * <p>
- * AddToPlaylist Application of the program that stores methods/process/tasks quickly available to the AddToPlaylistScreen.
+ * Add To Playlist class of the program that stores methods/process/tasks quickly available to the AddToPlaylistScreen.
  * <br>Has a direct link with <code>AddToPlaylistScreen</code> that receives user input.
  * </p>
  * 

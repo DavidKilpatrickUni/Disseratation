@@ -8,28 +8,28 @@ import java.sql.Statement;
  * <h1> Class </h1>
  * 
  * <p>
- * Application part of the Tired architecture structure.
+ * Application Layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>
- * MyProfileApplication
+ * ProfileDetailsApplication
  * </p>
  * 
  * <p>
- * MyProfileApplication of the program that stores methods/process/tasks quickly available to the MyProfileScreen.
- * <br>Has a direct link with <code>MyProfileScreen</code> that receives user input.
+ * Profile Details Application class of the program that stores methods/process/tasks quickly available to the <code>ProfileDetailsScreen</code>.
+ * <br>Has a direct link with <code>ProfileDetailsScreen</code> that receives user input.
  * </p>
  * 
  *
- * @see MyProfileScreen
+ * @see ProfileDetailsScreen
  */
-public class MyProfileApplication {
+public class ProfileDetailsApplication {
 
 	
 	/**
 	 * <h1> Method </h1>
 	 * <p>
-	 * Receives user input from <code>MyProfileScreen</code> and checks that the username provided by user is valid.
+	 * Receives user input from <code>ProfileDetailsScreen</code> and checks that the username provided by user is valid.
 	 * <br> Is a quick and convenient method that houses other methods from the <code>Helper</code> class relevant to the task of validating a username.
 	 * <br> If the input is not valid, a CustomException is thrown to provide the user with feedback.
 	 * </p>
@@ -40,8 +40,8 @@ public class MyProfileApplication {
 	 * 
 	 * @param username			<code>String</code> object to store user input.
 	 *
-	 * @see MyProfileApplication
-	 * @see MyProfileScreen
+	 * @see ProfileDetailsApplication
+	 * @see ProfileDetailsScreen
 	 * @see CustomException
 	 * @see String
 	 */

@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  * <h1> Class </h1>
  * 
  * <p>
- * Application part of the Tired architecture structure.
+ * Application Layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>
@@ -30,7 +30,7 @@ import javax.swing.JOptionPane;
  * </p>
  * 
  * <p>
- * RegistrationApplication of the program that stores methods/process/tasks quickly available to the RegistrationScreen.
+ * Registration Application class of the program that stores methods/process/tasks quickly available to the RegistrationScreen.
  * <br>Has a direct link with <code>RegistrationScreen</code> that receives user input.
  * <br> Uses CustomException to throw exceptions - this is when validation errors occur to give user feedback onscreen 
  * </p>

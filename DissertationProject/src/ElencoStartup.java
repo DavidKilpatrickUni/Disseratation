@@ -20,7 +20,7 @@
  * @since 07/03/2022
  */
 
-public class ApplicationStartup {
+public class ElencoStartup {
 
 	public static void main(String[] args) {
 

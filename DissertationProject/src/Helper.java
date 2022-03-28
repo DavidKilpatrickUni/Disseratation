@@ -17,7 +17,7 @@ import javax.swing.border.Border;
  * <h1> Class </h1>
  * 
  * <p>
- * Lower level part of the Tired architecture structure.
+ * Utility Layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>

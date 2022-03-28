@@ -480,7 +480,7 @@ public class AdminSearchAccountsScreen extends JFrame {
 		btnEmail1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				AdminSendEmail adminSendEmail = new AdminSendEmail(currentAdmin, txtUserID1.getText());
+				AdminSendEmailScreen adminSendEmail = new AdminSendEmailScreen(currentAdmin, txtUserID1.getText());
 				adminSendEmail.setVisible(true);
 				dispose();
 			}
@@ -493,7 +493,7 @@ public class AdminSearchAccountsScreen extends JFrame {
 		btnEmail2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				AdminSendEmail adminSendEmail = new AdminSendEmail(currentAdmin, txtUserID2.getText());
+				AdminSendEmailScreen adminSendEmail = new AdminSendEmailScreen(currentAdmin, txtUserID2.getText());
 				adminSendEmail.setVisible(true);
 				dispose();
 			}
@@ -506,7 +506,7 @@ public class AdminSearchAccountsScreen extends JFrame {
 		btnEmail3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				AdminSendEmail adminSendEmail = new AdminSendEmail(currentAdmin, txtUserID3.getText());
+				AdminSendEmailScreen adminSendEmail = new AdminSendEmailScreen(currentAdmin, txtUserID3.getText());
 				adminSendEmail.setVisible(true);
 				dispose();
 			}
@@ -519,7 +519,7 @@ public class AdminSearchAccountsScreen extends JFrame {
 		btnEmail4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				AdminSendEmail adminSendEmail = new AdminSendEmail(currentAdmin, txtUserID4.getText());
+				AdminSendEmailScreen adminSendEmail = new AdminSendEmailScreen(currentAdmin, txtUserID4.getText());
 				adminSendEmail.setVisible(true);
 				dispose();
 			}
@@ -532,7 +532,7 @@ public class AdminSearchAccountsScreen extends JFrame {
 		btnEmail5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				AdminSendEmail adminSendEmail = new AdminSendEmail(currentAdmin, txtUserID5.getText());
+				AdminSendEmailScreen adminSendEmail = new AdminSendEmailScreen(currentAdmin, txtUserID5.getText());
 				adminSendEmail.setVisible(true);
 				dispose();
 			}
@@ -545,7 +545,7 @@ public class AdminSearchAccountsScreen extends JFrame {
 		btnEmail6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				AdminSendEmail adminSendEmail = new AdminSendEmail(currentAdmin, txtUserID6.getText());
+				AdminSendEmailScreen adminSendEmail = new AdminSendEmailScreen(currentAdmin, txtUserID6.getText());
 				adminSendEmail.setVisible(true);
 				dispose();
 			}
@@ -558,7 +558,7 @@ public class AdminSearchAccountsScreen extends JFrame {
 		btnEmail7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				AdminSendEmail adminSendEmail = new AdminSendEmail(currentAdmin, txtUserID7.getText());
+				AdminSendEmailScreen adminSendEmail = new AdminSendEmailScreen(currentAdmin, txtUserID7.getText());
 				adminSendEmail.setVisible(true);
 				dispose();
 			}
@@ -571,7 +571,7 @@ public class AdminSearchAccountsScreen extends JFrame {
 		btnEmail8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				AdminSendEmail adminSendEmail = new AdminSendEmail(currentAdmin, txtUserID8.getText());
+				AdminSendEmailScreen adminSendEmail = new AdminSendEmailScreen(currentAdmin, txtUserID8.getText());
 				adminSendEmail.setVisible(true);
 				dispose();
 			}
@@ -583,7 +583,7 @@ public class AdminSearchAccountsScreen extends JFrame {
 		btnEmail9 = new JButton("Email");
 		btnEmail9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AdminSendEmail adminSendEmail = new AdminSendEmail(currentAdmin, txtUserID9.getText());
+				AdminSendEmailScreen adminSendEmail = new AdminSendEmailScreen(currentAdmin, txtUserID9.getText());
 				adminSendEmail.setVisible(true);
 				dispose();
 			}
@@ -596,7 +596,7 @@ public class AdminSearchAccountsScreen extends JFrame {
 		btnEmail10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				AdminSendEmail adminSendEmail = new AdminSendEmail(currentAdmin, txtUserID10.getText());
+				AdminSendEmailScreen adminSendEmail = new AdminSendEmailScreen(currentAdmin, txtUserID10.getText());
 				adminSendEmail.setVisible(true);
 				dispose();
 			}

@@ -2,7 +2,7 @@
  * <h1> Class </h1>
  * 
  * <p>
- * Application part of the Tired architecture structure.
+ * Application layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>

@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  * <h1> Class </h1>
  * 
  * <p>
- * Application part of the Tired architecture structure.
+ * Application layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>
@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  * </p>
  * 
  * <p>
- * LoginApplication of the program that stores methods/process/tasks quickly available to the <code>LoginScreen</code>.
+ * Login Application class of the program that stores methods/process/tasks quickly available to the <code>LoginScreen</code>.
  * <br> Has a direct link with <code>LoginScreen</code> that receives user input.
  * <br> Uses CustomException to throw exceptions - this is when validation errors occur to give user feedback onscreen 
  * </p>

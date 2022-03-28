@@ -31,23 +31,23 @@ import javax.swing.border.MatteBorder;
  * <h1> Class </h1>
  * 
  * <p>
- * View part of the Tired architecture structure.
+ * User layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>
- * AccountScreen
+ * AccountDetailsScreen
  * </p>
  * 
  * <p>
  * Allows user to view their Account details and update/change some of their details that maybe wrong/out of date  
- * <br>Has a direct link with <code>AccountApplication</code> that takes user input/tasks to process.
+ * <br>Has a direct link with <code>AccountDetailsApplication</code> that takes user input/tasks to process.
  * </p>
  * 
  *
- * @see AccountApplication
+ * @see AccountDetailsApplication
  */
 
-public class AccountScreen extends JFrame {
+public class AccountDetailsScreen extends JFrame {
 
 	// Variables
 	
@@ -67,13 +67,13 @@ public class AccountScreen extends JFrame {
 	 * <h1> Constructor </h1>
 	 * 
 	 * <p>
-	 * Constructor for the <code>AccountScreen</code> class. 
+	 * Constructor for the <code>AccountDetailsScreen</code> class. 
 	 * </p>
 	 * 
 	 * <p>
 	 * Sets up GUI elements and adds them to JPanel variable.
 	 * <br>Has ActionListeners to act on user input.
-	 * <br>Makes use of CustomException to relay feedback to user.
+	 * <br>Makes use of <code>CustomException</code> to relay feedback to user.
 	 * </p>
 	 * 
 	 * <p>
@@ -82,12 +82,12 @@ public class AccountScreen extends JFrame {
 	 * 
 	 * @param currentLoggedIn		<code>LoggedIn</code> object to store current user information.
 	 * 
-	 * @see AccountScreen
+	 * @see AccountDetailsScreen
 	 * @see LoggedIN
 	 * @see CustomException
 	 */
 	
-	public AccountScreen(LoggedIn currentLoggedIn) {
+	public AccountDetailsScreen(LoggedIn currentLoggedIn) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
 		setTitle("Elenco - Account Details");
 		setBackground(Color.WHITE);
@@ -224,7 +224,7 @@ public class AccountScreen extends JFrame {
 					try 
 					{
 					
-						AccountApplication.checkValidPassword(passwordField.getText().strip());		// Check password input is valid
+						AccountDetailsApplication.checkValidPassword(passwordField.getText().strip());		// Check password input is valid
 				
 						try 
 						{
@@ -284,7 +284,7 @@ public class AccountScreen extends JFrame {
 					try 
 					{
 					
-						AccountApplication.checkValidFirstname(txtFirstname.getText().strip());				// Check firstname input is valid
+						AccountDetailsApplication.checkValidFirstname(txtFirstname.getText().strip());				// Check firstname input is valid
 					
 						try 
 						{
@@ -397,7 +397,7 @@ public class AccountScreen extends JFrame {
 					try 
 					{
 					
-							AccountApplication.checkValidSurname(txtSurname.getText().strip());				// Check surname input is valid
+							AccountDetailsApplication.checkValidSurname(txtSurname.getText().strip());				// Check surname input is valid
 					
 							try 
 							{

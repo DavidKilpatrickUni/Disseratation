@@ -38,7 +38,7 @@ import javax.swing.border.MatteBorder;
  * <h1> Class </h1>
  * 
  * <p>
- * View part of the Tired architecture structure.
+ * User Layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>
@@ -113,17 +113,17 @@ public class ViewSongScreen extends JFrame {
 	 * <h1> Constructor </h1>
 	 * 
 	 * <p>
-	 * Default constructor for the <code>ViewSongScreen</code> class. 
+	 * Constructor for the <code>ViewSongScreen</code> class. 
 	 * </p>
 	 * 
 	 * <p>
 	 * Sets up GUI elements and adds them to JPanel variable.
 	 * <br>Has ActionListeners to act on user input.
-	 * <br>Makes use of CustomException to rely feedback to user.
+	 * <br>Makes use of <code>CustomException</code> to relay feedback to user.
 	 * </p>
 	 * <p>
 	 * Parameter one is the current information of the user currently logged into the application. A <code>LoggedIn</code> object is used to store the data.
-	 * Parameter two is the current songID that has been selected by the user on previous GUI. A <code>String</code> object is used to store the data.
+	 * <br>Parameter two is the current songID that has been selected by the user on previous GUI. A <code>String</code> object is used to store the data.
 	 * </p>
 	 * 
 	 * @param currentLoggedIn		<code>LoggedIn</code> object to store current user information.
@@ -323,7 +323,7 @@ public class ViewSongScreen extends JFrame {
 		lblHeader.setForeground(new Color(90, 192, 217));
 		contentPane.add(lblHeader);
 		
-		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));					
+		ImageIcon appIcon =  new ImageIcon(ElencoStartup.class.getResource("/BlueIcon-Circle.PNG"));					
 		Image appImage = appIcon.getImage();															
 		Image appImageResize = appImage.getScaledInstance(50,50, java.awt.Image.SCALE_SMOOTH);		
 		appIcon = new ImageIcon(appImageResize);														
@@ -533,7 +533,7 @@ public class ViewSongScreen extends JFrame {
 		lblPage.setBounds(400, 626, 50, 14);
 		contentPane.add(lblPage);
 		
-		ImageIcon songIcon =  new ImageIcon(ApplicationStartup.class.getResource("/ProfileIcon.PNG"));					
+		ImageIcon songIcon =  new ImageIcon(ElencoStartup.class.getResource("/ProfileIcon.PNG"));					
 		Image songImage = songIcon.getImage();															
 		Image songImageResize = songImage.getScaledInstance(200,200, java.awt.Image.SCALE_SMOOTH);		
 		songIcon = new ImageIcon(songImageResize);
@@ -548,11 +548,15 @@ public class ViewSongScreen extends JFrame {
 	 * <p>
 	 * Receives parameter from <code>DiscoverSongScreen</code> and uses it to search the database to find all comments for the matching songID and populates the screen with the appropriate content.
 	 * </p>
+	 * 
+	 * <p>
+	 * Parameter one is the current songID information. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
 	 * @param currentSongID		<code>String</code> object to store current songID information. 
 	 *
 	 * @see DiscoverSongScreen
 	 * @see String
-	 * @see int
 	 * @see ResultSet
 	 */
 	
@@ -682,6 +686,13 @@ public class ViewSongScreen extends JFrame {
 	 * <br> Dependent on outcome, it either UPDATES the database using mySQL or INSERTs a new database entry.
 	 * <br> Throws CustomException if user inputs invalid inputs for feedback purposes
 	 * </p>
+	 * 
+	 * <p>
+	 * Parameter one is the current logged in user information. A <code>LoggedIn</code> object is used to store the data.
+	 * <br>Parameter two is the current songID information. A <code>String</code> object is used to store the data.
+	 * <br>Parameter three is the user comboBox input for song rating. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
 	 * @param currentLoggedIn		<code>LoggedIn</code> object to store current user information. 
 	 * @param currentSongID			<code>String</code> object to store current songID information. 
 	 * @param comboBoxRating		<code>String</code> object to store new song rating.
@@ -690,7 +701,6 @@ public class ViewSongScreen extends JFrame {
 	 * @see LoggedIn
 	 * @see CustomException
 	 * @see String
-	 * @see int
 	 * @see ResultSet
 	 */
 
@@ -776,6 +786,11 @@ public class ViewSongScreen extends JFrame {
 	 * <p>
 	 * Method for loading the current song details using parameter
 	 * <p>
+	 * 
+	 * <p>
+	 * Parameter one is the current songID information. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
 	 * @param currentSongID			<code>String</code> object to store current songID information. 
 	 *
 	 * @see ViewSongScreen
@@ -829,6 +844,14 @@ public class ViewSongScreen extends JFrame {
 	 * <p>
 	 * Method for loading the current rating that the current user has specified using parameter
 	 * <p>
+	 * 
+	 * <p>
+	 * Parameter one is the current songID information. A <code>String</code> object is used to store the data.
+	 * <br> Parameter two is the current logged in user information.
+	 * <br>
+	 * </p>
+	 * 
+	 * 
 	 * @param currentSongID			<code>String</code> object to store current songID information. 
 	 * @param currentLoggedIn		<code>LoggedIn</code> object to store current user information. 
 	 * 

@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class AdminSendEmail extends JFrame {
+public class AdminSendEmailScreen extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtEmailAddress;
@@ -23,9 +23,9 @@ public class AdminSendEmail extends JFrame {
 	private JLabel lblTo;
 	private JLabel lblEmail;
 	private JLabel lblMessage;
-	EmailInfo emailInfo;
+	AdminEmailInfo emailInfo;
 
-	public AdminSendEmail(AdminLoggedIn currentAdmin, String userID) {
+	public AdminSendEmailScreen(AdminLoggedIn currentAdmin, String userID) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -45,7 +45,7 @@ public class AdminSendEmail extends JFrame {
 						firstname = searchAttempt.getString("First Name");
 						surname = searchAttempt.getString("Last Name");
 						email = searchAttempt.getString("Email");
-						emailInfo = new EmailInfo(firstname, surname, email);
+						emailInfo = new AdminEmailInfo(firstname, surname, email);
 						
 						
 						txtTo.setText(emailInfo.getFirstname() + " " + emailInfo.getSurname());

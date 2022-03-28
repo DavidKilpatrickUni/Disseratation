@@ -20,7 +20,7 @@ import java.awt.Image;
  * <h1> Class </h1>
  * 
  * <p>
- * View part of the Tired architecture structure.
+ * User Layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>
@@ -28,7 +28,7 @@ import java.awt.Image;
  * </p>
  * 
  * <p>
- * ProfileMenuScreen of the program that allows easy access to other areas/features relevant to a user profile - View account details, profile details or logout.
+ * Profile Menu Screen class of the program that allows easy access to other areas/features relevant to a user profile - View account details, profile details or logout.
  * <br>Has a direct link with <code>MainMenuApplication</code> that takes user input/tasks to process.
  * </p>
  * 
@@ -65,7 +65,7 @@ public class ProfileMenuScreen extends JFrame {
 	 * 
 	 * @param currentLoggedIn		<code>LoggedIn</code> object to store current user information.
 	 * 
-	 * @see MyProfileScreen
+	 * @see ProfileDetailsScreen
 	 * @see LoggedIN
 	 */
 	public ProfileMenuScreen(LoggedIn currentLoggedIn) {
@@ -85,7 +85,7 @@ public class ProfileMenuScreen extends JFrame {
 		btnMyAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				AccountScreen frame = new AccountScreen(currentLoggedIn);
+				AccountDetailsScreen frame = new AccountDetailsScreen(currentLoggedIn);
 				frame.setVisible(true);
 				dispose();
 			}
@@ -99,7 +99,7 @@ public class ProfileMenuScreen extends JFrame {
 		btnMyProfile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				MyProfileScreen frame = new MyProfileScreen(currentLoggedIn);
+				ProfileDetailsScreen frame = new ProfileDetailsScreen(currentLoggedIn);
 				frame.setVisible(true);
 				dispose();
 				
@@ -151,7 +151,7 @@ public class ProfileMenuScreen extends JFrame {
 		lblElenco.setBounds(150, 25, 200, 75);
 		contentPane.add(lblElenco);
 		
-		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));					
+		ImageIcon appIcon =  new ImageIcon(ElencoStartup.class.getResource("/BlueIcon-Circle.PNG"));					
 		Image appImage = appIcon.getImage();															
 		Image appImageResize = appImage.getScaledInstance(100,100, java.awt.Image.SCALE_SMOOTH);		
 		appIcon = new ImageIcon(appImageResize);

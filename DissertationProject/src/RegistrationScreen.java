@@ -31,10 +31,33 @@ import javax.swing.SwingConstants;
 import java.awt.Toolkit;
 import java.awt.Panel;
 
+/**
+ * <h1> Class </h1>
+ * 
+ * <p>
+ * User Layer of the Tired architecture structure.
+ * </p>
+ * 
+ * <p>
+ * RegistrationScreen
+ * </p>
+ * 
+ * <p>
+ * Allows users to create an Elenco account part of the program. 
+ * <br> After providing user input that is checked and validated, a final confirm email is sent to the user asking to type in the randomly generated confirmation code sent.
+ * <br> The user input is compared to orginal code, if a match, account creation has been a success and the user can now procedd to use the Elenco program. 
+ * <br> Has a direct link with <code>RegistrationApplication</code> that takes user input/tasks to process.
+ * </p>
+ * 
+ *
+ * @see RegistrationApplication
+ */
+
 public class RegistrationScreen extends JFrame {
 
-	private JPanel contentPane;
+	// Variables
 	
+	private JPanel contentPane;
 	private JTextField txtFirstName;
 	private JTextField txtSurname;
 	private JTextField txtEmail;
@@ -45,6 +68,29 @@ public class RegistrationScreen extends JFrame {
 	private JRadioButton rdbtnMale;
 	private JRadioButton rdbtnFemale;
 	private JRadioButton rdbtnNB;
+	
+	// Constructors
+	
+	// Overloaded
+	
+	/**
+	 * <h1> Constructor </h1>
+	 * 
+	 * <p>
+	 * Constructor for the <code>RegistrationScreen</code> class. 
+	 * </p>
+	 * 
+	 * <p>
+	 * Sets up GUI elements and adds them to JPanel variable.
+	 * <br>Has ActionListeners to act on user input.
+	 * <br>Makes use of <code>CustomException</code> to relay feedback to user.
+	 * </p>
+	 * 
+	 * 
+	 * 
+	 * @see RegistrationScreen
+	 * @see CustomException
+	 */
 
 	public RegistrationScreen() {
 		setTitle("Elenco - Create Account");
@@ -131,6 +177,10 @@ public class RegistrationScreen extends JFrame {
 		btnCreate.setToolTipText("Enter Your Details Above Then Click To Create A New Account");
 		btnCreate.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnCreate.addActionListener(new ActionListener() {
+			
+			// Listener that starts many processes. It takes all current user input for all fields and firstly checks if the inputs are valid. If so checks if the username/email already exists on the Elenco database.
+			// If false creates a new database entry with all the song details provided. CustomException has been use to stop processes in the application linked to this GUI. These throws result in feedback onscreen 
+			// for the user.
 			public void actionPerformed(ActionEvent e) {
 				
 				txtFirstName.setBorder(new LineBorder(Color.LIGHT_GRAY));
@@ -146,7 +196,7 @@ public class RegistrationScreen extends JFrame {
 				
 				String myIdentity;
 				
-				if (rdbtnMale.isSelected()) {																											
+				if (rdbtnMale.isSelected()) {											// Establish which radio button has been selected																									
 					
 					myIdentity = "Male";	
 					
@@ -168,7 +218,7 @@ public class RegistrationScreen extends JFrame {
 				
 				try {
 					
-					if(RegistrationApplication.checkRegistrationForm(txtFirstName.getText(), 
+					if(RegistrationApplication.checkRegistrationForm(txtFirstName.getText(), 									// Call method to check user input is valid
 								txtSurname.getText(), 
 								myIdentity, 
 								dateChooser.getDate(),
@@ -179,30 +229,30 @@ public class RegistrationScreen extends JFrame {
 			
 					{
 						
-						try
-						{
+						try																										// If pass
+						{																										
 							
 							String sentCode;
 							String confirmCode;
 							String confirmEmail;
 						
-							sentCode = EmailServices.randomConfirmCode();
-							confirmEmail =  sentCode + txtEmail.getText().strip();
+							sentCode = EmailServices.randomConfirmCode();														// Set variable to randomly generated 5 digit code
+							confirmEmail =  sentCode + txtEmail.getText().strip();												// Put code in an email for user
 							
-							EmailServices.confirmEmail(confirmEmail);
+							EmailServices.confirmEmail(confirmEmail);															// Send email
 							
 							System.out.println("Sent Code: " + sentCode);
 							
-							confirmCode = (JOptionPane.showInputDialog("An Email Has Been Sent To The Address Provided With A 5-Digit Confirm Code - Enter The Code "));
+							confirmCode = (JOptionPane.showInputDialog("An Email Has Been Sent To The Address Provided With A 5-Digit Confirm Code - Enter The Code "));	// Ask to confirm email code
 							
 							System.out.println("Confirm Code: " + confirmCode);
 							
 						
-							if (confirmCode.toString().equals(sentCode)) {
+							if (confirmCode.toString().equals(sentCode)) {											// If true
 								
 								System.out.println("Codes Match");
 							
-								MySQLQueries.createAccount(txtFirstName.getText().strip(), 
+								MySQLQueries.createAccount(txtFirstName.getText().strip(), 								// Create new database entry in accounts using parameters
 										txtSurname.getText().strip(), 									
 										Helper.dateForDatabase(Helper.changeDateFormat(dateChooser.getDate())) ,
 										myIdentity.strip(),
@@ -231,8 +281,8 @@ public class RegistrationScreen extends JFrame {
 					 
 					JOptionPane.showMessageDialog(null, error.getMessage(), "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);
 					
-					switch(error.getReason())
-					{
+					switch(error.getReason())																														// If at any time a fail or false return
+					{																																				// Establish reason and display relevant feedback to user
 						case "firstname":
 							txtFirstName.setBorder(new LineBorder(Color.RED));
 							break;

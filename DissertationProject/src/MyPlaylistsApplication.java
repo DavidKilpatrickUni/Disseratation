@@ -2,7 +2,7 @@
  * <h1> Class </h1>
  * 
  * <p>
- * Application part of the Tired architecture structure.
+ * Application Layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>
@@ -10,7 +10,7 @@
  * </p>
  * 
  * <p>
- * My Playlists Application of the program that stores methods/process/tasks quickly available to the MyPlaylistsgScreen.
+ * My Playlists Application class of the program that stores methods/process/tasks quickly available to the MyPlaylistsgScreen.
  * <br>Has a direct link with <code>MyPlaylistsScreen</code> that receives user input.
  * </p>
  * 

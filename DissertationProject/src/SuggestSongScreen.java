@@ -34,7 +34,7 @@ import javax.swing.border.MatteBorder;
  * <h1> Class </h1>
  * 
  * <p>
- * View part of the Tired architecture structure.
+ * User Layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>
@@ -74,7 +74,7 @@ public class SuggestSongScreen extends JFrame {
 	 * <h1> Constructor </h1>
 	 * 
 	 * <p>
-	 * Default constructor for the <code>SuggestSongScreen</code> class. 
+	 * Constructor for the <code>SuggestSongScreen</code> class. 
 	 * </p>
 	 * 
 	 * <p>
@@ -405,13 +405,13 @@ public class SuggestSongScreen extends JFrame {
 		lblElenco.setBounds(325, 25, 250, 75);
 		contentPane.add(lblElenco);
 		
-		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));					
+		ImageIcon appIcon =  new ImageIcon(ElencoStartup.class.getResource("/BlueIcon-Circle.PNG"));					
 		Image appImage = appIcon.getImage();															
 		Image appImageResize = appImage.getScaledInstance(100,100, java.awt.Image.SCALE_SMOOTH);		
 		appIcon = new ImageIcon(appImageResize);
 		
 		
-		ImageIcon profileButton =  new ImageIcon(ApplicationStartup.class.getResource("/ColourProfileIcon.PNG"));					
+		ImageIcon profileButton =  new ImageIcon(ElencoStartup.class.getResource("/ColourProfileIcon.PNG"));					
 		Image buttonImage = profileButton.getImage();															
 		Image buttonImageResize = buttonImage.getScaledInstance(75,75, java.awt.Image.SCALE_SMOOTH);	 
 		profileButton = new ImageIcon(buttonImageResize);

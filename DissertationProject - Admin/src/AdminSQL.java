@@ -9,7 +9,7 @@ public class AdminSQL {
 	
 	public static ResultSet attemptLogin(String adminName, String adminPassword) {
 		
-		String decrypt = Encryption.getEncryptionKey();
+		String decrypt = AdminEncryption.getEncryptionKey();
 	
 		try
 		{

@@ -3,7 +3,7 @@
  * <h1> Class </h1>
  * 
  * <p>
- * Lower level part of the Tired architecture structure.
+ * User Layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>

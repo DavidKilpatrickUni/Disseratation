@@ -10,7 +10,7 @@ class MyProfileApplicationTest {
 
 		CustomException thrown = assertThrows(
 	           CustomException.class,
-	           () -> MyProfileApplication.checkValidUsername("")
+	           () -> ProfileDetailsApplication.checkValidUsername("")
 	    );
 
 		String expectedMessage = "Valid Username Input Required";
@@ -28,7 +28,7 @@ class MyProfileApplicationTest {
 
 		CustomException thrown = assertThrows(
 	           CustomException.class,
-	           () -> MyProfileApplication.checkValidUsername("username=")
+	           () -> ProfileDetailsApplication.checkValidUsername("username=")
 	    );
 
 		String expectedMessage = "Valid Username Input Required";
@@ -45,7 +45,7 @@ class MyProfileApplicationTest {
 
 		CustomException thrown = assertThrows(
 	           CustomException.class,
-	           () -> MyProfileApplication.checkValidUsername("username'")
+	           () -> ProfileDetailsApplication.checkValidUsername("username'")
 	    );
 
 		String expectedMessage = "Valid Username Input Required";
@@ -58,7 +58,7 @@ class MyProfileApplicationTest {
 	@Test
 	void testMethod() throws CustomException {
 		
-		MyProfileApplication.checkValidUsername("username");
+		ProfileDetailsApplication.checkValidUsername("username");
 
 	}
 

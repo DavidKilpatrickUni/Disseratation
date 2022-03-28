@@ -23,8 +23,30 @@ import java.awt.Image;
 import javax.swing.border.MatteBorder;
 import javax.swing.SwingConstants;
 
+
+/**
+ * <h1> Class </h1>
+ * 
+ * <p>
+ * User Layer of the Tiered architecture structure.
+ * </p>
+ * 
+ * <p>
+ * ViewPlaylistScreen
+ * </p>
+ * 
+ * <p>
+ * Allows users to look at the songs that are on community playlists.
+ * <br>Has a direct link with <code>ViewPlaylistApplication</code> that takes user input/tasks to process.
+ * </p>
+ * 
+ *
+ * @see ViewPlaylistApplication
+ */
 public class ViewPlaylistScreen extends JFrame {
 
+	// Variables
+	
 	private JPanel contentPane;
 	private JTextField txtPlaylistTitle;
 	private JTextField txtUsername;
@@ -101,6 +123,31 @@ public class ViewPlaylistScreen extends JFrame {
 	private JLabel lblElencoView;
 	private JTextField txtTag;
 
+	/**
+	 * <h1> Constructor </h1>
+	 * 
+	 * <p>
+	 * Constructor for the <code>ViewPlaylistScreen</code> class. 
+	 * </p>
+	 * 
+	 * <p>
+	 * Sets up GUI elements and adds them to JPanel variable.
+	 * <br>Has ActionListeners to act on user input.
+	 * </p>
+	 * <p>
+	 * Parameter one is the current playlist title being viewed. A <code>String</code> object is used to store the data.
+	 * <br>Parameter two is the userID of the selected playlist. A <code>String</code> object is used to store the data.
+	 * <br> Parameter three is the current user information logged into Elenco. A <code>LoggedIn</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentPlaylistTitle		<code>String</code> object to store current playlist title being viewed information.
+	 * @param IDOfUser					<code>String</code> object to store the userID of the selected playlist.
+	 * @param currentLoggedIn			<code>LoggedIn</code> object to store current user information.
+	 * 
+	 * @see ViewPlaylistScreen
+	 * @see LoggedIN
+	 * @see String
+	 */
 	
 	public ViewPlaylistScreen(String currentPlaylistTitle, String IDOfUser, LoggedIn currentLoggedIn) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
@@ -142,7 +189,7 @@ public class ViewPlaylistScreen extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				SearchPlaylistScreen gui = new SearchPlaylistScreen(currentLoggedIn);
+				CommunityPlaylistScreen gui = new CommunityPlaylistScreen(currentLoggedIn);
 				gui.setVisible(true);
 				dispose();
 			}
@@ -589,7 +636,7 @@ public class ViewPlaylistScreen extends JFrame {
 		contentPane.add(txtUploaded10);
 		
 		
-		ImageIcon userIcon =  new ImageIcon(ApplicationStartup.class.getResource("/ProfileIcon.PNG"));					
+		ImageIcon userIcon =  new ImageIcon(ElencoStartup.class.getResource("/ProfileIcon.PNG"));					
 		Image userImage = userIcon.getImage();															
 		Image userImageResize = userImage.getScaledInstance(50,50, java.awt.Image.SCALE_SMOOTH);		
 		userIcon = new ImageIcon(userImageResize);														
@@ -607,7 +654,7 @@ public class ViewPlaylistScreen extends JFrame {
 		contentPane.add(lblElencoView);
 		
 		
-		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));					
+		ImageIcon appIcon =  new ImageIcon(ElencoStartup.class.getResource("/BlueIcon-Circle.PNG"));					
 		Image appImage = appIcon.getImage();															
 		Image appImageResize = appImage.getScaledInstance(50,50, java.awt.Image.SCALE_SMOOTH);		
 		appIcon = new ImageIcon(appImageResize);														
@@ -710,6 +757,24 @@ public class ViewPlaylistScreen extends JFrame {
 		
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * <p>
+	 * Receives parameter from <code>ViewPlaylistScreen</code> and uses it to search the database to find correct playlist using playlist title and playlist creator userID, then populates the screen with the appropriate content.
+	 * </p>
+	 * 
+	 * <p>
+	 * Parameter one is the current playlist Title information. A <code>String</code> object is used to store the data.
+	 * <br>Parameter two is the creator of current playlist. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentPlaylistTitle		<code>String</code> object to store current playlist title. 
+	 * @param IDOfUser					<code>String</code> object to store creator of playlist userID. 
+	 *
+	 * @see ViewPlaylistScreen
+	 * @see String
+	 * @see ResultSet
+	 */
 	private void loadContent(String currentPlaylistTitle, String IDOfUser) {
 		
 		ResultSet viewList = MySQLQueries.loadAPlaylist(currentPlaylistTitle, IDOfUser);
@@ -842,6 +907,23 @@ public class ViewPlaylistScreen extends JFrame {
 		}
 	}
 	
+	
+	/**
+	 * <h1> Method </h1>
+	 * <p>
+	 * Receives parameter from <code>ViewPlaylistScreen</code> and uses it to search the database to find correct username by using the creator userID, then populates the screen with the appropriate content.
+	 * </p>
+	 * 
+	 * <p>
+	 * Parameter one is the current playlist creator userID information. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param IDOfUser					<code>String</code> object to store creator of playlist userID. 
+	 *
+	 * @see ViewPlaylistScreen
+	 * @see String
+	 * @see ResultSet
+	 */
 	private void getUsername(String IDOfUser)  {
 		
 		ResultSet getUsername = MySQLQueries.getCurrentUsername(IDOfUser);

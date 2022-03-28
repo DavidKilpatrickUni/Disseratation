@@ -25,7 +25,7 @@ import java.awt.Toolkit;
  * <h1> Class </h1>
  * 
  * <p>
- * View part of the Tired architecture structure.
+ * User layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>
@@ -158,7 +158,7 @@ public class MainMenuScreen extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				SearchPlaylistScreen frame = new SearchPlaylistScreen(currentLoggedIn);
+				CommunityPlaylistScreen frame = new CommunityPlaylistScreen(currentLoggedIn);
 				frame.setVisible(true);
 				dispose();
 			}
@@ -173,7 +173,7 @@ public class MainMenuScreen extends JFrame {
 		lblElenco.setBounds(150, 25, 200, 75);
 		contentPane.add(lblElenco);
 	
-		ImageIcon profileButton =  new ImageIcon(ApplicationStartup.class.getResource("/ColourProfileIcon.PNG"));					
+		ImageIcon profileButton =  new ImageIcon(ElencoStartup.class.getResource("/ColourProfileIcon.PNG"));					
 		Image buttonImage = profileButton.getImage();															
 		Image buttonImageResize = buttonImage.getScaledInstance(75,75, java.awt.Image.SCALE_SMOOTH);		
 		profileButton = new ImageIcon(buttonImageResize);														

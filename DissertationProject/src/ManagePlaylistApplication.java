@@ -8,7 +8,7 @@ import java.time.LocalDate;
  * <h1> Class </h1>
  * 
  * <p>
- * Application part of the Tired architecture structure.
+ * Application Layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>
@@ -16,7 +16,7 @@ import java.time.LocalDate;
  * </p>
  * 
  * <p>
- * Manage Playlist Application of the program that stores methods/process/tasks quickly available to the ManagePlaylistScreen.
+ * Manage Playlist Application class of the program that stores methods/process/tasks quickly available to the ManagePlaylistScreen.
  * <br>Has a direct link with <code>ManagePlaylistScreen</code> that receives user input.
  * </p>
  * 

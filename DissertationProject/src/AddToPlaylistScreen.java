@@ -37,7 +37,7 @@ import java.awt.event.WindowEvent;
  * <h1> Class </h1>
  * 
  * <p>
- * View part of the Tired architecture structure.
+ * User layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>
@@ -176,7 +176,7 @@ public class AddToPlaylistScreen extends JFrame {
 	 * <p>
 	 * Sets up GUI elements and adds them to JPanel variable.
 	 * <br>Has ActionListeners to act on user input.
-	 * <br>Makes use of CustomException to rely feedback to user.
+	 * <br>Makes use of <code>CustomException</code> to rely feedback to user.
 	 * </p>
 	 * 
 	 * <p>

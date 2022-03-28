@@ -28,7 +28,7 @@ import javax.swing.SwingConstants;
  * <h1> Class </h1>
  * 
  * <p>
- * View part of the Tired architecture structure.
+ * User Layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>
@@ -190,7 +190,7 @@ public class LoginScreen extends JFrame {
 		passwordFieldPassword.setBounds(150, 300, 250, 25);
 		contentPane.add(passwordFieldPassword);
 		
-		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));					
+		ImageIcon appIcon =  new ImageIcon(ElencoStartup.class.getResource("/BlueIcon-Circle.PNG"));					
 		Image appImage = appIcon.getImage();															
 		Image appImageResize = appImage.getScaledInstance(100,100, java.awt.Image.SCALE_SMOOTH);		
 		appIcon = new ImageIcon(appImageResize);														

@@ -1,17 +1,17 @@
 
-public class EmailInfo {
+public class AdminEmailInfo {
 	
 	private String firstname;
 	private String surname;
 	private String emailAddress;
 	private String message;
 	
-	public EmailInfo() {
+	public AdminEmailInfo() {
 		
 	}
 
 
-	public EmailInfo(String firstname, String surname, String email) {
+	public AdminEmailInfo(String firstname, String surname, String email) {
 	
 		this.firstname = firstname;
 		this.surname = surname;

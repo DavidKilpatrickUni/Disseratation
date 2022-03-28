@@ -4,7 +4,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class SearchPlaylistApplication {
+/**
+ * <h1> Class </h1>
+ * 
+ * <p>
+ * Application layer of the Tiered architecture structure.
+ * </p>
+ * 
+ * <p>
+ * CommunityPlaylistApplication
+ * </p>
+ * 
+ * <p>
+ * Community Playlist Application class of the program that stores methods/process/tasks quickly available to the <code>CommunityPlaylistScreen</code>.
+ * <br>Has a direct link with <code>CommunityPlaylistScreen</code> that receives user input.
+ * </p>
+ * 
+ *
+ * @see CommunityPlaylistScreen
+ */
+public class CommunityPlaylistApplication {
 	/*
 	
 	public static ResultSet search(Object search, Object criteria, int offset, int count) {

@@ -2,7 +2,7 @@
  * <h1> Class </h1>
  * 
  * <p>
- * Application part of the Tired architecture structure.
+ * Application Layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>
@@ -10,7 +10,7 @@
  * </p>
  * 
  * <p>
- * ProfileMenuApplication of the program that stores methods/process/tasks quickly available to the ProfileMenuScreen.
+ * Profile Menu Application class of the program that stores methods/process/tasks quickly available to the ProfileMenuScreen.
  * <br>Has a direct link with <code>ProfileMenuScreen</code> that receives user input.
  * </p>
  * 

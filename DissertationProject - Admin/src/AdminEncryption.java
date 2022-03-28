@@ -1,5 +1,5 @@
 
-public class Encryption {
+public class AdminEncryption {
 
 	private static String encryptionKey  = "adminKey";
 	

@@ -30,7 +30,7 @@ import javax.swing.Icon;
  * <h1> Class </h1>
  * 
  * <p>
- * View part of the Tired architecture structure.
+ * User Layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>
@@ -422,7 +422,7 @@ public class MyPlaylistsScreen extends JFrame {
 		lblHeader.setBounds(342, 59, 300, 25);
 		contentPane.add(lblHeader);
 		
-		ImageIcon appIcon =  new ImageIcon(ApplicationStartup.class.getResource("/BlueIcon-Circle.PNG"));				
+		ImageIcon appIcon =  new ImageIcon(ElencoStartup.class.getResource("/BlueIcon-Circle.PNG"));				
 		Image appImage = appIcon.getImage();															
 		Image appImageResize = appImage.getScaledInstance(50,50, java.awt.Image.SCALE_SMOOTH);		
 		appIcon = new ImageIcon(appImageResize);													
@@ -433,7 +433,7 @@ public class MyPlaylistsScreen extends JFrame {
 		contentPane.add(lblLogo);
 		
 		
-		ImageIcon playlistIcon =  new ImageIcon(ApplicationStartup.class.getResource("/ProfileIcon.PNG"));					
+		ImageIcon playlistIcon =  new ImageIcon(ElencoStartup.class.getResource("/ProfileIcon.PNG"));					
 		Image playlistImage = playlistIcon.getImage();															
 		Image playlistImageResize = playlistImage.getScaledInstance(100,100, java.awt.Image.SCALE_SMOOTH);	
 		playlistIcon = new ImageIcon(playlistImageResize);														

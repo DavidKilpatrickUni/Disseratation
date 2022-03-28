@@ -25,24 +25,24 @@ import javax.swing.border.MatteBorder;
  * <h1> Class </h1>
  * 
  * <p>
- * View part of the Tired architecture structure.
+ * User Layer of the Tiered architecture structure.
  * </p>
  * 
  * <p>
- * MyProfileScreen
+ * ProfileDetailsScreen
  * </p>
  * 
  * <p>
  * Allows users to view and change profile details. These include username and favourite genre or artists.
  * <br>The favourite sections are to provided more personal touches to account and share ones prefrences. These 'favourites' will hopefully in future builds be an aid in a suggestion system.
  * <br>Also has a userIcon feature that is not part of this build but again is hoped to be included in the future. User icons or badges is a MoSCoW item that would further push the program to envisioned end state.
- * <br>Has a direct link with <code>MyProfileApplication</code> that takes user input/tasks to process.
+ * <br>Has a direct link with <code>ProfileDetailsApplication</code> that takes user input/tasks to process.
  * </p>
  * 
  *
- * @see MyProfileApplication
+ * @see ProfileDetailsApplication
  */
-public class MyProfileScreen extends JFrame {
+public class ProfileDetailsScreen extends JFrame {
 
 	// Variables 
 	
@@ -70,7 +70,7 @@ public class MyProfileScreen extends JFrame {
 	 * <h1> Constructor </h1>
 	 * 
 	 * <p>
-	 * Constructor for the <code>MyProfileScreen</code> class. 
+	 * Constructor for the <code>ProfileDetailsScreen</code> class. 
 	 * </p>
 	 * 
 	 * <p>
@@ -84,10 +84,10 @@ public class MyProfileScreen extends JFrame {
 	 * 
 	 * @param currentLoggedIn		<code>LoggedIn</code> object to store current user information.
 	 * 
-	 * @see MyProfileScreen
+	 * @see ProfileDetailsScreen
 	 * @see LoggedIN
 	 */
-	public MyProfileScreen(LoggedIn currentLoggedIn) {
+	public ProfileDetailsScreen(LoggedIn currentLoggedIn) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Random\\eclipse-workspace\\Dissertation\\Images\\BlueIcon-Circle.png"));
 		setTitle("Elenco - My Profile Details");
 		setBackground(Color.WHITE);
@@ -316,7 +316,7 @@ public class MyProfileScreen extends JFrame {
 					try 
 					{
 					
-						MyProfileApplication.checkValidUsername(txtUsername.getText().strip());										// Check that new user input for username is valid
+						ProfileDetailsApplication.checkValidUsername(txtUsername.getText().strip());										// Check that new user input for username is valid
 					
 						try 
 						{
