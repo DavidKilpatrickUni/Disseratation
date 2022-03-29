@@ -31,7 +31,27 @@ import javax.swing.JOptionPane;
  */
 public class MySQLQueries {
 
-
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return all database entries from the accounts table equal to the user parameters.
+  	 * <br> Used during a login attempt.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the user input of username. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 2 is the user input of password. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param username			<code>String</code> object to store username data.
+	 * @param password			<code>String</code> object to store password data.
+	 *
+	 * @see MySQLQueries
+	 * @see String
+	 * @see ResultSet
+	 */
 	public static ResultSet attemptLogin(String username, String password) throws CustomException {
 		
 		String decrypt = MyEncryption.getEncryptionKey();
@@ -74,7 +94,37 @@ public class MySQLQueries {
 		return null;	
 	}
 	
-	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to insert values into the account Table.
+  	 * <br> Used during a successful registration attempt.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the user input of firstname. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 2 is the user input of surname. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 3 is the user input of date of birth. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 4 is the user input of identity. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 5 is the user input of username. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 6 is the user input of password. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 7 is the user input of email. A <code>String</code> object is used to store the data.
+	 *      
+	 * </p>
+	 * 
+	 * @param username			<code>String</code> object to store username data.
+	 * @param password			<code>String</code> object to store password data.
+	 * @param DOB				<code>String</code> object to store date of birth data.
+	 * @param identity			<code>String</code> object to store identity data.
+	 * @param username			<code>String</code> object to store username data.
+	 * @param password			<code>String</code> object to store password data.
+	 * @param email				<code>String</code> object to store email data.
+	 *
+	 * @see MySQLQueries
+	 * @see String
+	 */
 	public static void createAccount(String firstname, String surname, String DOB, String identity, String username, String password, String email) throws CustomException {
 		
 		String encrypt = MyEncryption.getEncryptionKey();
@@ -134,7 +184,27 @@ public class MySQLQueries {
 	
 	
 	
-	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return all database entries from the song table equal to the user parameters.
+  	 * <br> Used to determine if song already uploaded to Elenco.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the user input of song title. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 2 is the user input of song artist. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param title				<code>String</code> object to store song title data.
+	 * @param artist			<code>String</code> object to store song artist data.
+	 *
+	 * @see MySQLQueries
+	 * @see String
+	 * @see ResultSet
+	 */
 	public static ResultSet checkIfSongExists(String title, String artist) throws CustomException {
 
 		try
@@ -189,7 +259,41 @@ public class MySQLQueries {
 	}
 	
 	
-	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to insert values into the songs Table.
+  	 * <br> Used during a suggest song attempt.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the user input of title. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 2 is the user input of artist. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 3 is the user input of genre. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 4 is the user input of song length. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 5 is the user input of release date. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 6 is the user input of album. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 7 is the user input of song Info. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 8 is the user input of rating. A <code>Integer</code> object is used to store the data.
+	 *      
+	 * </p>
+	 * 
+	 * @param title					<code>String</code> object to store song title data.
+	 * @param artist				<code>String</code> object to store song artist data.
+	 * @param genre					<code>String</code> object to store song genre data.
+	 * @param songLength			<code>String</code> object to store song length data.
+	 * @param released				<code>String</code> object to store release date data.
+	 * @param album					<code>String</code> object to store album data.
+	 * @param songInfo				<code>String</code> object to store song information data.
+	 * @param rating				<code>Integer</code> object to store rating data.
+	 *
+	 *
+	 * @see MySQLQueries
+	 * @see Integer
+	 * @see String
+	 */
 	public static void suggestSong(String title, String artist, String genre, String songLength, String released, String album, String songInfo, int rating) throws CustomException {
 		
 		String uploaded = Helper.changeLocalDateFormat(LocalDate.now());
@@ -248,6 +352,21 @@ public class MySQLQueries {
 		}
 	}
 	
+	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return all database entries from the song table.
+  	 * <br> Used to determine what the songID of a newly created database entry is - Use .last() to get last row of ResultSet.
+  	 * <br> Required after <code>suggestSong</code> method.
+	 * </p>
+	 *
+	 * @see MySQLQueries
+	 * @see ResultSet
+	 */
 	public static ResultSet getSongIDOfSuggestSong() throws CustomException {
 		
 	
@@ -300,7 +419,25 @@ public class MySQLQueries {
 		return null;
 	}
 	
-	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return all database entries from the accounts table equal to the user parameters.
+  	 * <br> Used to get account details of parameterised userID.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current userID. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentUserID				<code>String</code> object to store userID data.
+	 *
+	 * @see MySQLQueries
+	 * @see String
+	 * @see ResultSet
+	 */
 	public static ResultSet getAccountsDetail(String currentUserID) {
 		
 		try
@@ -339,6 +476,25 @@ public class MySQLQueries {
 		return null;	
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return all database entries from the accounts table equal to the user parameters.
+  	 * <br> Used to get account details of parameterised userID when wanting password String decrypted.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current userID. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentUserID				<code>String</code> object to store userID data.
+	 *
+	 * @see MySQLQueries
+	 * @see String
+	 * @see ResultSet
+	 */
 	public static ResultSet getAccountsDetailDecrypted(String currentUserID) {
 		
 		String decrypt = MyEncryption.getEncryptionKey();
@@ -381,7 +537,31 @@ public class MySQLQueries {
 		return null;	
 	}
 	
-	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to update all database entries from the accounts table equal to the user parameter.
+  	 * <br> Used to update favourite genres for given userID to specified parameters.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current userID. A <code>String</code> object is used to store the data.
+	 * <br> Parameter 2 is the user input for genre slot 1. A <code>String</code> object is used to store the data.
+	 * <br> Parameter 3 is the user input for genre slot 2. A <code>String</code> object is used to store the data.
+	 * <br> Parameter 4 is the user input for genre slot 3. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentUserID				<code>String</code> object to store userID data.
+	 * @param genre1					<code>String</code> object to store genre slot 1 data.
+	 * @param genre2					<code>String</code> object to store genre slot 2 data.
+	 * @param genre3					<code>String</code> object to store genre slot 3 data.
+	 *
+	 * @see MySQLQueries
+	 * @see String
+	 * @see ResultSet
+	 */
 	public static void updateGenre(String currentUserID, String genre1, String genre2, String genre3) {
 		
 		try
@@ -430,6 +610,31 @@ public class MySQLQueries {
 		
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to update all database entries from the accounts table equal to the user parameter.
+  	 * <br> Used to update favourite artist for given userID to specified parameters.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current userID. A <code>String</code> object is used to store the data.
+	 * <br> Parameter 2 is the user input for artist slot 1. A <code>String</code> object is used to store the data.
+	 * <br> Parameter 3 is the user input for artist slot 2. A <code>String</code> object is used to store the data.
+	 * <br> Parameter 4 is the user input for artist slot 3. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentUserID				<code>String</code> object to store userID data.
+	 * @param artist1					<code>String</code> object to store artist slot 1 data.
+	 * @param artist2					<code>String</code> object to store artist slot 2 data.
+	 * @param artist3					<code>String</code> object to store artist slot 3 data.
+	 *
+	 * @see MySQLQueries
+	 * @see String
+	 * @see ResultSet
+	 */
 	public static void updateArtist(String currentUserID, String artist1, String artist2, String artist3) {
 		
 		try
@@ -479,6 +684,27 @@ public class MySQLQueries {
 		
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to update the single database entry from the accounts table equal to the user parameter.
+  	 * <br> Used to update username for given userID to specified parameters.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current userID. A <code>String</code> object is used to store the data.
+	 * <br> Parameter 2 is the user input for desired username. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentUserID				<code>String</code> object to store userID data.
+	 * @param username					<code>String</code> object to store desired username data.
+	 *
+	 * @see MySQLQueries
+	 * @see String
+	 * @see ResultSet
+	 */
 	public static void updateUsername(String currentUserID, String username) throws CustomException {
 		
 		try
@@ -541,6 +767,27 @@ public class MySQLQueries {
 		
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to update the single database entry from the accounts table equal to the user parameter.
+  	 * <br> Used to update first name for given userID to specified parameters.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current userID. A <code>String</code> object is used to store the data.
+	 * <br> Parameter 2 is the user input for desired first name. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentUserID				<code>String</code> object to store userID data.
+	 * @param firstname					<code>String</code> object to store desired firstname data.
+	 *
+	 * @see MySQLQueries
+	 * @see String
+	 * @see ResultSet
+	 */
 	public static void updateFirstname(String currentUserID, String firstname) throws CustomException {
 		
 		try
@@ -604,7 +851,27 @@ public class MySQLQueries {
 	}
 	
 	
-	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to update the single database entry from the accounts table equal to the user parameter.
+  	 * <br> Used to update surname for given userID to specified parameters.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current userID. A <code>String</code> object is used to store the data.
+	 * <br> Parameter 2 is the user input for desired surname. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentUserID				<code>String</code> object to store userID data.
+	 * @param surname					<code>String</code> object to store desired surname data.
+	 *
+	 * @see MySQLQueries
+	 * @see String
+	 * @see ResultSet
+	 */
 	public static void updateSurname(String currentUserID, String surname) throws CustomException {
 		
 		try
@@ -664,6 +931,28 @@ public class MySQLQueries {
 			
 	}
 	
+	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to update the single database entry from the accounts table equal to the user parameter.
+  	 * <br> Used to update identity for given userID to specified parameters.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current userID. A <code>String</code> object is used to store the data.
+	 * <br> Parameter 2 is the user input for desired identity. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentUserID				<code>String</code> object to store userID data.
+	 * @param identity					<code>String</code> object to store desired identity data.
+	 *
+	 * @see MySQLQueries
+	 * @see String
+	 * @see ResultSet
+	 */
 	public static void updateIdentity(String currentUserID, String identity) throws CustomException {
 	
 		try
@@ -725,6 +1014,27 @@ public class MySQLQueries {
 		
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to update the single database entry from the accounts table equal to the user parameter.
+  	 * <br> Used to update password for given userID to specified parameters using encryption.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current userID. A <code>String</code> object is used to store the data.
+	 * <br> Parameter 2 is the user input for desired password. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentUserID				<code>String</code> object to store userID data.
+	 * @param password					<code>String</code> object to store desired password data.
+	 *
+	 * @see MySQLQueries
+	 * @see String
+	 * @see ResultSet
+	 */
 	public static void updatePassword(String currentUserID, String password) throws CustomException {
 	
 		String decrypt = MyEncryption.getEncryptionKey();
@@ -779,7 +1089,29 @@ public class MySQLQueries {
 	}
 
 
-
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to insert values into the playlist Table.
+  	 * <br> Used during creating a playlist or adding a song to playlist.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current userID. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 2 is the songID of song. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 3 is the user input of playlist Title or current playlist title. A <code>String</code> object is used to store the data.
+	 *      
+	 * </p>
+	 * 
+	 * @param userID					<code>String</code> object to store userID data.
+	 * @param songID					<code>String</code> object to store songID data.
+	 * @param playlistTitle				<code>String</code> object to store playlist Title data.
+	 *
+	 * @see MySQLQueries
+	 * @see String
+	 */
 	public static void createPlaylist( String userID, String songID, String playlistTitle) throws CustomException {
 	
 	
@@ -836,10 +1168,41 @@ public class MySQLQueries {
 		}
 	}
 	
+	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return all database entries from the songs table equal to the user parameters.
+  	 * <br> Used during a custom search - One path for with valid search parameter and one without valid search parameter.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the user selected search. A <code>Object</code> object is used to store the data.
+	 * <br>Parameter 2 is the user selected criteria. A <code>Object</code> object is used to store the data.
+	 * <br>Parameter 3 is the user selected sort. A <code>Object</code> object is used to store the data.
+	 * <br>Parameter 4 is direction to order qeury - Asc/Desc. A <code>Object</code> object is used to store the data.
+	 * <br>Parameter 5 is the row start point of query. A <code>Integer</code> object is used to store the data.
+	 * <br>Parameter 6 is the amount of database rows to return. A <code>Integer</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param search			<code>Object</code> object to store search data.
+	 * @param criteria			<code>Object</code> object to store criteria data.
+	 * @param sort				<code>Object</code> object to store sort data.
+	 * @param sortType			<code>Object</code> object to store sortType data.
+	 * @param offset			<code>Integer</code> object to store offset data.
+	 * @param count				<code>Integer</code> object to store row count data.
+	 *
+	 * @see MySQLQueries
+	 * @see Integer
+	 * @see Object
+	 * @see ResultSet
+	 */
 	public static ResultSet search(Object search, Object criteria, Object sort, String sortType, int offset, int count) {
 		
 		
-		if(search == null || search.equals(""))
+		if(search == null || search.equals(""))						// Check for valid search parameter
 		{
 			try
 			{
@@ -924,6 +1287,28 @@ public class MySQLQueries {
 	
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return all database entries from the songs table equal to the user parameters.
+  	 * <br> Used to populate search comboBox with data from the database - populate with titles/genres/artists
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the user selected criteria. A <code>Object</code> object is used to store the data.
+	 * <br>Parameter 2 is the user selected sort. A <code>Object</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param comboBoxCriteria			<code>Object</code> object to store criteria data.
+	 * @param comboBoxSort				<code>Object</code> object to store sort data.
+
+	 *
+	 * @see MySQLQueries
+	 * @see Object
+	 * @see ResultSet
+	 */
 	public static ResultSet populateComboBox(Object comboBoxCriteria, Object comboBoxSort) {
 	
 		String sortType = "ASC";
@@ -963,6 +1348,26 @@ public class MySQLQueries {
 		
 	}
 	
+	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return all database entries from the playlist table equal to the user parameters.
+  	 * <br> Used to populate GUI with all playlists owned by current userID. Highlighted when loading content for <code>MyplaylistsScreen</code>
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current userID. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param userID			<code>String</code> object to store userID data.
+
+	 * @see String
+	 * @see MySQLQueries
+	 * @see ResultSet
+	 */
 	public static ResultSet loadPlaylists(String userID) {
 		
 		try
@@ -1004,6 +1409,27 @@ public class MySQLQueries {
 		return null;	
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return all database entries from the playlist table equal to the user parameters.
+  	 * <br> Used to populate GUI with a playlist owned by current userID with specified playlist Title. Highlighted when loading content for <code>ManagePlaylistScreen</code>
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current currentPlaylistTitle. A <code>String</code> object is used to store the data.
+	 * <br> Parameter 2 is the current userID. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentPlaylistTitle			<code>String</code> object to store playlist title data.
+	 * @param userID						<code>String</code> object to store userID data.
+	 *
+	 * @see String
+	 * @see MySQLQueries
+	 * @see ResultSet
+	 */
 	public static ResultSet loadAPlaylist(String currentPlaylistTitle, String currentUserID) {
 		
 		try
@@ -1044,7 +1470,26 @@ public class MySQLQueries {
 		return null;	
 	}
 	
-	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to delete all database entries from the playlist table equal to the user parameters.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current userID. A <code>String</code> object is used to store the data.
+	 * <br> Parameter 2 is the current currentPlaylistTitle. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param userID						<code>String</code> object to store userID data.
+	 * @param currentPlaylistTitle			<code>String</code> object to store playlist title data.
+	 *
+	 * @see String
+	 * @see MySQLQueries
+	 * @see ResultSet
+	 */
 	public static void DeletePlaylist(String currentUserID, String currentPlaylistTitle ) {
 		
 		try
@@ -1084,6 +1529,26 @@ public class MySQLQueries {
 		
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return all database entries from the playlist table equal to the user parameters.
+  	 * <br> Helpful when playlistID is known and want the playlist title
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current currentPlaylistID. A <code>String</code> object is used to store the data.
+
+	 * </p>
+	 * 
+	 * @param currentPlaylistID			<code>String</code> object to store playlistID data.
+	 *
+	 * @see String
+	 * @see MySQLQueries
+	 * @see ResultSet
+	 */
 	public static ResultSet getCurrentPlaylistTitle(String currentPlaylistID){
 		
 		try
@@ -1123,6 +1588,27 @@ public class MySQLQueries {
 		return null;	
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to delete a database entries from the playlist table equal to the user parameters.
+  	 * <br> Removing a song from current playlist.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current current UserID. A <code>String</code> object is used to store the data.
+	 * Parameter 2 is the current current PlaylistID. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentUserID					<code>String</code> object to store userID data.
+	 * @param currentPlaylistID				<code>String</code> object to store playlistID data.
+	 *
+	 * @see String
+	 * @see MySQLQueries
+	 * @see ResultSet
+	 */
 	public static void removeFromList(String currentUserID, String currentPlaylistID ) {
 		
 		try
@@ -1160,6 +1646,29 @@ public class MySQLQueries {
 		
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to update all database entries from the playlist table equal to the user parameters.
+  	 * <br> Used to rename a playlist.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current PlaylistID. A <code>String</code> object is used to store the data.
+	 * <br> Parameter 2 is the current current Playlist Title. A <code>String</code> object is used to store the data.
+	 * <br> Parameter 3 is the desired PlaylisTitle. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentUserID					<code>String</code> object to store userID data.
+	 * @param currentPlaylistTitle			<code>String</code> object to store current playlist title data.
+	 * @param newPlaylistTitle				<code>String</code> object to store desired playlist title data.
+	 *
+	 * @see String
+	 * @see MySQLQueries
+	 * @see ResultSet
+	 */
 	public static void updatePlaylistTitle(String currentUserID, String currentPlaylistTitle, String newPlaylistTitle) {
 		
 		try
@@ -1206,6 +1715,28 @@ public class MySQLQueries {
 		}
 	}
 	
+	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return all database entries from the playlist table equal to the user parameters.
+  	 * <br> Used to see if the current userID already has a playlist of desired title - All playlists for a userID must be unique.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current UserID. A <code>String</code> object is used to store the data.
+	 * <br> Parameter 2 is the desired playlist title. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentUserID						<code>String</code> object to store UserID data.
+	 * @param potentialPlaylistTitle			<code>String</code> object to store desired playlist title data.
+	 *
+	 * @see String
+	 * @see MySQLQueries
+	 * @see ResultSet
+	 */
 	public static ResultSet playlistTitleExists(String currentUserID, String potentialPlaylistTitle) {
 		
 		try
@@ -1243,6 +1774,27 @@ public class MySQLQueries {
 	}
 	
 	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return all database entries from the playlist table equal to the user parameters.
+  	 * <br> Used to swap the ranking of songs on a playlist. Basically swap two different playlistIDs ranking numbers - a songs position on the ranking list.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the playlistID of first song on playlist. A <code>String</code> object is used to store the data.
+	 * <br> Parameter 2 is the playlistID of second song on playlist. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param playlistID1						<code>String</code> object to store playlistID data.
+	 * @param playlistID2						<code>String</code> object to store playlistID data.
+	 *
+	 * @see String
+	 * @see MySQLQueries
+	 * @see ResultSet
+	 */
 	public static void swapRanking(String playlistID1, String playlistID2 ) {
 		
 		try
@@ -1324,6 +1876,25 @@ public class MySQLQueries {
 		
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return all database entries from the song table equal to the user parameters.
+     * <br> Can be used for finding out song details, a specific thing or as a method to load content on to screen.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the songID of desired song. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param songID						<code>String</code> object to store desired songID data.
+	 *
+	 * @see String
+	 * @see MySQLQueries
+	 * @see ResultSet
+	 */
 	public static ResultSet songDetails(String songID) {
 		
 		try
@@ -1362,6 +1933,31 @@ public class MySQLQueries {
 		return null;	
 	}
 	
+	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return all database entries from the comments table equal to the user parameters.
+  	 * <br> Used to populate a view song screen with all the comments about the song, showing user who commented and their comment.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the user selected search. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 2 is the row start point of query. A <code>Integer</code> object is used to store the data.
+	 * <br>Parameter 3 is the amount of database rows to return. A <code>Integer</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param songID			<code>String</code> object to store songID data.
+	 * @param offset			<code>Integer</code> object to store offset data.
+	 * @param count				<code>Integer</code> object to store row count data.
+	 *
+	 * @see MySQLQueries
+	 * @see Integer
+	 * @see String
+	 * @see ResultSet
+	 */
 	public static ResultSet getComments(String songID, int offset, int count) {
 		
 		try
@@ -1402,6 +1998,29 @@ public class MySQLQueries {
 		return null;	
 	}
 	
+	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to insert values into the comment Table.
+  	 * <br> Used when uploading a comment about a song.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current songID. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 2 is the current userID. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 3 is the user input of comment. A <code>String</code> object is used to store the data.  
+	 * </p>
+	 * 
+	 * @param currentSongID			<code>String</code> object to store songID data.
+	 * @param currentUserID			<code>String</code> object to store userID data.
+	 * @param comment				<code>String</code> object to store user comment data.
+	 *
+	 * @see MySQLQueries
+	 * @see String
+	 */
 	public static void addComment(String currentSongID, String currentUserID, String comment) {
 		
 		String posted = Helper.changeLocalDateFormat(LocalDate.now());
@@ -1443,7 +2062,27 @@ public class MySQLQueries {
 
 	}
 	
-
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return a database entry from the ratings table equal to the user parameters.
+  	 * <br> Used to populate a view song screen with the current users rating for the song.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current songID. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 2 is the current userID. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentSongID			<code>String</code> object to store songID data.
+	 * @param currentUserID			<code>String</code> object to store userID data.
+	 *
+	 * @see MySQLQueries
+	 * @see String
+	 * @see ResultSet
+	 */
 	public static ResultSet myRating(String currentSongID, String currentUserID) {
 	
 		try
@@ -1484,6 +2123,28 @@ public class MySQLQueries {
 	}
 	
 
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to insert values into the ratings Table.
+  	 * <br> Used when initially suggesting a song or when a user sets a song rating for first time.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current songID. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 2 is the current userID. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 3 is the user input of rating. A <code>String</code> object is used to store the data.  
+	 * </p>
+	 * 
+	 * @param currentSongID			<code>String</code> object to store songID data.
+	 * @param currentUserID			<code>String</code> object to store userID data.
+	 * @param rating				<code>String</code> object to store user rating data.
+	 *
+	 * @see MySQLQueries
+	 * @see String
+	 */
 	public static void createRating(String currentSongID, String currentUserID, String rating) {
 	
 
@@ -1523,6 +2184,30 @@ public class MySQLQueries {
 
 	}
 
+	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to update a database entry from the ratings table equal to the user parameters.
+  	 * <br> Used to update a users rating of a song.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current songID. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 2 is the current userID. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 3 is the user input of rating. A <code>String</code> object is used to store the data.  
+	 * </p>
+	 * 
+	 * @param currentSongID			<code>String</code> object to store songID data.
+	 * @param currentUserID			<code>String</code> object to store userID data.
+	 * @param rating				<code>String</code> object to store user rating data.
+	 *
+	 * @see MySQLQueries
+	 * @see String
+	 * @see ResultSet
+	 */
 	public static void updateRating(String currentSongID, String currentUserID, String rating) {
 		
 
@@ -1562,6 +2247,25 @@ public class MySQLQueries {
 
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return all database entries from the ratings table equal to the user parameters.
+  	 * <br> Used to gather all ratings so variable ( total rows) can be used in math equation - so a total average rating can be established.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current songID. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentSongID			<code>String</code> object to store songID data.
+	 *
+	 * @see MySQLQueries
+	 * @see String
+	 * @see ResultSet
+	 */
 	public static ResultSet getAllRatings(String currentSongID) {
 		
 		try
@@ -1599,6 +2303,31 @@ public class MySQLQueries {
 		
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to update a database entry from the songs table equal to the user parameters.
+  	 * <br> Used to set overall rating and total reviews to values found through math equations.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current songID. A <code>String</code> object is used to store the data.
+	 * <br> Parameter 2 is the new overall rating. A <code>Double</code> object is used to store the data - This is because dividing a number can result in decimal places.
+	 * <br> Parameter 3 is the new total reviews count. A <code>Integer</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentSongID			<code>String</code> object to store songID data.
+	 * @param overallRating			<code>String</code> object to store new overall ratings data.
+	 * @param totalReviews			<code>String</code> object to store new total reviews data.
+	 *
+	 * @see MySQLQueries
+	 * @see String
+	 * @see Integer
+	 * @see Double
+	 * @see ResultSet
+	 */
 	public static void updateTotals(String currentSongID, double overallRating, int totalReviews) {
 
 		try 
@@ -1636,6 +2365,19 @@ public class MySQLQueries {
 
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return all database entries from the accounts or playlists table .
+  	 * <br> Used to populate search comboBox with data from the database - populate with usernames
+	 * </p>
+	 *
+	 * @see MySQLQueries
+	 * @see ResultSet
+	 */
 	public static ResultSet popoulateWithUserName() {
 
 		try
@@ -1672,6 +2414,19 @@ public class MySQLQueries {
 
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return all database entries from the accounts or playlists table.
+  	 * <br> Used to populate search comboBox with data from the database - populate with playlist titles.
+	 * </p>
+	 *
+	 * @see MySQLQueries
+	 * @see ResultSet
+	 */
 	public static ResultSet popoulateWithPlaylistTitle() {
 
 		try
@@ -1708,6 +2463,32 @@ public class MySQLQueries {
 		return null;
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return all database entries from the playlists and accounts table equal to the user parameters.
+  	 * <br> Used during a custom search - Multiple paths dependant on parameters that were passed.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the user selected search. A <code>Object</code> object is used to store the data.
+	 * <br>Parameter 2 is the user selected criteria. A <code>Object</code> object is used to store the data.
+	 * <br>Parameter 3 is the row start point of query. A <code>Integer</code> object is used to store the data.
+	 * <br>Parameter 4 is the amount of database rows to return. A <code>Integer</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param search			<code>Object</code> object to store search data.
+	 * @param criteria			<code>Object</code> object to store criteria data.
+	 * @param offset			<code>Integer</code> object to store offset data.
+	 * @param count				<code>Integer</code> object to store row count data.
+	 *
+	 * @see MySQLQueries
+	 * @see Integer
+	 * @see Object
+	 * @see ResultSet
+	 */
 	public static ResultSet searchForPlaylists(Object search, Object criteria, int offset, int count) {
 		
 		if(search == null & criteria.equals("UserName"))
@@ -1881,6 +2662,25 @@ public class MySQLQueries {
 			
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return all database entries from the accounts table equal to user parameter.
+  	 * <br> Used to to get the username of the currently viewed playlist using creator of the playlist userID.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the userID of creator of the playlist. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param IDOfUser			<code>String</code> object to store creator userID data.
+	 * 
+	 * @see MySQLQueries
+	 * @see ResultSet
+	 */
+	
 	public static ResultSet getCurrentUsername(String IDOfUser)  {
 		
 		try
@@ -1918,6 +2718,28 @@ public class MySQLQueries {
 		
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return all database entries from the playlist table equal to user parameter.
+  	 * <br> Used to determine if song is on the current playlist or not.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the songID of song potentially being added to playlist. A <code>String</code> object is used to store the data.
+	 * <br> Parameter 2 is the current userID. A <code>String</code> object is used to store the data.
+	 * <br> Parameter 3 is the playlist title. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param checkSongID			<code>String</code> object to store potential songID data.
+	 * @param currentUserID			<code>String</code> object to store current userID data.
+	 * @param playlistTitle			<code>String</code> object to store playlist title data.
+	 * 
+	 * @see MySQLQueries
+	 * @see ResultSet
+	 */
 	public static ResultSet songOnPlaylist(String checkSongID, String currentUserID, String playlistTitle) {
 		
 		try
@@ -1955,6 +2777,31 @@ public class MySQLQueries {
 		return null;	
 	}
 	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to insert values into the playlist Table.
+  	 * <br> Adds a song to a playlist.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the current UserID. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 2 is the songID of song being added. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 3 is the playlist title the song is being added to. A <code>String</code> object is used to store the data.
+	 * <br>Parameter 4 is the ranking value of song on playlist determined by GUI button row number. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentUserID						<code>String</code> object to store userID data.
+	 * @param selectedSongID					<code>String</code> object to store songID data.
+	 * @param currentPlayListTitle				<code>String</code> object to store playList Title data.
+	 * @param ranking							<code>Integer</code> object to store ranking data.
+	
+	 * @see MySQLQueries
+	 * @see String
+	 * @see Integer
+	 */
 	public static void addSong(String currentUserID, String selectedSongID, String currentPlayListTitle, int ranking) {
 		
 		try 
@@ -1989,6 +2836,28 @@ public class MySQLQueries {
 		}
 	}
 	
+	
+	/**
+	 * <h1> Method </h1>
+	 * 
+	 * <p>
+     * Establishes connection to the correct local host database using the JDBC driver.
+     * <br> With a connection created, a new query can be sent to the database.
+     * <br> This query is designed to return all database entries from the playlist table equal to user parameter.
+  	 * <br> Used to determine playlistID , ideal when a new playlist has been created and we need the playlistID to populate the GUI correctly.
+	 * </p>
+	 * <p>
+	 * Parameter 1 is the userID of playlist. A <code>String</code> object is used to store the data.
+	 * <br> Parameter 2 is the title of playlist. A <code>String</code> object is used to store the data.
+	 * </p>
+	 * 
+	 * @param currentUserID					<code>String</code> object to store userID data.
+	 * @param currentPlaylistTitle			<code>String</code> object to store current playlist title data.
+	 * 
+	 * @see MySQLQueries
+	 * @see String
+	 * @see ResultSet
+	 */
 	public static ResultSet getPlaylistID(String currentUserID, String currentPlaylistTitle) {
 		
 		try
