@@ -139,10 +139,10 @@ public class MainMenuScreen extends JFrame {
 		btnSuggest.setBounds(175, 250, 150, 25);
 		contentPane.add(btnSuggest);
 		
-		JButton btnNewMyPlaylist = new JButton("My Playlist");
-		btnNewMyPlaylist.setToolTipText("Feature To View/Create/Update Your Own Elenco Playlists");
-		btnNewMyPlaylist.setFont(new Font("Georgia", Font.PLAIN, 11));
-		btnNewMyPlaylist.addActionListener(new ActionListener() {
+		JButton btnMyPlaylists = new JButton("My Playlists");
+		btnMyPlaylists.setToolTipText("Feature To View/Create/Update Your Own Elenco Playlists");
+		btnMyPlaylists.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnMyPlaylists.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				MyPlaylistsScreen frame = new MyPlaylistsScreen(currentLoggedIn);
@@ -150,12 +150,12 @@ public class MainMenuScreen extends JFrame {
 				dispose();
 			}
 		});
-		btnNewMyPlaylist.setBounds(175, 350, 150, 25);
-		contentPane.add(btnNewMyPlaylist);
+		btnMyPlaylists.setBounds(175, 350, 150, 25);
+		contentPane.add(btnMyPlaylists);
 		
-		JButton btnNewButton = new JButton("Discover Playlists");
-		btnNewButton.setFont(new Font("Georgia", Font.PLAIN, 11));
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnCommunity = new JButton("Community Playlists");
+		btnCommunity.setFont(new Font("Georgia", Font.PLAIN, 11));
+		btnCommunity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				CommunityPlaylistScreen frame = new CommunityPlaylistScreen(currentLoggedIn);
@@ -163,8 +163,8 @@ public class MainMenuScreen extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton.setBounds(175, 400, 150, 25);
-		contentPane.add(btnNewButton);
+		btnCommunity.setBounds(175, 400, 150, 25);
+		contentPane.add(btnCommunity);
 		
 		JLabel lblElenco = new JLabel("Elenco");
 		lblElenco.setHorizontalAlignment(SwingConstants.CENTER);

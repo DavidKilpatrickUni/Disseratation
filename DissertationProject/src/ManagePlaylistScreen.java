@@ -354,6 +354,7 @@ public class ManagePlaylistScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {	
 					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID1.getText());			// Remove selected GUI row entry and remove its equivalent database entry from database using userID and playlistID (i.e every song on a playlist has a unique playlistID
+					clearScreen();
 					loadContent(currentPlaylistInfo, currentLoggedIn) ;											// Reload GUI with new accurate info from database. (i.e song has been removed)
 				}
 			}
@@ -597,6 +598,7 @@ public class ManagePlaylistScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {	
 					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID2.getText());
+					clearScreen();
 					loadContent(currentPlaylistInfo, currentLoggedIn) ;
 				}
 			}
@@ -659,6 +661,7 @@ public class ManagePlaylistScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {	
 					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID3.getText());
+					clearScreen();
 					loadContent(currentPlaylistInfo, currentLoggedIn) ;
 				}
 		 	}
@@ -691,6 +694,7 @@ public class ManagePlaylistScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {	
 					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID4.getText());
+					clearScreen();
 					loadContent(currentPlaylistInfo, currentLoggedIn) ;
 				}
 		 	}
@@ -723,6 +727,7 @@ public class ManagePlaylistScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {	
 					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID5.getText());
+					clearScreen();
 					loadContent(currentPlaylistInfo, currentLoggedIn) ;
 				}
 		 	}
@@ -755,6 +760,7 @@ public class ManagePlaylistScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {	
 					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID6.getText());
+					clearScreen();
 					loadContent(currentPlaylistInfo, currentLoggedIn) ;
 				}
 		 	}
@@ -788,6 +794,7 @@ public class ManagePlaylistScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {	
 					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID7.getText());
+					clearScreen();
 					loadContent(currentPlaylistInfo, currentLoggedIn) ;
 				}
 		 	}
@@ -847,6 +854,7 @@ public class ManagePlaylistScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {	
 					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID8.getText());
+					clearScreen();
 					loadContent(currentPlaylistInfo, currentLoggedIn) ;
 				}
 		 	}
@@ -866,6 +874,7 @@ public class ManagePlaylistScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {	
 					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID9.getText());
+					clearScreen();
 					loadContent(currentPlaylistInfo, currentLoggedIn) ;
 				}
 		 	}
@@ -884,6 +893,7 @@ public class ManagePlaylistScreen extends JFrame {
 				
 				if (select == JOptionPane.YES_OPTION) {	
 					MySQLQueries.removeFromList(currentLoggedIn.getCurrentUserID(), txtID10.getText());
+					clearScreen();
 					loadContent(currentPlaylistInfo, currentLoggedIn) ;
 				}
 		 	}
@@ -1235,7 +1245,7 @@ public class ManagePlaylistScreen extends JFrame {
 	
 	public void loadContent( PlaylistInfo currentPlaylistInfo, LoggedIn currentLoggedIn){
 		
-		clearScreen();	
+		
 	
 		String currentPlaylistTitle = null;
 		ResultSet getCurrentPlaylistTitle = MySQLQueries.getCurrentPlaylistTitle(currentPlaylistInfo.getCurrentPlaylistID());	// Search database for current playlistTitle using the parameter playlistID	

@@ -124,7 +124,7 @@ public class LoginApplication {
 	 * <h1> Method </h1>
 	 * <p>
 	 * Receives user input parameters originally from <code>LoginScreen</code> passed by another method.
-	 * <br> Is a convenient housing method for checking content exists for multiple inputs (inputs not blank)
+	 * <br> Is a convenient housing method for checking content exists for multiple inputs (inputs not blank or sql injection)
 	 * <br> Any validation error is thrown using <code>CustomException</code>
 	 * </p>
 	 * 
@@ -148,7 +148,7 @@ public class LoginApplication {
 		boolean result;																									
 		result = true;																									
 	
-		if (Helper.checkBlank(username) || Helper.checkBlank(password)) {					// Check inputs not blank																
+		if (Helper.checkBlank(username) || Helper.regexSQLInjection(username) || Helper.checkBlank(password) || Helper.regexSQLInjection(password)) {					// Check inputs not blank																
 		
 			result = false;	
 	

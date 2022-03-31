@@ -883,51 +883,61 @@ public class MyPlaylistsScreen extends JFrame {
 	public void clearScreen() {
 		
 		txtPlaylistTitle1.setText("");
+		txtPlaylistID1.setText("");
 		btnPlaylist1.setText("Create List");
 		btnPlaylist1.setEnabled(true);
 		btnDeleteList1.setEnabled(false);
 		
 		txtPlaylistTitle2.setText("");
+		txtPlaylistID2.setText("");
 		btnPlaylist2.setText("Create List");
 		btnPlaylist2.setEnabled(false);
 		btnDeleteList2.setEnabled(false);
 		
 		txtPlaylistTitle3.setText("");
+		txtPlaylistID3.setText("");
 		btnPlaylist3.setText("Create List");
 		btnPlaylist3.setEnabled(false);
 		btnDeleteList3.setEnabled(false);
 		
 		txtPlaylistTitle4.setText("");
+		txtPlaylistID4.setText("");
 		btnPlaylist4.setText("Create List");
 		btnPlaylist4.setEnabled(false);
 		btnDeleteList4.setEnabled(false);
 		
 		txtPlaylistTitle5.setText("");
+		txtPlaylistID5.setText("");
 		btnPlaylist5.setText("Create List");
 		btnPlaylist5.setEnabled(false);
 		btnDeleteList5.setEnabled(false);
 		
 		txtPlaylistTitle6.setText("");
+		txtPlaylistID6.setText("");
 		btnPlaylist6.setText("Create List");
 		btnPlaylist6.setEnabled(false);
 		btnDeleteList6.setEnabled(false);
 		
 		txtPlaylistTitle7.setText("");
+		txtPlaylistID7.setText("");
 		btnPlaylist7.setText("Create List");
 		btnPlaylist7.setEnabled(false);
 		btnDeleteList7.setEnabled(false);
 		
 		txtPlaylistTitle8.setText("");
+		txtPlaylistID8.setText("");
 		btnPlaylist8.setText("Create List");
 		btnPlaylist8.setEnabled(false);
 		btnDeleteList8.setEnabled(false);
 		
 		txtPlaylistTitle9.setText("");
+		txtPlaylistID9.setText("");
 		btnPlaylist9.setText("Create List");
 		btnPlaylist9.setEnabled(false);
 		btnDeleteList9.setEnabled(false);
 		
 		txtPlaylistTitle10.setText("");
+		txtPlaylistID10.setText("");
 		btnPlaylist10.setText("Create List");
 		btnPlaylist10.setEnabled(false);
 		btnDeleteList10.setEnabled(false);

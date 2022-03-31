@@ -58,7 +58,6 @@ public class ProfileDetailsScreen extends JFrame {
 	private JButton btnGenre;
 	private JButton btnBack;
 	private JLabel lblUserIcon;
-	private JTextField txtUserIcon;
 	private JButton btnChangeIcon;
 
 	
@@ -229,13 +228,21 @@ public class ProfileDetailsScreen extends JFrame {
 				int select;																																	
 				
 				select = JOptionPane.showOptionDialog(null, "Update Your Favourite Artists", "Elenco - Update Profile", 
-						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);;									
+						 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_NO_OPTION);									
 				
 				if (select == JOptionPane.YES_OPTION) 
 				{
 
-					MySQLQueries.updateArtist(currentLoggedIn.getCurrentUserID(),txtArtist1.getText().strip(), txtArtist2.getText().strip() ,txtArtist3.getText().strip() ); // Update the users account with the parameters provided
-
+					// MySQLQueries.updateArtist(currentLoggedIn.getCurrentUserID(),txtArtist1.getText().strip(), txtArtist2.getText().strip() ,txtArtist3.getText().strip() ); // Update the users account with the parameters provided
+					if (Helper.regexSQLInjection(txtArtist1.getText()) | Helper.regexSQLInjection(txtArtist2.getText()) | Helper.regexSQLInjection(txtArtist3.getText()) ) 
+					{
+						JOptionPane.showMessageDialog(null, "Invalid Artists Input", "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);	
+					}
+					else
+					{
+						MySQLQueries.updateArtist(currentLoggedIn.getCurrentUserID(),txtArtist1.getText().strip(), txtArtist2.getText().strip() ,txtArtist3.getText().strip() ); // Update the users account with the parameters provided
+						
+					}
 				}
 				
 			}
@@ -258,8 +265,17 @@ public class ProfileDetailsScreen extends JFrame {
 				if (select == JOptionPane.YES_OPTION) 
 				{
 				
-					MySQLQueries.updateGenre(currentLoggedIn.getCurrentUserID(),txtGenre1.getText().strip(), txtGenre2.getText().strip() ,txtGenre3.getText().strip() );  // Update the users account with the parameters provided
+					//MySQLQueries.updateGenre(currentLoggedIn.getCurrentUserID(),txtGenre1.getText().strip(), txtGenre2.getText().strip() ,txtGenre3.getText().strip() );  // Update the users account with the parameters provided
 				
+					if (Helper.regexSQLInjection(txtGenre1.getText()) | Helper.regexSQLInjection(txtGenre2.getText()) | Helper.regexSQLInjection(txtGenre3.getText()) ) 
+					{
+						JOptionPane.showMessageDialog(null, "Invalid Artists Input", "Elenco - Something Went Wrong", JOptionPane.ERROR_MESSAGE,null);	
+					}
+					else
+					{
+						MySQLQueries.updateGenre(currentLoggedIn.getCurrentUserID(),txtGenre1.getText().strip(), txtGenre2.getText().strip() ,txtGenre3.getText().strip() ); // Update the users account with the parameters provided
+						
+					}
 				}
 			}
 		});
@@ -347,12 +363,6 @@ public class ProfileDetailsScreen extends JFrame {
 		lblUserIcon.setBounds(50, 275, 100, 25);
 		contentPane.add(lblUserIcon);
 		
-		txtUserIcon = new JTextField();
-		txtUserIcon.setColumns(10);
-		txtUserIcon.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
-		txtUserIcon.setBounds(150, 275, 275, 25);
-		contentPane.add(txtUserIcon);
-		
 		btnChangeIcon = new JButton("Change User Icon");
 		btnChangeIcon.setToolTipText("Demo Place Holder For Changing User Icon");
 		btnChangeIcon.setEnabled(false);
@@ -365,5 +375,9 @@ public class ProfileDetailsScreen extends JFrame {
 		btnChangeIcon.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnChangeIcon.setBounds(150, 330, 200, 25);
 		contentPane.add(btnChangeIcon);
+		
+		JLabel lblPreview = new JLabel("place holder");
+		lblPreview.setBounds(214, 280, 86, 14);
+		contentPane.add(lblPreview);
 	}
 }

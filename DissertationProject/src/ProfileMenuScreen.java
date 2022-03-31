@@ -177,10 +177,10 @@ public class ProfileMenuScreen extends JFrame {
 		btnExit.setBounds(200, 500, 100, 25);
 		contentPane.add(btnExit);
 		
-		JLabel lblHeader = new JLabel("My Profile");
+		JLabel lblHeader = new JLabel("Profile Menu");
 		lblHeader.setFont(new Font("Georgia", Font.BOLD, 24));
 		lblHeader.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHeader.setBounds(175, 175, 150, 25);
+		lblHeader.setBounds(142, 175, 208, 25);
 		lblHeader.setForeground(new Color(90, 192, 217));
 		contentPane.add(lblHeader);
 		

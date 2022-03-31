@@ -310,11 +310,11 @@ public class CommunityPlaylistScreen extends JFrame {
 		contentPane.add(comboBoxSearch);
 		AutoCompleteDecorator.decorate(comboBoxSearch);
 		
-		JLabel lblHeader = new JLabel("Elenco - Discover Playlists");
+		JLabel lblHeader = new JLabel("Elenco - Community Playlists");
 		lblHeader.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHeader.setForeground(new Color(90, 192, 217));
 		lblHeader.setFont(new Font("Georgia", Font.BOLD, 24));
-		lblHeader.setBounds(170, 43, 330, 25);
+		lblHeader.setBounds(170, 43, 370, 25);
 		contentPane.add(lblHeader);
 		
 		ImageIcon appIcon =  new ImageIcon(ElencoStartup.class.getResource("/BlueIcon-Circle.PNG"));					
@@ -324,7 +324,7 @@ public class CommunityPlaylistScreen extends JFrame {
 		
 		JLabel lblLogo = new JLabel(appIcon);
 		lblLogo.setToolTipText("Elenco - Express Your Musical Opinion");
-		lblLogo.setBounds(77, 11, 100, 100);
+		lblLogo.setBounds(75, 11, 100, 100);
 		contentPane.add(lblLogo);
 		
 		lblPlaylistTitle = new JLabel("Playlist Title");

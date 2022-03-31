@@ -108,6 +108,11 @@ public class ViewSongScreen extends JFrame {
 	private int sqlOffset = 0;					// variable for offset during mysql LIMIT queries
 	private int sqlRowCount = 5;				// variable for count during mysql LIMIT queries
 	private JLabel lblSongImage;
+	private JLabel lblIcon;
+	private JLabel lblIcon_1;
+	private JLabel lblIcon_2;
+	private JLabel lblIcon_3;
+	private JLabel lblIcon_4;
 	
 	/**
 	 * <h1> Constructor </h1>
@@ -437,6 +442,31 @@ public class ViewSongScreen extends JFrame {
 		txtPosted5.setColumns(10);
 		txtPosted5.setBounds(708, 150, 100, 25);
 		panel.add(txtPosted5);
+		
+		lblIcon = new JLabel("Icon");
+		lblIcon.setToolTipText("Placeholder for UserIcon - not yet implemented ");
+		lblIcon.setBounds(10, 15, 31, 14);
+		panel.add(lblIcon);
+		
+		lblIcon_1 = new JLabel("Icon");
+		lblIcon_1.setToolTipText("Placeholder for UserIcon - not yet implemented ");
+		lblIcon_1.setBounds(10, 50, 31, 14);
+		panel.add(lblIcon_1);
+		
+		lblIcon_2 = new JLabel("Icon");
+		lblIcon_2.setToolTipText("Placeholder for UserIcon - not yet implemented ");
+		lblIcon_2.setBounds(10, 85, 31, 14);
+		panel.add(lblIcon_2);
+		
+		lblIcon_3 = new JLabel("Icon");
+		lblIcon_3.setToolTipText("Placeholder for UserIcon - not yet implemented ");
+		lblIcon_3.setBounds(10, 120, 31, 14);
+		panel.add(lblIcon_3);
+		
+		lblIcon_4 = new JLabel("Icon");
+		lblIcon_4.setToolTipText("Placeholder for UserIcon - not yet implemented ");
+		lblIcon_4.setBounds(10, 155, 31, 14);
+		panel.add(lblIcon_4);
 		
 		comboBoxRating = new JComboBox();
 		comboBoxRating.setToolTipText("Select Your Rating For This Song");

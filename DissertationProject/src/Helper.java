@@ -277,7 +277,7 @@ public class Helper {
 				
 					return true;
 				}
-				else if (compareDates > 0)
+				else if (compareDates >= 0)
 				{
 			
 					System.out.println( "date in past \n");

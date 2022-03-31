@@ -62,7 +62,7 @@ public class MySQLQueries {
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Dissertation ?user=root&password=");	
 
 		
-			String query = "SELECT * FROM Accounts WHERE UserName = ? AND password = AES_ENCRYPT(?,?)";
+			String query = "SELECT * FROM Accounts WHERE BINARY UserName = ? AND password = AES_ENCRYPT(?,?)";
 			System.out.println("Query: " + query);
 			
 			
